@@ -15,7 +15,7 @@ screen = pygame.display.set_mode((screen_width,screen_height))
 pygame.display.set_caption("RPG GAME")
 
 #music
-music = pygame.mixer.music.load('C:/Users/fff31/OneDrive/桌面/psb/psb programming/assignment image/music/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Ambient 7.mp3')
+music = pygame.mixer.music.load('music/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Ambient 7.mp3')
 pygame.mixer_music.play(-1)
 
 #define game variables
@@ -37,28 +37,28 @@ green = (0,255,0)
 
 #load image
 #background image
-background_img = pygame.image.load('C:/Users/fff31/OneDrive/桌面/psb/psb programming/assignment image/background3.png')
+background_img = pygame.image.load('picture/background3.png')
 background_img = pygame.transform.scale(background_img, (screen_width,(screen_height-bottem_panel)))
 
 #panel image
-panel_img = pygame.image.load('C:/Users/fff31/OneDrive/桌面/psb/psb programming/assignment image/UI board Large  parchment.png')
+panel_img = pygame.image.load('picture/UI board Large  parchment.png')
 panel_img = pygame.transform.scale(panel_img, (screen_width,bottem_panel))
 
 #load victory and defeat images
-victory_img = pygame.image.load('C:/Users/fff31/OneDrive/桌面/psb/psb programming/assignment image/victory.png')
+victory_img = pygame.image.load('picture/victory.png')
 victory_img = pygame.transform.scale(victory_img, (600,500))
-defeat_img = pygame.image.load('C:/Users/fff31/OneDrive/桌面/psb/psb programming/assignment image/defeat.png')
+defeat_img = pygame.image.load('picture/defeat.png')
 defeat_img = pygame.transform.scale(defeat_img, (600,500))
 
 #sword pointer image
-sword_img = pygame.image.load('C:/Users/fff31/OneDrive/桌面/psb/psb programming/assignment image/icon(trans)/PineTools.com_files/row-6-column-5.png').convert_alpha()
+sword_img = pygame.image.load('picture/icon(trans)/PineTools.com_files/row-6-column-5.png').convert_alpha()
 
 #sword sound
-attack_sfx = pygame.mixer.Sound('C:/Users/fff31/OneDrive/桌面/psb/psb programming/assignment image/music/unsheath_sword-6113.mp3')
+attack_sfx = pygame.mixer.Sound('music/unsheath_sword-6113.mp3')
 #victory sound
-victory_sfx = pygame.mixer.Sound('C:/Users/fff31/OneDrive/桌面/psb/psb programming/assignment image/music/8-bit-victory-sound-101319.mp3')
+victory_sfx = pygame.mixer.Sound('music/8-bit-victory-sound-101319.mp3')
 #defeat sound
-defeat_sfx = pygame.mixer.Sound('C:/Users/fff31/OneDrive/桌面/psb/psb programming/assignment image/music/videogame-death-sound-43894.mp3')
+defeat_sfx = pygame.mixer.Sound('music/videogame-death-sound-43894.mp3')
                                  
 #function for drawing text
 def draw_text(text,font,text_col,x,y):
@@ -100,7 +100,7 @@ class fighter():
         #load image
         temp_list = []
         for i in range(1,5):
-            img = pygame.image.load(f'C:/Users/fff31/OneDrive/桌面/psb/psb programming/assignment image/{self.namepic}/idle/{i}.png')
+            img = pygame.image.load(f'picture/{self.namepic}/idle/{i}.png')
             self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
             temp_list.append(self.image)
         self.animationlist.append(temp_list) #list of list
@@ -109,11 +109,11 @@ class fighter():
         temp_list = []
         for i in range(1,10):
             if {self.namepic} == "knightpic" :
-                img = pygame.image.load(f'C:/Users/fff31/OneDrive/桌面/psb/psb programming/assignment image/{self.namepic}/attack/{i}.png')
+                img = pygame.image.load(f'picture/{self.namepic}/attack/{i}.png')
                 self.image = pygame.transform.scale(img, (img.get_width()*6 ,img.get_height()*6))
         
             else:
-                img = pygame.image.load(f'C:/Users/fff31/OneDrive/桌面/psb/psb programming/assignment image/{self.namepic}/attack/{i}.png')
+                img = pygame.image.load(f'picture/{self.namepic}/attack/{i}.png')
                 self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
             temp_list.append(self.image)
         self.animationlist.append(temp_list)
@@ -121,7 +121,7 @@ class fighter():
         #load hurt image
         temp_list = []
         for i in range(1,3):
-            img = pygame.image.load(f'C:/Users/fff31/OneDrive/桌面/psb/psb programming/assignment image/{self.namepic}/hurt/{i}.png')
+            img = pygame.image.load(f'picture/{self.namepic}/hurt/{i}.png')
             self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
             temp_list.append(self.image)
         self.animationlist.append(temp_list)
@@ -129,7 +129,7 @@ class fighter():
         #load dead image
         temp_list = []
         for i in range(1,9):
-            img = pygame.image.load(f'C:/Users/fff31/OneDrive/桌面/psb/psb programming/assignment image/{self.namepic}/death/{i}.png')
+            img = pygame.image.load(f'picture/{self.namepic}/death/{i}.png')
             self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
             temp_list.append(self.image)
         self.animationlist.append(temp_list)
