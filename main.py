@@ -1,5 +1,6 @@
 import pygame
 import random
+import button
 
 pygame.init()
 
@@ -19,6 +20,9 @@ music = pygame.mixer.music.load('music/Fantasy RPG Music Pack Vol.3/Tracks/mp3/A
 pygame.mixer_music.play(-1)
 
 #define game variables
+game_paused = False
+menu_state = 'main'  #main pause option game
+
 current_fighter = 1
 total_fighter = 3
 action_cooldown = 0
@@ -28,11 +32,38 @@ clicked = False
 game_over = 0 #  -1:lose 1:win
 
 #define font
-font = pygame.font.SysFont("Times New Romon", 26)
+font = pygame.font.SysFont("arialblack" , 40)
+hp_font = pygame.font.SysFont("Times New Romon", 26)
+
 
 #define colours
 red = (255,0,0)
 green = (0,255,0)
+#define colours
+TEXT_COL = (255,255,255)
+
+#load buttom images
+resume_img = pygame.image.load('picture/button/resumebut.png')
+resume_img = pygame.transform.scale(resume_img, (resume_img.get_width()*3 ,resume_img.get_height()*3))
+option_img = pygame.image.load('picture/button/optionbut.png')
+option_img = pygame.transform.scale(option_img, (option_img.get_width()*3 ,option_img.get_height()*3))
+quit_img = pygame.image.load('picture/button/quitbut.png')
+quit_img = pygame.transform.scale(quit_img, (quit_img.get_width()*3 ,quit_img.get_height()*3))
+video_img = pygame.image.load('picture/button/videobut.png')
+video_img = pygame.transform.scale(video_img, (video_img.get_width()*3 ,video_img.get_height()*3))
+audio_img = pygame.image.load('picture/button/audiobut.png')
+audio_img = pygame.transform.scale(audio_img, (audio_img.get_width()*3 ,audio_img.get_height()*3))
+back_img = pygame.image.load('picture/button/backbut.png')
+back_img = pygame.transform.scale(back_img, (back_img.get_width()*3 ,back_img.get_height()*3))
+
+#create button instances
+resume_button = button.Button(5, 180, resume_img, 1)
+option_button = button.Button(270, 180, option_img, 1)
+quit_button = button.Button(530, 180, quit_img, 1)
+video_button = button.Button(150, 40, video_img, 1)
+audio_button = button.Button(350, 40, audio_img, 1)
+back_button = button.Button(250, 350, back_img, 1)
+
 
 
 #load image
@@ -40,6 +71,8 @@ green = (0,255,0)
 background_img = pygame.image.load('picture/background3.png')
 background_img = pygame.transform.scale(background_img, (screen_width,(screen_height-bottem_panel)))
 
+menu_img = pygame.image.load('picture/menuimg.png')
+menu_img = pygame.transform.scale(menu_img, (screen_width,(screen_height)))
 #panel image
 panel_img = pygame.image.load('picture/UI board Large  parchment.png')
 panel_img = pygame.transform.scale(panel_img, (screen_width,bottem_panel))
@@ -55,10 +88,6 @@ sword_img = pygame.image.load('picture/icon(trans)/PineTools.com_files/row-6-col
 
 #sword sound
 attack_sfx = pygame.mixer.Sound('music/unsheath_sword-6113.mp3')
-#victory sound
-victory_sfx = pygame.mixer.Sound('music/8-bit-victory-sound-101319.mp3')
-#defeat sound
-defeat_sfx = pygame.mixer.Sound('music/videogame-death-sound-43894.mp3')
                                  
 #function for drawing text
 def draw_text(text,font,text_col,x,y):
@@ -70,32 +99,34 @@ def draw_text(text,font,text_col,x,y):
 #function for draw background
 def draw_bg():
     screen.blit(background_img,(0,0))
+def draw_main():
+    screen.blit(menu_img,(0,0))
 
 #function for draw panel
 def draw_panel():
     #draw panel rectangle
     screen.blit(panel_img,(0,screen_height - bottem_panel))
     #show knight stats
-    draw_text(f'{knight.name} HP:{knight.hp}',font, red, 100, screen_height - bottem_panel + 20)
+    draw_text(f'{knight.name} HP:{knight.hp}',hp_font, red, 100, screen_height - bottem_panel + 20)
     #bandit stats
     for count, i in enumerate(bandit_list):
         #show name and health
-        draw_text(f'{i.name} HP:{i.hp}',font, red, 500, (screen_height - bottem_panel + 20) + count  * 45)
+        draw_text(f'{i.name} HP:{i.hp}',hp_font, red, 500, (screen_height - bottem_panel + 20) + count  * 45)
 
 
 #class
 class fighter():
-    def __init__(self,x,y,name,namepic,max_hp,strength,potions):
+    def __init__(self,x,y,name,namepic,max_hp,strength,defence):
         self.name = name 
         self.namepic = namepic
         self.max_hp = max_hp
         self.hp = max_hp
         self.strength = strength
-        self.potions = potions
+        self.defence = defence
         self.alive = True
         self.animationlist= []
         self.frame_index = 0
-        self.action = 0 #0:idle, 1:attack , 2:hurt , 3:dead
+        self.action = 0 #0:idle, 1:attack , 2:hurt , 3:dead , 4Ldefence
         self.update_time = pygame.time.get_ticks()
         #load image
         temp_list = []
@@ -165,7 +196,7 @@ class fighter():
         #deal damage to the enemy
         rand = random.randint(-5, 5)
         damage = self.strength + rand
-        target.hp -= damage
+        target.hp -= damage 
         attack_sfx.play()
         #run enemy animation
         target.hurt()
@@ -193,8 +224,6 @@ class fighter():
         self.action = 3
         self.frame_index = 0
         self.update_time = pygame.time.get_ticks()
-    
-
 
     def draw(self):
         screen.blit(self.image, self.rect)
@@ -235,9 +264,15 @@ class DamageText(pygame.sprite.Sprite):
 
 damage_text_group = pygame.sprite.Group()
 
+<<<<<<< Updated upstream
 knight = fighter(200, 260, 'Knight','knightpic', 40, 10, 3)
 bandit1 = fighter(550, 200 ,'Bandit', 'banditpic', 20, 6 , 1)
 bandit2 = fighter(650, 250 ,'Bandit', 'banditpic', 20, 6 , 1)
+=======
+knight = fighter(200, 260, 'Knight','knightpic', 40, 10, 6)
+bandit1 = fighter(550, 200 ,'Bandit', 'banditpic', 20, 6 , 6)
+bandit2 = fighter(650, 250 ,'Bandit', 'banditpic', 20, 6 , 6)
+>>>>>>> Stashed changes
 
 bandit_list = []
 bandit_list.append(bandit1)
@@ -251,104 +286,133 @@ bandit2_health_bar = healthbar(550,screen_height - bottem_panel + 85, bandit2.hp
 run = True   
 while run: 
 
+    screen.fill((52, 78, 91))
     clock.tick(fps)
+    if menu_state ==  'main':
+        draw_main()
 
+    if menu_state == 'pause':
+        pygame.mouse.set_visible(True)
+        #draw pause screen button
+        if resume_button.draw(screen):
+             menu_state = 'game'
+        if option_button.draw(screen):
+             menu_state = 'option'
+        if quit_button.draw(screen):
+            run = False
+        # check if the option menu is open
+    if menu_state == 'option':
+        pygame.mouse.set_visible(True)
+        if video_button.draw(screen):
+            print('i didnt make a code for Video Settings :3')
+        if audio_button.draw(screen):
+            print('i didnt make a code for Audio Settings :3')
+        if back_button.draw(screen):
+            menu_state = 'pause'
     #draw background
-    draw_bg()
+    if menu_state == 'game':
+        draw_bg()
 
-    #draw panel
-    draw_panel()
-    knight_health_bar.draw(knight.hp)
-    bandit1_health_bar.draw(bandit1.hp)
-    bandit2_health_bar.draw(bandit2.hp)
+        #draw panel
+        draw_panel()
+        knight_health_bar.draw(knight.hp)
+        bandit1_health_bar.draw(bandit1.hp)
+        bandit2_health_bar.draw(bandit2.hp)
 
-    #draw fighter
-    knight.update()
-    knight.draw()
-    for bandit in bandit_list:
-        bandit.update()
-        bandit.draw()
+         #draw fighter
+        knight.update()
+        knight.draw()
+        for bandit in bandit_list:
+            bandit.update()
+            bandit.draw()
 
-    #draw the damage text
-    damage_text_group.update()
-    damage_text_group.draw(screen)
+         #draw the damage text 
+        damage_text_group.update()
+        damage_text_group.draw(screen)
 
 
-    #control player action
-    #reset action variables
-    attack = False
-    target = None 
-    #make sure mouse is visible
-    pygame.mouse.set_visible(True)
-    pos = pygame.mouse.get_pos()
-    for count, bandit in enumerate(bandit_list):
-        if bandit. rect.collidepoint(pos):
-            #hide mouse
-            pygame.mouse.set_visible(False)
-            #show sword in place of mouse cursor 
-            screen.blit(sword_img, pos)
-            if clicked == True and bandit.alive == True:
-                attack = True 
-                target = bandit_list[count]
-# if game_over == 0:
-    #player action
-    if knight.alive == True:
-        if current_fighter == 1:
-            action_cooldown += 1
-            if action_cooldown >= action_wait_time:
-                #look for player action
-                #attack
-                if attack == True and target != None:
-                    knight.attack(target)
-                    current_fighter += 1
-                    action_cooldown = 0
-    else:
-        game_over = -1
-    #enemy action
-    for count, bandit in enumerate(bandit_list):
-        if current_fighter == 2 + count:
-            if bandit.alive == True:
+        #control player action
+        #reset action variables
+        attack = False
+        target = None 
+        #make sure mouse is visible
+        pygame.mouse.set_visible(True)
+        pos = pygame.mouse.get_pos()
+        for count, bandit in enumerate(bandit_list):
+            if bandit. rect.collidepoint(pos):
+                #hide mouse
+                pygame.mouse.set_visible(False)
+                #show sword in place of mouse cursor 
+                screen.blit(sword_img, pos)
+                if clicked == True and bandit.alive == True:
+                    attack = True 
+                    target = bandit_list[count]
+            
+    # if game_over == 0:
+        #player action
+        if knight.alive == True:
+            if current_fighter == 1:
                 action_cooldown += 1
                 if action_cooldown >= action_wait_time:
+                    #look for player action
                     #attack
-                    bandit.attack(knight)
+                    if attack == True and target != None:
+                        knight.attack(target)
+                        current_fighter += 1
+                        action_cooldown = 0
+                
+        else:
+            game_over = -1
+        #enemy action
+        for count, bandit in enumerate(bandit_list):
+            if current_fighter == 2 + count:
+                if bandit.alive == True:
+                    action_cooldown += 1
+                    if action_cooldown >= action_wait_time:
+                        #attack
+                        bandit.attack(knight)
+                        current_fighter += 1
+                        action_cooldown = 0
+                else:
                     current_fighter += 1
-                    action_cooldown = 0
-            else:
-                current_fighter += 1
 
-    #if all fighter have had a turn than reset
-    if current_fighter > total_fighter:
-        current_fighter = 1
+        #if all fighter have had a turn than reset
+        if current_fighter > total_fighter:
+            current_fighter = 1
 
-    #check if all bandits are dead
-    alive_bandits = 0
-    for bandit in bandit_list:
-        if bandit.alive == True:
-            alive_bandits += 1
-    if alive_bandits == 0:
-        game_over = 1
-        
-    #check if game is over
-    play_sound = 1
-    if game_over != 0:
-        if game_over == 1:
-            screen.blit(victory_img,(160,50))
-            
-            
-        if game_over == -1:
-            screen.blit(defeat_img,(160,50))       
+        #check if all bandits are dead
+        alive_bandits = 0
+        for bandit in bandit_list:
+            if bandit.alive == True:
+                alive_bandits += 1
+        if alive_bandits == 0:
+            game_over = 1
+                
+         #check if game is over
+        play_sound = 1
+        if game_over != 0:
+            if game_over == 1:
+                screen.blit(victory_img,(160,50))
+                    
+                    
+            if game_over == -1:
+                screen.blit(defeat_img,(160,50))       
              
 
     #quit the game
-    for event in pygame.event.get():  
+    for event in pygame.event.get(): 
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                menu_state = 'pause'
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                menu_state = 'game'
         if event.type ==  pygame.QUIT:
             run = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             clicked = True
         else:
             clicked = False
-
 
     pygame.display.update()
 
