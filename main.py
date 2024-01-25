@@ -8,6 +8,8 @@ pygame.init()
 clock = pygame.time.Clock()
 fps = 60
  
+
+
 #game window
 bottem_panel = 150
 screen_width = 800
@@ -534,7 +536,6 @@ while run:
             game_over = 1
                 
          #check if game is over
-        play_sound = 1
         if game_over != 0:
             if game_over == 1:
                 screen.blit(victory_img,(160,50))
@@ -543,7 +544,7 @@ while run:
             if game_over == -1:
                 screen.blit(defeat_img,(160,50))   
 
-
+        
     #function to restart the game (add by haarith)
             menu_state = 5
 
@@ -672,5 +673,7 @@ while run:
             clicked = False
 
     pygame.display.update()
+
+
 
 pygame.quit()
