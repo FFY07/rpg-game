@@ -39,23 +39,35 @@ hp_font = pygame.font.SysFont("Times New Romon", 26)
 
 #input variable
 base_font = pygame.font.Font(None, 32)
+input_hp_font = pygame.font.Font(None, 26)
 
-input_text1 = ''
+input_text1 =''
 input_text2 = ''
-input_rect = pygame.Rect(200,200,140,32)
-input2_rect = pygame.Rect(200,300,140,32)
+input_rect = pygame.Rect(350,200,140,32)
+inputgame_rect = pygame.Rect(170,414,140,32)
+
+input2_rect = pygame.Rect(350,300,140,32)
 color_active = pygame.Color('white')
 color_passive = pygame.Color('gray15')
 colorinput1 = color_passive
 colorinput2 = color_passive
+colorstartbutton = color_passive
 
-ask_text = 'Test ask:'
+
+ask_text = 'Name your charactor :'
 ask1_rect = pygame.Rect(80,200,140,32) # x, y, w, h
-
+ask2_text = 'Anything :'
+ask2_rect = pygame.Rect(80,300,140,32)
 colorAskinput1 = pygame.Color('black')
+colorAskinput2 = pygame.Color('black')
 
-input1 = False
+start_text = 'Begin your adventure..'
+start_rect = pygame.Rect(500,500,140,32)
+
+
+input1 = True
 input2 = False
+startbutton = False
 
 #define colours
 red = (255,0,0)
@@ -301,8 +313,8 @@ damage_text_group = pygame.sprite.Group()
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #//////////////[ GAME STAT ]///////////////////////////////////////////[ GAME STAT ]/////////////////////////////////////////////////////[ GAME STAT ]/////////////////////////////////
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-knight = fighter(200, 260, 'Knight','knightpic', 40, 10, 6)
+# knightname = input_text1
+knight = fighter(200, 260, '','knightpic', 40, 10, 6)
 bandit1 = fighter(550, 200 ,'Bandit', 'banditpic', 20, 6 , 6)
 bandit2 = fighter(650, 250 ,'Bandit', 'banditpic', 20, 6 , 6)
 
@@ -328,9 +340,10 @@ while run:
 
 
     clock.tick(fps)
+    #main
     if menu_state ==  0 :            # 0 : main , 1:start,2pause 3:option, 4:play
         draw_main()
-
+    #start menu
     if menu_state == 1 :
         screen.fill((0, 0, 0))
 
@@ -342,22 +355,36 @@ while run:
             colorinput2 = color_active
         else:
             colorinput2 = color_passive
-
+        if startbutton == True:
+            colorstartbutton = color_active
+        else:
+            colorstartbutton = color_passive
+        #input 1
         pygame.draw.rect(screen, colorinput1, input_rect, 2)
         text_surface = base_font.render(input_text1, True, (255, 255, 255))
         screen.blit(text_surface, (input_rect.x + 5, input_rect.y + 5 ))
         input_rect.w = max(100,text_surface.get_width() + 10)
-
+        #ask 1
         pygame.draw.rect(screen, colorAskinput1, ask1_rect, 0)
         text_surface = base_font.render(ask_text, True, (255, 255, 255))
         screen.blit(text_surface, (ask1_rect.x + 5, ask1_rect.y + 5 ))
         ask1_rect.w = max(100,text_surface.get_width() + 10)
-
+        #input 2
         pygame.draw.rect(screen, colorinput2, input2_rect, 2)
         text_surface = base_font.render(input_text2, True, (255, 255, 255))
         screen.blit(text_surface, (input2_rect.x + 5, input2_rect.y + 5 ))
         input2_rect.w = max(100,text_surface.get_width() + 10)
-      
+        #ask 2
+        pygame.draw.rect(screen, colorAskinput2, ask2_rect, 0)
+        text_surface = base_font.render(ask2_text, True, (255, 255, 255))
+        screen.blit(text_surface, (ask2_rect.x + 5, ask2_rect.y + 5 ))
+        ask2_rect.w = max(100,text_surface.get_width() + 10)
+        #start 
+        pygame.draw.rect(screen, colorstartbutton, start_rect, 2)
+        text_surface = base_font.render(start_text, True, (255, 255, 255))
+        screen.blit(text_surface, (start_rect.x + 5, start_rect.y + 5 ))
+        start_rect.w = max(100,text_surface.get_width() + 10)
+    #pause menu
     if menu_state == 2 :
         screen.fill((0, 0, 0))
 
@@ -370,7 +397,7 @@ while run:
         if back_button.draw(screen):
             menu_state = menu_state - 2
         # check if the option menu is open
-            
+    #option menu        
     if menu_state == 3 :
         screen.fill((0, 0, 0))
 
@@ -386,7 +413,7 @@ while run:
                     pygame.mixer.music.unpause()
         if backoption_button.draw(screen):
             menu_state = menu_state - 1
-
+    #game menu
     if menu_state == 4:
         #draw background
         draw_bg()
@@ -396,6 +423,11 @@ while run:
         knight_health_bar.draw(knight.hp)
         bandit1_health_bar.draw(bandit1.hp)
         bandit2_health_bar.draw(bandit2.hp)
+
+        pygame.draw.rect(screen, colorinput1, inputgame_rect, -1)
+        text_surface = input_hp_font.render(input_text1, True, (0, 0, 0))
+        screen.blit(text_surface, (inputgame_rect.x + 5, inputgame_rect.y + 5 ))
+        inputgame_rect.w = max(100,text_surface.get_width() + 10)
 
          #draw fighter
         knight.update()
@@ -491,9 +523,11 @@ while run:
                     if event.key == pygame.K_RETURN:
                         input1 = False
                         input2 =True
+                        startbutton = False
                     if event.key == pygame.K_DOWN:
                         input1 = False
                         input2 =True
+                        startbutton = False
                         
                     if event.key == pygame.K_BACKSPACE:
                         input_text1 = input_text1[0:-1]
@@ -505,15 +539,22 @@ while run:
                         for i in range( pygame.K_0, pygame.K_9 + 1 ): 
                             if press[i] == True:
                                 input_text1 += pygame.key.name(i)
-
                 if input2 == True:
-                    if event.key == pygame.K_RETURN:
-                        pass
                     if event.key == pygame.K_UP:
                         input1 = True
                         input2 = False
+                        startbutton = False
+                    if event.key == pygame.K_RETURN:
+                        input1 = False
+                        input2 = False
+                        startbutton = True
+                    if event.key == pygame.K_DOWN:
+                        input1 = False
+                        input2 = False
+                        startbutton = True
                     if event.key == pygame.K_BACKSPACE:
                         input_text2 = input_text2[0:-1]
+
                     else:
                         press = pygame.key.get_pressed()
                         for i in range( pygame.K_a, pygame.K_z + 1 ): 
@@ -522,7 +563,15 @@ while run:
                         for i in range( pygame.K_0, pygame.K_9 + 1 ): 
                             if press[i] == True:
                                 input_text2 += pygame.key.name(i)
-
+                if startbutton == True:
+                    if event.key == pygame.K_UP:
+                        input1 = False
+                        input2 = True
+                        startbutton = False
+                    if event.key == pygame.K_DOWN:
+                       pass
+                    if event.key == pygame.K_RETURN:
+                        menu_state = 4
 
             if menu_state != (0 and 1) :
                 if event.key == pygame.K_ESCAPE:
