@@ -16,12 +16,14 @@ screen = pygame.display.set_mode((screen_width,screen_height))
 pygame.display.set_caption("RPG GAME")
 
 #music
-music = pygame.mixer.music.load('music/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Ambient 7.mp3')
+music = pygame.mixer.music.load('music/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Action 4.mp3')
+music_run = True
 pygame.mixer_music.play(-1)
 
 #define game variables
+
 game_paused = False
-menu_state = 'main'  #main pause option game
+menu_state = 0  # 0 : main , 1:start, 2:option, 3:play
 
 current_fighter = 1
 total_fighter = 3
@@ -35,12 +37,35 @@ game_over = 0 #  -1:lose 1:win
 font = pygame.font.SysFont("arialblack" , 40)
 hp_font = pygame.font.SysFont("Times New Romon", 26)
 
+#input variable
+base_font = pygame.font.Font(None, 32)
+
+input_text1 = ''
+input_text2 = ''
+input_rect = pygame.Rect(200,200,140,32)
+input2_rect = pygame.Rect(200,300,140,32)
+color_active = pygame.Color('white')
+color_passive = pygame.Color('gray15')
+colorinput1 = color_passive
+colorinput2 = color_passive
+
+ask_text = 'Test ask:'
+ask1_rect = pygame.Rect(80,200,140,32) # x, y, w, h
+
+colorAskinput1 = pygame.Color('black')
+
+input1 = False
+input2 = False
 
 #define colours
 red = (255,0,0)
 green = (0,255,0)
 #define colours
 TEXT_COL = (255,255,255)
+
+#//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#////////////[ IMAGE AND SOUND LOAD AREA ]////////////////////////////[ IMAGE AND SOUND LOAD AREA }//////////////////////////////////////[ IMAGE AND SOUND LOAD AREA ]/////////////////
+#//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #load buttom images
 resume_img = pygame.image.load('picture/button/resumebut.png')
@@ -59,10 +84,11 @@ back_img = pygame.transform.scale(back_img, (back_img.get_width()*3 ,back_img.ge
 #create button instances
 resume_button = button.Button(5, 180, resume_img, 1)
 option_button = button.Button(270, 180, option_img, 1)
-quit_button = button.Button(530, 180, quit_img, 1)
+backoption_button = button.Button(250, 350, option_img, 1)
+# quit_button = button.Button(530, 180, quit_img, 1)
 video_button = button.Button(150, 40, video_img, 1)
 audio_button = button.Button(350, 40, audio_img, 1)
-back_button = button.Button(250, 350, back_img, 1)
+back_button = button.Button(530, 180, back_img, 1)
 
 
 
@@ -88,6 +114,14 @@ sword_img = pygame.image.load('picture/icon(trans)/PineTools.com_files/row-6-col
 
 #sword sound
 attack_sfx = pygame.mixer.Sound('music/unsheath_sword-6113.mp3')
+
+
+#//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#//////////////[ DEF FUNCTION ]///////////////////////////////////////////[ DEF FUNCTION ]////////////////////////////////////////////[ DEF FUNCTION ]/////////////////////////////////
+#//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
                                  
 #function for drawing text
 def draw_text(text,font,text_col,x,y):
@@ -264,15 +298,13 @@ class DamageText(pygame.sprite.Sprite):
 
 damage_text_group = pygame.sprite.Group()
 
-<<<<<<< Updated upstream
-knight = fighter(200, 260, 'Knight','knightpic', 40, 10, 3)
-bandit1 = fighter(550, 200 ,'Bandit', 'banditpic', 20, 6 , 1)
-bandit2 = fighter(650, 250 ,'Bandit', 'banditpic', 20, 6 , 1)
-=======
+#//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#//////////////[ GAME STAT ]///////////////////////////////////////////[ GAME STAT ]/////////////////////////////////////////////////////[ GAME STAT ]/////////////////////////////////
+#//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 knight = fighter(200, 260, 'Knight','knightpic', 40, 10, 6)
 bandit1 = fighter(550, 200 ,'Bandit', 'banditpic', 20, 6 , 6)
 bandit2 = fighter(650, 250 ,'Bandit', 'banditpic', 20, 6 , 6)
->>>>>>> Stashed changes
 
 bandit_list = []
 bandit_list.append(bandit1)
@@ -282,35 +314,81 @@ knight_health_bar = healthbar(100,screen_height - bottem_panel + 40, knight.hp, 
 bandit1_health_bar = healthbar(550,screen_height - bottem_panel + 40, bandit1.hp, bandit1.max_hp)
 bandit2_health_bar = healthbar(550,screen_height - bottem_panel + 85, bandit2.hp, bandit2.max_hp)
 
+
+
+#//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#//////////////[ GAME START ]///////////////////////////////////////////[ GAME START ]//////////////////////////////////////////////////[ GAME START ]/////////////////////////////////
+#//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 #use to loop the game
 run = True   
 while run: 
 
-    screen.fill((52, 78, 91))
+
     clock.tick(fps)
-    if menu_state ==  'main':
+    if menu_state ==  0 :            # 0 : main , 1:start,2pause 3:option, 4:play
         draw_main()
 
-    if menu_state == 'pause':
+    if menu_state == 1 :
+        screen.fill((0, 0, 0))
+
+        if input1 == True:
+            colorinput1 = color_active
+        else:
+            colorinput1 = color_passive
+        if input2 == True:
+            colorinput2 = color_active
+        else:
+            colorinput2 = color_passive
+
+        pygame.draw.rect(screen, colorinput1, input_rect, 2)
+        text_surface = base_font.render(input_text1, True, (255, 255, 255))
+        screen.blit(text_surface, (input_rect.x + 5, input_rect.y + 5 ))
+        input_rect.w = max(100,text_surface.get_width() + 10)
+
+        pygame.draw.rect(screen, colorAskinput1, ask1_rect, 0)
+        text_surface = base_font.render(ask_text, True, (255, 255, 255))
+        screen.blit(text_surface, (ask1_rect.x + 5, ask1_rect.y + 5 ))
+        ask1_rect.w = max(100,text_surface.get_width() + 10)
+
+        pygame.draw.rect(screen, colorinput2, input2_rect, 2)
+        text_surface = base_font.render(input_text2, True, (255, 255, 255))
+        screen.blit(text_surface, (input2_rect.x + 5, input2_rect.y + 5 ))
+        input2_rect.w = max(100,text_surface.get_width() + 10)
+      
+    if menu_state == 2 :
+        screen.fill((0, 0, 0))
+
         pygame.mouse.set_visible(True)
         #draw pause screen button
         if resume_button.draw(screen):
-             menu_state = 'game'
+             menu_state = 4
         if option_button.draw(screen):
-             menu_state = 'option'
-        if quit_button.draw(screen):
-            run = False
+             menu_state = 3
+        if back_button.draw(screen):
+            menu_state = menu_state - 2
         # check if the option menu is open
-    if menu_state == 'option':
+            
+    if menu_state == 3 :
+        screen.fill((0, 0, 0))
+
         pygame.mouse.set_visible(True)
         if video_button.draw(screen):
             print('i didnt make a code for Video Settings :3')
         if audio_button.draw(screen):
-            print('i didnt make a code for Audio Settings :3')
-        if back_button.draw(screen):
-            menu_state = 'pause'
-    #draw background
-    if menu_state == 'game':
+            if music_run == True:
+                    music_run = False
+                    pygame.mixer.music.pause()
+            if music_run == False:
+                    music_run = True
+                    pygame.mixer.music.unpause()
+        if backoption_button.draw(screen):
+            menu_state = menu_state - 1
+
+    if menu_state == 4:
+        #draw background
         draw_bg()
 
         #draw panel
@@ -401,12 +479,60 @@ while run:
 
     #quit the game
     for event in pygame.event.get(): 
+        
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                menu_state = 'pause'
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                menu_state = 'game'
+            if menu_state == 0:
+                if event.key == pygame.K_SPACE:
+                    menu_state = 1
+                    input1 = True
+
+            if menu_state == 1:
+                if input1 == True:
+                    if event.key == pygame.K_RETURN:
+                        input1 = False
+                        input2 =True
+                    if event.key == pygame.K_DOWN:
+                        input1 = False
+                        input2 =True
+                        
+                    if event.key == pygame.K_BACKSPACE:
+                        input_text1 = input_text1[0:-1]
+                    else:
+                        press = pygame.key.get_pressed()
+                        for i in range( pygame.K_a, pygame.K_z + 1 ): 
+                            if press[i] == True:
+                                input_text1 += pygame.key.name(i) 
+                        for i in range( pygame.K_0, pygame.K_9 + 1 ): 
+                            if press[i] == True:
+                                input_text1 += pygame.key.name(i)
+
+                if input2 == True:
+                    if event.key == pygame.K_RETURN:
+                        pass
+                    if event.key == pygame.K_UP:
+                        input1 = True
+                        input2 = False
+                    if event.key == pygame.K_BACKSPACE:
+                        input_text2 = input_text2[0:-1]
+                    else:
+                        press = pygame.key.get_pressed()
+                        for i in range( pygame.K_a, pygame.K_z + 1 ): 
+                            if press[i] == True:
+                                input_text2 += pygame.key.name(i)
+                        for i in range( pygame.K_0, pygame.K_9 + 1 ): 
+                            if press[i] == True:
+                                input_text2 += pygame.key.name(i)
+
+
+            if menu_state != (0 and 1) :
+                if event.key == pygame.K_ESCAPE:
+                    if menu_state == 2:    #if pause than game
+                     menu_state = 4
+                    else:
+                        menu_state = 2
+            if menu_state == 1:
+                    if event.key == pygame.K_KP_ENTER:
+                        menu_state = 4
         if event.type ==  pygame.QUIT:
             run = False
         if event.type == pygame.MOUSEBUTTONDOWN:
