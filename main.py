@@ -36,6 +36,15 @@ attack = False
 clicked = False
 game_over = 0 #  -1:lose 1:win
 
+#define colours
+red = (255,0,0) 
+green = (0,255,0)
+#define colours
+TEXT_COL = (255,255,255)
+yellow = (255,255,51)
+grey = (96,96,96)
+black = (0,0,0)
+
 #define font
 font = pygame.font.SysFont("arialblack" , 40)
 hp_font = pygame.font.SysFont("Times New Romon", 26)
@@ -73,22 +82,16 @@ startbutton = False
 #gui variable
 gui_font = pygame.font.Font(None, 32)
 menu_font = pygame.font.Font(None, 55)
-attack_gui = 'Attack'
-attack_rect = pygame.Rect(80,430,140,32) 
-color_attack = color_passive
-def_gui = 'Defence'
-def_rect = pygame.Rect(80,480,140,32) 
-color_def = color_passive
 
+color_attack = grey
+color_def = grey
+color_power = grey
+color_bandit1, color_bandit2 = grey, grey
 attackTF = False
 defenceTF = False
-
-#define colours
-red = (255,0,0) 
-green = (0,255,0)
-#define colours
-TEXT_COL = (255,255,255)
-yellow = (255,255,51)
+powerTF = False
+bandit1gui = True
+bandit2gui = False
 
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #////////////[ IMAGE AND SOUND LOAD AREA ]////////////////////////////[ IMAGE AND SOUND LOAD AREA }//////////////////////////////////////[ IMAGE AND SOUND LOAD AREA ]/////////////////
@@ -358,7 +361,7 @@ while run:
 
     clock.tick(fps)
     #main
-    if menu_state ==  0 :            # 0 : main , 1:start,2pause 3:option, 4:play, 5:gameover
+    if menu_state ==  0 :            # 0 : main , 1:start,2pause 3:option, 4:play, 5:gameover 6 attack
         draw_main()
     #start menu
     if menu_state == 1 :
@@ -443,26 +446,30 @@ while run:
 
         #GUI panel
         if attackTF == True:
-            color_attack = color_active
+            color_attack = black
         else:
-            color_attack = color_passive
+            color_attack = grey
+
+        if defenceTF == True:
+            color_def = black
+        else:
+            color_def = grey
+
+        if powerTF == True:
+            color_power = black
+        else:
+            color_power = grey
         
-        if defeat_img == True:
-            color_def = color_active
-        else:
-            color_def = color_passive
+        
 
         #attack 
-        pygame.draw.rect(screen, color_attack, attack_rect, 0)
-        text_surface = gui_font.render(attack_gui, True, (0, 0, 0))
-        screen.blit(text_surface, (attack_rect.x + 5, attack_rect.y + 5 ))
-        attack_rect.w = max(100,text_surface.get_width() + 10)
-        #defence 
-        pygame.draw.rect(screen, color_def, def_rect, 3)
-        text_surface = gui_font.render(def_gui, True, (0, 0, 0))
-        screen.blit(text_surface, (def_rect.x + 5, def_rect.y + 5 ))
-        def_rect.w = max(100,text_surface.get_width() + 10)
+        draw_text('Attack(       press E to select menu, Q to quit)', gui_font, color_attack , 80 , 430 )
 
+        #defence 
+        draw_text('Defence', gui_font, color_def , 80 , 460 )
+
+        #magic
+        draw_text('Power', gui_font, color_power , 80 , 490 )
 
         #for knight name
         pygame.draw.rect(screen, colorAskinput1, inputgame_rect, -1)
@@ -482,22 +489,22 @@ while run:
         damage_text_group.draw(screen)
 
 
-        #control player action
-        #reset action variables
-        attack = False
-        target = None 
-        #make sure mouse is visible
-        pygame.mouse.set_visible(True)
-        pos = pygame.mouse.get_pos()
-        for count, bandit in enumerate(bandit_list):
-            if bandit. rect.collidepoint(pos):
-                #hide mouse
-                pygame.mouse.set_visible(False)
-                #show sword in place of mouse cursor 
-                screen.blit(sword_img, pos)
-                if clicked == True and bandit.alive == True:
-                    attack = True 
-                    target = bandit_list[count]
+        # #control player action
+        # #reset action variables
+        # attack = False
+        # target = None 
+        # #make sure mouse is visible
+        # pygame.mouse.set_visible(True)
+        # pos = pygame.mouse.get_pos()
+        # for count, bandit in enumerate(bandit_list):
+        #     if bandit. rect.collidepoint(pos):
+        #         #hide mouse
+        #         pygame.mouse.set_visible(False)
+        #         #show sword in place of mouse cursor 
+        #         screen.blit(sword_img, pos)
+        #         if clicked == True and bandit.alive == True:
+        #             attack = True 
+        #             target = bandit_list[count]
             
     # if game_over == 0:
         #player action
@@ -509,6 +516,7 @@ while run:
                     #attack
                     if attack == True and target != None:
                         knight.attack(target)
+                        target = None
                         current_fighter += 1
                         action_cooldown = 0
                 
@@ -606,7 +614,9 @@ while run:
                         startbutton = True
                     elif startbutton == True:
                         menu_state = 4
-                if event.key == pygame.K_DOWN:
+                        attackTF = True
+                        
+                elif event.key == pygame.K_DOWN:
                     if input1 == True:
                         input1 = False
                         input2 =True
@@ -616,7 +626,7 @@ while run:
                     elif startbutton == True:
                         startbutton = False
                         input1 = True
-                if event.key == pygame.K_UP:
+                elif event.key == pygame.K_UP:
                     if input1 == True:
                         input1 = False
                         startbutton =True
@@ -651,13 +661,73 @@ while run:
                             if press[i] == True:
                                 input_text2 += pygame.key.name(i)
             if menu_state == 4:
-                attackTF = True
-                if attackTF == True:
-                    if event.key == pygame.K_DOWN:
-                            attackTF = False
-                            defenceTF =True
+                if event.key == pygame.K_DOWN:
+                    if attackTF == True:
+                        attackTF = False 
+                        defenceTF = True
+                    elif defenceTF == True:
+                        defenceTF = False
+                        powerTF = True
+                    elif powerTF == True:
+                       powerTF = False
+                       attackTF = True 
+                elif event.key == pygame.K_UP:
+                    if attackTF == True:
+                        attackTF = False
+                        powerTF =True
+                    elif defenceTF == True:
+                        defenceTF = False
+                        attackTF = True
+                    elif powerTF == True:
+                        powerTF = Falsez
+                        defenceTF = True
+                elif event.key == pygame.K_e:
+                    if attackTF == True and defenceTF == False and powerTF == False :
+                        menu_state = 6
+            if menu_state == 6:
+                screen.blit(panel_img,(0,screen_height - bottem_panel))
+                draw_bg()
+                for bandit in bandit_list:
+                    bandit.update()
+                    bandit.draw()
+                draw_text('bandit1', gui_font, color_bandit1 , 80 , 430 )
+                draw_text('bandit2', gui_font, color_bandit2 , 80 , 460 )
 
-
+                
+                if bandit1gui == True:
+                    color_bandit1 = black
+                else:
+                    color_bandit1 = grey
+                if bandit2gui == True:
+                    color_bandit2 = black
+                else:
+                    color_bandit2 = grey
+                
+                if event.key == pygame.K_RETURN:
+                    if bandit1gui == True and bandit.alive == True:
+                        target = bandit1
+                        attack = True
+                        menu_state = 4
+                    elif bandit2gui == True and bandit.alive == True:
+                        target = bandit2
+                        attack = True
+                        menu_state = 4
+                elif event.key == pygame.K_DOWN:
+                    if bandit1gui == True:
+                        bandit1gui = False
+                        bandit2gui = True
+                    elif bandit2gui == True:
+                        bandit2gui = False
+                        bandit1gui = True
+                elif event.key == pygame.K_UP:
+                    if bandit1gui == True:
+                        bandit1gui = False
+                        bandit2gui = True
+                    elif bandit2gui == True:
+                        bandit2gui = False
+                        bandit1gui = True
+                elif event.key == pygame.K_q:
+                    menu_state =4
 
             if menu_state != (0 and 1) :
                 if event.key == pygame.K_ESCAPE:
