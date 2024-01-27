@@ -8,7 +8,7 @@ This codebase contains the implementation of a simple turn-based game using Pyth
 
 ## Features
 - Turn-based gameplay with player and enemy actions.
-- GUI elements for player interaction, including attack and defence options.
+- GUI elements for player interaction, including attack and defence options (still working on it).
 - Sound effects.
 - Victory and defeat conditions based on the game state.
 
