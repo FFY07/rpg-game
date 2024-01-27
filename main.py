@@ -75,6 +75,7 @@ start_text = 'Begin your adventure..'
 start_rect = pygame.Rect(500,500,140,32)
 
 
+
 input1 = True
 input2 = False
 startbutton = False
@@ -293,6 +294,12 @@ class fighter():
 
     def draw(self):
         screen.blit(self.image, self.rect)
+        draw_text(self.name, hp_font, red, self.rect.centerx - 30, self.rect.y - 20)
+    
+    #draw the bandit names on the screen (still needs work -haarith)
+    def draw_bandit_names():
+        for count, bandit in enumerate(bandit_list):
+            draw_text(bandit.name, hp_font, red, 550, (12) + count * 42)
 
 class healthbar():
     def __init__(self,x,y,hp,max_hp):
@@ -335,7 +342,7 @@ damage_text_group = pygame.sprite.Group()
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 # knightname = input_text1
 knight = fighter(200, 260, '','knightpic', 40, 10, 6)
-bandit1 = fighter(550, 200 ,'Bandit', 'banditpic', 2, 6 , 6)
+bandit1 = fighter(550, 200 ,'Bandit', 'banditpic', 20, 6 , 6)
 bandit2 = fighter(650, 250 ,'Bandit', 'banditpic', 20, 6 , 6)
 
 bandit_list = []
@@ -463,7 +470,7 @@ while run:
         
 
         #attack 
-        draw_text('Attack(       press E to select menu, Q to quit)', gui_font, color_attack , 80 , 430 )
+        draw_text('Attack (press E to select menu, Q to quit)', gui_font, color_attack , 80 , 430 )
 
         #defence 
         draw_text('Defence', gui_font, color_def , 80 , 460 )
@@ -593,6 +600,8 @@ while run:
                     
                 elif event.key == pygame.K_q:
                     run = False
+
+
 
     #quit the game
     for event in pygame.event.get(): 
