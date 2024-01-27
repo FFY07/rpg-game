@@ -3,6 +3,8 @@ import random
 import button
 import time
 
+game_logs = []
+
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -48,6 +50,11 @@ black = (0,0,0)
 #define font
 font = pygame.font.SysFont("arialblack" , 40)
 hp_font = pygame.font.SysFont("Times New Romon", 26)
+
+#game log font size
+game_log_font = pygame.font.SysFont("arial", 15)
+
+
 
 #input variable (start menu)
 base_font = pygame.font.Font(None, 32)
@@ -259,6 +266,7 @@ class fighter():
         self.frame_index = 0
         self.update_time = pygame.time.get_ticks()
 
+
     def attack(self, target):
         #deal damage to the enemy
         rand = random.randint(-5, 5)
@@ -274,6 +282,10 @@ class fighter():
             target.death()
         damage_text = DamageText(target.rect.centerx, target.rect.y, str(damage), red)
         damage_text_group.add(damage_text)
+        #the names for game log (-haarith, needs work not showing name of the user)
+        game_logs.append(f'{self.name} damaged {target.name} for {damage} damage')
+
+        
 
         #set variable to attack
         self.action = 1
@@ -333,6 +345,13 @@ class DamageText(pygame.sprite.Sprite):
 		self.counter += 1
 		if self.counter > 30:
 			self.kill()
+
+def draw_game_logs():
+    y = 435 # initial y value
+    for log in game_logs[-4:]:  # display only the last 4 logs
+        text_surface = game_log_font.render(log, True, (255, 0, 0))
+        screen.blit(text_surface, (550, y))
+        y += 23  # increment y value for next log
 
 
 damage_text_group = pygame.sprite.Group()
@@ -566,7 +585,10 @@ while run:
         
     #function to restart the game (add by haarith)
             menu_state = 5
+            
 
+    if menu_state == 4:  # state where game is active
+        draw_game_logs()
 
     if menu_state == 5:
         #display game over message
@@ -600,8 +622,6 @@ while run:
                     
                 elif event.key == pygame.K_q:
                     run = False
-
-
 
     #quit the game
     for event in pygame.event.get(): 
@@ -688,7 +708,7 @@ while run:
                         defenceTF = False
                         attackTF = True
                     elif powerTF == True:
-                        powerTF = Falsez
+                        powerTF = False
                         defenceTF = True
                 elif event.key == pygame.K_e:
                     if attackTF == True and defenceTF == False and powerTF == False :
