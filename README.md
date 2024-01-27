@@ -1,4 +1,4 @@
-# Game Code README
+# Simple Turn-Based Battle Game
 
 ## Overview
 This codebase contains the implementation of a simple turn-based game using Python and Pygame. The game features a player-controlled knight character and an enemy bandit characters which is controlled by an AI. The player and enemies take turns to perform actions such as attacking and defending.
