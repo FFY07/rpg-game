@@ -353,6 +353,7 @@ def draw_game_logs():
         text_surface = game_log_font.render(log, True, (255, 0, 0))
         screen.blit(text_surface, (550, y))
         y += 23  # increment y value for next log
+    
 
 
 damage_text_group = pygame.sprite.Group()
@@ -364,8 +365,11 @@ damage_text_group = pygame.sprite.Group()
 
 # knightname = input_text1
 knight = fighter(200, 260, '','knightpic', 40, 10, 6)
-bandit1 = fighter(550, 200 ,'Bandit', 'banditpic', 20, 9 , 6)
-bandit2 = fighter(650, 250 ,'Bandit', 'banditpic', 20, 9 , 6)
+randomAI = str(random.randint(10,99))
+randomAI2 = str(random.randint(10,99)) 
+
+bandit1 = fighter(550, 200 , 'AI ' + randomAI, 'banditpic', 20, 10 , 6)
+bandit2 = fighter(650, 250 ,'AI ' + randomAI2, 'banditpic', 20, 6 , 6)
 
 bandit_list = []
 bandit_list.append(bandit1)
