@@ -128,6 +128,8 @@ video_button = button.Button(150, 40, video_img, 1)
 audio_button = button.Button(350, 40, audio_img, 1)
 back_button = button.Button(530, 180, back_img, 1)
 
+#??
+
 
 
 #load image
@@ -494,7 +496,7 @@ while run:
         draw_text('Attack (press E to select menu, Q to quit)', gui_font, color_attack , 80 , 430 )
 
         #defence 
-        draw_text('Defence', gui_font, color_def , 80 , 460 )
+        draw_text('>>> PLEASE DONT PRESS THIS <<<', gui_font, color_def , 80 , 460 )
 
         #magic
         draw_text('Surrender', gui_font, color_power , 80 , 490 )
@@ -717,6 +719,9 @@ while run:
                         menu_state = 6
                     elif powerTF == True and attackTF == False and defenceTF == False:
                         game_over = -1
+                    elif defenceTF == True and attackTF == False and powerTF == False:
+                        menu_state = 'easter'
+                        
             if menu_state == 6:
                 screen.blit(panel_img,(0,screen_height - bottem_panel))
                 draw_bg()
@@ -761,6 +766,30 @@ while run:
                         bandit1gui = True
                 elif event.key == pygame.K_q:
                     menu_state =4
+
+            if menu_state == 'easter':
+                music = pygame.mixer.music.load('music/Dancin-(Krono-Remix)(PaglaSongs).mp3')
+                music_run = True
+                pygame.mixer_music.play(-1)
+                for i in range(1,71):
+                    easteregg_img = pygame.image.load(f'picture/milo/milo ({i}).jpg')
+                    screen.blit(easteregg_img, (100,100))
+                    pygame.display.flip()
+                    clock.tick(24)
+                for i in range(1,71):
+                    easteregg_img = pygame.image.load(f'picture/milo/milo ({i}).jpg')
+                    screen.blit(easteregg_img, (100,100))
+                    pygame.display.flip()
+                    clock.tick(24)
+                for i in range(1,71):
+                    easteregg_img = pygame.image.load(f'picture/milo/milo ({i}).jpg')
+                    screen.blit(easteregg_img, (100,100))
+                    pygame.display.flip()
+                    clock.tick(24)
+                
+                # screen.fill((0, 0, 0))
+                menu_state = 4
+                
 
             if menu_state != (0 and 1) :
                 if event.key == pygame.K_ESCAPE:
