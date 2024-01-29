@@ -270,7 +270,7 @@ class fighter():
     def attack(self, target):
         #deal damage to the enemy
         rand = random.randint(-5, 5)
-        damage = self.strength + rand
+        damage = (self.strength + rand) - (self.defence + rand)
         target.hp -= damage 
         attack_sfx.play()
         #run enemy animation
@@ -284,6 +284,7 @@ class fighter():
         damage_text_group.add(damage_text)
         #the names for game log (-haarith, needs work not showing name of the user)
         game_logs.append(f'{self.name} damaged {target.name} for {damage} damage')
+        game_logs.append(f'{target.name} block {(self.defence + rand)} damage from {self.name}')
 
         
 
@@ -359,10 +360,12 @@ damage_text_group = pygame.sprite.Group()
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #//////////////[ GAME STAT ]///////////////////////////////////////////[ GAME STAT ]/////////////////////////////////////////////////////[ GAME STAT ]/////////////////////////////////
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 # knightname = input_text1
 knight = fighter(200, 260, '','knightpic', 40, 10, 6)
-bandit1 = fighter(550, 200 ,'Bandit', 'banditpic', 20, 6 , 6)
-bandit2 = fighter(650, 250 ,'Bandit', 'banditpic', 20, 6 , 6)
+bandit1 = fighter(550, 200 ,'Bandit', 'banditpic', 20, 9 , 6)
+bandit2 = fighter(650, 250 ,'Bandit', 'banditpic', 20, 9 , 6)
 
 bandit_list = []
 bandit_list.append(bandit1)
@@ -451,12 +454,7 @@ while run:
         if video_button.draw(screen):
             print('i didnt make a code for Video Settings :3')
         if audio_button.draw(screen):
-            if music_run == True:
-                    music_run = False
-                    pygame.mixer.music.pause()
-            if music_run == False:
-                    music_run = True
-                    pygame.mixer.music.unpause()
+            print('i didnt make a code for music Settings :3')
         if backoption_button.draw(screen):
             menu_state = menu_state - 1
     #game menu
@@ -495,7 +493,7 @@ while run:
         draw_text('Defence', gui_font, color_def , 80 , 460 )
 
         #magic
-        draw_text('Power', gui_font, color_power , 80 , 490 )
+        draw_text('Surrender', gui_font, color_power , 80 , 490 )
 
         #for knight name
         pygame.draw.rect(screen, colorAskinput1, inputgame_rect, -1)
@@ -713,6 +711,8 @@ while run:
                 elif event.key == pygame.K_e:
                     if attackTF == True and defenceTF == False and powerTF == False :
                         menu_state = 6
+                    elif powerTF == True and attackTF == False and defenceTF == False:
+                        game_over = -1
             if menu_state == 6:
                 screen.blit(panel_img,(0,screen_height - bottem_panel))
                 draw_bg()
