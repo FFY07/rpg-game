@@ -285,8 +285,8 @@ class fighter():
         damage_text = DamageText(target.rect.centerx, target.rect.y, str(damage), red)
         damage_text_group.add(damage_text)
         #the names for game log (-haarith, needs work not showing name of the user)
-        game_logs.append(f'{self.name} damaged {target.name} for {damage} damage')
-        game_logs.append(f'{target.name} block {(self.defence + rand)} damage from {self.name}')
+        game_logs.append(f'You attacked {target.name} for {damage} damage')
+        game_logs.append(f'You blocked {(self.defence + rand)} damage from {self.name}')
 
         
 
