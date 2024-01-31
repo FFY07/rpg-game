@@ -384,8 +384,6 @@ knight_health_bar.draw(knight.hp)
 bandit1_health_bar.draw(bandit1.hp)
 bandit2_health_bar.draw(bandit2.hp)
 
-
-
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #//////////////[ GAME START ]///////////////////////////////////////////[ GAME START ]//////////////////////////////////////////////////[ GAME START ]/////////////////////////////////
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -538,6 +536,11 @@ while run:
         #draw panel
         draw_panel()
 
+        #draw health bar
+        knight_health_bar.draw(knight.hp)
+        bandit1_health_bar.draw(bandit1.hp)
+        bandit2_health_bar.draw(bandit2.hp)
+
         #GUI panel
         if attackTF == True:
             color_attack = black
@@ -670,7 +673,7 @@ while run:
                     pygame.mouse.set_visible(True)  #cursor
 
                     # Reset game variables
-                    knight = fighter(200, 260, '','knightpic', 40, 10, 6)
+                    knight = fighter(200, 260, input_text1,'knightpic', 40, 10, 6)
                     bandit1 = fighter(550, 200 , 'AI ' + randomAI, 'banditpic', 20, 10 , 6)
                     bandit2 = fighter(650, 250 ,'AI ' + randomAI2, 'banditpic', 20, 6 , 6)
 
