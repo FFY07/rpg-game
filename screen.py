@@ -1,3 +1,11 @@
+'''
+
+(This file is use for screen , draw function )
+(note: I import screen as sc )
+
+'''
+
+
 import pygame
 import font
 

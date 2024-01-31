@@ -1,3 +1,16 @@
+'''
+
+list for pygame.Color  :^)
+https://www.pygame.org/docs/ref/color_list.html
+
+
+( This file is use to store all the color variable and font variable )
+
+(import this file if you need to use any color/font )
+
+
+'''
+
 import pygame
 
 pygame.init()
@@ -10,8 +23,8 @@ RED = pygame.Color('red')
 GREEN = pygame.Color('green')
 TEXT_COL = pygame.Color('white')
 YELLOW = pygame.Color('yellow')
-grey = pygame.Color('dimgray')
-black = pygame.Color('black')
+GREY = pygame.Color('dimgray')
+BLACK = pygame.Color('black')
 
 
 #gui variable

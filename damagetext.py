@@ -1,3 +1,15 @@
+'''
+
+(Used for show the text after character hit someone)
+(note: I import damagetext as dt )
+
+'''
+
+
+
+
+
+
 import pygame
 import font
 

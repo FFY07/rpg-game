@@ -1,9 +1,28 @@
+'''
+
+(This file is use for character class like warrior )
+(character image also load here)
+
+
+'''
+
+
+
+
+
+
+
+
+
 import pygame
 import random
 import screen as sc
 import damagetext as dt
 import font
 import gamelog
+
+
+
 
 pygame.init()
 

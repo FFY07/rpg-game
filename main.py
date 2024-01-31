@@ -37,8 +37,8 @@ ask_text = 'Name your character :'
 ask1_rect = pygame.Rect(80,200,140,32) # x, y, w, h
 ask2_text = 'Hope you enjoy :^)) :'
 ask2_rect = pygame.Rect(80,300,140,32)
-colorAskinput1 = pygame.Color('black')
-colorAskinput2 = pygame.Color('black')
+colorAskinput1 = pygame.Color('BLACK')
+colorAskinput2 = pygame.Color('BLACK')
 
 start_text = 'Begin your adventure..'
 start_rect = pygame.Rect(500,500,140,32)
@@ -49,10 +49,10 @@ input1 = True
 input2 = False
 startbutton = False
 
-color_attack = font.grey
-color_def = font.grey
-color_power = font.grey
-color_bandit1, color_bandit2 = font.grey, font.grey
+color_attack = font.GREY
+color_def = font.GREY
+color_power = font.GREY
+color_bandit1, color_bandit2 = font.GREY, font.GREY
 attackTF = False
 defenceTF = False
 powerTF = False
@@ -324,19 +324,19 @@ while run:
 
         #GUI panel
         if attackTF == True:
-            color_attack = font.black
+            color_attack = font.BLACK
         else:
-            color_attack = font.grey
+            color_attack = font.GREY
 
         if defenceTF == True:
-            color_def = font.black
+            color_def = font.BLACK
         else:
-            color_def = font.grey
+            color_def = font.GREY
 
         if powerTF == True:
-            color_power = font.black
+            color_power = font.BLACK
         else:
-            color_power = font.grey
+            color_power = font.GREY
         
         #attack 
         sc.draw_text('Attack', font.gui_font, color_attack , 80 , 430 )
@@ -523,13 +523,13 @@ while run:
 
                 
                 if bandit1gui == True:
-                    color_bandit1 = font.black
+                    color_bandit1 = font.BLACK
                 else:
-                    color_bandit1 = font.grey
+                    color_bandit1 = font.GREY
                 if bandit2gui == True:
-                    color_bandit2 = font.black
+                    color_bandit2 = font.BLACK
                 else:
-                    color_bandit2 = font.grey
+                    color_bandit2 = font.GREY
                 
                 if event.key == pygame.K_RETURN:
                     if bandit1gui == True and bandit.alive == True:
