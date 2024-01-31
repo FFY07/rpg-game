@@ -50,6 +50,7 @@ black = (0,0,0)
 #define font
 font = pygame.font.SysFont("arialblack" , 40)
 hp_font = pygame.font.SysFont("Times New Romon", 26)
+smaller_gui_font= pygame.font.SysFont("arial", 15)
 
 #game log font size
 game_log_font = pygame.font.SysFont("arial", 15)
@@ -350,10 +351,10 @@ class DamageText(pygame.sprite.Sprite):
 			self.kill()
 
 def draw_game_logs():
-    y = 435 # initial y value
+    y = 433 # initial y value
     for log in game_logs[-4:]:  # display only the last 4 logs
         text_surface = game_log_font.render(log, True, (255, 0, 0))
-        screen.blit(text_surface, (550, y))
+        screen.blit(text_surface, (520, y))
         y += 23  # increment y value for next log
     
 
@@ -557,16 +558,17 @@ while run:
         else:
             color_power = grey
         
-        
-
         #attack 
-        draw_text('Attack (press E to select menu, Q to quit)', gui_font, color_attack , 80 , 430 )
+        draw_text('Attack', gui_font, color_attack , 80 , 430 )
+        draw_text('(press E to select, Q to go back)', smaller_gui_font, color_attack, 156, 434)
 
         #defence 
         draw_text('Magic', gui_font, color_def , 80 , 460 )
+        draw_text('(press E to select)', smaller_gui_font,color_def , 156, 464)
 
         #magic
         draw_text('Surrender', gui_font, color_power , 80 , 490 )
+        draw_text('(press E to select)', smaller_gui_font, color_power, 200, 494)
 
          #draw fighter
         knight.update()
