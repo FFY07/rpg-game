@@ -15,8 +15,7 @@ FPS = 60
  
 
 #music
-music = pygame.mixer.music.load('music/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Action 4.mp3')
-music_run = True
+music = pygame.mixer.music.load('music/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Fx 1.mp3')
 pygame.mixer_music.play(-1)
 
 #define game variables
@@ -34,9 +33,9 @@ game_over = 0 #  -1:lose 1:win
 
 
 
-ask_text = 'Name your charactor :'
+ask_text = 'Name your character :'
 ask1_rect = pygame.Rect(80,200,140,32) # x, y, w, h
-ask2_text = 'Anything :'
+ask2_text = 'Hope you enjoy :^)) :'
 ask2_rect = pygame.Rect(80,300,140,32)
 colorAskinput1 = pygame.Color('black')
 colorAskinput2 = pygame.Color('black')
@@ -142,8 +141,8 @@ knight = classes.fighter(200, 260, font.input_text1,'knightpic', 40, 10, 6)
 randomAI = str(random.randint(10,99))
 randomAI2 = str(random.randint(10,99)) 
 
-bandit1 = classes.fighter(550, 200 , 'AI ' + randomAI, 'banditpic', 20, 10 , 6)
-bandit2 = classes.fighter(650, 250 ,'AI ' + randomAI2, 'banditpic', 20, 6 , 6)
+bandit1 = classes.fighter(550, 200 , '(AI ' + randomAI + ')', 'banditpic', 20, 10 , 6)
+bandit2 = classes.fighter(650, 250 ,'(AI ' + randomAI2 + ')', 'banditpic', 20, 6 , 6)
 
 bandit_list = []
 bandit_list.append(bandit1)
@@ -229,6 +228,8 @@ while run:
                         elif startbutton == True:
                             menu_state = 4
                             attackTF = True
+                            music = pygame.mixer.music.load('music/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Action 3.mp3')
+                            pygame.mixer_music.play(-1)
                             
                     elif event.key == pygame.K_DOWN:
                         if input1 == True:
@@ -263,7 +264,7 @@ while run:
                                 if press1[i] == True:
                                     font.input_text1 += pygame.key.name(i)
 
-                            knight = classes.fighter(200, 260, font.input_text1,'knightpic', 40, 10, 6)   
+                            knight = classes.fighter(200, 260, '(' + font.input_text1 + ')','knightpic', 40, 10, 6)   
                     if input2 == True:
                         if event.key == pygame.K_BACKSPACE:
                             font.input_text2 = font.input_text2[0:-1]
@@ -309,6 +310,7 @@ while run:
         #draw panel
         sc.draw_panel()
         sc.draw_text(f'{knight.name} HP:{knight.hp}',font.hp_font, font.RED, 80, 12)
+
         #bandit stats
         for count, i in enumerate(bandit_list):
             #show name and health
@@ -422,6 +424,8 @@ while run:
                 
          #check if game is over
         if game_over != 0:
+            music = pygame.mixer.music.load('music/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Fx 3.mp3')
+            pygame.mixer_music.play(-1)
             if game_over == 1:
                 sc.screen.blit(victory_img,(160,50))
                     
@@ -441,9 +445,9 @@ while run:
         #display game over message
         small_font = pygame.font.Font(None, 40) 
         if game_over == 1:
-            sc.draw_text('You win. Press R to replay or Q to quit', small_font, font.text_col, 100, sc.SCREEN_HEIGHT // 2)
+            sc.draw_text('You win. Press R to replay or Q to quit', small_font, font.TEXT_COL, 100, sc.SCREEN_HEIGHT // 2)
         if game_over == -1:
-            sc.draw_text('Game over. Press R to replay or Q to quit', small_font, font.text_col, 100, sc.SCREEN_HEIGHT // 2)
+            sc.draw_text('Game over. Press R to replay or Q to quit', small_font, font.TEXT_COL, 100, sc.SCREEN_HEIGHT // 2)
         #check for user input
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -514,8 +518,8 @@ while run:
                 for bandit in bandit_list:
                     bandit.update()
                     bandit.draw()
-                sc.draw_text('AI ' + randomAI, font.gui_font, color_bandit1 , 80 , 430 )
-                sc.draw_text('AI ' + randomAI2, font.gui_font, color_bandit2 , 80 , 460 )
+                sc.draw_text('(AI ' + randomAI + ')', font.gui_font, color_bandit1 , 80 , 430 )
+                sc.draw_text('(AI ' + randomAI2 + ')', font.gui_font, color_bandit2 , 80 , 460 )
 
                 
                 if bandit1gui == True:
