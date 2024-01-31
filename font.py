@@ -6,13 +6,13 @@ pygame.init()
 game_log_font = pygame.font.SysFont("arial", 15)
 
 #define colours
-RED = (255,0,0) 
-GREEN = (0,255,0)
-#define colours
-TEXT_COL = (255,255,255)
-YELLOW = (255,255,51)
-grey = (96,96,96)
-black = (0,0,0)
+RED = pygame.Color('red')
+GREEN = pygame.Color('green')
+TEXT_COL = pygame.Color('white')
+YELLOW = pygame.Color('yellow')
+grey = pygame.Color('dimgray')
+black = pygame.Color('black')
+
 
 #gui variable
 gui_font = pygame.font.Font(None, 32)
