@@ -14,10 +14,6 @@ clock = pygame.time.Clock()
 FPS = 60
  
 
-#music
-music = pygame.mixer.music.load('music/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Fx 1.mp3')
-pygame.mixer_music.play(-1)
-
 #define game variables
 
 game_paused = False
