@@ -728,8 +728,8 @@ while run:
                 for bandit in bandit_list:
                     bandit.update()
                     bandit.draw()
-                draw_text('bandit1', gui_font, color_bandit1 , 80 , 430 )
-                draw_text('bandit2', gui_font, color_bandit2 , 80 , 460 )
+                draw_text('AI ' + randomAI, gui_font, color_bandit1 , 80 , 430 )
+                draw_text('AI ' + randomAI2, gui_font, color_bandit2 , 80 , 460 )
 
                 
                 if bandit1gui == True:
