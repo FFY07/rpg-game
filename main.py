@@ -15,7 +15,7 @@ fps = 60
 #game window
 bottem_panel = 150
 screen_width = 800
-screen_height = 400 + bottem_panel
+screen_height = 400 + bottem_panel 
 
 screen = pygame.display.set_mode((screen_width,screen_height))
 pygame.display.set_caption("RPG GAME")
@@ -285,8 +285,8 @@ class fighter():
         damage_text = DamageText(target.rect.centerx, target.rect.y, str(damage), red)
         damage_text_group.add(damage_text)
         #the names for game log (-haarith, needs work not showing name of the user)
-        game_logs.append(f'You attacked {target.name} for {damage} damage')
-        game_logs.append(f'You blocked {(self.defence + rand)} damage from {self.name}')
+        game_logs.append(f'{self.name} attacked {target.name} for {damage} damage')
+        game_logs.append(f'{target.name} blocked {(target.defence + rand)} damage from {self.name}')
 
         
 
@@ -360,13 +360,11 @@ def draw_game_logs():
 
 damage_text_group = pygame.sprite.Group()
 
+
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #//////////////[ GAME STAT ]///////////////////////////////////////////[ GAME STAT ]/////////////////////////////////////////////////////[ GAME STAT ]/////////////////////////////////
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-# knightname = input_text1
-knight = fighter(200, 260, '','knightpic', 40, 10, 6)
+knight = fighter(200, 260, input_text1,'knightpic', 40, 10, 6)
 randomAI = str(random.randint(10,99))
 randomAI2 = str(random.randint(10,99)) 
 
@@ -380,6 +378,11 @@ bandit_list.append(bandit2)
 knight_health_bar = healthbar(80, 30 , knight.hp, knight.max_hp)
 bandit1_health_bar = healthbar(550,30 , bandit1.hp, bandit1.max_hp)
 bandit2_health_bar = healthbar(550,70, bandit2.hp, bandit2.max_hp)
+
+
+knight_health_bar.draw(knight.hp)
+bandit1_health_bar.draw(bandit1.hp)
+bandit2_health_bar.draw(bandit2.hp)
 
 
 
@@ -439,6 +442,68 @@ while run:
         text_surface = base_font.render(start_text, True, (255, 255, 255))
         screen.blit(text_surface, (start_rect.x + 5, start_rect.y + 5 ))
         start_rect.w = max(100,text_surface.get_width() + 10)
+    
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if menu_state == 1:
+                
+                    if event.key == pygame.K_RETURN:
+                        if input1 == True:
+                            input1 = False
+                            input2 =True
+                        elif input2 == True:
+                            input2 = False
+                            startbutton = True
+                        elif startbutton == True:
+                            menu_state = 4
+                            attackTF = True
+                            
+                    elif event.key == pygame.K_DOWN:
+                        if input1 == True:
+                            input1 = False
+                            input2 =True
+                        elif input2 == True:
+                            input2 = False
+                            startbutton = True
+                        elif startbutton == True:
+                            startbutton = False
+                            input1 = True
+                    elif event.key == pygame.K_UP:
+                        if input1 == True:
+                            input1 = False
+                            startbutton =True
+                        elif input2 == True:
+                            input2 = False
+                            input1 = True
+                        elif startbutton == True:
+                            startbutton = False
+                            input2 = True
+                            
+                    if input1 == True:
+                        if event.key == pygame.K_BACKSPACE:
+                            input_text1 = input_text1[0:-1]
+                        else:
+                            press1 = pygame.key.get_pressed()       
+                            for i in range( pygame.K_a, pygame.K_z + 1 ): 
+                                if press1[i] == True:
+                                    input_text1 += pygame.key.name(i) 
+                            for i in range( pygame.K_0, pygame.K_9 + 1 ): 
+                                if press1[i] == True:
+                                    input_text1 += pygame.key.name(i)
+
+                            knight = fighter(200, 260, input_text1,'knightpic', 40, 10, 6)   
+                    if input2 == True:
+                        if event.key == pygame.K_BACKSPACE:
+                            input_text2 = input_text2[0:-1]
+
+                        else:
+                            press = pygame.key.get_pressed()
+                            for i in range( pygame.K_a, pygame.K_z + 1 ): 
+                                if press[i] == True:
+                                    input_text2 += pygame.key.name(i)
+                            for i in range( pygame.K_0, pygame.K_9 + 1 ): 
+                                if press[i] == True:
+                                    input_text2 += pygame.key.name(i)
     #pause menu
     if menu_state == 2 :
         screen.fill((0, 0, 0))
@@ -465,14 +530,13 @@ while run:
             menu_state = menu_state - 1
     #game menu
     if menu_state == 4:
+    
+
         #draw background
         draw_bg()
 
         #draw panel
         draw_panel()
-        knight_health_bar.draw(knight.hp)
-        bandit1_health_bar.draw(bandit1.hp)
-        bandit2_health_bar.draw(bandit2.hp)
 
         #GUI panel
         if attackTF == True:
@@ -496,16 +560,10 @@ while run:
         draw_text('Attack (press E to select menu, Q to quit)', gui_font, color_attack , 80 , 430 )
 
         #defence 
-        draw_text('>>> PLEASE DONT PRESS THIS <<<', gui_font, color_def , 80 , 460 )
+        draw_text('Magic', gui_font, color_def , 80 , 460 )
 
         #magic
         draw_text('Surrender', gui_font, color_power , 80 , 490 )
-
-        #for knight name
-        pygame.draw.rect(screen, colorAskinput1, inputgame_rect, -1)
-        text_surface = input_hp_font.render(input_text1, True, (0, 0, 0))
-        screen.blit(text_surface, (inputgame_rect.x + 5, inputgame_rect.y + 5 ))
-        inputgame_rect.w = max(100,text_surface.get_width() + 10)
 
          #draw fighter
         knight.update()
@@ -613,8 +671,8 @@ while run:
 
                     # Reset game variables
                     knight = fighter(200, 260, '','knightpic', 40, 10, 6)
-                    bandit1 = fighter(550, 200 ,'Bandit', 'banditpic', 2, 6 , 6)
-                    bandit2 = fighter(650, 250 ,'Bandit', 'banditpic', 20, 6 , 6)
+                    bandit1 = fighter(550, 200 , 'AI ' + randomAI, 'banditpic', 20, 10 , 6)
+                    bandit2 = fighter(650, 250 ,'AI ' + randomAI2, 'banditpic', 20, 6 , 6)
 
                     bandit_list = []
                     bandit_list.append(bandit1)
@@ -636,63 +694,6 @@ while run:
                     menu_state = 1
                     input1 = True
 
-            if menu_state == 1:
-                
-                if event.key == pygame.K_RETURN:
-                    if input1 == True:
-                        input1 = False
-                        input2 =True
-                    elif input2 == True:
-                        input2 = False
-                        startbutton = True
-                    elif startbutton == True:
-                        menu_state = 4
-                        attackTF = True
-                        
-                elif event.key == pygame.K_DOWN:
-                    if input1 == True:
-                        input1 = False
-                        input2 =True
-                    elif input2 == True:
-                        input2 = False
-                        startbutton = True
-                    elif startbutton == True:
-                        startbutton = False
-                        input1 = True
-                elif event.key == pygame.K_UP:
-                    if input1 == True:
-                        input1 = False
-                        startbutton =True
-                    elif input2 == True:
-                        input2 = False
-                        input1 = True
-                    elif startbutton == True:
-                        startbutton = False
-                        input2 = True
-                        
-                if input1 == True:
-                    if event.key == pygame.K_BACKSPACE:
-                        input_text1 = input_text1[0:-1]
-                    else:
-                        press1 = pygame.key.get_pressed()
-                        for i in range( pygame.K_a, pygame.K_z + 1 ): 
-                            if press1[i] == True:
-                                input_text1 += pygame.key.name(i) 
-                        for i in range( pygame.K_0, pygame.K_9 + 1 ): 
-                            if press1[i] == True:
-                                input_text1 += pygame.key.name(i)
-                if input2 == True:
-                    if event.key == pygame.K_BACKSPACE:
-                        input_text2 = input_text2[0:-1]
-
-                    else:
-                        press = pygame.key.get_pressed()
-                        for i in range( pygame.K_a, pygame.K_z + 1 ): 
-                            if press[i] == True:
-                                input_text2 += pygame.key.name(i)
-                        for i in range( pygame.K_0, pygame.K_9 + 1 ): 
-                            if press[i] == True:
-                                input_text2 += pygame.key.name(i)
             if menu_state == 4:
                 if event.key == pygame.K_DOWN:
                     if attackTF == True:
