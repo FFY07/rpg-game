@@ -12,8 +12,8 @@ need to work on this if possible
 
 
 
-import screen as sc
-import font 
+import gui.screen as sc
+import resources.font as font 
 game_logs = []
 
 

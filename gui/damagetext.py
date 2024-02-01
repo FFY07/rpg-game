@@ -11,7 +11,7 @@
 
 
 import pygame
-import font
+import resources.font as font
 
 pygame.init()
 

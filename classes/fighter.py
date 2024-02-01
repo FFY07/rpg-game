@@ -7,26 +7,25 @@
 '''
 
 
-
-
-
-
-
-
+from pathlib import Path
 
 import pygame
 import random
-import screen as sc
-import damagetext as dt
-import font
+
+import gui.screen as sc
+import gui.damagetext as dt
+import resources.font as font
 import gamelog
 
+from classes import class_methods as cm
+import resources as rsc
 
+parent = Path(__file__).parents[1]
 
 
 pygame.init()
 
-class fighter():
+class Unit():
     def __init__(self,x,y,name,namepic,max_hp,strength,defence):
         self.name = name 
         self.namepic = namepic
@@ -43,7 +42,7 @@ class fighter():
         #load image
         temp_list = []
         for i in range(1,5):
-            img = pygame.image.load(f'picture/{self.namepic}/idle/{i}.png')
+            img = pygame.image.load(f"{parent}\\resources\\picture\\{self.namepic}\\idle\\{i}.png")
             self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
             temp_list.append(self.image)
         self.animationlist.append(temp_list) #list of list
@@ -52,11 +51,12 @@ class fighter():
         temp_list = []
         for i in range(1,10):
             if {self.namepic} == "knightpic" :
-                img = pygame.image.load(f'picture/{self.namepic}/attack/{i}.png')
+                img = pygame.image.load(f"{parent}\\resources\\picture\\{self.namepic}\\attack\\{i}.png")
                 self.image = pygame.transform.scale(img, (img.get_width()*6 ,img.get_height()*6))
         
+        # Move this to Tank or a different class
             else:
-                img = pygame.image.load(f'picture/{self.namepic}/attack/{i}.png')
+                img = pygame.image.load(f"{parent}\\resources\\picture\\{self.namepic}\\attack\\{i}.png")
                 self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
             temp_list.append(self.image)
         self.animationlist.append(temp_list)
@@ -64,7 +64,7 @@ class fighter():
         #load hurt image
         temp_list = []
         for i in range(1,3):
-            img = pygame.image.load(f'picture/{self.namepic}/hurt/{i}.png')
+            img = pygame.image.load(f"{parent}\\resources\\picture\\{self.namepic}\\hurt\\{i}.png")
             self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
             temp_list.append(self.image)
         self.animationlist.append(temp_list)
@@ -72,7 +72,7 @@ class fighter():
         #load dead image
         temp_list = []
         for i in range(1,9):
-            img = pygame.image.load(f'picture/{self.namepic}/death/{i}.png')
+            img = pygame.image.load(f"{parent}\\resources\\picture\\{self.namepic}\\death\\{i}.png")
             self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
             temp_list.append(self.image)
         self.animationlist.append(temp_list)
@@ -118,7 +118,7 @@ class fighter():
             target.alive = False
             target.death()
         damage_text = dt.DamageText(target.rect.centerx, target.rect.y, str(damage), font.RED)
-        damage_text_group.add(damage_text)
+        cm.damage_text_group.add(damage_text)
         #the names for game log (-haarith, needs work not showing name of the user)
         gamelog.game_logs.append(f'{self.name} attacked {target.name} for {damage} damage')
         gamelog.game_logs.append(f'{target.name} blocked {(target.defence + rand)} damage from {self.name}')
@@ -145,8 +145,5 @@ class fighter():
     def draw(self):
         sc.screen.blit(self.image, self.rect)
         sc.draw_text(self.name, font.hp_font, font.RED, self.rect.centerx - 30, self.rect.y - 20)
-    
-
-damage_text_group = pygame.sprite.Group()
 
 

@@ -1,18 +1,21 @@
 import random
+from pathlib import Path
 
 import pygame
 
-import button
+from gui.button import Button as Button
 import classes
-import font
-import screen as sc
+import resources.font as font
+import resources as rsc
+import gui.screen as sc
 import gamelog
 
 pygame.init()
 
 clock = pygame.time.Clock()
 FPS = 60
- 
+
+parent = Path(__file__).parents[0]
 
 #define game variables
 
@@ -59,42 +62,19 @@ bandit2gui = False
 #////////////[ IMAGE AND SOUND LOAD AREA ]////////////////////////////[ IMAGE AND SOUND LOAD AREA }//////////////////////////////////////[ IMAGE AND SOUND LOAD AREA ]/////////////////
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#load buttom images
-resume_img = pygame.image.load('picture/button/resumebut.png')
-resume_img = pygame.transform.scale(resume_img, (resume_img.get_width()*3 ,resume_img.get_height()*3))
-option_img = pygame.image.load('picture/button/optionbut.png')
-option_img = pygame.transform.scale(option_img, (option_img.get_width()*3 ,option_img.get_height()*3))
-quit_img = pygame.image.load('picture/button/quitbut.png')
-quit_img = pygame.transform.scale(quit_img, (quit_img.get_width()*3 ,quit_img.get_height()*3))
-video_img = pygame.image.load('picture/button/videobut.png')
-video_img = pygame.transform.scale(video_img, (video_img.get_width()*3 ,video_img.get_height()*3))
-audio_img = pygame.image.load('picture/button/audiobut.png')
-audio_img = pygame.transform.scale(audio_img, (audio_img.get_width()*3 ,audio_img.get_height()*3))
-back_img = pygame.image.load('picture/button/backbut.png')
-back_img = pygame.transform.scale(back_img, (back_img.get_width()*3 ,back_img.get_height()*3))
-
 #create button instances
-resume_button = button.Button(5, 180, resume_img, 1)
-option_button = button.Button(270, 180, option_img, 1)
-backoption_button = button.Button(250, 350, option_img, 1)
-# quit_button = button.Button(530, 180, quit_img, 1)
-video_button = button.Button(150, 40, video_img, 1)
-audio_button = button.Button(350, 40, audio_img, 1)
-back_button = button.Button(530, 180, back_img, 1)
+resume_button = Button(5, 180, rsc.img.resume_img, 1)
+option_button = Button(270, 180, rsc.img.option_img, 1)
+backoption_button = Button(250, 350, rsc.img.option_img, 1)
+# quit_button = Button(530, 180, quit_img, 1)
+video_button = Button(150, 40, rsc.img.video_img, 1)
+audio_button = Button(350, 40, rsc.img.audio_img, 1)
+back_button = Button(530, 180, rsc.img.back_img, 1)
 
 #??
 
-
-
-#load image
-#load victory and defeat images
-victory_img = pygame.image.load('picture/victory.png')
-victory_img = pygame.transform.scale(victory_img, (600,500))
-defeat_img = pygame.image.load('picture/defeat.png')
-defeat_img = pygame.transform.scale(defeat_img, (600,500))
-
 #sword pointer image
-sword_img = pygame.image.load('picture/icon(trans)/PineTools.com_files/row-6-column-5.png').convert_alpha()
+sword_img = rsc.img.sword_img.convert_alpha()
 
 #sword sound
 attack_sfx = pygame.mixer.Sound('music/unsheath_sword-6113.mp3')
@@ -104,9 +84,6 @@ attack_sfx = pygame.mixer.Sound('music/unsheath_sword-6113.mp3')
 #//////////////[ DEF FUNCTION ]///////////////////////////////////////////[ DEF FUNCTION ]////////////////////////////////////////////[ DEF FUNCTION ]/////////////////////////////////
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-                            
 
    #draw the bandit names on the sc.screen (still needs work -haarith)
 def draw_bandit_names():
@@ -128,17 +105,15 @@ class healthbar():
         pygame.draw.rect(sc.screen,font.RED,( self.x, self.y, 150, 20))
         pygame.draw.rect(sc.screen,font.GREEN,( self.x, self.y, 150 * ratio , 20))
 
-    
-
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #//////////////[ GAME STAT ]///////////////////////////////////////////[ GAME STAT ]/////////////////////////////////////////////////////[ GAME STAT ]/////////////////////////////////
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-knight = classes.fighter(200, 260, font.input_text1,'knightpic', 40, 10, 6)
+knight = classes.Fighter(200, 260, font.input_text1,'knightpic', 40, 10, 6)
 randomAI = str(random.randint(10,99))
 randomAI2 = str(random.randint(10,99)) 
 
-bandit1 = classes.fighter(550, 200 , '(AI ' + randomAI + ')', 'banditpic', 20, 10 , 6)
-bandit2 = classes.fighter(650, 250 ,'(AI ' + randomAI2 + ')', 'banditpic', 20, 6 , 6)
+bandit1 = classes.Fighter(550, 200 , '(AI ' + randomAI + ')', 'banditpic', 20, 10 , 6)
+bandit2 = classes.Fighter(650, 250 ,'(AI ' + randomAI2 + ')', 'banditpic', 20, 6 , 6)
 
 bandit_list = []
 bandit_list.append(bandit1)
@@ -148,7 +123,6 @@ knight_health_bar = healthbar(80, 30 , knight.hp, knight.max_hp)
 bandit1_health_bar = healthbar(550,30 , bandit1.hp, bandit1.max_hp)
 bandit2_health_bar = healthbar(550,70, bandit2.hp, bandit2.max_hp)
 
-
 knight_health_bar.draw(knight.hp)
 bandit1_health_bar.draw(bandit1.hp)
 bandit2_health_bar.draw(bandit2.hp)
@@ -157,12 +131,9 @@ bandit2_health_bar.draw(bandit2.hp)
 #//////////////[ GAME START ]///////////////////////////////////////////[ GAME START ]//////////////////////////////////////////////////[ GAME START ]/////////////////////////////////
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
 #use to loop the game
 run = True   
 while run: 
-
 
     clock.tick(FPS)
     #main
@@ -260,7 +231,7 @@ while run:
                                 if press1[i] == True:
                                     font.input_text1 += pygame.key.name(i)
 
-                            knight = classes.fighter(200, 260, '(' + font.input_text1 + ')','knightpic', 40, 10, 6)   
+                            knight = classes.Fighter(200, 260, '(' + font.input_text1 + ')','knightpic', 40, 10, 6)   
                     if input2 == True:
                         if event.key == pygame.K_BACKSPACE:
                             font.input_text2 = font.input_text2[0:-1]
@@ -273,6 +244,7 @@ while run:
                             for i in range( pygame.K_0, pygame.K_9 + 1 ): 
                                 if press[i] == True:
                                     font.input_text2 += pygame.key.name(i)
+                                    
     #pause menu
     if menu_state == 2 :
         sc.screen.fill((0, 0, 0))
@@ -346,17 +318,16 @@ while run:
         sc.draw_text('Surrender', font.gui_font, color_power , 80 , 490 )
         sc.draw_text('(press E to select)', font.smaller_gui_font, color_power, 200, 494)
 
-         #draw fighter
+        #draw fighter
         knight.update()
         knight.draw()
         for bandit in bandit_list:
             bandit.update()
             bandit.draw()
 
-         #draw the damage text 
-        classes.damage_text_group.update()
-        classes.damage_text_group.draw(sc.screen)
-
+        #draw the damage text 
+        classes.cm.damage_text_group.update()
+        classes.cm.damage_text_group.draw(sc.screen)
 
         # #control player action
         # #reset action variables
@@ -423,11 +394,11 @@ while run:
             music = pygame.mixer.music.load('music/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Fx 3.mp3')
             pygame.mixer_music.play(-1)
             if game_over == 1:
-                sc.screen.blit(victory_img,(160,50))
+                sc.screen.blit(rsc.img.victory_img,(160,50))
                     
                     
             if game_over == -1:
-                sc.screen.blit(defeat_img,(160,50))   
+                sc.screen.blit(rsc.img.defeat_img,(160,50))   
 
         
     #function to restart the game (add by haarith)
@@ -455,9 +426,9 @@ while run:
                     pygame.mouse.set_visible(True)  #cursor
 
                     # Reset game variables
-                    knight = classes.fighter(200, 260, font.input_text1,'knightpic', 40, 10, 6)
-                    bandit1 = classes.fighter(550, 200 , 'AI ' + randomAI, 'banditpic', 20, 10 , 6)
-                    bandit2 = classes.fighter(650, 250 ,'AI ' + randomAI2, 'banditpic', 20, 6 , 6)
+                    knight = classes.Fighter(200, 260, font.input_text1,'knightpic', 40, 10, 6)
+                    bandit1 = classes.Fighter(550, 200 , 'AI ' + randomAI, 'banditpic', 20, 10 , 6)
+                    bandit2 = classes.Fighter(650, 250 ,'AI ' + randomAI2, 'banditpic', 20, 6 , 6)
 
                     bandit_list = []
                     bandit_list.append(bandit1)
@@ -553,27 +524,28 @@ while run:
                 elif event.key == pygame.K_q:
                     menu_state =4
 
+# FIX THE FILE PATHS FOR THIS 
             if menu_state == 'easter':
                 music = pygame.mixer.music.load('music/Dancin-(Krono-Remix)(PaglaSongs).mp3')
                 music_run = True
                 pygame.mixer_music.play(-1)
                 for i in range(1,71):
-                    easteregg_img = pygame.image.load(f'picture/milo/milo ({i}).jpg')
+                    easteregg_img = pygame.image.load(f"{parent}\\resources\\picture\\milo\\milo ({i}).jpg")
                     sc.screen.blit(easteregg_img, (100,100))
                     pygame.display.flip()
                     clock.tick(24)
                 for i in range(1,71):
-                    easteregg_img = pygame.image.load(f'picture/milo/milo ({i}).jpg')
+                    easteregg_img = pygame.image.load(f"{parent}\\resources\\picture\\milo\\milo ({i}).jpg")
                     sc.screen.blit(easteregg_img, (100,100))
                     pygame.display.flip()
                     clock.tick(24)
                 for i in range(1,71):
-                    easteregg_img = pygame.image.load(f'picture/milo/milo ({i}).jpg')
+                    easteregg_img = pygame.image.load(f"{parent}\\picture\\milo\\milo ({i}).jpg")
                     sc.screen.blit(easteregg_img, (100,100))
                     pygame.display.flip()
                     clock.tick(24)
                 
-                # sc.screen.fill((0, 0, 0))
+                sc.screen.fill((0, 0, 0))
                 menu_state = 4
                 
 
@@ -594,7 +566,5 @@ while run:
             clicked = False
 
     pygame.display.update()
-
-
 
 pygame.quit()

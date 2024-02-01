@@ -7,7 +7,8 @@
 
 
 import pygame
-import font
+import resources.font as font
+from resources import img
 
 pygame.init()
 
@@ -21,13 +22,11 @@ pygame.display.set_caption("RPG GAME")
 
 
 #load image
-#background image
-background_img = pygame.image.load('picture/background3.png')
+
+background_img = img.background_img
 background_img = pygame.transform.scale(background_img, (SCREEN_WIDTH,(SCREEN_HEIGHT-BOTTOM_PANEL)))
 
-
-#panel image
-panel_img = pygame.image.load('picture/UI board Large  parchment.png')
+panel_img = img.panel_img
 panel_img = pygame.transform.scale(panel_img, (SCREEN_WIDTH,BOTTOM_PANEL))
 
 input_rect = pygame.Rect(350,200,140,32)
