@@ -63,22 +63,18 @@ bandit2gui = False
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #create button instances
-resume_button = Button(5, 180, rsc.img.resume_img, 1)
-option_button = Button(270, 180, rsc.img.option_img, 1)
-backoption_button = Button(250, 350, rsc.img.option_img, 1)
+resume_button = Button(5, 180, rsc.image.resume_img, 1)
+option_button = Button(270, 180, rsc.image.option_img, 1)
+backoption_button = Button(250, 350, rsc.image.option_img, 1)
 # quit_button = Button(530, 180, quit_img, 1)
-video_button = Button(150, 40, rsc.img.video_img, 1)
-audio_button = Button(350, 40, rsc.img.audio_img, 1)
-back_button = Button(530, 180, rsc.img.back_img, 1)
+video_button = Button(150, 40, rsc.image.video_img, 1)
+audio_button = Button(350, 40, rsc.image.audio_img, 1)
+back_button = Button(530, 180, rsc.image.back_img, 1)
 
 #??
 
 #sword pointer image
-sword_img = rsc.img.sword_img.convert_alpha()
-
-#sword sound
-attack_sfx = pygame.mixer.Sound('music/unsheath_sword-6113.mp3')
-
+sword_img = rsc.image.sword_img.convert_alpha()
 
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #//////////////[ DEF FUNCTION ]///////////////////////////////////////////[ DEF FUNCTION ]////////////////////////////////////////////[ DEF FUNCTION ]/////////////////////////////////
@@ -195,7 +191,7 @@ while run:
                         elif startbutton == True:
                             menu_state = 4
                             attackTF = True
-                            music = pygame.mixer.music.load('music/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Action 3.mp3')
+                            music = pygame.mixer.music.load(rsc.sound.start)
                             pygame.mixer_music.play(-1)
                             
                     elif event.key == pygame.K_DOWN:
@@ -356,7 +352,7 @@ while run:
                     #attack
                     if attack == True and target != None:
                         knight.attack(target)
-                        attack_sfx.play()
+                        rsc.sound.sword_sfx.play()
                         target = None
                         current_fighter += 1
                         action_cooldown = 0
@@ -371,7 +367,7 @@ while run:
                     if action_cooldown >= action_wait_time:
                         #attack
                         bandit.attack(knight)
-                        attack_sfx.play()
+                        rsc.sound.sword_sfx.play()
                         current_fighter += 1
                         action_cooldown = 0
                 else:
@@ -391,14 +387,14 @@ while run:
                 
          #check if game is over
         if game_over != 0:
-            music = pygame.mixer.music.load('music/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Fx 3.mp3')
+            music = pygame.mixer.music.load(rsc.sound.game_over)
             pygame.mixer_music.play(-1)
             if game_over == 1:
-                sc.screen.blit(rsc.img.victory_img,(160,50))
+                sc.screen.blit(rsc.image.victory_img,(160,50))
                     
                     
             if game_over == -1:
-                sc.screen.blit(rsc.img.defeat_img,(160,50))   
+                sc.screen.blit(rsc.image.defeat_img,(160,50))   
 
         
     #function to restart the game (add by haarith)
@@ -522,11 +518,12 @@ while run:
                         bandit2gui = False
                         bandit1gui = True
                 elif event.key == pygame.K_q:
-                    menu_state =4
+                    menu_state = 4
 
 # FIX THE FILE PATHS FOR THIS 
             if menu_state == 'easter':
-                music = pygame.mixer.music.load('music/Dancin-(Krono-Remix)(PaglaSongs).mp3')
+                pygame.mixer.music.unload()
+                music = pygame.mixer.music.load(rsc.sound.easter)
                 music_run = True
                 pygame.mixer_music.play(-1)
                 for i in range(1,71):
@@ -547,7 +544,6 @@ while run:
                 
                 sc.screen.fill((0, 0, 0))
                 menu_state = 4
-                
 
             if menu_state != (0 and 1) :
                 if event.key == pygame.K_ESCAPE:
@@ -564,7 +560,8 @@ while run:
             clicked = True
         else:
             clicked = False
-
+            
+    print(f"Current menu state: {menu_state}")
     pygame.display.update()
 
 pygame.quit()

@@ -7,8 +7,10 @@
 
 
 import pygame
+
 import resources.font as font
-from resources import img
+import resources.sound as sound
+import resources.image as image
 
 pygame.init()
 
@@ -23,17 +25,17 @@ pygame.display.set_caption("RPG GAME")
 
 #load image
 
-background_img = img.background_img
+background_img = image.background_img
 background_img = pygame.transform.scale(background_img, (SCREEN_WIDTH,(SCREEN_HEIGHT-BOTTOM_PANEL)))
 
-panel_img = img.panel_img
+panel_img = image.panel_img
 panel_img = pygame.transform.scale(panel_img, (SCREEN_WIDTH,BOTTOM_PANEL))
 
 input_rect = pygame.Rect(350,200,140,32)
 inputgame_rect = pygame.Rect(150,7,140,32)
 input2_rect = pygame.Rect(350,300,140,32)
 
-music = pygame.mixer.music.load('music/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Ambient 2.mp3')
+music = pygame.mixer.music.load(sound.battle)
 
 #function for drawing text
 def draw_text(text,font,text_col,x,y):
