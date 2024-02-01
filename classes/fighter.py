@@ -42,7 +42,7 @@ class Unit():
         #load image
         temp_list = []
         for i in range(1,5):
-            img = pygame.image.load(f"{parent}\\resources\\picture\\{self.namepic}\\idle\\{i}.png")
+            img = pygame.image.load(f"{Path('resources/picture/{self.namepic}/idle/{i}.png')}")
             self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
             temp_list.append(self.image)
         self.animationlist.append(temp_list) #list of list
@@ -51,12 +51,12 @@ class Unit():
         temp_list = []
         for i in range(1,10):
             if {self.namepic} == "knightpic" :
-                img = pygame.image.load(f"{parent}\\resources\\picture\\{self.namepic}\\attack\\{i}.png")
+                img = pygame.image.load(f"{Path('resources/picture/{self.namepic}/attack/{i}.png')}")
                 self.image = pygame.transform.scale(img, (img.get_width()*6 ,img.get_height()*6))
         
         # Move this to Tank or a different class
             else:
-                img = pygame.image.load(f"{parent}\\resources\\picture\\{self.namepic}\\attack\\{i}.png")
+                img = pygame.image.load(f"{Path('resources/picture/{self.namepic}/attack/{i}.png')}")
                 self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
             temp_list.append(self.image)
         self.animationlist.append(temp_list)
@@ -64,7 +64,7 @@ class Unit():
         #load hurt image
         temp_list = []
         for i in range(1,3):
-            img = pygame.image.load(f"{parent}\\resources\\picture\\{self.namepic}\\hurt\\{i}.png")
+            img = pygame.image.load(f"{Path('resources/picture/{self.namepic}/hurt/{i}.png')}")
             self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
             temp_list.append(self.image)
         self.animationlist.append(temp_list)
@@ -72,7 +72,7 @@ class Unit():
         #load dead image
         temp_list = []
         for i in range(1,9):
-            img = pygame.image.load(f"{parent}\\resources\\picture\\{self.namepic}\\death\\{i}.png")
+            img = pygame.image.load(f"{Path('resources/picture/{self.namepic}/death/{i}.png')}")
             self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
             temp_list.append(self.image)
         self.animationlist.append(temp_list)
