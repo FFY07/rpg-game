@@ -46,4 +46,3 @@ input_text1, input_text2 = '', ''
 
 color_active = pygame.Color('white')
 color_passive = pygame.Color('gray15')
-colorinput1, colorinput2, colorstartbutton = color_passive, color_passive, color_passive
