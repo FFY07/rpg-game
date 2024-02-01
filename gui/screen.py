@@ -45,12 +45,7 @@ def draw_text(text,font,text_col,x,y):
 #function for draw background
 def draw_bg():
     screen.blit(background_img,(0,0))
-def draw_main():
-    screen.fill((0, 0, 0))
-    pygame.mixer_music.play(-1, 2)
-    draw_text ('PSB PROGRAMMING ASSIGNMENT', font.menu_font, font.TEXT_COL,80 , SCREEN_HEIGHT / 2 - 120)
-    draw_text('TURN BASED RPG', font.menu_font, font.TEXT_COL, 220, SCREEN_HEIGHT / 2 - 80)
-    draw_text('>>> PRESS SPACEBAR TO START THE GAME <<<', font.gui_font, font.YELLOW , 120 , SCREEN_HEIGHT/ 2 + 150)
+
 
 #function for draw panel
 def draw_panel():

@@ -10,6 +10,9 @@ import resources as rsc
 import gui.screen as sc
 import gamelog
 
+
+#menu
+import menustate_0 as ms0
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -127,8 +130,9 @@ while run:
 
     clock.tick(FPS)
     #main
-    if menu_state ==  0 :            # 0 : main , 1:start,2pause 3:option, 4:play, 5:gameover 6 attack
-        sc.draw_main()
+    if menu_state ==  0 : 
+     # 0 : main , 1:start,2pause 3:option, 4:play, 5:gameover 6 attack
+        ms0.draw_main()
     #start menu
     if menu_state == 1 :
         sc.screen.fill((0, 0, 0))
