@@ -1,3 +1,5 @@
-#ignore these
+#ignore the python cache folders
 __pycache__/
+
+#ignore the gamelog
 gamelog.txt
