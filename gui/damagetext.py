@@ -21,25 +21,23 @@ class DamageText(pygame.sprite.Sprite):
 		self.image = font.render(damage, True, colour).convert_alpha()
 		self.rect = self.image.get_rect()
 		self.rect.center = (x, y)
-		self.counter = 0
+		self.max_lifetime = 180
+		self.lifetime = self.max_lifetime
 
-
-        
 	def update(self):
-		self.fade_start = 10
+		self.fade_start = 90
 		self.fly_speed = 1
-		self.end = 60
   
 		#move damage text up
 		self.rect.y -= self.fly_speed
-		#delete the text after a few seconds
-		self.counter += 1
-		
-		if self.counter > self.fade_start:
-			normaliser = (self.counter - self.fade_start) / (self.end - self.fade_start)
-			self.image.set_alpha(255 * normaliser)
-			print(f"normaliser: {normaliser}")
-  
-		if self.counter > self.end:
+		#delete the text after n frames
+		self.lifetime -= 1
+
+		if self.lifetime > self.fade_start:
+			normaliser = (self.lifetime - self.fade_start) / (self.max_lifetime - self.fade_start)
+			self.image.set_alpha(int(f"{int((255 * normaliser))}"))
+			print(f"Formula: {self.lifetime} (counter) - {self.fade_start} (Fade Start) / {self.max_lifetime} (Kill) - {self.fade_start} (Fade Start) = {normaliser}")
+			print(f"Alpha: 255 * {normaliser} = {int((255 * normaliser))}")
+		if self.lifetime <= 0:
 			self.kill()
 	
