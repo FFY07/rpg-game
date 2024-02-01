@@ -15,8 +15,6 @@ pygame.init()
 clock = pygame.time.Clock()
 FPS = 60
 
-parent = Path(__file__).parents[0]
-
 #define game variables
 
 game_paused = False
@@ -527,17 +525,17 @@ while run:
                 music_run = True
                 pygame.mixer_music.play(-1)
                 for i in range(1,71):
-                    easteregg_img = pygame.image.load(f"{parent}\\resources\\picture\\milo\\milo ({i}).jpg")
+                    easteregg_img = pygame.image.load(f"{Path(f'resources/picture/milo/milo ({i}).jpg')}")
                     sc.screen.blit(easteregg_img, (100,100))
                     pygame.display.flip()
                     clock.tick(24)
                 for i in range(1,71):
-                    easteregg_img = pygame.image.load(f"{parent}\\resources\\picture\\milo\\milo ({i}).jpg")
+                    easteregg_img = pygame.image.load(f"{Path(f'resources/picture/milo/milo ({i}).jpg')}")
                     sc.screen.blit(easteregg_img, (100,100))
                     pygame.display.flip()
                     clock.tick(24)
                 for i in range(1,71):
-                    easteregg_img = pygame.image.load(f"{parent}\\picture\\milo\\milo ({i}).jpg")
+                    easteregg_img = pygame.image.load(f"{Path(f'resources/picture/milo/milo ({i}).jpg')}")
                     sc.screen.blit(easteregg_img, (100,100))
                     pygame.display.flip()
                     clock.tick(24)
