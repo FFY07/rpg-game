@@ -21,7 +21,7 @@ FPS = 60
 #define game variables
 
 game_paused = False
-menu_state = 0  # 0 : main , 1:start, 2:option, 3:play
+menu_state = -1  # 0 : main , 1:start, 2:option, 3:play
 
 current_fighter = 1
 total_fighter = 3
@@ -127,7 +127,9 @@ bandit2_health_bar.draw(bandit2.hp)
 #use to loop the game
 run = True   
 while run: 
-
+    if menu_state == -1:
+        pygame.mixer_music.play(-1, 2)
+        menu_state = 0
     clock.tick(FPS)
     #main
     if menu_state ==  0 : 
@@ -189,7 +191,7 @@ while run:
                         elif startbutton == True:
                             menu_state = 4
                             attackTF = True
-                            music = pygame.mixer.music.load(rsc.sound.start)
+                            music = pygame.mixer.music.load(rsc.sound.battle)
                             pygame.mixer_music.play(-1)
                             
                     elif event.key == pygame.K_DOWN:

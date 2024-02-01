@@ -35,7 +35,7 @@ input_rect = pygame.Rect(350,200,140,32)
 inputgame_rect = pygame.Rect(150,7,140,32)
 input2_rect = pygame.Rect(350,300,140,32)
 
-music = pygame.mixer.music.load(sound.battle)
+music = pygame.mixer.music.load(sound.start)
 
 #function for drawing text
 def draw_text(text,font,text_col,x,y):
