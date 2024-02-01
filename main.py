@@ -127,7 +127,11 @@ bandit2_health_bar.draw(bandit2.hp)
 #use to loop the game
 run = True   
 while run: 
-    if menu_state == -1:
+
+    # menustate == -1 is use to fix no music during menustate == 0 (mainmenu)
+    if menu_state == -1:       
+        sc.screen.fill((0, 0, 0))
+        music = pygame.mixer.music.load(rsc.sound.start)
         pygame.mixer_music.play(-1, 2)
         menu_state = 0
     clock.tick(FPS)
