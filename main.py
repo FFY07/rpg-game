@@ -561,7 +561,7 @@ while run:
         else:
             clicked = False
             
-    print(f"Current menu state: {menu_state}")
+    # print(f"Current menu state: {menu_state}") DEBUG
     pygame.display.update()
 
 pygame.quit()

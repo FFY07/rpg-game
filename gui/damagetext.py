@@ -11,24 +11,35 @@
 
 
 import pygame
-import resources.font as font
+from resources.font import font
 
 pygame.init()
 
 class DamageText(pygame.sprite.Sprite):
 	def __init__(self, x, y, damage, colour):
 		pygame.sprite.Sprite.__init__(self)
-		self.image = font.font.render(damage, True, colour)
+		self.image = font.render(damage, True, colour).convert_alpha()
 		self.rect = self.image.get_rect()
 		self.rect.center = (x, y)
-		self.counter = 0	
+		self.counter = 0
+
 
         
 	def update(self):
+		self.fade_start = 10
+		self.fly_speed = 1
+		self.end = 60
+  
 		#move damage text up
-		self.rect.y -= 1
+		self.rect.y -= self.fly_speed
 		#delete the text after a few seconds
 		self.counter += 1
-		if self.counter > 30:
+		
+		if self.counter > self.fade_start:
+			normaliser = (self.counter - self.fade_start) / (self.end - self.fade_start)
+			self.image.set_alpha(255 * normaliser)
+			print(f"normaliser: {normaliser}")
+  
+		if self.counter > self.end:
 			self.kill()
 	

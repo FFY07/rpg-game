@@ -1,26 +1,18 @@
-attacked (AI 20) for 4 damage
-(AI 20) blocked 7 damage from
-(AI 20) attacked  for 4 damage
-blocked 6 damage from (AI 20)
-(AI 37) attacked  for 0 damage
-blocked 6 damage from (AI 37)
-attacked (AI 20) for 4 damage
-(AI 20) blocked 3 damage from
-(AI 20) attacked  for 4 damage
-blocked 5 damage from (AI 20)
-(AI 37) attacked  for 0 damage
-blocked 2 damage from (AI 37)
-attacked (AI 20) for 4 damage
-(AI 20) blocked 9 damage from
-(AI 20) attacked  for 4 damage
-blocked 4 damage from (AI 20)
-(AI 37) attacked  for 0 damage
-blocked 7 damage from (AI 37)
-attacked (AI 20) for 4 damage
-(AI 20) blocked 2 damage from
-(AI 20) attacked  for 4 damage
-blocked 10 damage from (AI 20)
-(AI 37) attacked  for 0 damage
-blocked 3 damage from (AI 37)
-attacked (AI 20) for 4 damage
-(AI 20) blocked 10 damage from
+(e) attacked (AI 38) for 4 damage
+(AI 38) blocked 4 damage from (e)
+(AI 38) attacked (e) for 4 damage
+(e) blocked 5 damage from (AI 38)
+(AI 28) attacked (e) for 0 damage
+(e) blocked 11 damage from (AI 28)
+(e) attacked (AI 38) for 4 damage
+(AI 38) blocked 4 damage from (e)
+(AI 38) attacked (e) for 4 damage
+(e) blocked 1 damage from (AI 38)
+(AI 28) attacked (e) for 0 damage
+(e) blocked 1 damage from (AI 28)
+(e) attacked (AI 38) for 4 damage
+(AI 38) blocked 7 damage from (e)
+(AI 38) attacked (e) for 4 damage
+(e) blocked 8 damage from (AI 38)
+(AI 28) attacked (e) for 0 damage
+(e) blocked 2 damage from (AI 28)
