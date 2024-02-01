@@ -22,8 +22,9 @@ import resources as rsc
 
 parent = Path(__file__).parents[1]
 
-
 pygame.init()
+
+# TURN THIS INTO pygame.sprite.Sprite!!!!!!!!!
 
 class Unit():
     def __init__(self,x,y,name,namepic,max_hp,strength,defence):
