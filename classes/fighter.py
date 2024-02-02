@@ -119,7 +119,7 @@ class Unit():
             target.alive = False
             target.death()
         damage_text = dt.DamageText(target.rect.centerx, target.rect.y, str(damage), font.RED)
-        cm.damage_text_group.add(damage_text)
+        dt.damage_text_group.add(damage_text)
         #the names for game log (-haarith, needs work not showing name of the user)
         gamelog.game_logs.append(f'{self.name} attacked {target.name} for {damage} damage')
         gamelog.game_logs.append(f'{target.name} blocked {(target.defence + rand)} damage from {self.name}')

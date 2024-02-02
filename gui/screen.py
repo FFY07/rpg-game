@@ -5,7 +5,6 @@
 
 '''
 
-
 import pygame
 
 import resources.font as font
@@ -22,7 +21,6 @@ SCREEN_HEIGHT = 400 + BOTTOM_PANEL
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 pygame.display.set_caption("RPG GAME")
 
-
 #load image
 
 background_img = image.background_img
@@ -35,7 +33,6 @@ input_rect = pygame.Rect(350,200,140,32)
 inputgame_rect = pygame.Rect(150,7,140,32)
 input2_rect = pygame.Rect(350,300,140,32)
 
-
 #function for drawing text
 def draw_text(text,font,text_col,x,y):
     img = font.render(text,True,text_col)
@@ -44,7 +41,6 @@ def draw_text(text,font,text_col,x,y):
 #function for draw background
 def draw_bg():
     screen.blit(background_img,(0,0))
-
 
 #function for draw panel
 def draw_panel():

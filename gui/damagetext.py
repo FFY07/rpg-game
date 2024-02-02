@@ -5,15 +5,12 @@
 
 '''
 
-
-
-
-
-
 import pygame
 from resources.font import font
 
 pygame.init()
+
+damage_text_group = pygame.sprite.Group()
 
 class DamageText(pygame.sprite.Sprite):
 	def __init__(self, x, y, damage, colour):
@@ -40,4 +37,3 @@ class DamageText(pygame.sprite.Sprite):
 			print(f"Alpha: 255 * {normaliser} = {int((255 * normaliser))}")
 		if self.lifetime <= 0:
 			self.kill()
-	
