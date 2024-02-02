@@ -33,7 +33,10 @@ class DamageText(pygame.sprite.Sprite):
 		if self.lifetime > self.fade_start:
 			normaliser = (self.lifetime - self.fade_start) / (self.max_lifetime - self.fade_start)
 			self.image.set_alpha(int(f"{int((255 * normaliser))}"))
-			print(f"Formula: {self.lifetime} (counter) - {self.fade_start} (Fade Start) / {self.max_lifetime} (Kill) - {self.fade_start} (Fade Start) = {normaliser}")
-			print(f"Alpha: 255 * {normaliser} = {int((255 * normaliser))}")
+
+			#use to debug 
+			# print(f"Formula: {self.lifetime} (counter) - {self.fade_start} (Fade Start) / {self.max_lifetime} (Kill) - {self.fade_start} (Fade Start) = {normaliser}")
+			# print(f"Alpha: 255 * {normaliser} = {int((255 * normaliser))}")
+			
 		if self.lifetime <= 0:
 			self.kill()

@@ -17,10 +17,7 @@ import gui.damagetext as dt
 import resources.font as font
 import gamelog
 
-from classes import class_methods as cm
 import resources as rsc
-
-parent = Path(__file__).parents[1]
 
 pygame.init()
 
@@ -109,7 +106,7 @@ class Unit():
     def attack(self, target):
         #deal damage to the enemy
         rand = random.randint(-5, 5)
-        damage = (self.strength + rand) - (self.defence + rand)
+        damage = (self.strength + rand) - (self.defence)
         target.hp -= damage 
         #run enemy animation
         target.hurt()

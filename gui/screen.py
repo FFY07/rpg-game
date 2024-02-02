@@ -15,8 +15,8 @@ pygame.init()
 
 #game window
 BOTTOM_PANEL = 150
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 400 + BOTTOM_PANEL
+SCREEN_WIDTH = 800                       
+SCREEN_HEIGHT = 400 + BOTTOM_PANEL 
 
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 pygame.display.set_caption("RPG GAME")
