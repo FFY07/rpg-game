@@ -15,4 +15,4 @@ game_over = f"{Path('resources/sound/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Fx 
 sword_sfx = pygame.mixer.Sound(f"{Path('resources/sound/unsheath_sword-6113.mp3')}")
 
 # Stupid section
-easter = f"{Path('resources/sound/Dancin-(Krono-Remix)(PaglaSongs).mp3')}"
+easter = f"{Path('resources/sound/jocofullinterview41.mp3')}"

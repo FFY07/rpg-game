@@ -13,7 +13,7 @@ import gui.damagetext as dt
 
 #menu
 import menustate_0 as ms0
-import menustate_3 as ms3
+
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -60,8 +60,16 @@ powerTF = False
 bandit1gui = True
 bandit2gui = False
 
-#??
+#create button instances
+resume_button = Button(5, 180, rsc.image.resume_img, 1)
+option_button = Button(270, 180, rsc.image.option_img, 1)
+backoption_button = Button(250, 350, rsc.image.option_img, 1)
+# quit_button = Button(530, 180, quit_img, 1)
+video_button = Button(150, 40, rsc.image.video_img, 1)
+audio_button = Button(350, 40, rsc.image.audio_img, 1)
+back_button = Button(530, 180, rsc.image.back_img, 1)
 
+#??
 
 #sword pointer image
 sword_img = rsc.image.sword_img.convert_alpha()
@@ -259,7 +267,15 @@ while run:
         # check if the option menu is open
     #option menu        
     if menu_state == 3 :
-        ms3.draw_menu3()
+        sc.screen.fill((0, 0, 0))
+
+        pygame.mouse.set_visible(True)
+        if video_button.draw(sc.screen):
+            print('i didnt make a code for Video Settings :3')
+        if audio_button.draw(sc.screen):
+            print('i didnt make a code for music Settings :3')
+        if backoption_button.draw(sc.screen):
+            menu_state = menu_state - 1
     #game menu
     if menu_state == 4:
 
@@ -531,22 +547,17 @@ while run:
                 music = pygame.mixer.music.load(rsc.sound.easter)
                 music_run = True
                 pygame.mixer_music.play(-1)
-                for i in range(1,71):
-                    easteregg_img = pygame.image.load(f"{Path(f'resources/picture/milo/milo ({i}).jpg')}")
-                    sc.screen.blit(easteregg_img, (100,100))
+                for i in range(1,121):
+                    easteregg_img = pygame.image.load(f"{Path(f'resources/picture/rickroll/rickroll ({i}).png')}")
+                    sc.screen.blit(easteregg_img, (100,50))
                     pygame.display.flip()
                     clock.tick(24)
-                for i in range(1,71):
-                    easteregg_img = pygame.image.load(f"{Path(f'resources/picture/milo/milo ({i}).jpg')}")
-                    sc.screen.blit(easteregg_img, (100,100))
+                for i in range(1,121):
+                    easteregg_img = pygame.image.load(f"{Path(f'resources/picture/rickroll/rickroll ({i}).png')}")
+                    sc.screen.blit(easteregg_img, (100,50))
                     pygame.display.flip()
                     clock.tick(24)
-                for i in range(1,71):
-                    easteregg_img = pygame.image.load(f"{Path(f'resources/picture/milo/milo ({i}).jpg')}")
-                    sc.screen.blit(easteregg_img, (100,100))
-                    pygame.display.flip()
-                    clock.tick(24)
-                
+                    
                 sc.screen.fill((0, 0, 0))
                 menu_state = 4
 
