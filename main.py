@@ -42,7 +42,7 @@ colorAskinput1 = pygame.Color('BLACK')
 colorAskinput2 = pygame.Color('BLACK')
 
 start_text = 'Begin your adventure..'
-start_rect = pygame.Rect(500,500,140,32)
+start_rect = pygame.Rect(700,500,140,32)
 
 
 
@@ -103,15 +103,15 @@ class healthbar():
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #//////////////[ GAME STAT ]///////////////////////////////////////////[ GAME STAT ]/////////////////////////////////////////////////////[ GAME STAT ]/////////////////////////////////
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-knight = classes.Fighter(200, 260, font.input_text1,'knightpic', 40, 10, 6)
+knight = classes.Fighter(200, 260, font.input_text1,'knightpic', 40, 30, 6)
 ai1 = '(AI '  + str(random.randint(10,99)) + ')'
 ai2 = '(AI '  + str(random.randint(10,99)) + ')'
 ai3 = '(AI '  + str(random.randint(10,99)) + ')'
 
 
-bandit1 = classes.Fighter(550, 200 , ai1, 'banditpic', 20, 10 , 6)
-bandit2 = classes.Fighter(650, 250 , ai2, 'banditpic', 20, 6 , 6)
-bandit3 = classes.Fighter(550, 300 , ai3, 'banditpic', 20, 6 , 6)
+bandit1 = classes.Fighter(720, 200 , ai1, 'banditpic', 20, 10 , 6)
+bandit2 = classes.Fighter(790, 250 , ai2, 'banditpic', 20, 6 , 6)
+bandit3 = classes.Fighter(860, 300 , ai3, 'banditpic', 20, 6 , 6)
 
 bandit_list = []
 bandit_list.append(bandit1)
@@ -119,9 +119,9 @@ bandit_list.append(bandit2)
 bandit_list.append(bandit3)
 
 knight_health_bar = healthbar(80, 30 , knight.hp, knight.max_hp)
-bandit1_health_bar = healthbar(550,30 , bandit1.hp, bandit1.max_hp)
-bandit2_health_bar = healthbar(550,70, bandit2.hp, bandit2.max_hp)
-bandit3_health_bar = healthbar(550,110, bandit3.hp, bandit3.max_hp)
+bandit1_health_bar = healthbar(800,30 , bandit1.hp, bandit1.max_hp)
+bandit2_health_bar = healthbar(800,70, bandit2.hp, bandit2.max_hp)
+bandit3_health_bar = healthbar(800,110, bandit3.hp, bandit3.max_hp)
 
 knight_health_bar.draw(knight.hp)
 bandit1_health_bar.draw(bandit1.hp)
@@ -296,7 +296,7 @@ while run:
         #bandit stats
         for count, i in enumerate(bandit_list):
             #show name and health
-            sc.draw_text(f'{i.name} HP: {i.hp}',font.hp_font, font.RED, 550, (12) + count  * 42)
+            sc.draw_text(f'{i.name} HP: {i.hp}',font.hp_font, font.RED, 800, (12) + count  * 42)
 
 
         #draw health bar
@@ -451,18 +451,25 @@ while run:
                     pygame.mouse.set_visible(True)  #cursor
 
                     # Reset game variables
-                    knight = classes.Fighter(200, 260, font.input_text1,'knightpic', 40, 10, 6)
-                    bandit1 = classes.Fighter(550, 200 , 'AI ' + randomAI, 'banditpic', 20, 10 , 6)
-                    bandit2 = classes.Fighter(650, 250 ,'AI ' + randomAI2, 'banditpic', 20, 6 , 6)
+                    ai1 = '(AI '  + str(random.randint(10,99)) + ')'
+                    ai2 = '(AI '  + str(random.randint(10,99)) + ')'
+                    ai3 = '(AI '  + str(random.randint(10,99)) + ')'
+
+
+                    bandit1 = classes.Fighter(720, 200 , ai1, 'banditpic', 20, 10 , 6)
+                    bandit2 = classes.Fighter(790, 250 , ai2, 'banditpic', 20, 6 , 6)
+                    bandit3 = classes.Fighter(860, 300 , ai3, 'banditpic', 20, 6 , 6)
 
                     bandit_list = []
                     bandit_list.append(bandit1)
                     bandit_list.append(bandit2)
+                    bandit_list.append(bandit3)
 
                     knight_health_bar = healthbar(80, 30 , knight.hp, knight.max_hp)
                     bandit1_health_bar = healthbar(550,30 , bandit1.hp, bandit1.max_hp)
                     bandit2_health_bar = healthbar(550,70, bandit2.hp, bandit2.max_hp)
-                    
+                    bandit3_health_bar = healthbar(800,110, bandit3.hp, bandit3.max_hp)
+
                 elif event.key == pygame.K_q:
                     run = False
 
@@ -512,10 +519,13 @@ while run:
                     bandit.draw()
                 if bandit1.alive == True:
                     sc.draw_text(ai1, font.gui_font, color_bandit1 , 80 , 430 )
+                    sc.draw_text('HP: ' + str(bandit1.hp), font.hp_font, color_bandit1, 160, 435)
                 if bandit2.alive == True:
                     sc.draw_text(ai2, font.gui_font, color_bandit2 , 80 , 460 )
+                    sc.draw_text('HP: ' + str(bandit2.hp), font.hp_font, color_bandit2, 160, 465)
                 if bandit3.alive == True:
                     sc.draw_text(ai3, font.gui_font, color_bandit3 , 80 , 490 )
+                    sc.draw_text('HP: ' + str(bandit3.hp), font.hp_font, color_bandit3, 160, 495)
 
                 
                 if bandit1gui == True:
@@ -532,15 +542,15 @@ while run:
                     color_bandit3 = font.GREY
                 
                 if event.key == pygame.K_RETURN:
-                    if bandit1gui == True and bandit.alive == True:
+                    if bandit1gui == True and bandit1.alive == True:
                         target = bandit1
                         attack = True
                         menu_state = 4
-                    elif bandit2gui == True and bandit.alive == True:
+                    elif bandit2gui == True and bandit2.alive == True:
                         target = bandit2
                         attack = True
                         menu_state = 4
-                    elif bandit3gui == True and bandit.alive == True:
+                    elif bandit3gui == True and bandit3.alive == True:
                         target = bandit3
                         attack = True
                         menu_state = 4
@@ -563,7 +573,8 @@ while run:
                         bandit1gui = True
                     elif bandit3gui == True:
                         bandit3gui = False
-                        bandit1gui = True
+                        bandit2gui = True
+                    
                 elif event.key == pygame.K_q:
                     menu_state = 4
 
