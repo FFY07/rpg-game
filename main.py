@@ -547,18 +547,29 @@ while run:
                 music = pygame.mixer.music.load(rsc.sound.easter)
                 music_run = True
                 pygame.mixer_music.play(-1)
-                for i in range(1,121):
-                    easteregg_img = pygame.image.load(f"{Path(f'resources/picture/rickroll/rickroll ({i}).png')}")
-                    sc.screen.blit(easteregg_img, (100,50))
+                for i in range(1,109):
+                    easteregg_img = pygame.image.load(f"{Path(f'resources/picture/toothless/toothlessdrag ({i}).png')}")
+                    sc.screen.blit(easteregg_img, (250,200))
                     pygame.display.flip()
-                    clock.tick(24)
-                for i in range(1,121):
-                    easteregg_img = pygame.image.load(f"{Path(f'resources/picture/rickroll/rickroll ({i}).png')}")
-                    sc.screen.blit(easteregg_img, (100,50))
+                    clock.tick(50)
+                for i in range(1,109):
+                    easteregg_img = pygame.image.load(f"{Path(f'resources/picture/toothless/toothlessdrag ({i}).png')}")
+                    sc.screen.blit(easteregg_img, (130,200))
+                    sc.screen.blit(easteregg_img, (380,200))
                     pygame.display.flip()
-                    clock.tick(24)
-                    
-                sc.screen.fill((0, 0, 0))
+                    clock.tick(50)
+                for i in range(1,109):
+                    easteregg_img = pygame.image.load(f"{Path(f'resources/picture/toothless/toothlessdrag ({i}).png')}")
+                    sc.screen.blit(easteregg_img, (130,300))
+                    sc.screen.blit(easteregg_img, (380,300))
+                    sc.screen.blit(easteregg_img, (130,80))
+                    sc.screen.blit(easteregg_img, (380,80))
+                    pygame.display.flip()
+                    clock.tick(51)
+
+
+
+                # sc.screen.fill((0, 0, 0))
                 menu_state = 4
 
             if menu_state != (0 and 1) :
