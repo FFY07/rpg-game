@@ -22,7 +22,6 @@ import resources as rsc
 pygame.init()
 
 # TURN THIS INTO pygame.sprite.Sprite!!!!!!!!!
-
 class Unit():
     def __init__(self,x,y,name,namepic,max_hp,strength,defence):
         self.name = name 
@@ -144,4 +143,5 @@ class Unit():
         sc.screen.blit(self.image, self.rect)
         sc.draw_text(self.name, font.hp_font, font.RED, self.rect.centerx - 30, self.rect.y - 20)
 
-
+class Fighter(Unit):
+    pass
