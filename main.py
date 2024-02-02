@@ -265,7 +265,15 @@ while run:
         # check if the option menu is open
     #option menu        
     if menu_state == 3 :
-        ms3.draw_menu3()
+        sc.screen.fill((0, 0, 0))
+
+        pygame.mouse.set_visible(True)
+        if video_button.draw(sc.screen):
+            print('i didnt make a code for Video Settings :3')
+        if audio_button.draw(sc.screen):
+            print('i didnt make a code for music Settings :3')
+        if backoption_button.draw(sc.screen):
+            menu_state = menu_state - 1
     #game menu
     if menu_state == 4:
 
