@@ -107,6 +107,8 @@ class Unit():
         #deal damage to the enemy
         rand = random.randint(-5, 5)
         damage = (self.strength + rand) - (self.defence)
+        if damage < 0 :
+            damage = 0
         target.hp -= damage 
         #run enemy animation
         target.hurt()

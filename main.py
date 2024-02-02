@@ -502,8 +502,10 @@ while run:
                 for bandit in bandit_list:
                     bandit.update()
                     bandit.draw()
-                sc.draw_text('(AI ' + randomAI + ')', font.gui_font, color_bandit1 , 80 , 430 )
-                sc.draw_text('(AI ' + randomAI2 + ')', font.gui_font, color_bandit2 , 80 , 460 )
+                if bandit1.alive == True:
+                    sc.draw_text('(AI ' + randomAI + ')', font.gui_font, color_bandit1 , 80 , 430 )
+                if bandit2.alive == True:
+                    sc.draw_text('(AI ' + randomAI2 + ')', font.gui_font, color_bandit2 , 80 , 460 )
 
                 
                 if bandit1gui == True:
