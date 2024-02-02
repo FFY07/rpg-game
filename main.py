@@ -13,7 +13,7 @@ import gui.damagetext as dt
 
 #menu
 import menustate_0 as ms0
-import menustate_3 as ms3
+# import menustate_3 as ms3
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -60,8 +60,14 @@ powerTF = False
 bandit1gui = True
 bandit2gui = False
 
-#??
-
+#create button instances
+resume_button = Button(5, 180, rsc.image.resume_img, 1)
+option_button = Button(270, 180, rsc.image.option_img, 1)
+backoption_button = Button(250, 350, rsc.image.option_img, 1)
+# quit_button = Button(530, 180, quit_img, 1)
+video_button = Button(150, 40, rsc.image.video_img, 1)
+audio_button = Button(350, 40, rsc.image.audio_img, 1)
+back_button = Button(530, 180, rsc.image.back_img, 1)
 
 #sword pointer image
 sword_img = rsc.image.sword_img.convert_alpha()
