@@ -59,7 +59,7 @@ color_bandit1, color_bandit2, color_bandit3 = font.GREY, font.GREY, font.GREY
 attackTF = False
 defenceTF = False
 powerTF = False
-bandit1gui = True
+bandit1gui = False
 bandit2gui = False
 bandit3gui = False
 
@@ -214,9 +214,10 @@ while run:
                             startbutton = True
                         elif startbutton == True:
                             menu_state = 4
-                            attackTF = True
+                            menu_brake = True
                             music = pygame.mixer.music.load(rsc.sound.battle)
                             pygame.mixer_music.play(-1)
+
                             
                     elif event.key == pygame.K_DOWN:
                         if input1 == True:
@@ -341,15 +342,16 @@ while run:
         
         #attack 
         sc.draw_text('Attack', font.gui_font, color_attack , 80 , 430 )
-        sc.draw_text('(press E to select, Q to go back)', font.smaller_gui_font, color_attack, 156, 434)
 
         #defence 
         sc.draw_text('Magic', font.gui_font, color_def , 80 , 460 )
-        sc.draw_text('(press E to select)', font.smaller_gui_font,color_def , 156, 464)
-
         #magic
         sc.draw_text('Surrender', font.gui_font, color_power , 80 , 490 )
-        sc.draw_text('(press E to select)', font.smaller_gui_font, color_power, 200, 494)
+     
+
+        sc.draw_text(' [How to play the game]', font.hp_font, font.BLACK, 265, 434)
+        sc.draw_text('Use arrow key [ up/down ] to change menu', font.smaller_gui_font, font.BLACK, 260, 457)
+        sc.draw_text('Press ENTER to select menu, Q to go back', font.smaller_gui_font,font.BLACK , 260, 475)
 
         #draw fighter
         knight1.update()
@@ -635,6 +637,9 @@ while run:
 
             if menu_state == 4:
                 if event.key == pygame.K_DOWN:
+                    if menu_brake == True:
+                        menu_brake = False
+                        attackTF = True
                     if attackTF == True:
                         attackTF = False 
                         defenceTF = True
@@ -654,9 +659,10 @@ while run:
                     elif powerTF == True:
                         powerTF = False
                         defenceTF = True
-                elif event.key == pygame.K_e:
+                elif event.key == pygame.K_RETURN:
                     if attackTF == True and defenceTF == False and powerTF == False : 
                         menu_state = 6
+                        menu_brake = True
                     elif powerTF == True and attackTF == False and defenceTF == False:
                         game_over = -1
                     elif defenceTF == True and attackTF == False and powerTF == False:
@@ -681,6 +687,9 @@ while run:
                         menubrake = True
 
                 elif event.key == pygame.K_DOWN:
+                    if menu_brake == True:
+                        menu_brake = False
+                        bandit1gui = True
                     if bandit1gui == True:
                         bandit1gui = False
                         bandit2gui = True
