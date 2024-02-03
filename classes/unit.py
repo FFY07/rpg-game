@@ -95,18 +95,18 @@ class Fighter(Unit):
 
 # Test zone (pls delete in future)
 
-player1 = Mage("Magnus", "player")
-enemy1 = Fighter("Kremlin", "enemy")
+# player1 = Mage("Magnus", "player")
+# enemy1 = Fighter("Kremlin", "enemy")
 
-player1.load_animation(f"{Path('resources/picture/knightpic/death')}")
+# player1.load_animation(f"{Path('resources/picture/knightpic/death')}")
 
-player1.basic_attack(enemy1)
-player1.fireball(enemy1)
+# player1.basic_attack(enemy1)
+# player1.fireball(enemy1)
 
-enemy1.basic_attack(player1)
-enemy1.fireball(player1)
+# enemy1.basic_attack(player1)
+# enemy1.fireball(player1)
 
-enemy1.fireball(enemy1)
+# enemy1.fireball(enemy1)
 
-player1.show_stats()
-enemy1.show_stats()
+# player1.show_stats()
+# enemy1.show_stats()

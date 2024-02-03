@@ -24,6 +24,8 @@ FPS = 60
 game_paused = False
 menu_state = -1  # 0 : main , 1:start, 2:option, 3:play
 
+
+playerheart = 3  
 current_fighter = 1
 total_fighter = 4
 action_cooldown = 0
@@ -103,13 +105,18 @@ class healthbar():
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #//////////////[ GAME STAT ]///////////////////////////////////////////[ GAME STAT ]/////////////////////////////////////////////////////[ GAME STAT ]/////////////////////////////////
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-knight = classes.Fighter(200, 260, font.input_text1,'knightpic', 40, 30, 6)
+knight = classes.Fighter(300, 210, font.input_text1,'knightpic', 40, 20, 6)
+knight2 = classes.Fighter(230, 260, '(test1)','knightpic', 40, 20, 6)
+knight3 = classes.Fighter(160, 310, '(test2)','knightpic', 40, 20, 6)
+
+
+
 ai1 = '(AI '  + str(random.randint(10,99)) + ')'
 ai2 = '(AI '  + str(random.randint(10,99)) + ')'
 ai3 = '(AI '  + str(random.randint(10,99)) + ')'
 
 
-bandit1 = classes.Fighter(720, 200 , ai1, 'banditpic', 20, 10 , 6)
+bandit1 = classes.Fighter(720, 200 , ai1, 'banditpic', 20, 10 , 6)   #x = base + 70 , = base  +50
 bandit2 = classes.Fighter(790, 250 , ai2, 'banditpic', 20, 6 , 6)
 bandit3 = classes.Fighter(860, 300 , ai3, 'banditpic', 20, 6 , 6)
 
@@ -119,11 +126,15 @@ bandit_list.append(bandit2)
 bandit_list.append(bandit3)
 
 knight_health_bar = healthbar(80, 30 , knight.hp, knight.max_hp)
+knight2_health_bar = healthbar(80, 70 , knight2.hp, knight2.max_hp)
+knight3_health_bar = healthbar(80, 110 , knight3.hp, knight3.max_hp)
 bandit1_health_bar = healthbar(800,30 , bandit1.hp, bandit1.max_hp)
 bandit2_health_bar = healthbar(800,70, bandit2.hp, bandit2.max_hp)
 bandit3_health_bar = healthbar(800,110, bandit3.hp, bandit3.max_hp)
 
 knight_health_bar.draw(knight.hp)
+knight2_health_bar.draw(knight2.hp)
+knight3_health_bar.draw(knight3.hp)
 bandit1_health_bar.draw(bandit1.hp)
 bandit2_health_bar.draw(bandit2.hp)
 bandit3_health_bar.draw(bandit3.hp)
@@ -240,7 +251,7 @@ while run:
                                 if press1[i] == True:
                                     font.input_text1 += pygame.key.name(i)
 
-                            knight = classes.Fighter(200, 260, '(' + font.input_text1 + ')','knightpic', 40, 10, 6)   
+                            knight = classes.Fighter(300, 210, '(' + font.input_text1 + ')','knightpic', 40, 10, 6)   
                     if input2 == True:
                         if event.key == pygame.K_BACKSPACE:
                             font.input_text2 = font.input_text2[0:-1]
@@ -292,6 +303,11 @@ while run:
         #draw panel
         sc.draw_panel()
         sc.draw_text(f'{knight.name} HP:{knight.hp}',font.hp_font, font.RED, 80, 12)
+        sc.draw_text(f'{knight2.name} HP:{knight2.hp}',font.hp_font, font.RED, 80, 12 + 1 * 42)
+        sc.draw_text(f'{knight3.name} HP:{knight3.hp}',font.hp_font, font.RED, 80, 12 + 2 * 42 )
+
+        # draw game log
+        gamelog.draw_game_logs()
 
         #bandit stats
         for count, i in enumerate(bandit_list):
@@ -301,6 +317,8 @@ while run:
 
         #draw health bar
         knight_health_bar.draw(knight.hp)
+        knight2_health_bar.draw(knight2.hp)
+        knight3_health_bar.draw(knight3.hp)
         bandit1_health_bar.draw(bandit1.hp)
         bandit2_health_bar.draw(bandit2.hp)
         bandit3_health_bar.draw(bandit3.hp)
@@ -336,6 +354,10 @@ while run:
         #draw fighter
         knight.update()
         knight.draw()
+        knight2.update()
+        knight2.draw()
+        knight3.update()
+        knight3.draw()
         for bandit in bandit_list:
             bandit.update()
             bandit.draw()
@@ -373,18 +395,26 @@ while run:
             
     # if game_over == 0:
         #player action
-        if knight.alive == True:
+        if knight.alive == False:
+            playerheart -= 1
+        if knight2.alive == False:
+            playerheart -= 1
+        if knight3.alive == False:
+            playerheart -= 1
+    
+        if playerheart > 0:
             if current_fighter == 1:
                 action_cooldown += 1
                 if action_cooldown >= action_wait_time:
                     #look for player action
                     #attack
-                    if attack == True and target != None:
-                        knight.attack(target)
-                        rsc.sound.sword_sfx.play()
-                        target = None
-                        current_fighter += 1
-                        action_cooldown = 0
+                        if attack == True and attacker != None and target != None:
+                            attacker.attack(target)
+                            rsc.sound.sword_sfx.play()
+                            target = None
+                            attacker = None
+                            current_fighter += 1
+                            action_cooldown = 0
                 
         else:
             game_over = -1
@@ -429,10 +459,6 @@ while run:
     #function to restart the game (add by haarith)
             menu_state = 5
             
-
-    if menu_state == 4:  # state where game is active
-        gamelog.draw_game_logs()
-
     if menu_state == 5:
         #display game over message
         small_font = pygame.font.Font(None, 40) 
@@ -473,6 +499,121 @@ while run:
                 elif event.key == pygame.K_q:
                     run = False
 
+    if menu_state == 6:
+        sc.screen.blit(sc.panel_img,(0,sc.SCREEN_HEIGHT - sc.BOTTOM_PANEL))
+        sc.draw_bg()
+        # knight.update()
+        knight.draw()
+        # knight2.update()
+        knight2.draw()
+        # knight3.update()
+        knight3.draw()
+
+        sc.draw_text(knight.name, font.gui_font, color_bandit1 , 80 , 430 )
+        sc.draw_text(knight2.name, font.gui_font, color_bandit2 , 80 , 460 )
+        sc.draw_text(knight3.name, font.gui_font, color_bandit3 , 80 , 490 )
+
+        attacker = None
+
+
+        #i lazy so  i use the color variable for the attack AI 
+        if bandit1gui == True:
+            color_bandit1 = font.BLACK
+            knight.update()
+        else:
+            color_bandit1 = font.GREY
+        if bandit2gui == True:
+            color_bandit2 = font.BLACK
+            knight2.update()
+        else:
+            color_bandit2 = font.GREY
+        if bandit3gui == True:
+            color_bandit3 = font.BLACK
+            knight3.update()
+        else:
+            color_bandit3 = font.GREY
+
+    if menu_state == 7:
+
+        sc.screen.blit(sc.panel_img,(0,sc.SCREEN_HEIGHT - sc.BOTTOM_PANEL))
+        sc.draw_bg()
+        for bandit in bandit_list:
+            # bandit.update()
+            bandit.draw()
+
+        if attacker == knight:
+            knight.draw()
+            knight.update()
+        if attacker == knight2:
+            knight2.draw()
+            knight2.update()
+
+        if attacker == knight3:
+            knight3.draw()
+            knight3.update()
+
+
+
+        if bandit1.alive == True:
+            sc.draw_text(ai1, font.gui_font, color_bandit1 , 80 , 430 )
+            sc.draw_text('HP: ' + str(bandit1.hp), font.hp_font, color_bandit1, 160, 435)
+        if bandit2.alive == True:
+            sc.draw_text(ai2, font.gui_font, color_bandit2 , 80 , 460 )
+            sc.draw_text('HP: ' + str(bandit2.hp), font.hp_font, color_bandit2, 160, 465)
+        if bandit3.alive == True:
+            sc.draw_text(ai3, font.gui_font, color_bandit3 , 80 , 490 )
+            sc.draw_text('HP: ' + str(bandit3.hp), font.hp_font, color_bandit3, 160, 495)
+
+        
+        if bandit1gui == True:
+            color_bandit1 = font.BLACK
+            bandit1.update()
+        else:
+            color_bandit1 = font.GREY
+        if bandit2gui == True:
+            color_bandit2 = font.BLACK
+            bandit2.update()
+        else:
+            color_bandit2 = font.GREY
+        if bandit3gui == True:
+            color_bandit3 = font.BLACK
+            bandit3.update()
+         
+        else:
+            color_bandit3 = font.GREY
+
+
+    # FIX THE FILE PATHS FOR THIS 
+    if menu_state == 'easter':
+        pygame.mixer.music.unload()
+        music = pygame.mixer.music.load(rsc.sound.easter)
+        music_run = True
+        pygame.mixer_music.play(-1)
+        for i in range(1,109):
+            easteregg_img = pygame.image.load(f"{Path(f'resources/picture/toothless/toothlessdrag ({i}).png')}")
+            sc.screen.blit(easteregg_img, (250,200))
+            pygame.display.flip()
+            clock.tick(50)
+        for i in range(1,109):
+            easteregg_img = pygame.image.load(f"{Path(f'resources/picture/toothless/toothlessdrag ({i}).png')}")
+            sc.screen.blit(easteregg_img, (130,200))
+            sc.screen.blit(easteregg_img, (380,200))
+            pygame.display.flip()
+            clock.tick(50)
+        for i in range(1,109):
+            easteregg_img = pygame.image.load(f"{Path(f'resources/picture/toothless/toothlessdrag ({i}).png')}")
+            sc.screen.blit(easteregg_img, (130,300))
+            sc.screen.blit(easteregg_img, (380,300))
+            sc.screen.blit(easteregg_img, (130,80))
+            sc.screen.blit(easteregg_img, (380,80))
+            pygame.display.flip()
+            clock.tick(51)
+
+
+
+        # sc.screen.fill((0, 0, 0))
+        menu_state = 4
+
     #quit the game
     for event in pygame.event.get(): 
         
@@ -510,50 +651,25 @@ while run:
                         game_over = -1
                     elif defenceTF == True and attackTF == False and powerTF == False:
                         menu_state = 'easter'
-                        
-            if menu_state == 6:
-                sc.screen.blit(sc.panel_img,(0,sc.SCREEN_HEIGHT - sc.BOTTOM_PANEL))
-                sc.draw_bg()
-                for bandit in bandit_list:
-                    bandit.update()
-                    bandit.draw()
-                if bandit1.alive == True:
-                    sc.draw_text(ai1, font.gui_font, color_bandit1 , 80 , 430 )
-                    sc.draw_text('HP: ' + str(bandit1.hp), font.hp_font, color_bandit1, 160, 435)
-                if bandit2.alive == True:
-                    sc.draw_text(ai2, font.gui_font, color_bandit2 , 80 , 460 )
-                    sc.draw_text('HP: ' + str(bandit2.hp), font.hp_font, color_bandit2, 160, 465)
-                if bandit3.alive == True:
-                    sc.draw_text(ai3, font.gui_font, color_bandit3 , 80 , 490 )
-                    sc.draw_text('HP: ' + str(bandit3.hp), font.hp_font, color_bandit3, 160, 495)
 
-                
-                if bandit1gui == True:
-                    color_bandit1 = font.BLACK
-                else:
-                    color_bandit1 = font.GREY
-                if bandit2gui == True:
-                    color_bandit2 = font.BLACK
-                else:
-                    color_bandit2 = font.GREY
-                if bandit3gui == True:
-                    color_bandit3 = font.BLACK
-                else:
-                    color_bandit3 = font.GREY
-                
+            if menu_state == 6:
                 if event.key == pygame.K_RETURN:
-                    if bandit1gui == True and bandit1.alive == True:
-                        target = bandit1
-                        attack = True
-                        menu_state = 4
-                    elif bandit2gui == True and bandit2.alive == True:
-                        target = bandit2
-                        attack = True
-                        menu_state = 4
-                    elif bandit3gui == True and bandit3.alive == True:
-                        target = bandit3
-                        attack = True
-                        menu_state = 4
+                    if bandit1gui == True and knight.alive == True:
+                        attacker = knight
+                        menu_state = 7
+                        bandit1gui = False
+                        menubrake = True
+                    elif bandit2gui == True and knight2.alive == True:
+                        attacker = knight2
+                        menu_state = 7
+                        bandit2gui = False
+                        menubrake = True
+                    elif bandit3gui == True and knight3.alive == True:
+                        attacker = knight3
+                        menu_state = 7
+                        bandit3gui = False
+                        menubrake = True
+
                 elif event.key == pygame.K_DOWN:
                     if bandit1gui == True:
                         bandit1gui = False
@@ -569,46 +685,56 @@ while run:
                         bandit1gui = False
                         bandit3gui = True
                     elif bandit2gui == True:
-                        bandit2gui = False
+                        bandit2gui = False 
                         bandit1gui = True
                     elif bandit3gui == True:
                         bandit3gui = False
                         bandit2gui = True
-                    
+            
                 elif event.key == pygame.K_q:
                     menu_state = 4
-
-# FIX THE FILE PATHS FOR THIS 
-            if menu_state == 'easter':
-                pygame.mixer.music.unload()
-                music = pygame.mixer.music.load(rsc.sound.easter)
-                music_run = True
-                pygame.mixer_music.play(-1)
-                for i in range(1,109):
-                    easteregg_img = pygame.image.load(f"{Path(f'resources/picture/toothless/toothlessdrag ({i}).png')}")
-                    sc.screen.blit(easteregg_img, (250,200))
-                    pygame.display.flip()
-                    clock.tick(50)
-                for i in range(1,109):
-                    easteregg_img = pygame.image.load(f"{Path(f'resources/picture/toothless/toothlessdrag ({i}).png')}")
-                    sc.screen.blit(easteregg_img, (130,200))
-                    sc.screen.blit(easteregg_img, (380,200))
-                    pygame.display.flip()
-                    clock.tick(50)
-                for i in range(1,109):
-                    easteregg_img = pygame.image.load(f"{Path(f'resources/picture/toothless/toothlessdrag ({i}).png')}")
-                    sc.screen.blit(easteregg_img, (130,300))
-                    sc.screen.blit(easteregg_img, (380,300))
-                    sc.screen.blit(easteregg_img, (130,80))
-                    sc.screen.blit(easteregg_img, (380,80))
-                    pygame.display.flip()
-                    clock.tick(51)
-
-
-
-                # sc.screen.fill((0, 0, 0))
-                menu_state = 4
-
+                        
+            if menu_state == 7:
+                if event.key == pygame.K_RETURN:
+                    if bandit1gui == True and bandit1.alive == True:
+                        target = bandit1
+                        attack = True
+                        menu_state = 4
+                    elif bandit2gui == True and bandit2.alive == True:
+                        target = bandit2
+                        attack = True
+                        menu_state = 4
+                    elif bandit3gui == True and bandit3.alive == True:
+                        target = bandit3
+                        attack = True
+                        menu_state = 4
+                elif event.key == pygame.K_DOWN:
+                    if menubrake == True:
+                        menubrake = False
+                        bandit1gui = True
+                    elif bandit1gui == True:
+                        bandit1gui = False
+                        bandit2gui = True
+                    elif bandit2gui == True:
+                        bandit2gui = False
+                        bandit3gui = True
+                    elif bandit3gui == True:
+                        bandit3gui = False
+                        bandit1gui = True
+                elif event.key == pygame.K_UP:
+                    if bandit1gui == True:
+                        bandit1gui = False
+                        bandit3gui = True
+                    elif bandit2gui == True:
+                        bandit2gui = False 
+                        bandit1gui = True
+                    elif bandit3gui == True:
+                        bandit3gui = False
+                        bandit2gui = True
+            
+                elif event.key == pygame.K_q:
+                    menu_state = 6
+                    
             if menu_state != (0 and 1) :
                 if event.key == pygame.K_ESCAPE:
                     if menu_state == 2:    #if pause than game
