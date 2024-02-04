@@ -169,7 +169,8 @@ class Unit():
         dt.damage_text_group.add(damage_text)
         #the names for game log (-haarith, needs work not showing name of the user)
         gamelog.game_logs.append(f'{self.name} attacked {target.name} for {damage} damage')
-        gamelog.game_logs.append(f'{target.name} get burst by {self.name}, yea its magic')
+        gamelog.game_logs.append(f'{target.name} get burst by {self.name}, IS MAGIC')
+        gamelog.game_logs.append(f'{self.name} use ZAWARU DO !!!')
     def hurt(self):
         #set variable to hurt
         self.action = 2

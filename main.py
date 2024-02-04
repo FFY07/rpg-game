@@ -415,6 +415,7 @@ while run:
                             rsc.sound.sword_sfx.play()
                             target = None
                             attacker = None
+                            attack = False
                             current_fighter += 1
                             action_cooldown = 0
                         elif magic == True and attacker != None and target != None and attack == False :
@@ -422,6 +423,7 @@ while run:
                             attacker.magic(target)
                             target = None
                             attacker = None
+                            magic = False
                             current_fighter += 1
                             action_cooldown = 0
         else:
