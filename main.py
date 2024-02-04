@@ -31,6 +31,7 @@ total_fighter = 4
 action_cooldown = 0
 action_wait_time = 90
 attack = False
+magic = False
 clicked = False
 game_over = 0 #  -1:lose 1:win
 
@@ -344,7 +345,7 @@ while run:
         sc.draw_text('Attack', font.gui_font, color_attack , 80 , 430 )
 
         #defence 
-        sc.draw_text('Magic', font.gui_font, color_def , 80 , 460 )
+        sc.draw_text('Dragon :^) ', font.gui_font, color_def , 80 , 460 )
         #magic
         sc.draw_text('Surrender', font.gui_font, color_power , 80 , 490 )
      
@@ -369,6 +370,7 @@ while run:
         #draw the damage text 
         dt.damage_text_group.update()
         dt.damage_text_group.draw(sc.screen)
+
 
             # """
         # FOR MOUSE ATTACK
@@ -402,20 +404,26 @@ while run:
         if knight3.alive == False:
             playerheart -= 1
     
-        if playerheart > 0: 
+        if playerheart > 0:
             if current_fighter == 1:
                 action_cooldown += 1
                 if action_cooldown >= action_wait_time:
                     #look for player action
                     #attack
-                        if attack == True and attacker != None and target != None:
+                        if attack == True and attacker != None and target != None and magic == False:
                             attacker.attack(target)
                             rsc.sound.sword_sfx.play()
                             target = None
                             attacker = None
                             current_fighter += 1
                             action_cooldown = 0
-                
+                        elif magic == True and attacker != None and target != None and attack == False :
+                            rsc.sound.magic_sfx.play()
+                            attacker.magic(target)
+                            target = None
+                            attacker = None
+                            current_fighter += 1
+                            action_cooldown = 0
         else:
             game_over = -1
         #enemy action
@@ -592,6 +600,46 @@ while run:
         else:
             color_bandit3 = font.GREY
 
+    if menu_state == 8:
+        sc.screen.blit(sc.panel_img,(0,sc.SCREEN_HEIGHT - sc.BOTTOM_PANEL))
+        sc.draw_bg()
+
+        if attacker == knight1:
+            knight1.draw()
+            knight1.update()
+        if attacker == knight2:
+            knight2.draw()
+            knight2.update()
+
+        if attacker == knight3:
+            knight3.draw()
+            knight3.update() 
+
+        if target == bandit1:
+            bandit1.draw()
+            bandit1.update()
+
+        if target == bandit2:
+            bandit2.draw()
+            bandit2.update()
+
+        if target == bandit3:
+            bandit3.draw()
+            bandit3.update()
+
+        if bandit1gui == True:
+            color_bandit1 = font.BLACK
+        else:
+            color_bandit1 = font.GREY
+        if bandit2gui == True:
+            color_bandit2 = font.BLACK
+        else:
+            color_bandit2 = font.GREY
+
+        sc.draw_text('Slash Attack', font.gui_font, color_bandit1 , 80 , 430 )
+        sc.draw_text('Magic Attack', font.gui_font, color_bandit2 , 80 , 460 )
+        
+
 
     # FIX THE FILE PATHS FOR THIS 
     if menu_state == 'easter':
@@ -715,16 +763,19 @@ while run:
                 if event.key == pygame.K_RETURN:
                     if bandit1gui == True and bandit1.alive == True:
                         target = bandit1
-                        attack = True
-                        menu_state = 4
+                        menu_state = 8
+                        bandit1gui = False
+                        menubrake = True
                     elif bandit2gui == True and bandit2.alive == True:
                         target = bandit2
-                        attack = True
-                        menu_state = 4
+                        menu_state = 8
+                        bandit2gui = False
+                        menubrake = True
                     elif bandit3gui == True and bandit3.alive == True:
                         target = bandit3
-                        attack = True
-                        menu_state = 4
+                        menu_state = 8
+                        bandit3gui = False
+                        menubrake = True
                 elif event.key == pygame.K_DOWN:
                     if menubrake == True:
                         menubrake = False
@@ -752,6 +803,35 @@ while run:
                 elif event.key == pygame.K_q:
                     menu_state = 6
                     
+            if menu_state == 8:
+                    if event.key == pygame.K_RETURN:
+                        if bandit1gui == True:
+                            attack = True
+                            menu_state = 4
+                        elif bandit2gui == True:
+                            magic = True
+                            menu_state = 4
+                    elif event.key == pygame.K_DOWN:
+                        if menubrake == True:
+                            menubrake = False
+                            bandit1gui = True
+                        elif bandit1gui == True:
+                            bandit1gui = False
+                            bandit2gui = True
+                        elif bandit2gui == True:
+                            bandit2gui = False
+                            bandit1gui = True
+                        elif event.key == pygame.K_UP:
+                            if bandit1gui == True:
+                                bandit1gui = False
+                                bandit2gui = True
+                            elif bandit2gui == True:
+                                bandit2gui = False 
+                                bandit1gui = True
+
+
+                    elif event.key == pygame.K_q:
+                        menu_state = 7
             if menu_state != (0 and 1) :
                 if event.key == pygame.K_ESCAPE:
                     if menu_state == 2:    #if pause than game

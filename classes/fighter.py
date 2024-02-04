@@ -21,7 +21,7 @@ import resources as rsc
 
 
 pygame.init()
-
+clock = pygame.time.Clock()
 # TURN THIS INTO pygame.sprite.Sprite!!!!!!!!!
 
 class Unit():
@@ -115,8 +115,50 @@ class Unit():
         target.hurt() 
         # effect
         for i in range(1,5):
-            atkeffect = pygame.image.load(f"{Path(f'resources/picture/effect/atk ({i}).png')}")
+            atkeffect = pygame.image.load(f"{Path(f'resources/picture/effect/atk/atk ({i}).png')}")
             sc.screen.blit(atkeffect, (target.rect.centerx - 110, target.rect.y - 50))
+            pygame.display.flip()
+            clock.tick(60)
+        # check is target died 
+        if target.hp < 1:
+            target.hp = 0
+            target.alive = False
+            target.death() 
+        damage_text = dt.DamageText(target.rect.centerx, target.rect.y, str(damage), font.RED)
+        dt.damage_text_group.add(damage_text)
+        #the names for game log (-haarith, needs work not showing name of the user)
+        gamelog.game_logs.append(f'{self.name} attacked {target.name} for {damage} damage')
+        gamelog.game_logs.append(f'{target.name} blocked {(target.defence)} damage from {self.name}')
+
+        
+        #set variable to attack
+        self.action = 1
+        self.frame_index = 0
+        self.update_time = pygame.time.get_ticks()
+
+    def magic(self, target):
+        #deal magic damage to the enemy
+        # currently i use for delete enemy with 999 dmg
+        # za wa ru do !!!
+        damage = 999
+        if damage < 0 :
+            damage = 0
+        target.hp -= damage 
+        #run enemy animation
+        target.hurt() 
+        # effect
+        for i in range(1,21):
+            atkeffect = pygame.image.load(f"{Path(f'resources/picture/effect/magic/magic ({i}).png')}")
+            sc.screen.blit(atkeffect, (600, 50))
+            pygame.display.flip()
+            clock.tick(10)
+
+
+        #set variable to attack
+        self.action = 1
+        self.frame_index = 0
+        self.update_time = pygame.time.get_ticks()
+
 
         #check is target died
         if target.hp < 1:
@@ -127,14 +169,7 @@ class Unit():
         dt.damage_text_group.add(damage_text)
         #the names for game log (-haarith, needs work not showing name of the user)
         gamelog.game_logs.append(f'{self.name} attacked {target.name} for {damage} damage')
-        gamelog.game_logs.append(f'{target.name} blocked {(target.defence + rand)} damage from {self.name}')
-
-        
-        #set variable to attack
-        self.action = 1
-        self.frame_index = 0
-        self.update_time = pygame.time.get_ticks()
-
+        gamelog.game_logs.append(f'{target.name} get burst by {self.name}, yea its magic')
     def hurt(self):
         #set variable to hurt
         self.action = 2
