@@ -24,9 +24,10 @@ pygame.init()
 # TURN THIS INTO pygame.sprite.Sprite!!!!!!!!!
 
 class Unit():
-    def __init__(self,x,y,name,namepic,max_hp,strength,defence):
+    def __init__(self,x,y,name,namepic,max_hp,strength,defence, level=1):
         self.name = name 
         self.namepic = namepic
+        self.level = level
         self.max_hp = max_hp
         self.hp = max_hp
         self.strength = strength
@@ -79,7 +80,6 @@ class Unit():
         self.rect = self.image.get_rect()
         self.rect.center = (x,y)
 
-
     def update(self):
         animation_cooldown = 100
         #handle animation
@@ -124,7 +124,6 @@ class Unit():
         gamelog.game_logs.append(f'{target.name} blocked {(target.defence + rand)} damage from {self.name}')
 
         
-
         #set variable to attack
         self.action = 1
         self.frame_index = 0
@@ -143,7 +142,10 @@ class Unit():
         self.update_time = pygame.time.get_ticks()
 
     def draw(self):
+        # Draw the unit image
         sc.screen.blit(self.image, self.rect)
+        # Draw the units name
         sc.draw_text(self.name, font.hp_font, font.RED, self.rect.centerx - 30, self.rect.y - 20)
-
-
+        #draw level above the name (just testing doesnt do anything yet)
+        level_text = f"Level: {self.level}"
+        sc.draw_text(level_text, font.hp_font, font.RED, self.rect.centerx - 30, self.rect.y - 40)
