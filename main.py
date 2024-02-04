@@ -370,9 +370,7 @@ while run:
         dt.damage_text_group.update()
         dt.damage_text_group.draw(sc.screen)
 
-
-
-        # """
+            # """
         # FOR MOUSE ATTACK
         
         # """
@@ -404,7 +402,7 @@ while run:
         if knight3.alive == False:
             playerheart -= 1
     
-        if playerheart > 0:
+        if playerheart > 0: 
             if current_fighter == 1:
                 action_cooldown += 1
                 if action_cooldown >= action_wait_time:

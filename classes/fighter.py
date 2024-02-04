@@ -19,6 +19,7 @@ import gamelog
 
 import resources as rsc
 
+
 pygame.init()
 
 # TURN THIS INTO pygame.sprite.Sprite!!!!!!!!!
@@ -111,12 +112,17 @@ class Unit():
             damage = 0
         target.hp -= damage 
         #run enemy animation
-        target.hurt()
+        target.hurt() 
+        # effect
+        for i in range(1,5):
+            atkeffect = pygame.image.load(f"{Path(f'resources/picture/effect/atk ({i}).png')}")
+            sc.screen.blit(atkeffect, (target.rect.centerx - 110, target.rect.y - 50))
+
         #check is target died
         if target.hp < 1:
             target.hp = 0
             target.alive = False
-            target.death()
+            target.death() 
         damage_text = dt.DamageText(target.rect.centerx, target.rect.y, str(damage), font.RED)
         dt.damage_text_group.add(damage_text)
         #the names for game log (-haarith, needs work not showing name of the user)
