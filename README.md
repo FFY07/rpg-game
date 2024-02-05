@@ -15,8 +15,9 @@ The game ends when either all the bandits are defeated or the knight's health re
 
 ## Features
 - Turn-based gameplay with player and enemy actions.
-- GUI elements for player interaction, including attack and defence options (still working on it).
+- GUI elements for player interaction, including different attack options and selecting target
 - Sound effects.
+- Attack effects
 - Victory and defeat conditions based on the game state.
 
 ## How to Run
