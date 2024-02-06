@@ -30,6 +30,7 @@ WHITE = pygame.Color('white')
 #gui variable
 gui_font = pygame.font.Font(None, 32)
 menu_font = pygame.font.Font(None, 45)
+menucontent_font = pygame.font.Font(None, 35)
 menutitle_font = pygame.font.Font(None, 70)
 #define font
 font = pygame.font.SysFont("arialblack" , 40)

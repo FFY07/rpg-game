@@ -13,7 +13,7 @@ import gui.damagetext as dt
 
 #menu
 import menustate_0 as ms0
-
+import menustate_credit as mscredit
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -675,6 +675,8 @@ while run:
         sc.draw_text('Magic Attack', font.gui_font, color_bandit2 , 80 , 460 )
         
 
+    if menu_state == 'CREDIT':
+        mscredit.draw_menu_credit()
 
     # FIX THE FILE PATHS FOR THIS 
     if menu_state == 'easter':
@@ -748,7 +750,11 @@ while run:
                     elif option2 == True:
                         option2 = False
                         option1 = True
-
+            
+            if menu_state == 'CREDIT':
+                if event.key == pygame.K_ESCAPE:
+                    menu_state = 0
+                    option3 = True
             if menu_state == 4:
                 if event.key == pygame.K_DOWN:
                     if menu_brake == True:
