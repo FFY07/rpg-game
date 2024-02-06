@@ -3,7 +3,6 @@ from pathlib import Path
 
 import pygame
 
-from gui.button import Button as Button
 import classes
 import resources.font as font
 import resources as rsc
@@ -14,6 +13,7 @@ import gui.damagetext as dt
 #menu
 import menustate_0 as ms0
 import menustate_options as msoptions
+import menustate_gameoptions as msgameoptions
 import menustate_credit as mscredit
 import menustate_sorry as mssorry
 pygame.init()
@@ -74,20 +74,6 @@ powerTF = False
 bandit1gui = False
 bandit2gui = False
 bandit3gui = False
-
-#create button instances
-resume_button = Button(5, 180, rsc.image.resume_img, 1)
-option_button = Button(270, 180, rsc.image.option_img, 1)
-backoption_button = Button(250, 350, rsc.image.option_img, 1)
-# quit_button = Button(530, 180, quit_img, 1)
-video_button = Button(150, 40, rsc.image.video_img, 1)
-audio_button = Button(350, 40, rsc.image.audio_img, 1)
-back_button = Button(530, 180, rsc.image.back_img, 1)
-
-#??
-
-#sword pointer image
-sword_img = rsc.image.sword_img.convert_alpha()
 
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #//////////////[ DEF FUNCTION ]///////////////////////////////////////////[ DEF FUNCTION ]////////////////////////////////////////////[ DEF FUNCTION ]/////////////////////////////////
@@ -161,7 +147,7 @@ while run:
     if menu_state == -1:       
         sc.screen.fill((0, 0, 0))
         music = pygame.mixer.music.load(rsc.sound.start)
-        pygame.mixer_music.play(-1, 2)
+        pygame.mixer_music.play(-1)
         menu_state = 0
         option1 = True
 
@@ -305,32 +291,31 @@ while run:
                 run = False
                                     
     #pause menu
-    if menu_state == 2 :
-        sc.screen.fill((0, 0, 0))
+    if menu_state == 'GAMEOPTIONS': 
+        msgameoptions.draw_menu_options()
 
-        pygame.mouse.set_visible(True)
-        #draw pause sc.screen button
-        if resume_button.draw(sc.screen):
-             menu_state = 4
-        if option_button.draw(sc.screen):
-             menu_state = 3
-        if back_button.draw(sc.screen):
-            menu_state = menu_state - 2
-            if menu_state == 0:
-                music = pygame.mixer.music.load(rsc.sound.start)
-                pygame.mixer_music.play(-1, 2)
-        # check if the option menu is open
-    #option menu        
-    if menu_state == 3 :
-        sc.screen.fill((0, 0, 0))
+        if option1 == True:
+            option1color = font.WHITE
+        else:
+            option1color = font.GREY
+        if option2 == True:
+            option2color = font.WHITE
+        else:
+            option2color = font.GREY
+        if option3 == True:
+            option3color = font.WHITE
+        else:
+            option3color = font.GREY
+        if option4 == True:
+            option4color = font.WHITE
+        else:
+            option4color = font.GREY
 
-        pygame.mouse.set_visible(True)
-        if video_button.draw(sc.screen):
-            print('i didnt make a code for Video Settings :3')
-        if audio_button.draw(sc.screen):
-            print('i didnt make a code for music Settings :3')
-        if backoption_button.draw(sc.screen):
-            menu_state = menu_state - 1
+        sc.draw_centertext('Music Setting', font.menu_font, option1color, - 10 )
+        sc.draw_centertext('Video Setting', font.menu_font, option2color, - 10 + 60)
+        sc.draw_centertext('Game Infomation', font.menu_font, option3color,-10 + 60 *2)
+        sc.draw_centertext('Back To Game', font.menu_font, option4color, -10 + 60 * 3)
+
     #game menu
     if menu_state == 4:
 
@@ -406,30 +391,6 @@ while run:
         dt.damage_text_group.update()
         dt.damage_text_group.draw(sc.screen)
 
-
-            # """
-        # FOR MOUSE ATTACK
-        
-        # """
-
-        # #control player action
-        # #reset action variables
-        # attack = False
-        # target = None 
-        # #make sure mouse is visible
-        # pygame.mouse.set_visible(True)
-        # pos = pygame.mouse.get_pos()
-        # for count, bandit in enumerate(bandit_list):
-        #     if bandit. rect.collidepoint(pos):
-        #         #hide mouse
-        #         pygame.mouse.set_visible(False)
-        #         #show sword in place of mouse cursor 
-        #         sc.screen.blit(sword_img, pos)
-        #         if clicked == True and bandit.alive == True:
-        #             attack = True 
-        #             target = bandit_list[count]
-
-            
     # if game_over == 0:
         #player action
         if knight1.alive == False:
@@ -786,10 +747,13 @@ while run:
                 if event.key == pygame.K_RETURN:
                     if option1 == True:
                         menu_state = 'ERROR'
+                        last_state = 'MENUOPTIONS'
                     elif option2 == True:
                         menu_state = 'ERROR'
+                        last_state = 'MENUOPTIONS'
                     elif option3 == True:
                         menu_state = 'ERROR'
+                        last_state = 'MENUOPTIONS'
                     elif option4 == True:
                         menu_state = 0
                 elif event.key == pygame.K_ESCAPE:
@@ -835,8 +799,63 @@ while run:
 
             if menu_state == 'ERROR':
                 if event.key == pygame.K_ESCAPE:
-                    menu_state = 0
+                    if last_state == 'MENUOPTIONS':
+                        menu_state = 'MENUOPTIONS'
+                        last_state = None
+                    elif  last_state == 'GAMEOPTIONS':
+                        menu_state = 'GAMEOPTIONS'
+                        last_state = None
 
+            if menu_state == 'GAMEOPTIONS':
+                if event.key == pygame.K_RETURN:
+                    if option1 == True:
+                        menu_state = 'ERROR'
+                        last_state = 'GAMEOPTIONS'
+                    elif option2 == True:
+                        menu_state = 'ERROR'
+                        last_state = 'GAMEOPTIONS'
+                    elif option3 == True:
+                        menu_state = 'ERROR'
+                        last_state = 'GAMEOPTIONS'
+                    elif option4 == True:
+                        menu_state = 4
+                        menu_brake = True
+
+                elif event.key == pygame.K_ESCAPE:
+                        menu_state = 4
+
+                elif event.key == pygame.K_DOWN:
+                    if menu_brake == True:
+                        menu_brake = False
+                        option1 = True
+                    if option1 == True:
+                        option1 = False
+                        option2 = True
+                    elif option2 == True:
+                        option2 = False
+                        option3 = True
+                    elif option3 == True:
+                        option3 = False
+                        option4 = True
+                    elif option4 == True:
+                        option4 = False
+                        option1 = True
+                elif event.key == pygame.K_UP:
+                    if menu_brake == True:
+                        menu_brake = False
+                        option4 = True
+                    if option1 == True:
+                        option1 = False
+                        option4 = True
+                    elif option4 == True:
+                        option4 = False
+                        option3 = True
+                    elif option3 == True:
+                        option3 = False
+                        option2 = True
+                    elif option2 == True:
+                        option2 = False
+                        option1 = True
             if menu_state == 4:
                 if event.key == pygame.K_DOWN:
                     if menu_brake == True:
@@ -869,6 +888,11 @@ while run:
                         game_over = -1
                     elif defenceTF == True and attackTF == False and powerTF == False:
                         menu_state = 'easter'
+
+                        #call game options menu
+                elif event.key == pygame.K_ESCAPE:
+                    menu_state = 'GAMEOPTIONS' 
+            
 
             if menu_state == 6:
                 if event.key == pygame.K_RETURN:
@@ -988,15 +1012,7 @@ while run:
 
                     elif event.key == pygame.K_q:
                         menu_state = 7
-            if menu_state != (0 and 1 ):
-                if event.key == pygame.K_ESCAPE:
-                    if menu_state == 2:    #if pause than game
-                     menu_state = 4
-                    else:
-                        menu_state = 2
-            if menu_state == 1:
-                    if event.key == pygame.K_KP_ENTER:
-                        menu_state = 4
+        
         if event.type ==  pygame.QUIT:
             run = False
         if event.type == pygame.MOUSEBUTTONDOWN:

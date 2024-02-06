@@ -7,8 +7,8 @@ pygame.init()
 # Cannot load music streams here as pygame only holds one at a time (only the last-loaded music stream will play)
 
 # BGM
-battle = f"{Path('resources/sound/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Action 3.mp3')}"
-start = f"{Path('resources/sound/Fantasy RPG Music Pack Vol.3/Tracks//mp3/Ambient 2.mp3')}"
+battle = f"{Path('resources/sound/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Action 2.mp3')}"
+start = f"{Path('resources/sound/Fantasy RPG Music Pack Vol.3/Tracks//mp3/Ambient 3.mp3')}"
 game_over = f"{Path('resources/sound/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Fx 3.mp3')}"
 
 # Sound effects

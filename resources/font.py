@@ -26,7 +26,8 @@ YELLOW = pygame.Color('yellow')
 GREY = pygame.Color('dimgray')
 BLACK = pygame.Color('black')
 WHITE = pygame.Color('white')
-
+ORANGERED = pygame.Color('orangered4')
+DARKRED = pygame.Color('DARKRED')
 #gui variable
 gui_font = pygame.font.Font(None, 32)
 menu_font = pygame.font.Font(None, 45)

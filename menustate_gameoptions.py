@@ -3,5 +3,6 @@ import pygame
 import resources.font as font
 
 def draw_menu_options():
-    sc.draw_menubg()
+    sc.screen.fill((0, 0, 0))
     sc.draw_centertext ('[ OPTIONS ]', font.menu_font, font.YELLOW,- 220)
+
