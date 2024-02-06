@@ -835,7 +835,7 @@ while run:
 
             if menu_state == 'ERROR':
                 if event.key == pygame.K_ESCAPE:
-                    menu_state = 'MENUOPTIONS'
+                    menu_state = 0
 
             if menu_state == 4:
                 if event.key == pygame.K_DOWN:
