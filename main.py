@@ -13,7 +13,9 @@ import gui.damagetext as dt
 
 #menu
 import menustate_0 as ms0
+import menustate_options as msoptions
 import menustate_credit as mscredit
+import menustate_sorry as mssorry
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -674,9 +676,36 @@ while run:
         sc.draw_text('Slash Attack', font.gui_font, color_bandit1 , 80 , 430 )
         sc.draw_text('Magic Attack', font.gui_font, color_bandit2 , 80 , 460 )
         
+    if menu_state == 'MENUOPTIONS':
+        msoptions.draw_menu_options()
+
+        if option1 == True:
+            option1color = font.WHITE
+        else:
+            option1color = font.GREY
+        if option2 == True:
+            option2color = font.WHITE
+        else:
+            option2color = font.GREY
+        if option3 == True:
+            option3color = font.WHITE
+        else:
+            option3color = font.GREY
+        if option4 == True:
+            option4color = font.WHITE
+        else:
+            option4color = font.GREY
+
+        sc.draw_centertext('Music Setting', font.menu_font, option1color, - 10 )
+        sc.draw_centertext('Video Setting', font.menu_font, option2color, - 10 + 60)
+        sc.draw_centertext('Game Infomation', font.menu_font, option3color,-10 + 60 *2)
+        sc.draw_centertext('Back To Menu', font.menu_font, option4color, -10 + 60 * 3)
 
     if menu_state == 'CREDIT':
         mscredit.draw_menu_credit()
+
+    if menu_state == 'ERROR':
+        mssorry.draw_menu()
 
     # FIX THE FILE PATHS FOR THIS 
     if menu_state == 'easter':
@@ -719,7 +748,9 @@ while run:
                         menu_state = 1 
                         input1 = True
                     elif option2 == True:
-                        menu_state = 2
+                        menu_state = 'MENUOPTIONS'
+                        option2 = False
+                        menu_brake = True
                     elif option3 == True:
                         menu_state = 'CREDIT'
                     elif option4 == True:
@@ -751,10 +782,61 @@ while run:
                         option2 = False
                         option1 = True
             
+            if menu_state == 'MENUOPTIONS':
+                if event.key == pygame.K_RETURN:
+                    if option1 == True:
+                        menu_state = 'ERROR'
+                    elif option2 == True:
+                        menu_state = 'ERROR'
+                    elif option3 == True:
+                        menu_state = 'ERROR'
+                    elif option4 == True:
+                        menu_state = 0
+                elif event.key == pygame.K_ESCAPE:
+                    menu_state = 0
+                    option2 = True
+                elif event.key == pygame.K_DOWN:
+                    if menu_brake == True:
+                        menu_brake = False
+                        option1 = True
+                    if option1 == True:
+                        option1 = False
+                        option2 = True
+                    elif option2 == True:
+                        option2 = False
+                        option3 = True
+                    elif option3 == True:
+                        option3 = False
+                        option4 = True
+                    elif option4 == True:
+                        option4 = False
+                        option1 = True
+                elif event.key == pygame.K_UP:
+                    if menu_brake == True:
+                        menu_brake = False
+                        option4 = True
+                    if option1 == True:
+                        option1 = False
+                        option4 = True
+                    elif option4 == True:
+                        option4 = False
+                        option3 = True
+                    elif option3 == True:
+                        option3 = False
+                        option2 = True
+                    elif option2 == True:
+                        option2 = False
+                        option1 = True
+
             if menu_state == 'CREDIT':
                 if event.key == pygame.K_ESCAPE:
                     menu_state = 0
                     option3 = True
+
+            if menu_state == 'ERROR':
+                if event.key == pygame.K_ESCAPE:
+                    menu_state = 0
+
             if menu_state == 4:
                 if event.key == pygame.K_DOWN:
                     if menu_brake == True:
@@ -794,17 +876,17 @@ while run:
                         attacker = knight1
                         menu_state = 7
                         bandit1gui = False
-                        menubrake = True
+                        menu_brake = True
                     elif bandit2gui == True and knight2.alive == True:
                         attacker = knight2
                         menu_state = 7
                         bandit2gui = False
-                        menubrake = True
+                        menu_brake = True
                     elif bandit3gui == True and knight3.alive == True:
                         attacker = knight3
                         menu_state = 7
                         bandit3gui = False
-                        menubrake = True
+                        menu_brake = True
 
                 elif event.key == pygame.K_DOWN:
                     if menu_brake == True:
@@ -839,20 +921,20 @@ while run:
                         target = bandit1
                         menu_state = 8
                         bandit1gui = False
-                        menubrake = True
+                        menu_brake = True
                     elif bandit2gui == True and bandit2.alive == True:
                         target = bandit2
                         menu_state = 8
                         bandit2gui = False
-                        menubrake = True
+                        menu_brake = True
                     elif bandit3gui == True and bandit3.alive == True:
                         target = bandit3
                         menu_state = 8
                         bandit3gui = False
-                        menubrake = True
+                        menu_brake = True
                 elif event.key == pygame.K_DOWN:
-                    if menubrake == True:
-                        menubrake = False
+                    if menu_brake == True:
+                        menu_brake = False
                         bandit1gui = True
                     elif bandit1gui == True:
                         bandit1gui = False
@@ -886,8 +968,8 @@ while run:
                             magic = True
                             menu_state = 4
                     elif event.key == pygame.K_DOWN:
-                        if menubrake == True:
-                            menubrake = False
+                        if menu_brake == True:
+                            menu_brake = False
                             bandit1gui = True
                         elif bandit1gui == True:
                             bandit1gui = False
@@ -906,7 +988,7 @@ while run:
 
                     elif event.key == pygame.K_q:
                         menu_state = 7
-            if menu_state != (0 and 1) :
+            if menu_state != (0 and 1 ):
                 if event.key == pygame.K_ESCAPE:
                     if menu_state == 2:    #if pause than game
                      menu_state = 4
