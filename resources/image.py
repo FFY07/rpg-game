@@ -1,6 +1,8 @@
 import pygame
 from pathlib import Path
 
+#menu background
+menubackground_img = pygame.image.load(f"{Path('resources/picture/menubackground.png')}")
 #background image
 background_img = pygame.image.load(f"{Path('resources/picture/background3.png')}")
 

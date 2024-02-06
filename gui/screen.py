@@ -22,6 +22,8 @@ screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 pygame.display.set_caption("RPG GAME")
 
 #load image
+menubackground_img = image.menubackground_img
+menubackground_img = pygame.transform.scale(menubackground_img, (SCREEN_WIDTH,SCREEN_HEIGHT))
 
 background_img = image.background_img
 background_img = pygame.transform.scale(background_img, (SCREEN_WIDTH,(SCREEN_HEIGHT-BOTTOM_PANEL)))
@@ -43,6 +45,9 @@ def draw_centertext(text,font,text_col,y):
     text = font.render(text, True, text_col)
     text_rect = text.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + y))
     screen.blit(text, text_rect)
+
+def draw_menubg():
+    screen.blit(menubackground_img,(0,0))
 
 #function for draw background
 def draw_bg():
