@@ -48,6 +48,15 @@ start_text = 'Begin your adventure..'
 start_rect = pygame.Rect(700,500,140,32)
 
 
+option1 = False
+option2 = False
+option3 = False
+option4 = False
+option1color = font.GREY
+option2color = font.GREY
+option3color = font.GREY
+option4color = font.GREY
+
 
 input1 = True
 input2 = False
@@ -152,12 +161,36 @@ while run:
         music = pygame.mixer.music.load(rsc.sound.start)
         pygame.mixer_music.play(-1, 2)
         menu_state = 0
-
+        option1 = True
 
     #main
     if menu_state ==  0 : 
      # 0 : main , 1:start,2pause 3:option, 4:play, 5:gameover 6 attack
         ms0.draw_menu0()
+       
+        
+        if option1 == True:
+            option1color = font.WHITE
+        else:
+            option1color = font.GREY
+        if option2 == True:
+            option2color = font.WHITE
+        else:
+            option2color = font.GREY
+        if option3 == True:
+            option3color = font.WHITE
+        else:
+            option3color = font.GREY
+        if option4 == True:
+            option4color = font.WHITE
+        else:
+            option4color = font.GREY
+
+        sc.draw_centertext('Start Game', font.menu_font, option1color, 0 )
+        sc.draw_centertext('Options', font.menu_font, option2color, 55)
+        sc.draw_centertext('Credits', font.menu_font, option3color, 55 *2)
+        sc.draw_centertext('Quit', font.menu_font, option4color, 55 * 3)
+
     #start menu
     if menu_state == 1 :
         sc.screen.fill((0, 0, 0))
@@ -238,7 +271,9 @@ while run:
                         elif startbutton == True:
                             startbutton = False
                             input2 = True
-                            
+                    elif event.key == pygame.K_ESCAPE:
+                            menu_state = 0
+                    
                     if input1 == True:
                         if event.key == pygame.K_BACKSPACE:
                             font.input_text1 = font.input_text1[0:-1]
@@ -677,9 +712,42 @@ while run:
         
         if event.type == pygame.KEYDOWN:
             if menu_state == 0:
-                if event.key == pygame.K_SPACE:
-                    menu_state = 1
-                    input1 = True
+                if event.key == pygame.K_RETURN:
+                    if option1 == True:
+                        menu_state = 1 
+                        input1 = True
+                    elif option2 == True:
+                        menu_state = 2
+                    elif option3 == True:
+                        menu_state = 'CREDIT'
+                    elif option4 == True:
+                        pygame.quit()
+                elif event.key == pygame.K_DOWN:
+                    if option1 == True:
+                        option1 = False
+                        option2 = True
+                    elif option2 == True:
+                        option2 = False
+                        option3 = True
+                    elif option3 == True:
+                        option3 = False
+                        option4 = True
+                    elif option4 == True:
+                        option4 = False
+                        option1 = True
+                elif event.key == pygame.K_UP:
+                    if option1 == True:
+                        option1 = False
+                        option4 = True
+                    elif option4 == True:
+                        option4 = False
+                        option3 = True
+                    elif option3 == True:
+                        option3 = False
+                        option2 = True
+                    elif option2 == True:
+                        option2 = False
+                        option1 = True
 
             if menu_state == 4:
                 if event.key == pygame.K_DOWN:
