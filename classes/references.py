@@ -39,6 +39,7 @@ class Unit(pygame.sprite.Sprite):
         self.exp_to_level = EXP_TO_LEVEL
         self.coins = COINS
         self.mana = MANA
+        self.animation_list = []
     
     def basic_attack(self, enemy):
         # There's no code that prevents you from attacking yourself
@@ -69,7 +70,12 @@ class Unit(pygame.sprite.Sprite):
         path = Path(folder)
         img_list = (list(path.glob("*.*")))
         for i in img_list:
-            pygame.image.load(i)
+            image = pygame.image.load(i)
+            image = pygame.transform.scale(image, (image.get_width()*2 ,image.get_height()*2))
+            self.animation_list.append(image)
+            print(image)
+            print(type(image))
+        
           
 
 class Mage(Unit):
@@ -92,13 +98,26 @@ class Fighter(Unit):
         self.intelligence = 5
         self.defence = 15
 
+        self.load_animation(f"{Path('resources/picture/knightpic/death')}")
+        
 
 # Test zone (pls delete in future)
 
-# player1 = Mage("Magnus", "player")
-# enemy1 = Fighter("Kremlin", "enemy")
+player1 = Mage("Magnus", "player")
+enemy1 = Fighter("Kremlin", "enemy")
+
+active_units = []
+enemy_list = []
+for character in active_units:
+    if character.team == "enemy":
+        enemy_list.append(character)
+    else:
+        pass
 
 # player1.load_animation(f"{Path('resources/picture/knightpic/death')}")
+    
+for i in player1.animation_list:
+    print(i)
 
 # player1.basic_attack(enemy1)
 # player1.fireball(enemy1)

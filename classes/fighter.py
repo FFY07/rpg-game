@@ -26,6 +26,7 @@ clock = pygame.time.Clock()
 
 class Unit():
     def __init__(self,x,y,name,namepic,max_hp,strength,defence, level=1):
+        # ((self,x,y,name,namepic,max_hp,strength,defence, mana):)
         self.name = name 
         self.namepic = namepic
         self.level = level
@@ -41,24 +42,38 @@ class Unit():
 
         #load image
         temp_list = []
-        for i in range(1,5):
-            img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/idle/{i}.png')}")
-            self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
-            temp_list.append(self.image)
+        if {self.namepic} == "reaperpic":
+            for i in range(1,9):
+                img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/idle/{i}.png')}")
+                self.image = pygame.transform.scale(img, (img.get_width()*2 ,img.get_height()*2))
+                temp_list.append(self.image)
+            
+        else:
+            for i in range(1,5):
+                img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/idle/{i}.png')}")
+                self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
+                temp_list.append(self.image)
         self.animationlist.append(temp_list) #list of list
+
 
         #load attack
         temp_list = []
-        for i in range(1,10):
-            if {self.namepic} == "knightpic" :
+        if {self.namepic} == "reaperpic":
+            for i in range(1,14):
+                img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/idle/{i}.png')}")
+                self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
+                temp_list.append(self.image)
+        if {self.namepic} == "knightpic" :
+            for i in range(1,10):
                 img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/attack/{i}.png')}")
                 self.image = pygame.transform.scale(img, (img.get_width()*6 ,img.get_height()*6))
-        
+                temp_list.append(self.image)
         # Move this to Tank or a different class
-            else:
+        else:
+            for i in range(1,10):
                 img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/attack/{i}.png')}")
                 self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
-            temp_list.append(self.image)
+                temp_list.append(self.image)
         self.animationlist.append(temp_list)
 
         #load hurt image
@@ -71,10 +86,16 @@ class Unit():
 
         #load dead image
         temp_list = []
-        for i in range(1,9):
-            img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/death/{i}.png')}")
-            self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
-            temp_list.append(self.image)
+        if {self.namepic} == "reaperpic":
+            for i in range(1,19):
+                img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/idle/{i}.png')}")
+                self.image = pygame.transform.scale(img, (img.get_width()*2 ,img.get_height()*2))
+                temp_list.append(self.image)
+        else:        
+            for i in range(1,9):
+                img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/death/{i}.png')}")
+                self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
+                temp_list.append(self.image)
         self.animationlist.append(temp_list)
 
         self.image = self.animationlist[self.action][self.frame_index]
@@ -150,7 +171,7 @@ class Unit():
         for i in range(1,21):
             atkeffect = pygame.image.load(f"{Path(f'resources/picture/effect/magic/magic ({i}).png')}")
             sc.screen.blit(atkeffect, (600, 50))
-            pygame.display.flip()
+            pygame.display.update()
             clock.tick(10)
 
 

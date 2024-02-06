@@ -110,14 +110,12 @@ knight1 = classes.Fighter(300, 210, font.input_text1,'knightpic', 40, 20, 6)
 knight2 = classes.Fighter(230, 260, '(test1)','knightpic', 40, 20, 6)
 knight3 = classes.Fighter(160, 310, '(test2)','knightpic', 40, 20, 6)
 
-
-
 ai1 = '(AI '  + str(random.randint(10,99)) + ')'
-ai2 = '(AI '  + str(random.randint(10,99)) + ')'
+ai2 = '(AI '  + str(random.randint(10,99)) + ')' 
 ai3 = '(AI '  + str(random.randint(10,99)) + ')'
 
 
-bandit1 = classes.Fighter(720, 200 , ai1, 'banditpic', 20, 10 , 6)   #x = base + 70 , = base  +50
+bandit1 = classes.Fighter(720, 200 , ai1, 'reaperpic', 50 , 10, 6)   #x = base + 70 , = base  +50
 bandit2 = classes.Fighter(790, 250 , ai2, 'banditpic', 20, 6 , 6)
 bandit3 = classes.Fighter(860, 300 , ai3, 'banditpic', 20, 6 , 6)
 
@@ -426,7 +424,7 @@ while run:
                             magic = False
                             current_fighter += 1
                             action_cooldown = 0
-        else:
+        if playerheart == 0:
             game_over = -1
         #enemy action
         for count, bandit in enumerate(bandit_list):
@@ -823,13 +821,13 @@ while run:
                         elif bandit2gui == True:
                             bandit2gui = False
                             bandit1gui = True
-                        elif event.key == pygame.K_UP:
-                            if bandit1gui == True:
-                                bandit1gui = False
-                                bandit2gui = True
-                            elif bandit2gui == True:
-                                bandit2gui = False 
-                                bandit1gui = True
+                    elif event.key == pygame.K_UP:
+                        if bandit1gui == True:
+                            bandit1gui = False
+                            bandit2gui = True
+                        elif bandit2gui == True:
+                            bandit2gui = False 
+                            bandit1gui = True
 
 
                     elif event.key == pygame.K_q:
