@@ -40,6 +40,8 @@ class Unit(pygame.sprite.Sprite):
         self.coins = COINS
         self.mana = MANA
         self.animation_list = []
+        self.x = 0
+        self.y = 0
     
     def basic_attack(self, enemy):
         # There's no code that prevents you from attacking yourself
@@ -73,8 +75,8 @@ class Unit(pygame.sprite.Sprite):
             image = pygame.image.load(i)
             image = pygame.transform.scale(image, (image.get_width()*2 ,image.get_height()*2))
             self.animation_list.append(image)
-            print(image)
-            print(type(image))
+            # print(image)
+            # print(type(image))
         
           
 
@@ -116,8 +118,8 @@ for character in active_units:
 
 # player1.load_animation(f"{Path('resources/picture/knightpic/death')}")
     
-for i in player1.animation_list:
-    print(i)
+# for i in player1.animation_list:
+#     print(i)
 
 # player1.basic_attack(enemy1)
 # player1.fireball(enemy1)
