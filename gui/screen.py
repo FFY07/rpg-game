@@ -30,6 +30,7 @@ background_img = pygame.transform.scale(background_img, (SCREEN_WIDTH,(SCREEN_HE
 
 panel_img = image.panel_img
 panel_img = pygame.transform.scale(panel_img, (SCREEN_WIDTH,BOTTOM_PANEL))
+bigpanel_img = pygame.transform.scale(panel_img, (SCREEN_WIDTH,SCREEN_HEIGHT))
 
 input_rect = pygame.Rect(350,200,140,32)
 inputgame_rect = pygame.Rect(150,7,140,32)
@@ -52,6 +53,9 @@ def draw_menubg():
 #function for draw background
 def draw_bg():
     screen.blit(background_img,(0,0))
+
+def draw_optionbg():
+    screen.blit(bigpanel_img,(0,0))
 
 #function for draw panel
 def draw_panel():

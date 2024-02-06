@@ -25,7 +25,7 @@ FPS = 60
 
 game_paused = False
 menu_state = -1  # 0 : main , 1:start, 2:option, 3:play
-
+menu_brake = False
 
 playerheart = 3  
 current_fighter = 1
@@ -295,26 +295,26 @@ while run:
         msgameoptions.draw_menu_options()
 
         if option1 == True:
-            option1color = font.WHITE
+            option1color = font.BLACK
         else:
             option1color = font.GREY
         if option2 == True:
-            option2color = font.WHITE
+            option2color = font.BLACK
         else:
             option2color = font.GREY
         if option3 == True:
-            option3color = font.WHITE
+            option3color = font.BLACK
         else:
             option3color = font.GREY
         if option4 == True:
-            option4color = font.WHITE
+            option4color = font.BLACK
         else:
             option4color = font.GREY
 
-        sc.draw_centertext('Music Setting', font.menu_font, option1color, - 10 )
-        sc.draw_centertext('Video Setting', font.menu_font, option2color, - 10 + 60)
+        sc.draw_centertext('Resume', font.menu_font, option1color, - 10 )
+        sc.draw_centertext('Save Game', font.menu_font, option2color, - 10 + 60)
         sc.draw_centertext('Game Infomation', font.menu_font, option3color,-10 + 60 *2)
-        sc.draw_centertext('Back To Game', font.menu_font, option4color, -10 + 60 * 3)
+        sc.draw_centertext('Back To Menu', font.menu_font, option4color, -10 + 60 * 3)
 
     #game menu
     if menu_state == 4:
@@ -345,6 +345,7 @@ while run:
         bandit2_health_bar.draw(bandit2.hp)
         bandit3_health_bar.draw(bandit3.hp)
 
+     
         #GUI panel
         if attackTF == True:
             color_attack = font.BLACK
@@ -713,10 +714,14 @@ while run:
                         option2 = False
                         menu_brake = True
                     elif option3 == True:
+                        option3 = False
                         menu_state = 'CREDIT'
                     elif option4 == True:
                         pygame.quit()
                 elif event.key == pygame.K_DOWN:
+                    if menu_brake == True:
+                        menu_brake = False
+                        option4 = True
                     if option1 == True:
                         option1 = False
                         option2 = True
@@ -730,6 +735,9 @@ while run:
                         option4 = False
                         option1 = True
                 elif event.key == pygame.K_UP:
+                    if menu_brake == True:
+                        menu_brake = False
+                        option2 = True
                     if option1 == True:
                         option1 = False
                         option4 = True
@@ -746,23 +754,29 @@ while run:
             if menu_state == 'MENUOPTIONS':
                 if event.key == pygame.K_RETURN:
                     if option1 == True:
+                        option1 = False
                         menu_state = 'ERROR'
                         last_state = 'MENUOPTIONS'
                     elif option2 == True:
+                        option2 = False
                         menu_state = 'ERROR'
                         last_state = 'MENUOPTIONS'
                     elif option3 == True:
+                        option3 = False
                         menu_state = 'ERROR'
                         last_state = 'MENUOPTIONS'
                     elif option4 == True:
                         menu_state = 0
                 elif event.key == pygame.K_ESCAPE:
                     menu_state = 0
+                    option1 = False
                     option2 = True
+                    option3 = False
+                    option4 = False
                 elif event.key == pygame.K_DOWN:
                     if menu_brake == True:
                         menu_brake = False
-                        option1 = True
+                        option4 = True
                     if option1 == True:
                         option1 = False
                         option2 = True
@@ -778,7 +792,7 @@ while run:
                 elif event.key == pygame.K_UP:
                     if menu_brake == True:
                         menu_brake = False
-                        option4 = True
+                        option2 = True
                     if option1 == True:
                         option1 = False
                         option4 = True
@@ -795,35 +809,41 @@ while run:
             if menu_state == 'CREDIT':
                 if event.key == pygame.K_ESCAPE:
                     menu_state = 0
+                    option1 = False
+                    option2 = False
                     option3 = True
+                    option4 = False
 
             if menu_state == 'ERROR':
                 if event.key == pygame.K_ESCAPE:
                     if last_state == 'MENUOPTIONS':
                         menu_state = 'MENUOPTIONS'
                         last_state = None
+                        menu_brake = True
                     elif  last_state == 'GAMEOPTIONS':
                         menu_state = 'GAMEOPTIONS'
                         last_state = None
+                        menu_brake = True
 
             if menu_state == 'GAMEOPTIONS':
                 if event.key == pygame.K_RETURN:
                     if option1 == True:
-                        menu_state = 'ERROR'
-                        last_state = 'GAMEOPTIONS'
+                        menu_state = 4
+                        menu_brake = True
                     elif option2 == True:
+                        option2 = False
                         menu_state = 'ERROR'
                         last_state = 'GAMEOPTIONS'
                     elif option3 == True:
+                        option3 = False
                         menu_state = 'ERROR'
                         last_state = 'GAMEOPTIONS'
                     elif option4 == True:
-                        menu_state = 4
+                        menu_state = 0
                         menu_brake = True
 
                 elif event.key == pygame.K_ESCAPE:
                         menu_state = 4
-
                 elif event.key == pygame.K_DOWN:
                     if menu_brake == True:
                         menu_brake = False
@@ -856,11 +876,12 @@ while run:
                     elif option2 == True:
                         option2 = False
                         option1 = True
+
             if menu_state == 4:
                 if event.key == pygame.K_DOWN:
                     if menu_brake == True:
                         menu_brake = False
-                        attackTF = True
+                        powerTF = True
                     if attackTF == True:
                         attackTF = False 
                         defenceTF = True
@@ -871,6 +892,9 @@ while run:
                        powerTF = False
                        attackTF = True 
                 elif event.key == pygame.K_UP:
+                    if menu_brake == True:
+                        menu_brake = False
+                        defenceTF = True
                     if attackTF == True:
                         attackTF = False
                         powerTF =True
@@ -892,6 +916,9 @@ while run:
                         #call game options menu
                 elif event.key == pygame.K_ESCAPE:
                     menu_state = 'GAMEOPTIONS' 
+                    attackTF = False
+                    defenceTF = False
+                    powerTF = False
             
 
             if menu_state == 6:
