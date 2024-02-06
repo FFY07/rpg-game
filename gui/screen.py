@@ -38,6 +38,12 @@ def draw_text(text,font,text_col,x,y):
     img = font.render(text,True,text_col)
     screen.blit(img,(x,y))
 
+#function for drawing text also but centre
+def draw_centertext(text,font,text_col,y):
+    text = font.render(text, True, text_col)
+    text_rect = text.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + y))
+    screen.blit(text, text_rect)
+
 #function for draw background
 def draw_bg():
     screen.blit(background_img,(0,0))

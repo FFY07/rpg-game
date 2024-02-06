@@ -5,6 +5,15 @@ import pygame
 
 def draw_menu0():
     sc.screen.fill((0, 0, 0))
-    sc.draw_text ('    PROGRAMMING ASSIGNMENT', sc.font.menu_font, sc.font.TEXT_COL,160 , sc.SCREEN_HEIGHT / 2 - 120)
-    sc.draw_text('TURN-BASED RPG', sc.font.menu_font, sc.font.TEXT_COL, 280, sc.SCREEN_HEIGHT / 2 - 80)
-    sc.draw_text('>>> PRESS SPACEBAR TO START THE GAME <<<', sc.font.gui_font, sc.font.YELLOW , 200 , sc.SCREEN_HEIGHT/ 2 + 150)  
+    sc.draw_centertext ('[ INTRODUCTION TO PROGRAMMING ]', sc.font.menu_font, sc.font.GREY,- 220)
+    sc.draw_centertext ('(DICT/DNDFC) ASSIGNMENT ', sc.font.menu_font, sc.font.GREY, - 180)
+    sc.draw_centertext('TURN-BASED RPG', sc.font.menutitle_font, sc.font.TEXT_COL,- 130)
+
+
+
+    sc.draw_centertext('Start Game', sc.font.menutitle_font, sc.font.TEXT_COL, 0 )
+    sc.draw_centertext('Options', sc.font.menutitle_font, sc.font.TEXT_COL, 55)
+    sc.draw_centertext('Credits', sc.font.menutitle_font, sc.font.TEXT_COL, 55 *2)
+    sc.draw_centertext('Quit', sc.font.menutitle_font, sc.font.TEXT_COL, 55 * 3)
+    sc.draw_centertext('>>> currently doing gui, pls use space to start <<<', sc.font.gui_font, sc.font.GREY , 220)  
+
