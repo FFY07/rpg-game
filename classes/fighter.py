@@ -23,6 +23,8 @@ import resources as rsc
 pygame.init()
 clock = pygame.time.Clock()
 # TURN THIS INTO pygame.sprite.Sprite!!!!!!!!!
+
+
 class Unit():
     def __init__(self,x,y,name,namepic,max_hp,strength,defence, level=1):
         # ((self,x,y,name,namepic,max_hp,strength,defence, mana):)
@@ -41,7 +43,7 @@ class Unit():
 
         #load image
         temp_list = []
-        if {self.namepic} == "reaperpic":
+        if self.namepic == "reaperpic":
             for i in range(1,9):
                 img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/idle/{i}.png')}")
                 self.image = pygame.transform.scale(img, (img.get_width()*2 ,img.get_height()*2))
@@ -57,12 +59,12 @@ class Unit():
 
         #load attack
         temp_list = []
-        if {self.namepic} == "reaperpic":
+        if self.namepic == "reaperpic":
             for i in range(1,14):
-                img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/idle/{i}.png')}")
+                img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/attack/{i}.png')}")
                 self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
                 temp_list.append(self.image)
-        if {self.namepic} == "knightpic" :
+        elif self.namepic == "knightpic" :
             for i in range(1,10):
                 img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/attack/{i}.png')}")
                 self.image = pygame.transform.scale(img, (img.get_width()*6 ,img.get_height()*6))
@@ -85,9 +87,9 @@ class Unit():
 
         #load dead image
         temp_list = []
-        if {self.namepic} == "reaperpic":
+        if self.namepic == "reaperpic":
             for i in range(1,19):
-                img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/idle/{i}.png')}")
+                img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/death/{i}.png')}")
                 self.image = pygame.transform.scale(img, (img.get_width()*2 ,img.get_height()*2))
                 temp_list.append(self.image)
         else:        
