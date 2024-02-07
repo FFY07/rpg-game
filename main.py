@@ -11,11 +11,11 @@ import gamelog
 import gui.damagetext as dt
 
 #menu
-import menustate_0 as ms0
-import menustate_options as msoptions
-import menustate_gameoptions as msgameoptions
-import menustate_credit as mscredit
-import menustate_sorry as mssorry
+import menu_states.start as ms0
+import menu_states.options as msoptions
+import menu_states.game_options as msgameoptions
+import menu_states.credits as mscredit
+import menu_states.lazy as mssorry
 pygame.init()
 
 clock = pygame.time.Clock()
