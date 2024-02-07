@@ -83,10 +83,11 @@ class Unit(pygame.sprite.Sprite):
     def update(self):
         # handle animation
         # update image
-        print(f"CURRENT ACTION: {self.action}")
-        print(f"CURRENT FRAME: {self.frame}")
-        print(f"ANIMATIONS LIST: {self.animations.get(self.action)}")
-        print(f"LENGTH OF SEQUENCE: {len(self.animations.get(self.action))}")
+        # if self.unit_name == "Reaper":
+        print(f"{self.unit_name}: Frame: {self.frame} Action: {self.action}")
+        print(f"{self.unit_name}: Time till next frame: {pygame.time.get_ticks() - self.update_time}/{self.animation_speed}")
+        # # print(f"ANIMATIONS LIST: {self.unit_name}: {self.animations.get(self.action)}")
+        # print(f"LENGTH OF SEQUENCE: {self.unit_name}: {len(self.animations.get(self.action))}")
 
         self.image = self.animations.get(self.action)[self.frame]
         self.rect = self.image.get_rect()
