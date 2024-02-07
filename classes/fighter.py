@@ -19,13 +19,16 @@ import gamelog
 
 import resources as rsc
 
-pygame.init()
 
+pygame.init()
+clock = pygame.time.Clock()
 # TURN THIS INTO pygame.sprite.Sprite!!!!!!!!!
 class Unit():
-    def __init__(self,x,y,name,namepic,max_hp,strength,defence):
+    def __init__(self,x,y,name,namepic,max_hp,strength,defence, level=1):
+        # ((self,x,y,name,namepic,max_hp,strength,defence, mana):)
         self.name = name 
         self.namepic = namepic
+        self.level = level
         self.max_hp = max_hp
         self.hp = max_hp
         self.strength = strength
@@ -38,24 +41,38 @@ class Unit():
 
         #load image
         temp_list = []
-        for i in range(1,5):
-            img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/idle/{i}.png')}")
-            self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
-            temp_list.append(self.image)
+        if {self.namepic} == "reaperpic":
+            for i in range(1,9):
+                img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/idle/{i}.png')}")
+                self.image = pygame.transform.scale(img, (img.get_width()*2 ,img.get_height()*2))
+                temp_list.append(self.image)
+            
+        else:
+            for i in range(1,5):
+                img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/idle/{i}.png')}")
+                self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
+                temp_list.append(self.image)
         self.animationlist.append(temp_list) #list of list
+
 
         #load attack
         temp_list = []
-        for i in range(1,10):
-            if {self.namepic} == "knightpic" :
+        if {self.namepic} == "reaperpic":
+            for i in range(1,14):
+                img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/idle/{i}.png')}")
+                self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
+                temp_list.append(self.image)
+        if {self.namepic} == "knightpic" :
+            for i in range(1,10):
                 img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/attack/{i}.png')}")
                 self.image = pygame.transform.scale(img, (img.get_width()*6 ,img.get_height()*6))
-        
+                temp_list.append(self.image)
         # Move this to Tank or a different class
-            else:
+        else:
+            for i in range(1,10):
                 img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/attack/{i}.png')}")
                 self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
-            temp_list.append(self.image)
+                temp_list.append(self.image)
         self.animationlist.append(temp_list)
 
         #load hurt image
@@ -68,16 +85,21 @@ class Unit():
 
         #load dead image
         temp_list = []
-        for i in range(1,9):
-            img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/death/{i}.png')}")
-            self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
-            temp_list.append(self.image)
+        if {self.namepic} == "reaperpic":
+            for i in range(1,19):
+                img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/idle/{i}.png')}")
+                self.image = pygame.transform.scale(img, (img.get_width()*2 ,img.get_height()*2))
+                temp_list.append(self.image)
+        else:        
+            for i in range(1,9):
+                img = pygame.image.load(f"{Path(f'resources/picture/{self.namepic}/death/{i}.png')}")
+                self.image = pygame.transform.scale(img, (img.get_width()*3 ,img.get_height()*3))
+                temp_list.append(self.image)
         self.animationlist.append(temp_list)
 
         self.image = self.animationlist[self.action][self.frame_index]
         self.rect = self.image.get_rect()
         self.rect.center = (x,y)
-
 
     def update(self):
         animation_cooldown = 100
@@ -106,27 +128,69 @@ class Unit():
         #deal damage to the enemy
         rand = random.randint(-5, 5)
         damage = (self.strength + rand) - (self.defence)
+        if damage < 0 :
+            damage = 0
         target.hp -= damage 
         #run enemy animation
-        target.hurt()
-        #check is target died
+        target.hurt() 
+        # effect
+        for i in range(1,5):
+            atkeffect = pygame.image.load(f"{Path(f'resources/picture/effect/atk/atk ({i}).png')}")
+            sc.screen.blit(atkeffect, (target.rect.centerx - 110, target.rect.y - 50))
+            pygame.display.flip()
+            clock.tick(60)
+        # check is target died 
         if target.hp < 1:
             target.hp = 0
             target.alive = False
-            target.death()
+            target.death() 
         damage_text = dt.DamageText(target.rect.centerx, target.rect.y, str(damage), font.RED)
         dt.damage_text_group.add(damage_text)
         #the names for game log (-haarith, needs work not showing name of the user)
         gamelog.game_logs.append(f'{self.name} attacked {target.name} for {damage} damage')
-        gamelog.game_logs.append(f'{target.name} blocked {(target.defence + rand)} damage from {self.name}')
+        gamelog.game_logs.append(f'{target.name} blocked {(target.defence)} damage from {self.name}')
 
         
+        #set variable to attack
+        self.action = 1
+        self.frame_index = 0
+        self.update_time = pygame.time.get_ticks()
+
+    def magic(self, target):
+        #deal magic damage to the enemy
+        # currently i use for delete enemy with 999 dmg
+        # za wa ru do !!!
+        damage = 999
+        if damage < 0 :
+            damage = 0
+        target.hp -= damage 
+        #run enemy animation
+        target.hurt() 
+        # effect
+        for i in range(1,21):
+            atkeffect = pygame.image.load(f"{Path(f'resources/picture/effect/magic/magic ({i}).png')}")
+            sc.screen.blit(atkeffect, (600, 50))
+            pygame.display.update()
+            clock.tick(10)
+
 
         #set variable to attack
         self.action = 1
         self.frame_index = 0
         self.update_time = pygame.time.get_ticks()
 
+
+        #check is target died
+        if target.hp < 1:
+            target.hp = 0
+            target.alive = False
+            target.death() 
+        damage_text = dt.DamageText(target.rect.centerx, target.rect.y, str(damage), font.RED)
+        dt.damage_text_group.add(damage_text)
+        #the names for game log (-haarith, needs work not showing name of the user)
+        gamelog.game_logs.append(f'{self.name} attacked {target.name} for {damage} damage')
+        gamelog.game_logs.append(f'{target.name} get burst by {self.name}, IS MAGIC')
+        gamelog.game_logs.append(f'{self.name} use ZAWARU DO !!!')
     def hurt(self):
         #set variable to hurt
         self.action = 2
@@ -140,8 +204,9 @@ class Unit():
         self.update_time = pygame.time.get_ticks()
 
     def draw(self):
+        # Draw the unit image
         sc.screen.blit(self.image, self.rect)
+        # Draw the units name
         sc.draw_text(self.name, font.hp_font, font.RED, self.rect.centerx - 30, self.rect.y - 20)
 
-class Fighter(Unit):
-    pass
+

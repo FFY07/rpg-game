@@ -25,12 +25,14 @@ TEXT_COL = pygame.Color('white')
 YELLOW = pygame.Color('yellow')
 GREY = pygame.Color('dimgray')
 BLACK = pygame.Color('black')
-
-
+WHITE = pygame.Color('white')
+ORANGERED = pygame.Color('orangered4')
+DARKRED = pygame.Color('DARKRED')
 #gui variable
 gui_font = pygame.font.Font(None, 32)
-menu_font = pygame.font.Font(None, 55)
-
+menu_font = pygame.font.Font(None, 45)
+menucontent_font = pygame.font.Font(None, 35)
+menutitle_font = pygame.font.SysFont('Impact', 70)
 #define font
 font = pygame.font.SysFont("arialblack" , 40)
 hp_font = pygame.font.SysFont("freesansbold", 26)

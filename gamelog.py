@@ -8,7 +8,7 @@ def draw_game_logs():
         y = 433 # initial y value
         for log in game_logs[-4:]:  # display only the last 4 logs
             text_surface = font.game_log_font.render(log, True, (255, 0, 0))
-            sc.screen.blit(text_surface, (520, y))
+            sc.screen.blit(text_surface, (720, y))
             y += HEIGHT_SPACING  # increment y value for next log
             
         # Writes to file

@@ -15,19 +15,22 @@ pygame.init()
 
 #game window
 BOTTOM_PANEL = 150
-SCREEN_WIDTH = 800                       
+SCREEN_WIDTH = 1000                      
 SCREEN_HEIGHT = 400 + BOTTOM_PANEL 
 
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 pygame.display.set_caption("RPG GAME")
 
 #load image
+menubackground_img = image.menubackground_img
+menubackground_img = pygame.transform.scale(menubackground_img, (SCREEN_WIDTH,SCREEN_HEIGHT))
 
 background_img = image.background_img
 background_img = pygame.transform.scale(background_img, (SCREEN_WIDTH,(SCREEN_HEIGHT-BOTTOM_PANEL)))
 
 panel_img = image.panel_img
 panel_img = pygame.transform.scale(panel_img, (SCREEN_WIDTH,BOTTOM_PANEL))
+bigpanel_img = pygame.transform.scale(panel_img, (SCREEN_WIDTH,SCREEN_HEIGHT))
 
 input_rect = pygame.Rect(350,200,140,32)
 inputgame_rect = pygame.Rect(150,7,140,32)
@@ -38,9 +41,21 @@ def draw_text(text,font,text_col,x,y):
     img = font.render(text,True,text_col)
     screen.blit(img,(x,y))
 
+#function for drawing text also but centre
+def draw_centertext(text,font,text_col,y):
+    text = font.render(text, True, text_col)
+    text_rect = text.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + y))
+    screen.blit(text, text_rect)
+
+def draw_menubg():
+    screen.blit(menubackground_img,(0,0))
+
 #function for draw background
 def draw_bg():
     screen.blit(background_img,(0,0))
+
+def draw_optionbg():
+    screen.blit(bigpanel_img,(0,0))
 
 #function for draw panel
 def draw_panel():
