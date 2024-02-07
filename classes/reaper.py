@@ -1,6 +1,6 @@
-import main_unit as unit
+from unit import Unit
 
-class Reaper(unit.Unit):
+class Reaper(Unit):
     '''Reaper class from Unit'''
     def __init__(self, name = "DefaultReaper", team = "enemy"):
         super().__init__()

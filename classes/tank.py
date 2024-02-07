@@ -1,6 +1,6 @@
 from pathlib import Path
 import random
-from .main_unit import Unit
+from unit import Unit
 
 import pygame
 

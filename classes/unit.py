@@ -39,19 +39,23 @@ class Unit(pygame.sprite.Sprite):
         self.exp_to_level = EXP_TO_LEVEL
         self.coins = COINS
         self.mana = MANA
-        
-
 
         self.size_scale = 1
-        self.x = 0
-        self.y = 0
+        self.x = 100
+        self.y = 100
+        self.image = pygame.Surface((0, 0))
         
+        # default action
+        self.action = "idle"
         self.actions = ["idle",
                 "attack",
                 "hurt",
                 "death"]
         
         self.animations = {}
+        self.update_time = pygame.time.get_ticks()
+        self.frame = 0
+        self.animation_speed = 100 # milliseconds
         
         # Temporary for debug only
     def show_stats(self):
@@ -72,8 +76,52 @@ class Unit(pygame.sprite.Sprite):
             
             # Create a key value pair using action and loaded_img_list in the animations dictionary
             self.animations[action] = loaded_img_list
+        
     
-   
+    # we can just call spritegroup.update() somehow as well as spritegroup.draw()? maybe
+    
+    def update(self):
+        # handle animation
+        # update image
+        print(f"CURRENT ACTION: {self.action}")
+        print(f"CURRENT FRAME: {self.frame}")
+        print(f"ANIMATIONS LIST: {self.animations.get(self.action)}")
+        print(f"LENGTH OF SEQUENCE: {len(self.animations.get(self.action))}")
+
+        self.image = self.animations.get(self.action)[self.frame]
+        self.rect = self.image.get_rect()
+        self.rect.center = (self.x, self.y)
+
+        #check if enought time has passed since the last update
+        # current_time = pygame.time.get_ticks()
+        if pygame.time.get_ticks() - self.update_time >= self.animation_speed:
+            self.update_time = pygame.time.get_ticks()
+            self.frame += 1
+            
+        # loop animation back to the first frame
+        if self.frame >= len(self.animations.get(self.action)) and self.action != "death":
+            self.action = "idle"
+            self.frame = 0
+        
+        # If unit is dead, stay on last frame of death animation instead of looping
+        elif self.action == "death":
+            self.frame = -1
+
+            
+        #if the animation has run out then reset back to the start
+        # if self.frame_index >= len(self.animationlist[self.action]):
+        #     if self.action == 3:
+        #         self.frame_index = len(self.animationlist[self.action]) - 1
+        #     else:
+        #         self.idle()
+                
+    
+    # def draw(self, screen):
+    #     # Draw the unit image
+    #     screen.blit(self.image, self.rect)
+    #     # Draw the units name
+        # screen.draw_text(self.name, font.hp_font, font.RED, self.rect.centerx - 30, self.rect.y - 20)
+                
     def basic_attack(self, enemy):
         # There's no code that prevents you from attacking yourself
         damage = self.attack - enemy.defence

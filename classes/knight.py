@@ -1,6 +1,6 @@
-import main_unit as unit
+from unit import Unit
 
-class Knight(unit.Unit):
+class Knight(Unit):
     '''Knight class from Unit'''
     def __init__(self, name = "DefaultKnight", team = "enemy"):
         super().__init__()

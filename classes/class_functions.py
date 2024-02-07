@@ -1,6 +1,6 @@
 # CURRENT STATUS: TESTING MODE (RUN THIS FILE DIRECTLY)
 
-import pygame, random
+import pygame, random, sys
 
 from knight import Knight
 from reaper import Reaper
@@ -8,6 +8,14 @@ from reaper import Reaper
 all_units = pygame.sprite.Group()
 enemies = pygame.sprite.Group()
 players = pygame.sprite.Group()
+
+pygame.init()
+
+FPS = 60
+
+test_window = pygame.display.set_mode((1280, 720))
+pygame.display.set_caption("test window")
+clock = pygame.time.Clock()
 
 def create_unit(name, class_type, team = "enemy"):
     """Creates a new unit object and adds it to the sprite groups
@@ -69,7 +77,7 @@ for k, v in enemy1.animations.items():
         print(f"{n+1}: {i}")
 
 
-# Create a list of predefined positions
+# Create a list of predefined positions for player
 
 player_pos_list = [(300, 210), 
                    (230, 260), 
@@ -86,15 +94,23 @@ for position, character in zip(player_pos_list, players):
 for character in players:
     print(f"x: {character.x} y: {character.y}")
 
-# Note to RZ: can the list be a dictionary instead?
+# Note to RZ: can the list be a dictionary instead e.g. {pos1: (300, 210), pos2: (230, 260), pos3: (160, 310)} etc.
 
-# player1.basic_attack(enemy1)
-# player1.fireball(enemy1)
-
-# enemy1.basic_attack(player1)
-# enemy1.fireball(player1)
-
-# enemy1.fireball(enemy1)
-
-# player1.show_stats()
-# enemy1.show_stats()
+while True:
+    
+    test_window.fill((50, 50, 50))
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+    
+    # enemies.update()
+    # enemies.draw(test_window)
+    
+    # Player team follows the player position list, enemy doesn't because I didn't create a position list for them
+    # TODO: Flip enemy sprite accordingly with pygame.transform.flip()
+    all_units.update()
+    all_units.draw(test_window)
+    
+    clock.tick(FPS)
+    pygame.display.update()
