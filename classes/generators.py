@@ -1,3 +1,5 @@
+# CURRENT STATUS: TESTING MODE (RUN THIS FILE DIRECTLY)
+
 import pygame, random
 
 from knight import Knight
@@ -8,7 +10,7 @@ enemies = pygame.sprite.Group()
 players = pygame.sprite.Group()
 
 def create_unit(name, class_type, team = "enemy"):
-    """Creates a new unit object and adds it to the sprite group(s)?
+    """Creates a new unit object and adds it to the sprite groups
 
     Args:
         name (str): Name of the unit
@@ -18,7 +20,10 @@ def create_unit(name, class_type, team = "enemy"):
     Returns:
         obj: returns the newly-created unit object
     """
+    
+    # Create the unit object
     match class_type:
+        
         case "Reaper":
             unit = Reaper(name, team)
         
@@ -28,7 +33,8 @@ def create_unit(name, class_type, team = "enemy"):
         case _:
             print("Error, invalid class. Defaulting to Knight")
             unit = Knight(name, team)
-            
+    
+    # Add the unit to the correct sprite group
     match team:
         case "player":
             players.add(unit)
@@ -36,52 +42,51 @@ def create_unit(name, class_type, team = "enemy"):
         case "enemy":
             enemies.add(unit)
             
+    # Add all of the units to a main sprite group as well
     all_units.add(unit)
+    
     return unit
 
-
-
+# Testing zone
 player1 = create_unit("Magnus", "Reaper", "player")
+player2 = create_unit("Ampersand", "Knight", "player")
 enemy1 = create_unit("Kremlin", "Knight", "enemy")
 
+# Checking the number of sprites in each sprite group
 print(enemies)
 print(players)
 print(all_units)
 
-
-# player1 = Reaper("Magnus", "player")
-# enemy1 = Knight("Kremlin", "enemy")
-
-    
+# Checking if the images are loaded    
 for k, v in player1.animations.items():
-    print(k)
+    print(f"player1 {k}")
     for n, i in enumerate(v):
         print(f"{n+1}: {i}")
     
-for k,v in enemy1.animations.items():
-    print(k, v)
+for k, v in enemy1.animations.items():
+    print(f"enemy1 {k}")
+    for n, i in enumerate(v):
+        print(f"{n+1}: {i}")
 
-# character_list = []
-# for i in range(3):
-#     character = main_unit.Fighter()
-#     character_list.append(character)
-    
-# # print(character_list)
 
-# player_pos_list = [(300, 210), 
-#                    (230, 260), 
-#                    (160, 310)
-#                    ]
+# Create a list of predefined positions
 
-# for position, character in zip(player_pos_list, character_list):
-#     character.x, character.y = position
-#     print(position, character)
+player_pos_list = [(300, 210), 
+                   (230, 260), 
+                   (160, 310)
+                   ]
 
-# for character in character_list:
-#     print(f"x: {character.x} y: {character.y}")
-    
-# Something like that lets us set all our positions in a list
+# I haven't test indexerror yet ah TBD
+# This sets the character self.x and self.y according to the position list
+for position, character in zip(player_pos_list, players):
+    character.x, character.y = position
+    print(position, character)
 
+# As you can see each character has a x and y based on the list
+for character in players:
+    print(f"x: {character.x} y: {character.y}")
+
+# Note to RZ: can the list be a dictionary instead?
 
 # player1.basic_attack(enemy1)
 # player1.fireball(enemy1)
