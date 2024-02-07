@@ -19,4 +19,4 @@ def draw_menu_credit():
 
     sc.draw_centertext('[ Remod Student ]', font.menu_font, font.YELLOW, 130)
     sc.draw_centertext('Rui Zheng', font.menucontent_font, font.WHITE, 170)
-    sc.draw_centertext('"Desmond wrote 99% of this game by himself btw not his groupmates"', font.smart_ppl_font, font.GREY, 200)
+    sc.draw_centertext('"Desmond wrote 99% of this game by himself btw not his groupmates"', font.font_make("High Tower Text", 20), font.GREY, 200)
