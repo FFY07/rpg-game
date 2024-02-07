@@ -1,6 +1,5 @@
 import pygame, random
 
-import main_unit
 from knight import Knight
 from reaper import Reaper
 
