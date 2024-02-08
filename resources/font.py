@@ -31,10 +31,23 @@ ORANGERED = pygame.Color('orangered4')
 DARKRED = pygame.Color('DARKRED')
 
 #gui variable
+
+# TODO: remove this and convert to new format
 gui_font = pygame.font.Font(None, 32)
 menu_font = pygame.font.Font(None, 45)
 menucontent_font = pygame.font.Font(None, 35)
 menutitle_font = pygame.font.SysFont('Impact', 70)
+
+# TODO convert above to new format, in future when creating fonts, call the TextSprite below
+# Example: text = TextSprite("Hallo World", *credit_section)
+# None = "freesansbold"
+
+
+
+credit_section = [40, None, "yellow"]
+credit_title = [35, None, "white"]
+credit_desc = [35, None, "green"]
+credit_name = [30, "High Tower Text", "white"]
 
 #define font
 font = pygame.font.SysFont("arialblack" , 40)
@@ -52,16 +65,14 @@ input_text1, input_text2 = '', ''
 color_active = pygame.Color('white')
 color_passive = pygame.Color('gray15')
 
-def font_make(size = 20, name = "freesansbold"):
-    """
-    Generates a font object
-    """
-    created_font = pygame.font.SysFont(name, size)
-    return created_font
-
 class TextSprite(pygame.sprite.Sprite):
     # Creates a text sprite; replace me with a docstring once all the parameters are done
-    def __init__(self, text: str, size: int, text_font = "freesansbold", color = "white", x = True, y = True, falling = False):
+    def __init__(self, text: str, 
+                size: int, text_font = "freesansbold", 
+                color = "white", 
+                x_centered = True, 
+                y_centered = True, 
+                dx = 0, dy = 0):
         """Generates a text sprite
         
         Args:
@@ -71,21 +82,23 @@ class TextSprite(pygame.sprite.Sprite):
             color (str, optional): The font color. Defaults to "white".
             x (bool, optional): The x coordinate. True = Centered.
             y (bool, optional): The y coordinate. True = Centered.
-            falling (bool, optional): Whether the text is falling
+            dx (bool, optional): Movement along x coordinate. Defaults to 0
+            flying (bool, optional): Movement along y coordinate. Default to 0
         """
         super().__init__()
         
-        if x is True:
+        if x_centered is True:
             self.x = screen.SCREEN_WIDTH // 2
         else:
-            self.x = x
+            self.x = x_centered
             
-        if y is True:
+        if y_centered is True:
             self.y = screen.SCREEN_HEIGHT // 2
         else:
-            self.y = y
+            self.y = y_centered
             
-        self.falling = falling
+        self.dx = dx
+        self.dy = dy
         
         self.font = pygame.font.SysFont(text_font, size)
         self.image = self.font.render(text, True, color)
@@ -93,5 +106,21 @@ class TextSprite(pygame.sprite.Sprite):
         self.rect.center = (self.x, self.y)
     
     def update(self):
-        if self.falling:
-            self.rect.move_ip(0, 5)
+        self.rect.move_ip(self.dx, self.dy)
+        
+        # Check if we're going upwards
+        if self.dy < 0:
+            if self.rect.bottom < 0:
+                self.kill()
+        else:
+            if self.rect.top > screen.SCREEN_HEIGHT:
+                self.kill()
+        
+        # EVERYTHING HERE IS NOT TESTED BECAUSE IDK WHICH SIDE IS WHICH
+        if self.dx < 0:
+            if self.rect.left < 0:
+                self.kill()
+        else:
+            if self.rect.right > screen.SCREEN_WIDTH:
+                self.kill()
+        

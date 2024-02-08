@@ -156,7 +156,6 @@ while run:
      # 0 : main , 1:start,2pause 3:option, 4:play, 5:gameover 6 attack
         ms0.draw_menu0()
        
-        
         if option1 == True:
             option1color = font.WHITE
         else:
@@ -667,6 +666,7 @@ while run:
         mscredit.draw_menu_credit()
         mscredit.text_sprites.update()
         mscredit.text_sprites.draw(sc.screen)
+        print(mscredit.text_sprites)
 
     if menu_state == 'ERROR':
         mssorry.draw_menu()
