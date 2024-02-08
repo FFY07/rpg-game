@@ -41,13 +41,10 @@ menutitle_font = pygame.font.SysFont('Impact', 70)
 # TODO convert above to new format, in future when creating fonts, call the TextSprite below
 # Example: text = TextSprite("Hallo World", *credit_section)
 # None = "freesansbold"
-
-
-
 credit_section = [40, None, "yellow"]
 credit_title = [35, None, "white"]
 credit_desc = [35, None, "green"]
-credit_name = [30, "High Tower Text", "white"]
+credit_name = [30, None, "white"]
 
 #define font
 font = pygame.font.SysFont("arialblack" , 40)

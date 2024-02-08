@@ -20,19 +20,17 @@ credits_body = [
     ('Desmond Foo Fong Yoong (GL)', *font.credit_name, True, sc.SCREEN_HEIGHT + 250),
     ('Assistant Designer', *font.credit_title, True, sc.SCREEN_HEIGHT + 350),
     ('Haarith Bin Naguri Ibrahim', *font.credit_name, True, sc.SCREEN_HEIGHT + 400),
-    ('0 Github commits >:(', *font.credit_title, True, sc.SCREEN_HEIGHT + 500),
+    ('0 Github Commits', *font.credit_title, True, sc.SCREEN_HEIGHT + 500),
     ('Haohong Luo', *font.credit_name, True, sc.SCREEN_HEIGHT + 550),
     ('Qiao Er Kang', *font.credit_name, True, sc.SCREEN_HEIGHT + 600),
     ('Xu Xiang (Ye Xuxiang) Yap', *font.credit_name, True, sc.SCREEN_HEIGHT + 650),
     ('Yi Soon Pong', *font.credit_name, True, sc.SCREEN_HEIGHT + 700)
     ]
 
-credits_footer = [
-    ('[ Code Refactorer ]', 40, "freesansbold", "yellow", True, 550),
-    ('Rui Zheng', 30, "freesansbold", "white", True, 500),
-    ('"Desmond wrote 99.9% of this game by himself btw"', 20, "High Tower Text", "grey75", True, 450),
-    ('"Not his groupmates"', 16, "High Tower Text", "grey75", True, 400)
-]
+# credits_footer = [
+#     ('[ Code Refactorer ]', *font.credit_title, True, sc.SCREEN_HEIGHT + 1000),
+#     ('Rui Zheng', *font.credit_name, True, sc.SCREEN_HEIGHT + 1050)
+# ]
 
 joke_credits = [
     ("[ Game made by ]", *font.credit_section, True, 500),
