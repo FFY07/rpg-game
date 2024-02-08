@@ -58,7 +58,11 @@ def create_unit(name, class_type, team = "enemy"):
 # Testing zone
 player1 = create_unit("Magnus", "Reaper", "player")
 player2 = create_unit("Ampersand", "Knight", "player")
+player3 = create_unit("Millenium", "Knight", "player")
+player4 = create_unit("Hakko", "Knight", "player")
 enemy1 = create_unit("Kremlin", "Knight", "enemy")
+enemy2 = create_unit("Moscow", "Reaper", "enemy")
+enemy3 = create_unit("Berlin", "Reaper", "enemy")
 
 # Checking the number of sprites in each sprite group
 print(enemies)
@@ -66,35 +70,53 @@ print(players)
 print(all_units)
 
 # Checking if the images are loaded    
-for k, v in player1.animations.items():
-    print(f"player1 {k}")
-    for n, i in enumerate(v):
-        print(f"{n+1}: {i}")
+# for k, v in player1.animations.items():
+#     print(f"player1 {k}")
+#     for n, i in enumerate(v):
+#         print(f"{n+1}: {i}")
     
-for k, v in enemy1.animations.items():
-    print(f"enemy1 {k}")
-    for n, i in enumerate(v):
-        print(f"{n+1}: {i}")
+# for k, v in enemy1.animations.items():
+#     print(f"enemy1 {k}")
+#     for n, i in enumerate(v):
+#         print(f"{n+1}: {i}")
 
 
-# Create a list of predefined positions for player
+# Lists of valid coordinates for placing characters
 
-player_pos_list = [(300, 210), 
+player_positions = [(300, 210), 
                    (230, 260), 
                    (160, 310)
                    ]
 
-# I haven't test indexerror yet ah TBD
-# This sets the character self.x and self.y according to the position list
-for position, character in zip(player_pos_list, players):
-    character.x, character.y = position
-    print(position, character)
+enemy_positions = [(720, 200),
+                   (790, 250),
+                   (860, 300)
+                   ]
+
+# Set the character self.x and self.y according to the position list
+
+for position, character in enumerate(players):
+        
+    # remove the position from the list if it exists, else just ignore and let it default
+    try:
+        coordinates = player_positions.pop(0)
+        # assign the coordinates to the character
+        character.x, character.y = coordinates
+    except IndexError:
+        pass
+
+for position, character in enumerate(enemies):
+    try:
+        coordinates = enemy_positions.pop(0)
+        # assign the coordinates to the character
+        character.x, character.y = coordinates
+    except IndexError:
+        pass
 
 # As you can see each character has a x and y based on the list
 for character in players:
     print(f"x: {character.x} y: {character.y}")
-
-# Note to RZ: can the list be a dictionary instead e.g. {pos1: (300, 210), pos2: (230, 260), pos3: (160, 310)} etc.
+    # Delete this part after you understand
 
 while True:
     
