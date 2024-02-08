@@ -44,7 +44,7 @@ menutitle_font = pygame.font.SysFont('Impact', 70)
 credit_section = [40, None, "yellow"]
 credit_title = [35, None, "white"]
 credit_desc = [35, None, "green"]
-credit_name = [30, None, "white"]
+credit_name = [30, "segoeuiemoji", "white"]
 
 #define font
 font = pygame.font.SysFont("arialblack" , 40)

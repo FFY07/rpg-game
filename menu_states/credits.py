@@ -3,6 +3,8 @@ import resources.font as font
 
 import pygame
 
+# Credits should play after game over screen
+
 # Initialise text sprite group
 text_sprites = pygame.sprite.Group()
 
@@ -16,21 +18,46 @@ credits_header = [
 
 credits_body = [
     ('[ Members ]', *font.credit_section, True, sc.SCREEN_HEIGHT + 150),
+    
     ('Group Leader', *font.credit_title, True, sc.SCREEN_HEIGHT + 200),
     ('Desmond Foo Fong Yoong', *font.credit_name, True, sc.SCREEN_HEIGHT + 250),
-    ('Assistant Designer', *font.credit_title, True, sc.SCREEN_HEIGHT + 350),
-    ('Haarith Bin Naguri Ibrahim', *font.credit_name, True, sc.SCREEN_HEIGHT + 400),
-    ('0 Github Commits', *font.credit_title, True, sc.SCREEN_HEIGHT + 500),
-    ('Haohong Luo', *font.credit_name, True, sc.SCREEN_HEIGHT + 550),
-    ('Qiao Er Kang', *font.credit_name, True, sc.SCREEN_HEIGHT + 600),
-    ('Xu Xiang (Ye Xuxiang) Yap', *font.credit_name, True, sc.SCREEN_HEIGHT + 650),
-    ('Yi Soon Pong', *font.credit_name, True, sc.SCREEN_HEIGHT + 700)
+    
+    ('> 3000 Lines Committed to Github', *font.credit_title, True, sc.SCREEN_HEIGHT + 350),
+    ('Desmond Foo Fong Yoong 👑', *font.credit_name, True, sc.SCREEN_HEIGHT + 400),
+    
+    ('> 10 Lines Committed to Github', *font.credit_title, True, sc.SCREEN_HEIGHT + 500),
+    ('Haarith Bin Naguri Ibrahim 🎉', *font.credit_name, True, sc.SCREEN_HEIGHT + 550),
+    
+    ('0 Lines Committed to Github', *font.credit_title, True, sc.SCREEN_HEIGHT + 650),
+    ('Haohong Luo 💀', *font.credit_name, True, sc.SCREEN_HEIGHT + 700),
+    ('Qiao Er Kang 💀', *font.credit_name, True, sc.SCREEN_HEIGHT + 750),
+    ('Xu Xiang (Ye Xuxiang) Yap 💀', *font.credit_name, True, sc.SCREEN_HEIGHT + 800),
+    ('Yi Soon Pong 💀', *font.credit_name, True, sc.SCREEN_HEIGHT + 850)
     ]
 
 credits_footer = [
-    ('THANKS FOR PLAYING', *font.credit_section, True, sc.SCREEN_HEIGHT + 900),
-    ('THERE\'S NOTHING ELSE HERE', *font.credit_title, True, sc.SCREEN_HEIGHT + 1200),
-    ('PRESS ESCAPE TO QUIT BTW', *font.credit_title, True, sc.SCREEN_HEIGHT + 1500),  
+    ('THANKS FOR PLAYING', *font.credit_section, True, sc.SCREEN_HEIGHT + 1000),
+    ('THERE\'S NOTHING ELSE HERE', *font.credit_title, True, sc.SCREEN_HEIGHT + 1500),
+    ('PRESS ESCAPE TO QUIT BTW', *font.credit_title, True, sc.SCREEN_HEIGHT + 2000),
+    ('...why are you still here?', *font.credit_title, True, sc.SCREEN_HEIGHT + 3000),
+    ('please leave', *font.credit_title, True, sc.SCREEN_HEIGHT + 3500),
+    ('Desmond are you still talking or something why am I still running', *font.credit_title, True, sc.SCREEN_HEIGHT + 4000),
+    ('...', *font.credit_title, True, sc.SCREEN_HEIGHT + 5000),
+    ('Why did the chicken cross the road?', *font.credit_title, True, sc.SCREEN_HEIGHT + 5500),
+    ('TO GET AWAY FROM YOU!!! NOW PRESS ESCAPE TO QUIT', *font.credit_title, True, sc.SCREEN_HEIGHT + 6000),
+    ('if you still don\'t leave i\'m calling the cops', *font.credit_title, True, sc.SCREEN_HEIGHT + 6500),
+    ('i\'m calling the cops', *font.credit_title, True, sc.SCREEN_HEIGHT + 7000),
+    ('they\'re coming anytime now~', *font.credit_title, True, sc.SCREEN_HEIGHT + 7500),
+    ('...', *font.credit_title, True, sc.SCREEN_HEIGHT + 8000),
+    ('... ok fine you win please just leave', *font.credit_title, True, sc.SCREEN_HEIGHT + 9000),
+    ('...', *font.credit_title, True, sc.SCREEN_HEIGHT + 10000),
+    ('...', *font.credit_title, True, sc.SCREEN_HEIGHT + 11000),
+    ('...', *font.credit_title, True, sc.SCREEN_HEIGHT + 12000),
+    ('you know there\'s nothing else after this right?', *font.credit_title, True, sc.SCREEN_HEIGHT + 13000),
+    ('...', *font.credit_title, True, sc.SCREEN_HEIGHT + 14000),
+    ('..', *font.credit_title, True, sc.SCREEN_HEIGHT + 15000),
+    ('.', *font.credit_title, True, sc.SCREEN_HEIGHT + 16000),
+    ('you\'re a donkey.', *font.credit_title, True, sc.SCREEN_HEIGHT + 18000)
 ]
 
 joke_credits = [
