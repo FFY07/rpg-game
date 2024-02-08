@@ -4,7 +4,7 @@ from pathlib import Path
 import pygame
 
 import classes
-import classes.class_functions as cf
+# import classes.class_functions as cf
 import resources.font as font
 import resources as rsc
 import gui.screen as sc
@@ -17,8 +17,8 @@ import menu_states.options as msoptions
 import menu_states.game_options as msgameoptions
 import menu_states.credits as mscredit
 import menu_states.lazy as mssorry
-pygame.init()
 
+pygame.init()
 clock = pygame.time.Clock()
 FPS = 60
 
@@ -387,8 +387,8 @@ while run:
             bandit.draw()
         
         # NEW draw (replace old one on top after replacing the class)
-        cf.all_units.update()
-        cf.all_units.draw()
+        # cf.all_units.update()
+        # cf.all_units.draw()
 
 
         #draw the damage text 
