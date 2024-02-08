@@ -666,7 +666,7 @@ while run:
         mscredit.draw_menu_credit()
         mscredit.text_sprites.update()
         mscredit.text_sprites.draw(sc.screen)
-        print(mscredit.text_sprites)
+        # print(mscredit.text_sprites) DEBUG
 
     if menu_state == 'ERROR':
         mssorry.draw_menu()

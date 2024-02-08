@@ -27,10 +27,11 @@ credits_body = [
     ('Yi Soon Pong', *font.credit_name, True, sc.SCREEN_HEIGHT + 700)
     ]
 
-# credits_footer = [
-#     ('[ Code Refactorer ]', *font.credit_title, True, sc.SCREEN_HEIGHT + 1000),
-#     ('Rui Zheng', *font.credit_name, True, sc.SCREEN_HEIGHT + 1050)
-# ]
+credits_footer = [
+    ('THANKS FOR PLAYING', *font.credit_section, True, sc.SCREEN_HEIGHT + 900),
+    ('THERE\'S NOTHING ELSE HERE', *font.credit_title, True, sc.SCREEN_HEIGHT + 1200),
+    ('PRESS ESCAPE TO QUIT BTW', *font.credit_title, True, sc.SCREEN_HEIGHT + 1500),  
+]
 
 joke_credits = [
     ("[ Game made by ]", *font.credit_section, True, 500),
@@ -46,7 +47,7 @@ joke_credits = [
 ]
 
 # Add the sections you want to load into this list
-credits_list = [credits_header, credits_body]
+credits_list = [credits_header, credits_body, credits_footer]
 
 for section in credits_list:
     for credit in section:
