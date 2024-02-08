@@ -37,14 +37,15 @@ inputgame_rect = pygame.Rect(150,7,140,32)
 input2_rect = pygame.Rect(350,300,140,32)
 
 #function for drawing text
-def draw_text(text,font,text_col,x,y):
-    img = font.render(text,True,text_col)
-    screen.blit(img,(x,y))
+def draw_text(text, font, color, x, y):
+    # True = Antialiasing (smooth edges)
+    img = font.render(text, True, color)
+    screen.blit(img,(x, y))
 
 #function for drawing text also but centre
-def draw_centertext(text,font,text_col,y):
-    text = font.render(text, True, text_col)
-    text_rect = text.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + y))
+def draw_centertext(text, font, color, y):
+    text = font.render(text, True, color)
+    text_rect = text.get_rect(center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + y))
     screen.blit(text, text_rect)
 
 def draw_menubg():

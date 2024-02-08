@@ -665,6 +665,8 @@ while run:
 
     if menu_state == 'CREDIT':
         mscredit.draw_menu_credit()
+        mscredit.text_sprites.update()
+        mscredit.text_sprites.draw(sc.screen)
 
     if menu_state == 'ERROR':
         mssorry.draw_menu()

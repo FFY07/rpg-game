@@ -12,6 +12,7 @@ https://www.pygame.org/docs/ref/color_list.html
 '''
 
 import pygame
+import gui.screen as screen
 
 pygame.init()
 
@@ -51,6 +52,24 @@ input_text1, input_text2 = '', ''
 color_active = pygame.Color('white')
 color_passive = pygame.Color('gray15')
 
-def font_make(name = "freesansbold", size = 20):
+def font_make(size = 20, name = "freesansbold"):
+    """
+    Generates a font object
+    """
     created_font = pygame.font.SysFont(name, size)
     return created_font
+
+class TextSprite(pygame.sprite.Sprite):
+    # Creates a text sprite; replace me with a docstring once all the parameters are done
+    def __init__(self, text: str, size: int, text_font = "freesansbold", color = "white", x = True, y = True):
+        super().__init__()
+        
+        if x is True:
+            self.x = screen.SCREEN_WIDTH // 2
+        if y is True:
+            self.y = screen.SCREEN_HEIGHT // 2
+        
+        self.font = pygame.font.SysFont(text_font, size)
+        self.image = self.font.render(text, True, color)
+        self.rect = self.image.get_rect()
+        self.rect.center = (self.x, self.y)
