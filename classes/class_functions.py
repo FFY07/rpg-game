@@ -1,6 +1,7 @@
 # CURRENT STATUS: TESTING MODE (RUN THIS FILE DIRECTLY)
 
 import pygame, random, sys
+import gui.screen as sc
 
 from knight import Knight
 from reaper import Reaper
@@ -60,41 +61,26 @@ player1 = create_unit("Magnus", "Reaper", "player")
 player2 = create_unit("Ampersand", "Knight", "player")
 player3 = create_unit("Millenium", "Knight", "player")
 player4 = create_unit("Hakko", "Knight", "player")
+
 enemy1 = create_unit("Kremlin", "Knight", "enemy")
 enemy2 = create_unit("Moscow", "Reaper", "enemy")
 enemy3 = create_unit("Berlin", "Reaper", "enemy")
 
-# Checking the number of sprites in each sprite group
+# Checking the number of sprites in each sprite group DEBUG ONLY and TEMPORARY
 print(enemies)
 print(players)
 print(all_units)
 
-# Checking if the images are loaded    
-# for k, v in player1.animations.items():
-#     print(f"player1 {k}")
-#     for n, i in enumerate(v):
-#         print(f"{n+1}: {i}")
-    
-# for k, v in enemy1.animations.items():
-#     print(f"enemy1 {k}")
-#     for n, i in enumerate(v):
-#         print(f"{n+1}: {i}")
-
-
-# Lists of valid coordinates for placing characters
-
+# TEMPORARY, the real list is at gui.screen
 player_positions = [(300, 210), 
                    (230, 260), 
-                   (160, 310)
-                   ]
+                   (160, 310)]
 
 enemy_positions = [(720, 200),
                    (790, 250),
-                   (860, 300)
-                   ]
+                   (860, 300)]
 
 # Set the character self.x and self.y according to the position list
-
 for position, character in enumerate(players):
         
     # remove the position from the list if it exists, else just ignore and let it default
@@ -108,7 +94,6 @@ for position, character in enumerate(players):
 for position, character in enumerate(enemies):
     try:
         coordinates = enemy_positions.pop(0)
-        # assign the coordinates to the character
         character.x, character.y = coordinates
     except IndexError:
         pass
@@ -116,8 +101,9 @@ for position, character in enumerate(enemies):
 # As you can see each character has a x and y based on the list
 for character in players:
     print(f"x: {character.x} y: {character.y}")
-    # Delete this part after you understand
+    # Delete this part after you understand DEBUG ONLY
 
+# JUST A TEST WINDOW
 while True:
     
     test_window.fill((50, 50, 50))

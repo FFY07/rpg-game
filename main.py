@@ -4,6 +4,7 @@ from pathlib import Path
 import pygame
 
 import classes
+import classes.class_functions as cf
 import resources.font as font
 import resources as rsc
 import gui.screen as sc
@@ -36,8 +37,6 @@ attack = False
 magic = False
 clicked = False
 game_over = 0 #  -1:lose 1:win
-
-
 
 ask_text = 'Name your character :'
 ask1_rect = pygame.Rect(80,200,140,32) # x, y, w, h
@@ -374,6 +373,8 @@ while run:
         sc.draw_text('Use arrow key [ up/down ] to change menu', font.smaller_gui_font, font.BLACK, 260, 457)
         sc.draw_text('Press ENTER to select menu, Q to go back', font.smaller_gui_font,font.BLACK , 260, 475)
 
+
+
         #draw fighter
         knight1.update()
         knight1.draw()
@@ -384,7 +385,10 @@ while run:
         for bandit in bandit_list:
             bandit.update()
             bandit.draw()
-
+        
+        # NEW draw (replace old one on top after replacing the class)
+        cf.all_units.update()
+        cf.all_units.draw()
 
 
         #draw the damage text 

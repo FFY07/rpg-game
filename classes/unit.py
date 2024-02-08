@@ -29,7 +29,8 @@ class Unit(pygame.sprite.Sprite):
         super().__init__()
         self.name = "DefaultName"
         self.team = "No team"
-        self.health = MAX_HEALTH
+        self.max_health = MAX_HEALTH
+        self.health = self.max_health
         self.strength = STRENGTH
         self.intelligence = INTELLIGENCE
         self.defence = DEFENCE
@@ -83,15 +84,12 @@ class Unit(pygame.sprite.Sprite):
     def update(self):
         # handle animation
         # update image
-        # if self.unit_name == "Reaper":
-        # print(f"{self.unit_name}: Frame: {self.frame} Action: {self.action}")
-        # print(f"{self.unit_name}: Time till next frame: {pygame.time.get_ticks() - self.update_time}/{self.animation_speed}")
-
+        
         self.image = self.animations.get(self.action)[self.frame]
         self.rect = self.image.get_rect()
         self.rect.center = (self.x, self.y)
 
-        #check if enought time has passed since the last update
+        #check if enough time has passed since the last update
         # current_time = pygame.time.get_ticks()
         if pygame.time.get_ticks() - self.update_time >= self.animation_speed:
             self.update_time = pygame.time.get_ticks()
@@ -105,21 +103,6 @@ class Unit(pygame.sprite.Sprite):
         # If unit is dead, stay on last frame of death animation instead of looping
         elif self.action == "death":
             self.frame = -1
-
-            
-        #if the animation has run out then reset back to the start
-        # if self.frame_index >= len(self.animationlist[self.action]):
-        #     if self.action == 3:
-        #         self.frame_index = len(self.animationlist[self.action]) - 1
-        #     else:
-        #         self.idle()
-                
-    
-    # def draw(self, screen):
-    #     # Draw the unit image
-    #     screen.blit(self.image, self.rect)
-    #     # Draw the units name
-        # screen.draw_text(self.name, font.hp_font, font.RED, self.rect.centerx - 30, self.rect.y - 20)
                 
     def basic_attack(self, enemy):
         # There's no code that prevents you from attacking yourself

@@ -16,7 +16,16 @@ pygame.init()
 #game window
 BOTTOM_PANEL = 150
 SCREEN_WIDTH = 1000                      
-SCREEN_HEIGHT = 400 + BOTTOM_PANEL 
+SCREEN_HEIGHT = 400 + BOTTOM_PANEL
+
+# Lists of valid character coordinates
+player_positions = [(300, 210), 
+                   (230, 260), 
+                   (160, 310)]
+
+enemy_positions = [(720, 200),
+                   (790, 250),
+                   (860, 300)]
 
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 pygame.display.set_caption("RPG GAME")
@@ -37,6 +46,8 @@ inputgame_rect = pygame.Rect(150,7,140,32)
 input2_rect = pygame.Rect(350,300,140,32)
 
 #function for drawing text
+
+# REPLACE THIS WITH NEW CLASS
 def draw_text(text, font, color, x, y):
     # True = Antialiasing (smooth edges)
     img = font.render(text, True, color)
