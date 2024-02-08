@@ -61,15 +61,37 @@ def font_make(size = 20, name = "freesansbold"):
 
 class TextSprite(pygame.sprite.Sprite):
     # Creates a text sprite; replace me with a docstring once all the parameters are done
-    def __init__(self, text: str, size: int, text_font = "freesansbold", color = "white", x = True, y = True):
+    def __init__(self, text: str, size: int, text_font = "freesansbold", color = "white", x = True, y = True, falling = False):
+        """Generates a text sprite
+        
+        Args:
+            text (str): The text to display
+            size (int): The size of the text
+            text_font (str, optional): The font name. Defaults to "freesansbold".
+            color (str, optional): The font color. Defaults to "white".
+            x (bool, optional): The x coordinate. True = Centered.
+            y (bool, optional): The y coordinate. True = Centered.
+            falling (bool, optional): Whether the text is falling
+        """
         super().__init__()
         
         if x is True:
             self.x = screen.SCREEN_WIDTH // 2
+        else:
+            self.x = x
+            
         if y is True:
             self.y = screen.SCREEN_HEIGHT // 2
+        else:
+            self.y = y
+            
+        self.falling = falling
         
         self.font = pygame.font.SysFont(text_font, size)
         self.image = self.font.render(text, True, color)
         self.rect = self.image.get_rect()
         self.rect.center = (self.x, self.y)
+    
+    def update(self):
+        if self.falling:
+            self.rect.move_ip(0, 5)

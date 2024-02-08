@@ -30,10 +30,10 @@ credits_footer = [
 credits_list = [credits_header, credits_body, credits_footer]
 
 
-# text_sprites = pygame.sprite.Group()
+text_sprites = pygame.sprite.Group()
 
-# example_test = font.TextSprite("Hello", 40)
-# text_sprites.add(example_test)
+example_test = font.TextSprite("HALLO", 80, "freesansbold", "crimson", True, 0, True)
+text_sprites.add(example_test)
 
 def draw_menu_credit():
     """Draws all the credits onto the screen"""
