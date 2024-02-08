@@ -17,7 +17,7 @@ credits_header = [
 credits_body = [
     ('[ Members ]', *font.credit_section, True, sc.SCREEN_HEIGHT + 150),
     ('Group Leader', *font.credit_title, True, sc.SCREEN_HEIGHT + 200),
-    ('Desmond Foo Fong Yoong (GL)', *font.credit_name, True, sc.SCREEN_HEIGHT + 250),
+    ('Desmond Foo Fong Yoong', *font.credit_name, True, sc.SCREEN_HEIGHT + 250),
     ('Assistant Designer', *font.credit_title, True, sc.SCREEN_HEIGHT + 350),
     ('Haarith Bin Naguri Ibrahim', *font.credit_name, True, sc.SCREEN_HEIGHT + 400),
     ('0 Github Commits', *font.credit_title, True, sc.SCREEN_HEIGHT + 500),
