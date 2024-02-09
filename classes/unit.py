@@ -43,8 +43,8 @@ class Unit(pygame.sprite.Sprite):
         self.mana = MANA
 
         self.size_scale = 1
-        self.x = 100
-        self.y = 100
+        self.x = 500
+        self.y = 250
         self.image = pygame.Surface((0, 0))
         
         # default action

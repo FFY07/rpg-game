@@ -122,3 +122,8 @@ class TextSprite(pygame.sprite.Sprite):
         else:
             if self.rect.right > screen.SCREEN_WIDTH:
                 self.kill()
+                
+class TextButton(TextSprite):
+    def __init__(self, pressed = False):
+        super().__init__()
+        
