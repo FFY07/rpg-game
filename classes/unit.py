@@ -62,7 +62,7 @@ class Unit(pygame.sprite.Sprite):
     def show_stats(self):
         print(f"Name: {self.name}, Health: {self.health}, Level: {self.level}, Exp: {self.exp}")
     
-    def load_animations(self):
+    def load_animations(self, reverse = False):
         '''loads all animations into the self.animations dictionary'''
         for action in self.actions:
             path = Path(f"resources/picture/{self.unit_name}/{action}")
@@ -73,7 +73,13 @@ class Unit(pygame.sprite.Sprite):
             for i in img_list:
                 image = pygame.image.load(i)
                 image = pygame.transform.scale(image, (image.get_width()*self.size_scale, image.get_height()*self.size_scale))
-                loaded_img_list.append(image)
+                
+                if reverse:
+                    image = pygame.transform.flip(image, True, False)
+                    loaded_img_list.append(image)
+                    
+                else:
+                    loaded_img_list.append(image)
             
             # Create a key value pair using action and loaded_img_list in the animations dictionary
             self.animations[action] = loaded_img_list

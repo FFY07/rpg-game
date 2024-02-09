@@ -2,8 +2,8 @@
 
 import pygame, random, sys
 
-from knight import Knight
-from reaper import Reaper
+from .knight import Knight
+from .reaper import Reaper
 
 all_units = pygame.sprite.Group()
 enemies = pygame.sprite.Group()
@@ -11,18 +11,18 @@ players = pygame.sprite.Group()
 
 pygame.init()
 
-FPS = 60
+# FPS = 60
 
-test_window = pygame.display.set_mode((1280, 720))
-pygame.display.set_caption("test window")
-clock = pygame.time.Clock()
+# test_window = pygame.display.set_mode((1280, 720))
+# pygame.display.set_caption("test window")
+# clock = pygame.time.Clock()
 
-def create_unit(name, class_type, team = "enemy"):
+def create_unit(name, unit_class, team = "enemy"):
     """Creates a new unit object and adds it to the sprite groups
 
     Args:
         name (str): Name of the unit
-        class_type (str): Class of the unit
+        unit_class (str): Class of the unit
         team (str, optional): Which team this unit is on. Defaults to "enemy".
 
     Returns:
@@ -30,7 +30,7 @@ def create_unit(name, class_type, team = "enemy"):
     """
     
     # Create the unit object
-    match class_type:
+    match unit_class:
         
         case "Reaper":
             unit = Reaper(name, team)
@@ -55,17 +55,48 @@ def create_unit(name, class_type, team = "enemy"):
     
     return unit
 
+player_list = [("Southpaw", "Reaper"),
+               ("Genesis", "Knight"),
+               ("Akshan", "Knight"),
+               ("Samal", "Reaper")]
+
+enemy_list = [("Fury", "Reaper"),
+              ("Hawk", "Reaper"),
+              ("Nova", "Knight")]
+
+def create_team(unit_list: list, team: str):
+    """Creates units based on an input list and team name
+    
+    unit_list = list of tuples (name, char_class)"""
+    for unit in unit_list:
+        create_unit(unit[0], unit[1], team)
+        
+def set_positions(position_list, sprite_group):
+    for character in sprite_group:
+        
+        # Assigns a coordinate position to the unit
+        try:
+            coordinates = position_list.pop(0)
+            
+            # assign the coordinates to the character
+            character.x, character.y = coordinates
+        
+        # If there are no available positions left, we leave the unit's coordinates at default
+        except IndexError:
+            pass
+
+# create_team(player_list, "player")
+# create_team(enemy_list, "enemy")
+
 # Testing zone
-player1 = create_unit("Magnus", "Reaper", "player")
-player2 = create_unit("Ampersand", "Knight", "player")
-player3 = create_unit("Millenium", "Knight", "player")
-player4 = create_unit("Hakko", "Knight", "player")
+# player1 = create_unit("Magnus", "Reaper", "player")
+# player2 = create_unit("Ampersand", "Knight", "player")
+# player3 = create_unit("Millenium", "Knight", "player")
+# player4 = create_unit("Hakko", "Knight", "player")
 
-enemy1 = create_unit("Kremlin", "Knight", "enemy")
-enemy2 = create_unit("Moscow", "Reaper", "enemy")
-enemy3 = create_unit("Berlin", "Reaper", "enemy")
-
-player1.action = "attack"
+# enemy1 = create_unit("Kremlin", "Knight", "enemy")
+# enemy2 = create_unit("Moscow", "Reaper", "enemy")
+# enemy3 = create_unit("Berlin", "Reaper", "enemy")
 
 # Checking the number of sprites in each sprite group DEBUG ONLY and TEMPORARY
 print(enemies)
@@ -101,25 +132,25 @@ for position, character in enumerate(enemies):
 
 # As you can see each character has a x and y based on the list
 for character in players:
-    print(f"x: {character.x} y: {character.y}")
+    print(f"{character.name} x: {character.x} y: {character.y}")
     # Delete this part after you understand DEBUG ONLY
 
 # JUST A TEST WINDOW
-while True:
+# while True:
     
-    test_window.fill((50, 50, 50))
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+#     test_window.fill((50, 50, 50))
+#     for event in pygame.event.get():
+#         if event.type == pygame.QUIT:
+#             pygame.quit()
+#             sys.exit()
     
-    # enemies.update()
-    # enemies.draw(test_window)
+#     # enemies.update()
+#     # enemies.draw(test_window)
     
-    # Player team follows the player position list, enemy doesn't because I didn't create a position list for them
-    # TODO: Flip enemy sprite accordingly with pygame.transform.flip()
-    all_units.update()
-    all_units.draw(test_window)
+#     # Player team follows the player position list, enemy doesn't because I didn't create a position list for them
+#     # TODO: Flip enemy sprite accordingly with pygame.transform.flip()
+#     all_units.update()
+#     all_units.draw(test_window)
     
-    clock.tick(FPS)
-    pygame.display.update()
+#     clock.tick(FPS)
+#     pygame.display.update()

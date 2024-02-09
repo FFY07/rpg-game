@@ -1,4 +1,4 @@
-from unit import Unit
+from .unit import Unit
 
 class Reaper(Unit):
     '''Reaper class from Unit'''
@@ -13,6 +13,11 @@ class Reaper(Unit):
         self.magic_resist += 5
         
         self.size_scale = 2
-        self.load_animations()
+        
+        # Load image according to team
+        if team == "player":  
+            self.load_animations(True)
+        else:
+            self.load_animations()
         
         # Make reaper animation speed faster when attacking

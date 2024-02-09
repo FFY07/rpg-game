@@ -1,4 +1,4 @@
-from unit import Unit
+from .unit import Unit
 
 class Knight(Unit):
     '''Knight class from Unit'''
@@ -12,5 +12,10 @@ class Knight(Unit):
         self.defence += 5
         self.magic_resist -= 5
 
-        self.size_scale = 3   
-        self.load_animations()
+        self.size_scale = 3
+        
+        # Load image according to team
+        if team == "player":
+            self.load_animations()
+        else:
+            self.load_animations(True)

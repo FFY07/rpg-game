@@ -718,8 +718,8 @@ while run:
             if menu_state == 0:
                 if event.key == pygame.K_RETURN:
                     if option1 == True:
-                        # menu_state = "play" Replace with this once the play screen is finished
-                        menu_state = 1
+                        menu_state = "play"
+                        # menu_state = 1
                         input1 = True
                     elif option2 == True:
                         menu_state = 'MENUOPTIONS'
