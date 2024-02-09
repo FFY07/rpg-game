@@ -5,9 +5,9 @@ from classes.knight import Knight
 import gui.screen as sc
 import classes.class_functions as cf
 
-BAR_WIDTH = 150
-BAR_HEIGHT = 20
-BAR_OFFSET_Y = -25
+BAR_WIDTH = 100
+BAR_HEIGHT = 15
+BAR_OFFSET_Y = -75
 BAR_OFFSET_X = 0
 
 DEFAULT_QTY = BAR_WIDTH // 2
