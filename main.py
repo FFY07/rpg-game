@@ -234,7 +234,8 @@ while run:
                                 input2 = False
                                 startbutton = True
                             elif startbutton == True:
-                                menu_state = 4
+                                # menu_state = 4
+                                menu_state = 'play'
                                 menu_brake = True
                                 music = pygame.mixer.music.load(rsc.sound.battle)
                                 pygame.mixer_music.play(-1)
@@ -787,6 +788,10 @@ while run:
                         last_state = 'MENUOPTIONS'
                     elif option4 == True:
                         menu_state = 0
+                        option1 = False
+                        option2 = True
+                        option3 = False
+                        option4 = False
                 elif event.key == pygame.K_ESCAPE:
                     menu_state = 0
                     option1 = False
@@ -860,6 +865,8 @@ while run:
                         last_state = 'GAMEOPTIONS'
                     elif option4 == True:
                         menu_state = 0
+                        music = pygame.mixer.music.load(rsc.sound.start)
+                        pygame.mixer_music.play(-1)
                         menu_brake = True
 
                 elif event.key == pygame.K_ESCAPE:
