@@ -65,11 +65,13 @@ color_passive = pygame.Color('gray15')
 class TextSprite(pygame.sprite.Sprite):
     # Creates a text sprite; replace me with a docstring once all the parameters are done
     def __init__(self, text: str, 
-                size: int, text_font = "freesansbold", 
+                size: int, 
+                text_font = "freesansbold", 
                 color = "white", 
                 x_centered = True, 
                 y_centered = True, 
-                dx = 0, dy = 0):
+                dx = 0, 
+                dy = 0):
         """Generates a text sprite
         
         Args:
@@ -120,4 +122,3 @@ class TextSprite(pygame.sprite.Sprite):
         else:
             if self.rect.right > screen.SCREEN_WIDTH:
                 self.kill()
-        

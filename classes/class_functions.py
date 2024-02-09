@@ -55,14 +55,14 @@ def create_unit(name, unit_class, team = "enemy"):
     
     return unit
 
-player_list = [("Southpaw", "Reaper"),
-               ("Genesis", "Knight"),
-               ("Akshan", "Knight"),
-               ("Samal", "Reaper")]
+# player_list = [("Southpaw", "Reaper"),
+#                ("Genesis", "Knight"),
+#                ("Akshan", "Knight"),
+#                ("Samal", "Reaper")]
 
-enemy_list = [("Fury", "Reaper"),
-              ("Hawk", "Reaper"),
-              ("Nova", "Knight")]
+# enemy_list = [("Fury", "Reaper"),
+#               ("Hawk", "Reaper"),
+#               ("Nova", "Knight")]
 
 def create_team(unit_list: list, team: str):
     """Creates units based on an input list and team name

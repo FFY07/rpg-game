@@ -524,6 +524,8 @@ while run:
                 if event.type == pygame.QUIT:
                     run = False
         case 6:
+            # select knight to attack
+
             sc.screen.blit(sc.panel_img,(0,sc.SCREEN_HEIGHT - sc.BOTTOM_PANEL))
             sc.draw_bg()
             # knight1.update()
@@ -558,10 +560,10 @@ while run:
                 color_bandit3 = font.GREY
                 
         case 7:
-
+            #select enemy as target
             sc.screen.blit(sc.panel_img,(0,sc.SCREEN_HEIGHT - sc.BOTTOM_PANEL))
             sc.draw_bg()
-            for bandit in bandit_list:
+            for bandit in bandit_list: 
                 # bandit.update()
                 bandit.draw()
 
@@ -607,6 +609,7 @@ while run:
                 color_bandit3 = font.GREY
                 
         case 8:
+            #select attack
             sc.screen.blit(sc.panel_img,(0,sc.SCREEN_HEIGHT - sc.BOTTOM_PANEL))
             sc.draw_bg()
 
@@ -718,8 +721,8 @@ while run:
             if menu_state == 0:
                 if event.key == pygame.K_RETURN:
                     if option1 == True:
-                        menu_state = "play"
-                        # menu_state = 1
+                        # menu_state = "play"
+                        menu_state = 1
                         input1 = True
                     elif option2 == True:
                         menu_state = 'MENUOPTIONS'

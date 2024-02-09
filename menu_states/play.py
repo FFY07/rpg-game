@@ -26,3 +26,7 @@ def play():
     
     cf.all_units.update()
     cf.all_units.draw(sc.screen)
+
+    # Initial setup
+
+    
