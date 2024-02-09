@@ -719,6 +719,11 @@ while run:
         
         if event.type == pygame.KEYDOWN:
             if menu_state == 0:
+                
+                # debug mode
+                if event.key == pygame.K_q:
+                    menu_state = "play"
+                
                 if event.key == pygame.K_RETURN:
                     if option1 == True:
                         # menu_state = "play"

@@ -88,20 +88,6 @@ def set_positions(position_list, sprite_group):
 # create_team(player_list, "player")
 # create_team(enemy_list, "enemy")
 
-# Testing zone
-# player1 = create_unit("Magnus", "Reaper", "player")
-# player2 = create_unit("Ampersand", "Knight", "player")
-# player3 = create_unit("Millenium", "Knight", "player")
-# player4 = create_unit("Hakko", "Knight", "player")
-
-# enemy1 = create_unit("Kremlin", "Knight", "enemy")
-# enemy2 = create_unit("Moscow", "Reaper", "enemy")
-# enemy3 = create_unit("Berlin", "Reaper", "enemy")
-
-# Checking the number of sprites in each sprite group DEBUG ONLY and TEMPORARY
-print(enemies)
-print(players)
-print(all_units)
 
 # TEMPORARY, the real list is at gui.screen
 player_positions = [(300, 210), 

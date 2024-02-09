@@ -3,11 +3,11 @@ import pygame
 import gui.screen as sc
 import gui.gamelog as gamelog
 import classes.class_functions as cf
+import gui.bars as bars
 
 player_list = [("Southpaw", "Reaper"),
                ("Genesis", "Knight"),
-               ("Akshan", "Knight"),
-               ("Samal", "Reaper")]
+               ("Akshan", "Knight")]
 
 enemy_list = [("Fury", "Reaper"),
               ("Hawk", "Reaper"),
@@ -26,6 +26,9 @@ def play():
     
     cf.all_units.update()
     cf.all_units.draw(sc.screen)
+    
+    bars.allbars.update()
+    bars.allbars.draw(sc.screen)
 
     # Initial setup
 
