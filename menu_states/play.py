@@ -3,6 +3,7 @@ import resources.font as font
 import gui.screen as sc
 import gui.gamelog as gamelog
 import classes.class_functions as cf
+from gui import bars as bars
 import random
 
 player_list = [("Southpaw", "Reaper"),
@@ -40,6 +41,9 @@ def play():
     for count, i in enumerate(enemy_list):
                 #show name and health
                 sc.draw_text(f'{i}',font.hp_font, font.RED, 800, (12) + count  * 42)
+                
+    bars.allbars.update()
+    bars.allbars.draw(sc.screen)
 
     # Initial setup
 
