@@ -15,7 +15,7 @@ import random
 import gui.screen as sc
 import gui.damagetext as dt
 import resources.font as font
-import gamelog
+import gui.gamelog as gamelog
 
 import resources as rsc
 

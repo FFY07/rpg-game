@@ -25,7 +25,7 @@ credits_body = [
     ('> 3000 Lines Committed to Github', *font.credit_title, True, sc.SCREEN_HEIGHT + 350),
     ('Desmond Foo Fong Yoong 👑', *font.credit_name, True, sc.SCREEN_HEIGHT + 400),
     
-    ('> 10 Lines Committed to Github', *font.credit_title, True, sc.SCREEN_HEIGHT + 500),
+    ('> 50 Lines Committed to Github', *font.credit_title, True, sc.SCREEN_HEIGHT + 500),
     ('Haarith Bin Naguri Ibrahim 🎉', *font.credit_name, True, sc.SCREEN_HEIGHT + 550),
     
     ('0 Lines Committed to Github', *font.credit_title, True, sc.SCREEN_HEIGHT + 650),

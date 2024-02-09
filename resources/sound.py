@@ -14,5 +14,6 @@ game_over = f"{Path('resources/sound/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Fx 
 # Sound effects
 sword_sfx = pygame.mixer.Sound(f"{Path('resources/sound/unsheath_sword-6113.mp3')}")
 magic_sfx = pygame.mixer.Sound(f"{Path('resources/sound/1168-za-warudo-sound-effect.mp3')}")
+
 # Stupid section
 easter = f"{Path('resources/sound/driftveil-city-theme-pokémon-black-&-white-(toothless-dancing)-made-with-Voicemod.mp3')}"
