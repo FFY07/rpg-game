@@ -14,3 +14,5 @@ class Reaper(Unit):
         
         self.size_scale = 2
         self.load_animations()
+        
+        # Make reaper animation speed faster when attacking

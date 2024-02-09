@@ -1,7 +1,6 @@
 # CURRENT STATUS: TESTING MODE (RUN THIS FILE DIRECTLY)
 
 import pygame, random, sys
-import gui.screen as sc
 
 from knight import Knight
 from reaper import Reaper
@@ -65,6 +64,8 @@ player4 = create_unit("Hakko", "Knight", "player")
 enemy1 = create_unit("Kremlin", "Knight", "enemy")
 enemy2 = create_unit("Moscow", "Reaper", "enemy")
 enemy3 = create_unit("Berlin", "Reaper", "enemy")
+
+player1.action = "attack"
 
 # Checking the number of sprites in each sprite group DEBUG ONLY and TEMPORARY
 print(enemies)
