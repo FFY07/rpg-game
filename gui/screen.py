@@ -18,15 +18,6 @@ BOTTOM_PANEL = 150
 SCREEN_WIDTH = 1000                      
 SCREEN_HEIGHT = 400 + BOTTOM_PANEL
 
-# Lists of valid character coordinates
-player_positions = [(300, 210), 
-                   (230, 260), 
-                   (160, 310)]
-
-enemy_positions = [(720, 200),
-                   (790, 250),
-                   (860, 300)]
-
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 pygame.display.set_caption("RPG GAME")
 

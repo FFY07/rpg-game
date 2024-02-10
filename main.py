@@ -235,7 +235,7 @@ while run:
                                 startbutton = True
                             elif startbutton == True:
                                 # menu_state = 4
-                                menu_state = 'play'
+                                menu_state = 4
                                 menu_brake = True
                                 music = pygame.mixer.music.load(rsc.sound.battle)
                                 pygame.mixer_music.play(-1)
@@ -715,6 +715,7 @@ while run:
         case 'play':
             msplay.play()
 
+
     #quit the game
     for event in pygame.event.get(): 
         
@@ -724,6 +725,8 @@ while run:
                 # debug mode
                 if event.key == pygame.K_q:
                     menu_state = "play"
+                    music = pygame.mixer.music.load(rsc.sound.battle)
+                    pygame.mixer_music.play(-1)
                 
                 if event.key == pygame.K_RETURN:
                     if option1 == True:
