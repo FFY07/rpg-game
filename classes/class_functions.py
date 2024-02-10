@@ -11,12 +11,6 @@ players = pygame.sprite.Group()
 
 pygame.init()
 
-# FPS = 60
-
-# test_window = pygame.display.set_mode((1280, 720))
-# pygame.display.set_caption("test window")
-# clock = pygame.time.Clock()
-
 def create_unit(name, unit_class, team = "enemy"):
     """Creates a new unit object and adds it to the sprite groups
 
@@ -120,23 +114,3 @@ for position, character in enumerate(enemies):
 for character in players:
     print(f"{character.name} x: {character.x} y: {character.y}")
     # Delete this part after you understand DEBUG ONLY
-
-# JUST A TEST WINDOW
-# while True:
-    
-#     test_window.fill((50, 50, 50))
-#     for event in pygame.event.get():
-#         if event.type == pygame.QUIT:
-#             pygame.quit()
-#             sys.exit()
-    
-#     # enemies.update()
-#     # enemies.draw(test_window)
-    
-#     # Player team follows the player position list, enemy doesn't because I didn't create a position list for them
-#     # TODO: Flip enemy sprite accordingly with pygame.transform.flip()
-#     all_units.update()
-#     all_units.draw(test_window)
-    
-#     clock.tick(FPS)
-#     pygame.display.update()

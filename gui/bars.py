@@ -140,6 +140,7 @@ test_bar_text = BarText(test_knight, 30, None, "yellow") # This is the text for 
 test_health = HealthBar(test_knight) # This is the bar on top of the middle character
 
 test_static_bar = StaticBar(test_knight) # This is the flickering one on the left based on fixed coordinates
+print(test_knight.unit_name) # I Have no idea why this Knight sometimes loads the reaper sprite
 
 # Slow down the FPS to see better ^
 
