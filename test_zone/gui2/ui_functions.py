@@ -170,7 +170,6 @@ class Button(pygame.sprite.Sprite):
     def update(self):
         if self.selected:
             self.image.set_alpha(100)
-            self.image.fill("darkgrey")
             
         else:
             self.image.set_alpha(0)

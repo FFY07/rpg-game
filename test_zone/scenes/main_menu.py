@@ -11,24 +11,42 @@ buttons = pygame.sprite.Group()
 button_list = []
 text_list = []
 
-play_button = ui_functions.Button(200, 70, "green")
-escape_button = ui_functions.Button(200, 70, "red", True, 450)
-
+# Color doesn't matter
+play_button = ui_functions.Button(180, 70, "green")
 play_text = ui_functions.TextSprite("Play", 30)
+
+options_button = ui_functions.Button(180, 70, "cyan")
+options_text = ui_functions.TextSprite("Options", 30)
+
+credits_button = ui_functions.Button(180, 70, "yellow")
+credits_text = ui_functions.TextSprite("Credits", 30)
+
+escape_button = ui_functions.Button(180, 70, "grey", True, 450)
 escape_text = ui_functions.TextSprite("Quit", 30, "freesansbold", "white", True, 450)
 
 # Add to pygame sprite group
 buttons.add(play_button)
 buttons.add(play_text)
 
+buttons.add(options_button)
+buttons.add(options_text)
+
+buttons.add(credits_button)
+buttons.add(credits_text)
+
 buttons.add(escape_button)
 buttons.add(escape_text)
 
 # Add to our manual lists
 button_list.append(play_button)
+button_list.append(options_button)
+button_list.append(credits_button)
 button_list.append(escape_button)
 
+
 text_list.append(play_text)
+text_list.append(options_text)
+text_list.append(credits_text)
 text_list.append(escape_text)
 
 # Static stuff
@@ -95,6 +113,12 @@ def main():
                 char_create.create()
             
             elif current_selection == 1:
+                print("options screen")
+                
+            elif current_selection == 2:
+                print("credits screen")
+                
+            elif current_selection == 3:
                 pygame.quit()
                 sys.exit()
                 
