@@ -17,7 +17,7 @@ import menu_states.options as msoptions
 import menu_states.game_options as msgameoptions
 import menu_states.credits as mscredit
 import menu_states.lazy as mslazy
-import menu_states.play as msplay
+import menu_states.throne as throne
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -291,6 +291,7 @@ while run:
                                         font.input_text2 += pygame.key.name(i)
                 if event.type ==  pygame.QUIT:
                     run = False
+    
                     
         case 'GAMEOPTIONS':
         #pause menu
@@ -713,7 +714,7 @@ while run:
             menu_state = 4
             
         case 'play':
-            msplay.play()
+            throne.play()
 
 
     #quit the game
@@ -1076,8 +1077,9 @@ while run:
             clicked = True
         else:
             clicked = False
-            
+
     # print(f"Current menu state: {menu_state}") DEBUG
     pygame.display.update()
+
 
 pygame.quit()
