@@ -28,6 +28,18 @@ def key_handler():
             
             if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                 actions["right"] = True
+                
+            if event.key == pygame.K_SPACE:
+                actions["space"] = True
+            
+            if event.key == pygame.K_BACKSPACE:
+                actions["backspace"] = True
+            
+            if event.key == pygame.K_RETURN:
+                actions["enter"] = True
+            
+            if event.key == pygame.K_ESCAPE:
+                actions["escape"] = True
             
         if event.type == pygame.KEYUP:
 
@@ -42,6 +54,18 @@ def key_handler():
             
             if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                 actions["right"] = False
+                            
+            if event.key == pygame.K_SPACE:
+                actions["space"] = False
+            
+            if event.key == pygame.K_BACKSPACE:
+                actions["backspace"] = False
+            
+            if event.key == pygame.K_RETURN:
+                actions["enter"] = False
+            
+            if event.key == pygame.K_ESCAPE:
+                actions["escape"] = False
                 
         if event.type == pygame.QUIT:
             pygame.quit()
