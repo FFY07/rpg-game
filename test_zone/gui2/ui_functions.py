@@ -162,9 +162,11 @@ class Button(pygame.sprite.Sprite):
     
     def update(self):
         if self.selected:
-            self.image.fill("red")
+            self.image.set_alpha(255)
+            self.image.fill("darkgrey")
+            
         else:
-            self.image.fill(self.color)
+            self.image.set_alpha(0)
         
 class ButtonBG(pygame.sprite.Sprite):
     pass
