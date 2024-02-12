@@ -173,6 +173,3 @@ class Button(pygame.sprite.Sprite):
             
         else:
             self.image.set_alpha(0)
-        
-class ButtonBG(pygame.sprite.Sprite):
-    pass

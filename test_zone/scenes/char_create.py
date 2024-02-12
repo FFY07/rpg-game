@@ -6,8 +6,6 @@ import gui2.ui_functions as ui_functions
 import scenes.main_menu as main_menu
 
 def create():
-    last_pressed = None
-
     pygame.display.set_caption("Character Creation")
  
     while True:

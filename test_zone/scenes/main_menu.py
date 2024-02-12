@@ -11,7 +11,6 @@ buttons = pygame.sprite.Group()
 button_list = []
 text_list = []
 
-# Color doesn't matter
 play_button = ui_functions.Button(140, 50, "green", True, 400)
 play_text = ui_functions.TextSprite("Play", 30, "freesansbold", "white", True, 400)
 
