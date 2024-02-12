@@ -29,7 +29,7 @@ game_paused = False
 menu_state = -1  # 0 : main , 1:start, 2:option, 3:play
 menu_brake = False
 
-playerheart = 3  
+action = 'player_turn'
 current_fighter = 1
 total_fighter = 4
 action_cooldown = 0
@@ -332,12 +332,14 @@ while run:
 
             #draw panel
             sc.draw_panel()
-            sc.draw_text(f'{knight1.name} HP:{knight1.hp}',font.hp_font, font.RED, 80, 12)
-            sc.draw_text(f'{knight2.name} HP:{knight2.hp}',font.hp_font, font.RED, 80, 12 + 1 * 42)
-            sc.draw_text(f'{knight3.name} HP:{knight3.hp}',font.hp_font, font.RED, 80, 12 + 2 * 42 )
-
+            
             # draw game log
             gamelog.draw_game_logs()
+
+            # (NAME , HP)  STAT
+            #knight stats
+            for count, i in enumerate(player_list):
+                sc.draw_text(f'{i.name} HP: {i.hp}',font.hp_font, font.RED, 80, (12) + count  * 42)
 
             #bandit stats
             for count, i in enumerate(bandit_list):
@@ -352,7 +354,7 @@ while run:
             bandit1_health_bar.draw(bandit1.hp)
             bandit2_health_bar.draw(bandit2.hp)
             bandit3_health_bar.draw(bandit3.hp)
-
+        
         
             #GUI panel
             if attackTF == True:
@@ -403,7 +405,7 @@ while run:
             dt.damage_text_group.draw(sc.screen)
 
             #player action
-            if current_fighter == 1:
+            if action == 'player_turn':
                 action_cooldown += 1
                 if action_cooldown >= action_wait_time:
                     #look for player action
@@ -414,16 +416,16 @@ while run:
                             target = None
                             attacker = None
                             attack = False
-                            current_fighter += 1
                             action_cooldown = 0
+                            action = 'ai_turn'
                         elif magic == True and attacker != None and target != None and attack == False :
                             rsc.sound.magic_sfx.play()
                             attacker.magic(target)
                             target = None
                             attacker = None
                             magic = False
-                            current_fighter += 1
                             action_cooldown = 0
+                            action = 'ai_turn'
 
             #check if all knigght are dead
             alive_player = 0
@@ -435,33 +437,19 @@ while run:
 
 
             #enemy action
-            for count, bandit in enumerate(bandit_list):
-                if current_fighter == 2 + count:
-                    if bandit.alive == True:
-                        action_cooldown += 1
-                        if action_cooldown >= action_wait_time:
-                            #attack
-                            #check alive and random knight to attack
-                            onetwothree = random.randint(1,3)
-                            if onetwothree == 1 and knight1.alive == True:
-                                aiattack = knight1
-                            if onetwothree == 2 and knight2.alive == True:
-                                aiattack = knight2
-                            if onetwothree == 3 and knight3.alive == True:
-                                aiattack = knight3
-                            else:
-                                onetwothree = random.randint(1,3)
-
-                            bandit.attack(aiattack)
-                            rsc.sound.sword_sfx.play()
-                            current_fighter += 1
-                            action_cooldown = 0
-                    else:
-                        current_fighter += 1
-
-            #if all fighter have had a turn than reset
-            if current_fighter > total_fighter:
-                current_fighter = 1
+            
+            if action == 'ai_turn':
+                ai_attacker = random.choice(bandit_list)
+                if ai_attacker.alive == True:
+                        aiattack = random.choice(player_list)
+                        if aiattack.alive == True:
+                            action_cooldown += 1    
+                            if action_cooldown >= action_wait_time:
+                                #attack
+                                ai_attacker.attack(aiattack)
+                                rsc.sound.sword_sfx.play()
+                                action_cooldown = 0
+                                action = 'player_turn'
 
             #check if all bandits are dead
             alive_bandits = 0
