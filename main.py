@@ -103,9 +103,9 @@ class healthbar():
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #//////////////[ GAME STAT ]///////////////////////////////////////////[ GAME STAT ]/////////////////////////////////////////////////////[ GAME STAT ]/////////////////////////////////
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-knight1 = classes.Fighter(300, 210, font.input_text1,'knightpic', 40, 20, 6)
+knight1 = classes.Fighter(300, 210, font.input_text1,'knightpic', 50, 10, 6)
 knight2 = classes.Fighter(230, 260, '(test1)','knightpic', 40, 20, 6)
-knight3 = classes.Fighter(160, 310, '(test2)','knightpic', 40, 20, 6)
+knight3 = classes.Fighter(160, 310, '(test2)','knightpic', 30, 25, 6)
 
 player_list = []
 player_list.append(knight1)
@@ -117,9 +117,9 @@ ai2 = '(AI '  + str(random.randint(10,99)) + ')'
 ai3 = '(AI '  + str(random.randint(10,99)) + ')'
 
 
-bandit1 = classes.Fighter(720, 200 , ai1, 'reaperpic', 20 , 999, 6)   #x = base + 70 , = base  +50
-bandit2 = classes.Fighter(790, 250 , ai2, 'banditpic', 20, 6 , 6)
-bandit3 = classes.Fighter(860, 300 , ai3, 'banditpic', 20, 6 , 6)
+bandit1 = classes.Fighter(720, 200 , ai1, 'reaperpic', 50 , 15, 6)   #x = base + 70 , = base  +50
+bandit2 = classes.Fighter(790, 250 , ai2, 'banditpic', 35, 25 , 6)
+bandit3 = classes.Fighter(860, 300 , ai3, 'banditpic', 35, 25 , 6)
 
 bandit_list = []
 bandit_list.append(bandit1)
@@ -527,9 +527,15 @@ while run:
             # knight3.update()
             knight3.draw()
 
-            sc.draw_text(knight1.name, font.gui_font, color_bandit1 , 80 , 430 )
-            sc.draw_text(knight2.name, font.gui_font, color_bandit2 , 80 , 460 )
-            sc.draw_text(knight3.name, font.gui_font, color_bandit3 , 80 , 490 )
+            if knight1.alive == True:
+                sc.draw_text(knight1.name, font.gui_font, color_bandit1 , 80 , 430 )
+                sc.draw_text('Attack Damage: ' + str(knight1.strength), font.hp_font, color_bandit1, 160, 435)
+            if knight2.alive == True:
+                sc.draw_text(knight2.name, font.gui_font, color_bandit2 , 80 , 460 )
+                sc.draw_text('Attack Damage: ' + str(knight2.strength), font.hp_font, color_bandit2, 160, 465)
+            if knight3.alive == True:
+                sc.draw_text(knight3.name, font.gui_font, color_bandit3 , 80 , 490 )
+                sc.draw_text('Attack Damage: ' + str(knight3.strength), font.hp_font, color_bandit3, 160, 495)
 
             attacker = None
 
