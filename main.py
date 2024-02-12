@@ -107,12 +107,17 @@ knight1 = classes.Fighter(300, 210, font.input_text1,'knightpic', 40, 20, 6)
 knight2 = classes.Fighter(230, 260, '(test1)','knightpic', 40, 20, 6)
 knight3 = classes.Fighter(160, 310, '(test2)','knightpic', 40, 20, 6)
 
+player_list = []
+player_list.append(knight1)
+player_list.append(knight2)
+player_list.append(knight3)
+
 ai1 = '(AI '  + str(random.randint(10,99)) + ')'
 ai2 = '(AI '  + str(random.randint(10,99)) + ')' 
 ai3 = '(AI '  + str(random.randint(10,99)) + ')'
 
 
-bandit1 = classes.Fighter(720, 200 , ai1, 'reaperpic', 50 , 10, 6)   #x = base + 70 , = base  +50
+bandit1 = classes.Fighter(720, 200 , ai1, 'reaperpic', 20 , 999, 6)   #x = base + 70 , = base  +50
 bandit2 = classes.Fighter(790, 250 , ai2, 'banditpic', 20, 6 , 6)
 bandit3 = classes.Fighter(860, 300 , ai3, 'banditpic', 20, 6 , 6)
 
@@ -381,12 +386,9 @@ while run:
 
 
             #draw fighter
-            knight1.update()
-            knight1.draw()
-            knight2.update()
-            knight2.draw()
-            knight3.update()
-            knight3.draw()
+            for knight in player_list:
+                knight.update()
+                knight.draw()
             for bandit in bandit_list:
                 bandit.update()
                 bandit.draw()
@@ -400,39 +402,38 @@ while run:
             dt.damage_text_group.update()
             dt.damage_text_group.draw(sc.screen)
 
-        # if game_over == 0:
             #player action
-            if knight1.alive == False:
-                playerheart -= 1
-            if knight2.alive == False:
-                playerheart -= 1
-            if knight3.alive == False:
-                playerheart -= 1
-        
-            if playerheart > 0:
-                if current_fighter == 1:
-                    action_cooldown += 1
-                    if action_cooldown >= action_wait_time:
-                        #look for player action
-                        #attack
-                            if attack == True and attacker != None and target != None and magic == False:
-                                attacker.attack(target)
-                                rsc.sound.sword_sfx.play()
-                                target = None
-                                attacker = None
-                                attack = False
-                                current_fighter += 1
-                                action_cooldown = 0
-                            elif magic == True and attacker != None and target != None and attack == False :
-                                rsc.sound.magic_sfx.play()
-                                attacker.magic(target)
-                                target = None
-                                attacker = None
-                                magic = False
-                                current_fighter += 1
-                                action_cooldown = 0
-            if playerheart == 0:
+            if current_fighter == 1:
+                action_cooldown += 1
+                if action_cooldown >= action_wait_time:
+                    #look for player action
+                    #attack
+                        if attack == True and attacker != None and target != None and magic == False:
+                            attacker.attack(target)
+                            rsc.sound.sword_sfx.play()
+                            target = None
+                            attacker = None
+                            attack = False
+                            current_fighter += 1
+                            action_cooldown = 0
+                        elif magic == True and attacker != None and target != None and attack == False :
+                            rsc.sound.magic_sfx.play()
+                            attacker.magic(target)
+                            target = None
+                            attacker = None
+                            magic = False
+                            current_fighter += 1
+                            action_cooldown = 0
+
+            #check if all knigght are dead
+            alive_player = 0
+            for knight in player_list:
+                if knight.alive == True:
+                    alive_player += 1
+            if alive_player == 0:
                 game_over = -1
+
+
             #enemy action
             for count, bandit in enumerate(bandit_list):
                 if current_fighter == 2 + count:
@@ -440,6 +441,7 @@ while run:
                         action_cooldown += 1
                         if action_cooldown >= action_wait_time:
                             #attack
+                            #check alive and random knight to attack
                             onetwothree = random.randint(1,3)
                             if onetwothree == 1 and knight1.alive == True:
                                 aiattack = knight1
