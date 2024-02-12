@@ -56,7 +56,7 @@ smaller_gui_font= pygame.font.SysFont("arial", 15)
 base_font = pygame.font.Font(None, 32)
 input_hp_font = pygame.font.Font(None, 26)
 
-input_text1, input_text2 = '', ''
+input_text1, input_text2, input_text3 = '', '', ''
 
 
 color_active = pygame.Color('white')

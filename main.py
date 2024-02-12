@@ -147,8 +147,6 @@ while run:
     # menustate == -1 is use to fix no music during menustate == 0 (mainmenu)
         case -1:       
             sc.screen.fill((0, 0, 0))
-            music = pygame.mixer.music.load(rsc.sound.start)
-            pygame.mixer_music.play(-1)
             menu_state = 0
             option1 = True
             
