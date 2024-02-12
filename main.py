@@ -133,12 +133,6 @@ bandit1_health_bar = healthbar(800,30 , bandit1.hp, bandit1.max_hp)
 bandit2_health_bar = healthbar(800,70, bandit2.hp, bandit2.max_hp)
 bandit3_health_bar = healthbar(800,110, bandit3.hp, bandit3.max_hp)
 
-knight_health_bar.draw(knight1.hp)
-knight2_health_bar.draw(knight2.hp)
-knight3_health_bar.draw(knight3.hp)
-bandit1_health_bar.draw(bandit1.hp)
-bandit2_health_bar.draw(bandit2.hp)
-bandit3_health_bar.draw(bandit3.hp)
 
 #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #//////////////[ GAME START ]///////////////////////////////////////////[ GAME START ]//////////////////////////////////////////////////[ GAME START ]/////////////////////////////////
@@ -347,13 +341,13 @@ while run:
                 sc.draw_text(f'{i.name} HP: {i.hp}',font.hp_font, font.RED, 800, (12) + count  * 42)
 
 
-            #draw health bar
-            knight_health_bar.draw(knight1.hp)
-            knight2_health_bar.draw(knight2.hp)
-            knight3_health_bar.draw(knight3.hp)
-            bandit1_health_bar.draw(bandit1.hp)
-            bandit2_health_bar.draw(bandit2.hp)
-            bandit3_health_bar.draw(bandit3.hp)
+            # draw health bar
+                knight_health_bar.draw(knight1.hp)
+                knight2_health_bar.draw(knight2.hp)
+                knight3_health_bar.draw(knight3.hp)
+                bandit1_health_bar.draw(bandit1.hp)
+                bandit2_health_bar.draw(bandit2.hp)
+                bandit3_health_bar.draw(bandit3.hp)
         
         
             #GUI panel
@@ -488,7 +482,7 @@ while run:
                         menu_state = 0
                         #reset game Variable
                         game_over = 0
-                        pygame.mouse.set_visible(True)  #cursor
+
 
                         # Reset game variables
                         ai1 = '(AI '  + str(random.randint(10,99)) + ')'

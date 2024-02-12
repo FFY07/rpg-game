@@ -150,7 +150,7 @@ class Unit():
         damage = (self.strength + rand) - (self.defence)
         if damage < 0 :
             damage = 0
-        target.hp -= damage 
+        target.hp -= damage
         #run enemy animation
         target.hurt() 
         # effect

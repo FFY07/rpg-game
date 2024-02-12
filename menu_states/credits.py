@@ -21,22 +21,15 @@ credits_body = [
     
     ('Group Leader', *font.credit_title, True, sc.SCREEN_HEIGHT + 200),
     ('Desmond Foo Fong Yoong', *font.credit_name, True, sc.SCREEN_HEIGHT + 250),
-    
-    ('> 3000 Lines Committed to Github', *font.credit_title, True, sc.SCREEN_HEIGHT + 350),
-    ('Desmond Foo Fong Yoong 👑', *font.credit_name, True, sc.SCREEN_HEIGHT + 400),
-    
-    ('> 50 Lines Committed to Github', *font.credit_title, True, sc.SCREEN_HEIGHT + 500),
-    ('Haarith Bin Naguri Ibrahim 🎉', *font.credit_name, True, sc.SCREEN_HEIGHT + 550),
-    
-    ('0 Lines Committed to Github', *font.credit_title, True, sc.SCREEN_HEIGHT + 650),
-    ('Haohong Luo 💀', *font.credit_name, True, sc.SCREEN_HEIGHT + 700),
-    ('Qiao Er Kang 💀', *font.credit_name, True, sc.SCREEN_HEIGHT + 750),
-    ('Xu Xiang (Ye Xuxiang) Yap 💀', *font.credit_name, True, sc.SCREEN_HEIGHT + 800),
-    ('Yi Soon Pong 💀', *font.credit_name, True, sc.SCREEN_HEIGHT + 850)
+    ('Group Members', *font.credit_title, True, sc.SCREEN_HEIGHT + 300),
+    ('Haohong Luo ', *font.credit_name, True, sc.SCREEN_HEIGHT + 350),
+    ('Qiao Er Kang ', *font.credit_name, True, sc.SCREEN_HEIGHT + 400),
+    ('Xu Xiang (Ye Xuxiang) Yap ', *font.credit_name, True, sc.SCREEN_HEIGHT + 450),
+    ('Yi Soon Pong ', *font.credit_name, True, sc.SCREEN_HEIGHT + 500)
     ]
 
 credits_footer = [
-    ('THANKS FOR PLAYING', *font.credit_section, True, sc.SCREEN_HEIGHT + 1000),
+    ('THANKS FOR PLAYING', *font.credit_section, True, sc.SCREEN_HEIGHT + 550),
     ('THERE\'S NOTHING ELSE HERE', *font.credit_title, True, sc.SCREEN_HEIGHT + 1500),
     ('PRESS ESCAPE TO QUIT BTW', *font.credit_title, True, sc.SCREEN_HEIGHT + 2000),
     ('...why are you still here?', *font.credit_title, True, sc.SCREEN_HEIGHT + 3000),
