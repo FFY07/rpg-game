@@ -318,7 +318,7 @@ while run:
             sc.draw_centertext('Game Infomation', font.menu_font, option3color,-10 + 60 *2)
             sc.draw_centertext('Back To Menu', font.menu_font, option4color, -10 + 60 * 3)
 
-    #game menu
+    #game menu  
         case 4:
 
             #draw background
