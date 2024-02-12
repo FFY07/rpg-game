@@ -12,17 +12,17 @@ button_list = []
 text_list = []
 
 # Color doesn't matter
-play_button = ui_functions.Button(180, 70, "green")
-play_text = ui_functions.TextSprite("Play", 30)
+play_button = ui_functions.Button(140, 50, "green", True, 400)
+play_text = ui_functions.TextSprite("Play", 30, "freesansbold", "white", True, 400)
 
-options_button = ui_functions.Button(180, 70, "cyan")
-options_text = ui_functions.TextSprite("Options", 30)
+options_button = ui_functions.Button(140, 50, "cyan", True, 450)
+options_text = ui_functions.TextSprite("Options", 30, "freesansbold", "white", True, 450)
 
-credits_button = ui_functions.Button(180, 70, "yellow")
-credits_text = ui_functions.TextSprite("Credits", 30)
+credits_button = ui_functions.Button(140, 50, "yellow", True, 500)
+credits_text = ui_functions.TextSprite("Credits", 30, "freesansbold", "white", True, 500)
 
-escape_button = ui_functions.Button(180, 70, "grey", True, 450)
-escape_text = ui_functions.TextSprite("Quit", 30, "freesansbold", "white", True, 450)
+escape_button = ui_functions.Button(140, 50, "grey", True, 550)
+escape_text = ui_functions.TextSprite("Quit", 30, "freesansbold", "white", True, 550)
 
 # Add to pygame sprite group
 buttons.add(play_button)
