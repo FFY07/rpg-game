@@ -82,7 +82,8 @@ class TextSprite(pygame.sprite.Sprite):
                 x_centered = True, 
                 y_centered = True, 
                 dx = 0, 
-                dy = 0):
+                dy = 0,
+                selected = False):
         """Generates a text sprite
         
         Args:
@@ -96,6 +97,7 @@ class TextSprite(pygame.sprite.Sprite):
             flying (bool, optional): Movement along y coordinate. Default to 0
         """
         super().__init__()
+        self.selected = selected
         
         if x_centered is True:
             self.x = scr.SCREEN_WIDTH // 2
@@ -133,7 +135,11 @@ class TextSprite(pygame.sprite.Sprite):
         else:
             if self.rect.right > scr.SCREEN_WIDTH:
                 self.kill()
-                
+        
+        if self.selected:
+            self.image.set_alpha(255)
+        else:
+            self.image.set_alpha(100)
 
 class Button(pygame.sprite.Sprite):
     def __init__(self, width, height, color, x = True, y = True, selected = False):
@@ -157,12 +163,13 @@ class Button(pygame.sprite.Sprite):
         
         self.image = pygame.Surface((self.width, self.height))
         self.image.fill(color)
+        self.image.set_alpha(100)
         self.rect = self.image.get_rect()
         self.rect.center = (self.x, self.y)
     
     def update(self):
         if self.selected:
-            self.image.set_alpha(255)
+            self.image.set_alpha(100)
             self.image.fill("darkgrey")
             
         else:
