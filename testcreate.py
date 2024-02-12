@@ -173,40 +173,40 @@ while run:
 
         #input 1
         pygame.draw.rect(sc.screen, input1color, input1_rect, 1)
-        text_surface = font.base_font.render(font.input_text1, True, (255, 255, 255))
+        text_surface = font.base_font.render(font.input_text1, True, input1color)
         sc.screen.blit(text_surface, (input1_rect.x + 5, input1_rect.y + 5 ))
         sc.input_rect.w = max(100,text_surface.get_width() + 10)
 
         #input 2
         pygame.draw.rect(sc.screen, input2color, input2_rect, 1)
-        text_surface = font.base_font.render(font.input_text2, True, (255, 255, 255))
+        text_surface = font.base_font.render(font.input_text2, True, input2color)
         sc.screen.blit(text_surface, (input2_rect.x + 5, input2_rect.y + 5 ))
         sc.input_rect.w = max(100,text_surface.get_width() + 10)
         #input 3
         pygame.draw.rect(sc.screen, input3color, input3_rect, 1)
-        text_surface = font.base_font.render(font.input_text3, True, (255, 255, 255))
+        text_surface = font.base_font.render(font.input_text3, True, input3color)
         sc.screen.blit(text_surface, (input3_rect.x + 5, input3_rect.y + 5 ))
         sc.input_rect.w = max(100,text_surface.get_width() + 10)
         
 
 
         #draw select class
-        sc.draw_text('[ Class ]', font.base_font, bigsquare1, 120, 330)
-        sc.draw_text('[ Class ]', font.base_font, bigsquare2, 450, 330)
-        sc.draw_text('[ Class ]', font.base_font, bigsquare3, 770, 330)
+        sc.draw_text('[ Class ]', font.base_font, class1color, 120, 330)
+        sc.draw_text('[ Class ]', font.base_font, class2color, 450, 330)
+        sc.draw_text('[ Class ]', font.base_font, class3color, 770, 330)
 
         pygame.draw.rect(sc.screen, class1color, class1_rect, 1)
-        text_surface = font.base_font.render(class_text1, True, (255, 255, 255))
+        text_surface = font.base_font.render(class_text1, True, class1color)
         sc.screen.blit(text_surface, (class1_rect.x + 50, class1_rect.y + 5 ))
         sc.input_rect.w = max(100,text_surface.get_width() + 10)
 
         pygame.draw.rect(sc.screen, class2color, class2_rect, 1)
-        text_surface = font.base_font.render(class_text2, True, (255, 255, 255))
+        text_surface = font.base_font.render(class_text2, True, class2color)
         sc.screen.blit(text_surface, (class2_rect.x + 50, class2_rect.y + 5 ))
         sc.input_rect.w = max(100,text_surface.get_width() + 10)
 
         pygame.draw.rect(sc.screen, class3color, class3_rect, 1)
-        text_surface = font.base_font.render(class_text3, True, (255, 255, 255))
+        text_surface = font.base_font.render(class_text3, True, class3color)
         sc.screen.blit(text_surface, (class3_rect.x + 50, class3_rect.y + 5 ))
         sc.input_rect.w = max(100,text_surface.get_width() + 10)
 
@@ -293,6 +293,28 @@ while run:
                         option2 = True
                         input3 = False
                         class3 = False
+
+                    if class1 == True:
+                        if class_text1 == 'Knight':
+                            class_text1 = 'Tank'
+                        elif class_text1 == 'Reaper':
+                            class_text1 = 'Knight'
+                        elif class_text1 == 'Tank':
+                            class_text1 = 'Reaper'
+                    if class2 == True:
+                        if class_text2 == 'Knight':
+                            class_text2 = 'Tank'
+                        elif class_text2 == 'Reaper':
+                            class_text2 = 'Knight'
+                        elif class_text2 == 'Tank':
+                            class_text2 = 'Reaper'
+                    if class3 == True:
+                        if class_text3 == 'Knight':
+                            class_text3 = 'Tank'
+                        elif class_text3 == 'Reaper':
+                            class_text3 = 'Knight'
+                        elif class_text3 == 'Tank':
+                            class_text3 = 'Reaper'
                 elif event.key == pygame.K_DOWN:
                     if option1 == True:
                         if input1 == True:
