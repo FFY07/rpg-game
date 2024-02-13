@@ -1,7 +1,8 @@
 import pygame, sys
 
 import gui2.screen as scr
-import resources2 as rsc
+import resources2.sounds as sounds
+import resources2.images as images
 
 from scenes.menu import MainMenu
 
@@ -30,6 +31,9 @@ class Game():
         self.sprites = pygame.sprite.Group()
          
         self.start()
+        
+        pygame.mixer.music.load(sounds.easter)
+        pygame.mixer.music.play()
         
     def game_loop(self):
         while self.playing:
