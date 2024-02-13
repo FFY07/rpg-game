@@ -7,6 +7,8 @@ import resources2.images
 from gui2 import ui_functions
 
 from scenes.char_create import CreateChar
+from scenes.options import Options
+from scenes.credits import Credits
 
 BUTTON_TEXT_SIZE = 30
 BUTTON_FONT = "freesansbold"
@@ -23,7 +25,7 @@ class MainMenu(Scene):
         self.pointer = 0
         self.button_list = ["Play", "Options", "Credits", "Quit"]
         
-        self.generate_buttons(self.button_list, 30, "freesansbold", "white", 200, 40, "lightgrey", (True, 350), (0, 50))
+        self.generate_buttons(self.button_list, 30, "freesansbold", "white", 140, 40, "lightgrey", (True, 350), (0, 50))
     
     def navigation_button(self, pointer: int, name: str, actions, dest_scene):
         if pointer == self.pointer:
@@ -44,8 +46,8 @@ class MainMenu(Scene):
             self.pointer = 0
                     
         self.navigation_button(0, "Play", actions, CreateChar(self.game))
-        self.navigation_button(1, "Options", actions, CreateChar(self.game))
-        self.navigation_button(2, "Credits", actions, CreateChar(self.game))
+        self.navigation_button(1, "Options", actions, Options(self.game))
+        self.navigation_button(2, "Credits", actions, Credits(self.game))
 
         if self.pointer == 3:
             for sprite in self.sprites.sprites():

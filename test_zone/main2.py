@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame
 
 import gui2.screen as scr
 import resources2.sounds as sounds
@@ -32,9 +32,15 @@ class Game():
          
         self.start()
         
-        pygame.mixer.music.load(sounds.easter)
-        pygame.mixer.music.play()
+        self.music = True
+        self.sound = True
+        self.volume = 1
         
+        pygame.mixer.music.load(sounds.easter)
+        if self.music:
+            pygame.mixer.music.play(-1)
+        
+
     def game_loop(self):
         while self.playing:
             self.event_handler()

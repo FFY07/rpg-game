@@ -99,7 +99,10 @@ class TextSprite(pygame.sprite.Sprite):
         """
         super().__init__()
         self.selected = False
+        self.toggled = False
         self.name = name
+        self.text = text
+        self.color = color
         
         if x_centered is True:
             self.x = scr.SCREEN_WIDTH // 2
@@ -137,7 +140,7 @@ class TextSprite(pygame.sprite.Sprite):
         else:
             if self.rect.right > scr.SCREEN_WIDTH:
                 self.kill()
-        
+
         if self.selected:
             self.image.set_alpha(255)
         else:
@@ -169,16 +172,23 @@ class Button(pygame.sprite.Sprite):
         self.color = color
         
         self.selected = False
+        self.toggled = False
         
         self.image = pygame.Surface((self.width, self.height))
-        self.image.fill(color)
+        self.image.fill(self.color)
         self.image.set_alpha(100)
         self.rect = self.image.get_rect()
         self.rect.center = (self.x, self.y)
     
     def update(self):
-        if self.selected:
+        if self.toggled:
+            self.image.fill("red")
+            self.image.set_alpha(100)
+
+        elif self.selected:
+            self.image.fill(self.color)
             self.image.set_alpha(100)
             
         else:
+            self.image.fill(self.color)
             self.image.set_alpha(0)
