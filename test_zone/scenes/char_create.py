@@ -1,30 +1,17 @@
 import pygame
 import sys
 
-import gui2.screen as scr
 import gui2.ui_functions as ui_functions
-import scenes.main_menu as main_menu
+from scenes.scene import Scene
+import resources2.images
 
-def create():
-    pygame.display.set_caption("Character Creation")
- 
-    while True:
-        scr.screen.fill((25, 25, 25))
+class CreateChar(Scene):
+    def __init__(self, game: object):
+        super().__init__(game)
+        self.background = resources2.images.background_img
+        
+    def update(self, actions):
+        pass
     
-        actions = ui_functions.key_handler()
-        
-        if actions["left"]:
-            print("going left")
-            
-        if actions["right"]:
-            print("Going back to main menu")
-            main_menu.main()
-            
-        
-        # Key handler already calls this for us so it's optional
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-        
-        pygame.display.update()
+    def render(self, screen):
+        self.game.canvas = self.background

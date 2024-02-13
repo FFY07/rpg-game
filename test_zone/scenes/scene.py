@@ -17,8 +17,8 @@ class Scene():
             self.prev = self.game.stack[-1]
         
         # Add ourselves to the end of the state stack
-        self.game.state_stack.append(self)
+        self.game.stack.append(self)
         
     def exit_scene(self):
         # Removes ourselves from the list as we go back down the stack
-        self.game.state_stack.pop()
+        self.game.stack.pop()

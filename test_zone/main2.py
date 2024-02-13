@@ -5,9 +5,7 @@ import resources2 as rsc
 
 from scenes.menu import MainMenu
 
-
-pygame.init()
-
+# We'll use a state stack system instead of each scene having its own individual loop
 class Game():
     def __init__(self):
         pygame.init()
@@ -43,8 +41,7 @@ class Game():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running, self.playing = False, False
-        
-        for event in pygame.event.get():
+                        
             if event.type == pygame.KEYDOWN:
 
                 if event.key == pygame.K_w or event.key == pygame.K_UP:
@@ -96,6 +93,8 @@ class Game():
                 
                 if event.key == pygame.K_ESCAPE:
                     self.actions["escape"] = False
+                    
+            print(self.actions)
                     
     def update(self):
         self.stack[-1].update(self.actions)
