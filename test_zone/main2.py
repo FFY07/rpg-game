@@ -20,6 +20,8 @@ class Game():
                 "enter": False,
                 "escape": False
                 }
+        self.clock = pygame.time.Clock()
+        self.fps = 60
         
         self.screen_width = scr.SCREEN_WIDTH
         self.screen_height = scr.SCREEN_HEIGHT
@@ -29,6 +31,9 @@ class Game():
         
         self.stack = []
         self.sprites = pygame.sprite.Group()
+        self.all_units = pygame.sprite.Group()
+        self.players = pygame.sprite.Group()
+        self.enemies = pygame.sprite.Group()
          
         self.start()
         
@@ -106,13 +111,16 @@ class Game():
                     
     def update(self):
         self.stack[-1].update(self.actions)
+        
+        # This needs to be here so the coordinates can be set at game launch
+        self.all_units.update()     
+           
+        self.clock.tick(self.fps)
     
     def render(self):
         self.stack[-1].render(self.canvas)
         
         self.screen.blit(pygame.transform.scale(self.canvas, (self.screen_width, self.screen_height)), (0, 0))
-        self.sprites.update()
-        self.sprites.draw(self.screen)
         
         pygame.display.update()
         

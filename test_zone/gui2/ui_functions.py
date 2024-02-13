@@ -98,7 +98,7 @@ class TextSprite(pygame.sprite.Sprite):
             flying (bool, optional): Movement along y coordinate. Default to 0
         """
         super().__init__()
-        self.selected = False
+        self.selected = True
         self.toggled = False
         self.name = name
         self.text = text

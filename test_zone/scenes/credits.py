@@ -49,9 +49,6 @@ class Credits(Scene):
             for credit in section:
                 credit_sprite = ui_functions.TextSprite(*credit, False, *self.falling_speed)
                 self.credits.add(credit_sprite)
-                
-        for credit in self.credits.sprites():
-            credit.selected = True
 
     def update(self, actions):
         if actions["escape"]:
