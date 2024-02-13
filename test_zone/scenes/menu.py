@@ -60,7 +60,11 @@ class MainMenu(Scene):
             self.pointer += 1
         
         if actions["up"]:
-            self.pointer -= 1
+            if self.pointer == 0:
+                self.pointer = len(self.button_list) - 1
+                
+            else:
+                self.pointer -= 1
             
         if actions["escape"]:
             self.game.running, self.game.playing = False, False
