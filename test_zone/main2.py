@@ -94,8 +94,6 @@ class Game():
                 if event.key == pygame.K_ESCAPE:
                     self.actions["escape"] = False
                     
-            print(self.actions)
-                    
     def update(self):
         self.stack[-1].update(self.actions)
     
@@ -113,15 +111,10 @@ class Game():
             self.actions[action] = False
             
     def start(self):
-        # Our first item in the stack
-        
+        # Initialise the first item in the stack, which is the Main Menu
         self.start = MainMenu(self)
         self.stack.append(self.start)
         
-
-# SCREEN = pygame.display.set_mode ((1280, 720))
-# pygame.display.set_caption("Main")
-
 # Make sure the function below only runs if this is the main file
 if __name__ == "__main__":
     # Initialise the game class
