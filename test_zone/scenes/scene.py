@@ -16,6 +16,8 @@ class Scene():
     def start_scene(self):
         # If this is not the only (bottom) item in the stack
         if len(self.game.stack) > 1:
+            
+            # Previous state allows us to render the previous scene so we can overlay menus on top
             self.prev = self.game.stack[-1]
         
         # Add ourselves to the end of the state stack

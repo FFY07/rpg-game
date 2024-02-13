@@ -32,8 +32,6 @@ class MainMenu(Scene):
                     sprite.selected = True
             
             if actions["enter"]:
-
-                
                 # Plop the next scene onto the stack
                 dest_scene.start_scene()
     
@@ -48,7 +46,15 @@ class MainMenu(Scene):
         self.navigation_button(0, "Play", actions, CreateChar(self.game))
         self.navigation_button(1, "Options", actions, CreateChar(self.game))
         self.navigation_button(2, "Credits", actions, CreateChar(self.game))
-        self.navigation_button(3, "Quit", actions, CreateChar(self.game))
+
+        if self.pointer == 3:
+            for sprite in self.sprites.sprites():
+                if sprite.name == "Quit":
+                    sprite.selected = True
+            
+            if actions["enter"]:
+                # Plop the next scene onto the stack
+                self.game.running, self.game.playing = False, False
             
         if actions["down"]:
             self.pointer += 1
