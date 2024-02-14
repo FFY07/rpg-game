@@ -13,10 +13,12 @@ class Unit(pygame.sprite.Sprite):
         self.unit_class = "Reaper"
         self.size_scale = 2
         
+        start_pos = (300, 300)
 
         self.current_frame = 0
         self.last_updated = 0
-        self.speed = 0
+        self.dx = 0
+        self.dy = 0 
         self.state = "idle"
         self.states = ["idle",
                        "attack",
@@ -27,6 +29,9 @@ class Unit(pygame.sprite.Sprite):
         self.animations = {}
         
         self.load_animations()
+        self.image = self.animations["idle"][0]
+        self.rect = self.image.get_rect()
+        self.rect.midbottom = start_pos
         
     def load_animations(self):
         for state in self.states:

@@ -15,6 +15,9 @@ class Play(Scene):
             print(k)
             for line in v:
                 print(line)
+                
+        self.game.all_units.add(player_test)
+        self.game.screen.blit(player_test.animations["idle"][0], (0, 0))
         # player_positions = [(300, 210), 
         #                     (230, 260), 
         #                     (160, 310)]
@@ -46,8 +49,8 @@ class Play(Scene):
         #             # print(sprite.frame, len(sprite.animations["attack"]))
         
         self.game.reset_keys()
-        # self.game.all_units.update()
+        self.game.all_units.update()
         
     def render(self, screen):
         screen.blit(pygame.transform.scale(self.background, (self.game.screen_width, self.game.screen_height)), (0, 0))
-        # self.game.all_units.draw(self.game.canvas)
+        self.game.all_units.draw(self.game.canvas)
