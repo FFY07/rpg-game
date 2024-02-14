@@ -1,4 +1,4 @@
-import pygame
+import pygame, time
 
 import gui2.screen as scr
 import resources2.sounds as sounds
@@ -20,8 +20,7 @@ class Game():
                 "enter": False,
                 "escape": False
                 }
-        self.clock = pygame.time.Clock()
-        self.fps = 60
+        self.dt, self.prev_time = 0, 0
         
         self.screen_width = scr.SCREEN_WIDTH
         self.screen_height = scr.SCREEN_HEIGHT
@@ -41,16 +40,23 @@ class Game():
         self.sound = True
         self.volume = 1
         
-        pygame.mixer.music.load(sounds.easter)
+        pygame.mixer.music.load(sounds.copyright_pls)
         if self.music:
             pygame.mixer.music.play(-1)
         
 
     def game_loop(self):
         while self.playing:
+            self.get_dt()
             self.event_handler()
             self.update()
             self.render()
+
+            
+    def get_dt(self):
+        current_time = time.time()
+        self.dt = current_time - self.prev_time
+        self.prev_time = current_time
         
     def event_handler(self):
         for event in pygame.event.get():
@@ -110,13 +116,11 @@ class Game():
                     self.actions["escape"] = False
                     
     def update(self):
-        self.stack[-1].update(self.actions)
+        self.stack[-1].update(self.dt, self.actions)
         
         # This needs to be here so the coordinates can be set at game launch
-        self.all_units.update()     
-           
-        self.clock.tick(self.fps)
-    
+        self.all_units.update()   
+
     def render(self):
         self.stack[-1].render(self.canvas)
         

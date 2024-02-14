@@ -1,4 +1,4 @@
-from .unit import Unit
+from .unit0 import Unit
 
 class Knight(Unit):
     '''Knight class from Unit'''

@@ -7,7 +7,7 @@ class Scene():
         self.game = game
         self.prev = None
     
-    def update(self, actions):
+    def update(self, dt, actions):
         pass
     
     def render(self, screen):

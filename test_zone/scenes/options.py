@@ -17,17 +17,16 @@ class Options(Scene):
         self.background = resources2.images.options_background
         self.sprites = pygame.sprite.Group()
         self.pointer = 0
-        self.button_list = ["Music", "Sound", "Back", "Quit"]
+        self.button_list = ["Music", "Sound", "Back", "Menu"]
         
         self.generate_buttons(self.button_list, 30, "freesansbold", "white", 120, 40, "lightgrey", (True, 350), (0, 50))
     
-    def update(self, actions):
+    def update(self, dt, actions):
         # Reset all selected
         for sprite in self.sprites.sprites():
             sprite.selected = False
         
-        if self.pointer > len(self.button_list) - 1 or self.pointer < 0:
-            self.pointer = 0
+        self.pointer = self.pointer % len(self.button_list)
             
         for sprite in self.sprites.sprites():
             if sprite.name == "Music":
@@ -88,21 +87,18 @@ class Options(Scene):
                 
         if self.pointer == 3:
             for sprite in self.sprites.sprites():
-                if sprite.name == "Quit":
+                if sprite.name == "Menu":
                     sprite.selected = True
             
             if actions["enter"]:
-                self.game.running, self.game.playing = False, False
-            
+                while len(self.game.stack) > 1:
+                    self.game.stack.pop()
+                
         if actions["down"]:
             self.pointer += 1
         
         if actions["up"]:
-            if self.pointer == 0:
-                self.pointer = len(self.button_list) - 1
-                
-            else:
-                self.pointer -= 1
+            self.pointer -= 1
             
         if actions["escape"]:
             self.exit_scene()

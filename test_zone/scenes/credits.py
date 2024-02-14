@@ -50,8 +50,8 @@ class Credits(Scene):
                 credit_sprite = ui_functions.TextSprite(*credit, False, *self.falling_speed)
                 self.credits.add(credit_sprite)
 
-    def update(self, actions):
-        if actions["escape"]:
+    def update(self, dt, actions):
+        if actions["escape"] or actions["enter"]:
             self.exit_scene()
             
         self.credits.update()

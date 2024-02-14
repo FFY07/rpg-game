@@ -37,13 +37,14 @@ class MainMenu(Scene):
                 # Plop the next scene onto the stack
                 dest_scene.start_scene()
     
-    def update(self, actions):
+    def update(self, dt, actions):
         # Reset all selected
         for sprite in self.sprites.sprites():
             sprite.selected = False
         
-        if self.pointer > len(self.button_list) - 1 or self.pointer < 0:
-            self.pointer = 0
+        # if self.pointer > len(self.button_list) - 1 or self.pointer < 0:
+        # OR we just use maths instead
+        self.pointer = self.pointer % len(self.button_list)
                     
         self.navigation_button(0, "Play", actions, CreateChar(self.game))
         self.navigation_button(1, "Options", actions, Options(self.game))
@@ -62,11 +63,7 @@ class MainMenu(Scene):
             self.pointer += 1
         
         if actions["up"]:
-            if self.pointer == 0:
-                self.pointer = len(self.button_list) - 1
-                
-            else:
-                self.pointer -= 1
+            self.pointer -= 1
             
         if actions["escape"]:
             self.game.running, self.game.playing = False, False

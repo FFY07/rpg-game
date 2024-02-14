@@ -10,16 +10,16 @@ import resources2.images
 class CreateChar(Scene):
     def __init__(self, game: object):
         super().__init__(game)
-        self.background = resources2.images.background_img
+        self.background = resources2.images.char_create_background
         self.sprites = pygame.sprite.Group()
         
-        temporary_text = ui_functions.TextSprite("THIS IS NOT THE REAL CHAR CREATE SCREEN", 50)
+        temporary_text = ui_functions.TextSprite("INCOMPLETE CHARACTER CREATION SCREEN", 50)
         temporary_text.add(self.sprites)
         
         temporary_text2 = ui_functions.TextSprite("PRESS ENTER TO CONTINUE", 30, None, "white", True, 550)
         temporary_text2.add(self.sprites)
         
-    def update(self, actions):
+    def update(self, dt, actions):
         if actions["escape"]:
             self.exit_scene()
             
