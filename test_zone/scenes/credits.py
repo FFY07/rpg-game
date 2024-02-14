@@ -31,10 +31,11 @@ class Credits(Scene):
             ('Group Leader', *credit_title, True, scr.SCREEN_HEIGHT + 200),
             ('Desmond Foo Fong Yoong', *credit_name, True, scr.SCREEN_HEIGHT + 250),
             ('Group Members', *credit_title, True, scr.SCREEN_HEIGHT + 300),
-            ('Haohong Luo ', *credit_name, True, scr.SCREEN_HEIGHT + 350),
-            ('Qiao Er Kang ', *credit_name, True, scr.SCREEN_HEIGHT + 400),
-            ('Xu Xiang (Ye Xuxiang) Yap ', *credit_name, True, scr.SCREEN_HEIGHT + 450),
-            ('Yi Soon Pong ', *credit_name, True, scr.SCREEN_HEIGHT + 500)
+            ('Haarith Bin Naguri Ibrahim', *credit_name, True, scr.SCREEN_HEIGHT + 350),
+            ('Haohong Luo ', *credit_name, True, scr.SCREEN_HEIGHT + 400),
+            ('Qiao Er Kang ', *credit_name, True, scr.SCREEN_HEIGHT + 450),
+            ('Xu Xiang (Ye Xuxiang) Yap ', *credit_name, True, scr.SCREEN_HEIGHT + 500),
+            ('Yi Soon Pong ', *credit_name, True, scr.SCREEN_HEIGHT + 550)
             ]
 
         self.credits_footer = [
