@@ -26,11 +26,11 @@ class Unit(pygame.sprite.Sprite):
         self.coins = COINS
         
         self.selected = False
-        self.direction = "left"
+        self.direction = "right"
         self.id = id_no
         
         self.name = name
-        self.size_scale = 5
+        self.size_scale = 2
         self.unit_class = "Knight"
         
         self.position = (scr.SCREEN_WIDTH // 2, scr.SCREEN_HEIGHT // 2)
@@ -48,8 +48,7 @@ class Unit(pygame.sprite.Sprite):
         ]
         self.animations = {}
         
-        self.load_animations()
-        self.image = self.animations["idle"][0]
+        self.image = pygame.Surface((0, 0))
         self.rect = self.image.get_rect()
         self.rect.midbottom = self.position
         
@@ -64,18 +63,18 @@ class Unit(pygame.sprite.Sprite):
                 image = pygame.image.load(frame)
                 image = pygame.transform.scale(image, (image.get_width()*self.size_scale, image.get_height()*self.size_scale))
             
-                if self.direction == "left":
-                    image = pygame.transform.flip(image, True, False)
+                if self.direction == "right":
                     loaded_images.append(image)
                     
-                elif self.direction == "right":
+                elif self.direction == "left":
+                    image = pygame.transform.flip(image, True, False)
                     loaded_images.append(image)
         
             self.animations[state] = loaded_images
                 
     def update(self):
         current_time = pygame.time.get_ticks()
-        if current_time - self.last_updated > 100:
+        if current_time - self.last_updated > 100 and self.current_frame != -1:
             self.last_updated = current_time
             self.current_frame += 1
         
@@ -85,7 +84,7 @@ class Unit(pygame.sprite.Sprite):
             self.state = "idle"
             
         # Leaves character dead body on the ground
-        elif self.state == "death":
+        elif self.current_frame >= len(self.animations[self.state]) and self.state == "death":
             self.current_frame = -1
             
         self.image = self.animations[self.state][self.current_frame]
@@ -106,5 +105,5 @@ class Unit(pygame.sprite.Sprite):
     def death_test(self):
         self.state_change("death")
         
-    def idle_test(self):
-        self.state_change("idle")
+    def hurt_test(self):
+        self.state_change("hurt")
