@@ -87,7 +87,6 @@ class Unit(pygame.sprite.Sprite):
         
     
     # we can just call spritegroup.update() somehow as well as spritegroup.draw()? maybe
-    
     def update(self):
         # handle animation
         # update image
@@ -103,7 +102,7 @@ class Unit(pygame.sprite.Sprite):
             self.frame += 1
             
         # loop animation back to the first frame and resets it to idle
-        if self.frame >= len(self.animations.get(self.action)) and self.action != "death":
+        if self.frame > len(self.animations.get(self.action)) and self.action != "death":
             self.action = "idle"
             self.frame = 0
         

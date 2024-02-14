@@ -1,6 +1,6 @@
 import pygame, random, sys
 
-from .knight import Knight
+from classes.units.knight import Knight
 from .reaper import Reaper
 
 pygame.init()

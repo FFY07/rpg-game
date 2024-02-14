@@ -6,6 +6,9 @@ import resources2.images as images
 
 from scenes.menu import MainMenu
 
+clock = pygame.time.Clock()
+clock.tick(60)
+
 # We'll use a state stack system instead of each scene having its own individual loop
 class Game():
     def __init__(self):
@@ -117,9 +120,6 @@ class Game():
                     
     def update(self):
         self.stack[-1].update(self.dt, self.actions)
-        
-        # This needs to be here so the coordinates can be set at game launch
-        self.all_units.update()   
 
     def render(self):
         self.stack[-1].render(self.canvas)

@@ -3,6 +3,7 @@ import pygame
 from scenes.scene import Scene
 import resources2.images
 import classes.unit
+from classes.units.knight import Knight
 from scenes.options import Options
 
 class Play(Scene):
@@ -10,44 +11,36 @@ class Play(Scene):
         super().__init__(game)
         self.background = resources2.images.background_img
 
-        player_test = classes.unit.Unit("John", "player")
-        for k, v in player_test.animations.items():
-            print(k)
-            for line in v:
-                print(line)
-                
-        self.game.all_units.add(player_test)
-        self.game.screen.blit(player_test.animations["idle"][0], (0, 0))
-        # player_positions = [(300, 210), 
-        #                     (230, 260), 
-        #                     (160, 310)]
-
-        # enemy_positions = [(720, 200),
-        #                    (790, 250),
-        #                    (860, 300)]
-
-        # player_list = [("Southpaw", "Reaper"),
-        #                ("Genesis", "Knight"),
-        #                ("Akshan", "Knight"),]
+        self.player_test = Knight("John", "player")
+        self.test_list = pygame.sprite.Group()
         
-        # cf.create_team(player_list, "player", self.game)
-        # cf.set_positions(player_positions, self.game.players)
-    
-        # for sprite in self.game.all_units.sprites():
-        #     for k, v in sprite.animations.items():
-        #         print(k, len(v))
+        self.game.all_units.add(self.player_test)
+        self.test_list.add(self.player_test)
     
     def update(self, dt, actions):
         if actions["escape"]:
             next_scene = Options(self.game)
             next_scene.start_scene()
+            
+        if actions["right"]:
+            for sprite in self.game.all_units.sprites():
+                sprite.attack_test()
+                
+        if actions["left"]:
+            for sprite in self.game.all_units.sprites():
+                sprite.defend_test()
         
-        # if actions["enter"]:
-        #     for sprite in self.game.all_units.sprites():
-        #         if sprite.name == "Southpaw":
-        #             sprite.action = "attack"
-        #             # print(sprite.frame, len(sprite.animations["attack"]))
+        if actions["up"]:
+            for sprite in self.game.all_units.sprites():
+                sprite.idle_test()
         
+        if actions["down"]:
+            for sprite in self.game.all_units.sprites():
+                sprite.death_test()
+        
+        for sprite in self.game.all_units.sprites():
+            print(sprite.name, sprite.state, sprite.current_frame)
+            
         self.game.reset_keys()
         self.game.all_units.update()
         

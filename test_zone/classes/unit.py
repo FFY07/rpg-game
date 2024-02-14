@@ -1,19 +1,39 @@
 from pathlib import Path
 
 import pygame
+import gui2.screen as scr
 
+MAX_HEALTH = 100
+MANA = 50
+
+START_LEVEL = 1
+BASE_EXP = 0
+EXP_TO_NEXT_LEVEL = 100
+
+COINS = 0
 
 class Unit(pygame.sprite.Sprite):
-    def __init__(self, name, team):
+    def __init__(self, name, team, id_no = 0):
         super().__init__()
+        self.max_health = MAX_HEALTH
+        self.health = self.max_health
+        self.mana = MANA
+        
+        self.level = START_LEVEL
+        self.exp = BASE_EXP
+        self.exp_to_next_level = EXP_TO_NEXT_LEVEL
+        
+        self.coins = COINS
+        
         self.selected = False
         self.direction = "left"
+        self.id = id_no
         
         self.name = name
-        self.unit_class = "Reaper"
-        self.size_scale = 2
+        self.size_scale = 5
+        self.unit_class = "Knight"
         
-        start_pos = (300, 300)
+        self.position = (scr.SCREEN_WIDTH // 2, scr.SCREEN_HEIGHT // 2)
 
         self.current_frame = 0
         self.last_updated = 0
@@ -31,7 +51,7 @@ class Unit(pygame.sprite.Sprite):
         self.load_animations()
         self.image = self.animations["idle"][0]
         self.rect = self.image.get_rect()
-        self.rect.midbottom = start_pos
+        self.rect.midbottom = self.position
         
     def load_animations(self):
         for state in self.states:
@@ -53,8 +73,38 @@ class Unit(pygame.sprite.Sprite):
         
             self.animations[state] = loaded_images
                 
-    def animate(self):
+    def update(self):
         current_time = pygame.time.get_ticks()
         if current_time - self.last_updated > 100:
             self.last_updated = current_time
-            self.current_frame = (self.current_frame + 1) % len(self.animations[self.state])
+            self.current_frame += 1
+        
+        # Resets back to idle frame after completing an animation state
+        if self.current_frame >= len(self.animations[self.state]) and self.state != "death":
+            self.current_frame = 0
+            self.state = "idle"
+            
+        # Leaves character dead body on the ground
+        elif self.state == "death":
+            self.current_frame = -1
+            
+        self.image = self.animations[self.state][self.current_frame]
+        self.rect = self.image.get_rect()
+        self.rect.midbottom = self.position
+                
+    def state_change(self, target_state):
+        """Resets the current frame to 0 so the animation doesn't start halfway"""
+        self.current_frame = 0
+        self.state = target_state
+        
+    def attack_test(self):
+        self.state_change("attack")
+    
+    def defend_test(self):
+        self.state_change("defend")
+    
+    def death_test(self):
+        self.state_change("death")
+        
+    def idle_test(self):
+        self.state_change("idle")
