@@ -84,4 +84,4 @@ def set_positions(position_list, sprite_group):
         # If there are no available positions left, we leave the unit's coordinates at default
         except IndexError:
             unit.rect.center = random.randint(0, scr.SCREEN_WIDTH), random.randint(0, scr.SCREEN_HEIGHT)
-            print(f"No available positions left! Randomising to {unit.position}!")
+            print(f"No available positions left! Randomising to {unit.rect.center}!")

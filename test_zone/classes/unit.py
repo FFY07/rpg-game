@@ -43,6 +43,7 @@ class Unit(pygame.sprite.Sprite):
         
         # Starting position
         self.position = (scr.SCREEN_WIDTH // 2, scr.SCREEN_HEIGHT // 2)
+        self.prev_pos = self.position
 
         self.current_frame = 0
         self.last_updated = 0
@@ -99,6 +100,17 @@ class Unit(pygame.sprite.Sprite):
         """Resets the current frame to 0 so the animation doesn't start halfway"""
         self.current_frame = 0
         self.state = target_state
+        
+    def activate(self, active_pos):
+        """If self.selected is True, move character to the active position"""
+        self.selected = True
+        self.prev_pos = self.rect.center
+        self.rect.center = active_pos
+    
+    def deactivate(self):
+        self.selected = False
+        self.rect.center = self.prev_pos
+        
         
     def attack_test(self):
         self.state_change("attack")

@@ -21,8 +21,8 @@ class Play(Scene):
         self.crazy_guy = cf.create_unit("William", "Tank", "enemy", self.game)
         self.crazy_guy.dx = 5
         
-        self.player_active_position = (300, 400)
-        self.enemy_active_position = (500, 400)
+        self.player_active_position = (self.xc - 100, self.yc)
+        self.enemy_active_position = (self.xc + 100, self.yc)
         
         # testing coordinates
         self.player_positions = [(self.xc - 500, self.yc + 150),
@@ -35,7 +35,9 @@ class Play(Scene):
                                 (self.xc + 250, self.yc - 150)
         ]
         
-        text = ui_functions.TextSprite("PRESS WASD TO PARTY", 50, None, "white", True, 400)
+        text = ui_functions.TextSprite("PRESS WASD TO PARTY", 50, None, "white", True, self.yc)
+        self.text_sprites.add(text)
+        text = ui_functions.TextSprite("Press Space to activate character with self.id == 0", 30, None, "white", True, self.yc + 100)
         self.text_sprites.add(text)
         
         cf.set_positions(self.player_positions, self.game.players)
@@ -46,6 +48,14 @@ class Play(Scene):
             self.crazy_guy.dx = - 5
         elif self.crazy_guy.rect.right < 64:
             self.crazy_guy.dx = 5
+            
+        if actions["space"]:
+            for sprite in self.game.all_units.sprites():
+                if sprite.id == 0:
+                    if not sprite.selected:
+                        sprite.activate(self.player_active_position)
+                    else:
+                        sprite.deactivate()
         
         if actions["escape"]:
             next_scene = Options(self.game)

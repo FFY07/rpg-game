@@ -44,9 +44,8 @@ class MainMenu(Scene):
             if actions["enter"]:
                 
                 # Removes any existing units before our character create screen
-                self.game.all_units.empty()
-                self.game.players.empty()
-                self.game.enemies.empty()
+                for sprite in self.game.all_units.sprites():
+                    sprite.kill()
                 
                 # Reset the current sprite id
                 self.game.current_id = 0
