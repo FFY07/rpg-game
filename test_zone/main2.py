@@ -22,7 +22,8 @@ class Game():
                 "backspace": False,
                 "enter": False,
                 "escape": False
-                }        
+                }
+        self.fps = 60
         self.screen_width = scr.SCREEN_WIDTH
         self.screen_height = scr.SCREEN_HEIGHT
         

@@ -17,6 +17,8 @@ class Credits(Scene):
         self.background = resources2.images.credits_background
         self.credits = pygame.sprite.Group()
         
+        self.clock = pygame.time.Clock()
+        self.clock.tick(30)
         self.falling_speed = (0, -1)
 
         self.credits_header = [
@@ -32,15 +34,18 @@ class Credits(Scene):
             ('Desmond Foo Fong Yoong', *credit_name, True, scr.SCREEN_HEIGHT + 250),
             ('Group Members', *credit_title, True, scr.SCREEN_HEIGHT + 300),
             ('Haarith Bin Naguri Ibrahim', *credit_name, True, scr.SCREEN_HEIGHT + 350),
-            ('Haohong Luo ', *credit_name, True, scr.SCREEN_HEIGHT + 400),
-            ('Qiao Er Kang ', *credit_name, True, scr.SCREEN_HEIGHT + 450),
-            ('Xu Xiang (Ye Xuxiang) Yap ', *credit_name, True, scr.SCREEN_HEIGHT + 500),
-            ('Yi Soon Pong ', *credit_name, True, scr.SCREEN_HEIGHT + 550)
+            ('[Didn\'t Even Test The Game]', *credit_section, True, scr.SCREEN_HEIGHT + 450),
+            ('P.S. If you see your name here,', *credit_desc, True, scr.SCREEN_HEIGHT + 500),
+            ('just message Desmond and he\'ll move it back ^_^ — RZ', *credit_desc, True, scr.SCREEN_HEIGHT + 550),
+            ('Haohong Luo ', *credit_name, True, scr.SCREEN_HEIGHT + 650),
+            ('Xu Xiang (Ye Xuxiang) Yap ', *credit_name, True, scr.SCREEN_HEIGHT + 700),
+            ('Yi Soon Pong ', *credit_name, True, scr.SCREEN_HEIGHT + 750),
+            ('Qiao Er Kang', *credit_name, True, scr.SCREEN_HEIGHT + 800)
             ]
 
         self.credits_footer = [
-            ('THANKS FOR PLAYING', *credit_section, True, scr.SCREEN_HEIGHT + 650),
-            (' ', *credit_section, True, scr.SCREEN_HEIGHT + 750) # padding
+            ('THANKS FOR PLAYING', *credit_section, True, scr.SCREEN_HEIGHT + 950),
+            (' ', *credit_section, True, scr.SCREEN_HEIGHT + 1000) # padding
             ]
 
         # Add the sections you want to load into this list
@@ -53,6 +58,7 @@ class Credits(Scene):
 
     def update(self, actions):
         if actions["escape"] or actions["enter"]:
+            self.clock.tick(self.game.fps)
             self.exit_scene()
             
         self.credits.update()
@@ -60,6 +66,7 @@ class Credits(Scene):
         
         # Go back once credits are finished
         if len(self.credits) == 0:
+            self.clock.tick(self.game.fps)
             self.exit_scene()
         
     def render(self, screen):
