@@ -22,7 +22,7 @@ class Bandit(Unit):
         self.defence = random.randint(*DEFENCE)
         self.magic_resist = random.randint(*MAGIC_RESIST)
         
-        self.size_scale = 3
+        self.size_scale = 2.5
         
         if self.team == "enemy":
             self.direction = "left"

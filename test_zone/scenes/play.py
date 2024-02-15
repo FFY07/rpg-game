@@ -17,6 +17,15 @@ class Play(Scene):
         self.background = resources2.images.background_img
         self.text_sprites = pygame.sprite.Group()
         
+        # unit stands here when they want to attack
+        
+        self.crazy_guy = cf.create_unit("William", "Knight", "player", self.game)
+        self.crazy_guy.dx = 500
+        
+        self.player_active_position = (300, 400)
+        self.enemy_active_position = (500, 400)
+        
+        # temporary list just for testing
         self.player_positions = [(400, 300),
                                  (370, 400),
                                  (340, 500)
@@ -37,6 +46,11 @@ class Play(Scene):
         # self.reaper_test.position = ((scr.SCREEN_WIDTH // 2) - 100, scr.SCREEN_HEIGHT // 2)
     
     def update(self, actions):
+        # print(self.crazy_guy.rect, self.crazy_guy.dx)
+        if self.crazy_guy.rect[0] > scr.SCREEN_WIDTH:
+            self.crazy_guy.rect[0] = 0
+            print("whee")
+        
         if actions["escape"]:
             next_scene = Options(self.game)
             next_scene.start_scene()
@@ -57,8 +71,8 @@ class Play(Scene):
             for sprite in self.game.all_units.sprites():
                 sprite.death_test()
         
-        for sprite in self.game.all_units.sprites():
-            print(sprite.name, sprite.state, sprite.id, sprite.strength, sprite.defence)
+        # for sprite in self.game.all_units.sprites():
+        #     print(sprite.name, sprite.state, sprite.id, sprite.strength, sprite.defence)
             
         self.game.reset_keys()
         self.text_sprites.update()

@@ -92,14 +92,26 @@ class Unit(pygame.sprite.Sprite):
         elif self.current_frame >= len(self.animations[self.state]) and self.state == "death":
             self.current_frame = -1
             
+        self.rect.move_ip(self.dx, self.dy)
+        
         self.image = self.animations[self.state][self.current_frame]
         self.rect = self.image.get_rect()
         self.rect.midbottom = self.position
+        new_pos = self.rect.midbottom
+        new_pos = new_pos[0] + self.dx, new_pos[1] + self.dy
+        self.rect.midbottom = new_pos
+        
+        # FOUND THE PROBLEM, WILL FIX LATER
+        # THE PROBLEM IS THAT EVERY FRAME REASSIGNS THE RECTANGLE AGAIN, SO EVERY TIME IT MOVES IT RESETS BACK
+        # BECAUSE WE ARE GET RECTING EACH FRAME AND MAKING THEM START FROM THE STARTING POSITION
                 
     def state_change(self, target_state):
         """Resets the current frame to 0 so the animation doesn't start halfway"""
         self.current_frame = 0
         self.state = target_state
+        
+    def move(self):
+        self.rect.move_ip(self.dx, self.dy)
         
     def attack_test(self):
         self.state_change("attack")
