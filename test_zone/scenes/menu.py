@@ -27,17 +27,7 @@ class MainMenu(Scene):
         
         self.generate_buttons(self.button_list, 30, "freesansbold", "white", 140, 40, "lightgrey", (True, 350), (0, 50))
     
-    def navigation_button(self, pointer: int, name: str, actions, dest_scene):
-        if pointer == self.pointer:
-            for sprite in self.sprites.sprites():
-                if sprite.name == name:
-                    sprite.selected = True
-            
-            if actions["enter"]:
-                # Plop the next scene onto the stack
-                dest_scene.start_scene()
-    
-    def update(self, dt, actions):
+    def update(self, actions):
         # Reset all selected
         for sprite in self.sprites.sprites():
             sprite.selected = False
@@ -45,10 +35,46 @@ class MainMenu(Scene):
         # if self.pointer > len(self.button_list) - 1 or self.pointer < 0:
         # OR we just use maths instead
         self.pointer = self.pointer % len(self.button_list)
-                    
-        self.navigation_button(0, "Play", actions, CreateChar(self.game))
-        self.navigation_button(1, "Options", actions, Options(self.game))
-        self.navigation_button(2, "Credits", actions, Credits(self.game))
+        
+        if self.pointer == 0:
+            for sprite in self.sprites.sprites():
+                if sprite.name == "Play":
+                    sprite.selected = True
+            
+            if actions["enter"]:
+                
+                # Removes any existing units before our character create screen
+                self.game.all_units.empty()
+                self.game.players.empty()
+                self.game.enemies.empty()
+                
+                # Reset the current sprite id
+                self.game.current_id = 0
+                
+                # Plop the next scene onto the stack
+
+                next_scene = CreateChar(self.game)
+                next_scene.start_scene()
+                
+        if self.pointer == 1:
+            for sprite in self.sprites.sprites():
+                if sprite.name == "Options":
+                    sprite.selected = True
+            
+            if actions["enter"]:
+                # Plop the next scene onto the stack
+                next_scene = Options(self.game)
+                next_scene.start_scene()
+                
+        if self.pointer == 2:
+            for sprite in self.sprites.sprites():
+                if sprite.name == "Credits":
+                    sprite.selected = True
+            
+            if actions["enter"]:
+                # Plop the next scene onto the stack
+                next_scene = Credits(self.game)
+                next_scene.start_scene()
 
         if self.pointer == 3:
             for sprite in self.sprites.sprites():
@@ -71,7 +97,7 @@ class MainMenu(Scene):
         self.game.reset_keys()
         self.sprites.update()
         
-        # print(len(self.game.stack))
+        print(len(self.game.stack))
     
     def render(self, screen):
         screen.blit(pygame.transform.scale(self.background, (self.game.screen_width, self.game.screen_height)), (0, 0))

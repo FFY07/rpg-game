@@ -12,6 +12,11 @@ EXP_TO_NEXT_LEVEL = 100
 
 COINS = 0
 
+# IMPORTANT: UPDATE THIS WHEN ADDING A NEW CLASS
+unit_list = ["Knight",
+             "Reaper",
+             "Bandit"]
+
 class Unit(pygame.sprite.Sprite):
     def __init__(self, name, team, id_no = 0):
         super().__init__()

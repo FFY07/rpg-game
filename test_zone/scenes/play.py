@@ -7,8 +7,7 @@ from scenes.scene import Scene
 import gui2.ui_functions as ui_functions
 import resources2.images
 
-from classes.units.knight import Knight
-from classes.units.reaper import Reaper
+from classes import class_functions as cf
 
 from scenes.options import Options
 
@@ -18,19 +17,26 @@ class Play(Scene):
         self.background = resources2.images.background_img
         self.text_sprites = pygame.sprite.Group()
         
+        self.player_positions = [(400, 300),
+                                 (370, 400),
+                                 (340, 500)
+        ]
+        
+        self.enemy_positions = [(600, 300),
+                                (570, 400),
+                                (540, 500)
+        ]
+        
         text = ui_functions.TextSprite("PRESS WASD TO DANCE", 50, None, "white", True, 400)
         self.text_sprites.add(text)
+        
+        cf.set_positions(self.player_positions, self.game.players)
+        cf.set_positions(self.enemy_positions, self.game.enemies)
 
-        self.reaper_test = Reaper("John", "player")
-        self.knight_test = Knight("Sam", "enemy")
-        
-        self.knight_test.position = ((scr.SCREEN_WIDTH // 2) + 100, scr.SCREEN_HEIGHT // 2)
-        self.reaper_test.position = ((scr.SCREEN_WIDTH // 2) - 100, scr.SCREEN_HEIGHT // 2)
-        
-        self.game.all_units.add(self.knight_test)
-        self.game.all_units.add(self.reaper_test)
+        # self.knight_test.position = ((scr.SCREEN_WIDTH // 2) + 100, scr.SCREEN_HEIGHT // 2)
+        # self.reaper_test.position = ((scr.SCREEN_WIDTH // 2) - 100, scr.SCREEN_HEIGHT // 2)
     
-    def update(self, dt, actions):
+    def update(self, actions):
         if actions["escape"]:
             next_scene = Options(self.game)
             next_scene.start_scene()
@@ -52,7 +58,7 @@ class Play(Scene):
                 sprite.death_test()
         
         for sprite in self.game.all_units.sprites():
-            print(sprite.name, sprite.state, sprite.current_frame)
+            print(sprite.name, sprite.state, sprite.id, sprite.strength, sprite.defence)
             
         self.game.reset_keys()
         self.text_sprites.update()

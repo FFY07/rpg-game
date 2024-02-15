@@ -1,9 +1,11 @@
-import pygame, random, sys
+import random
 
+from classes.units.reaper import Reaper
 from classes.units.knight import Knight
-from .reaper import Reaper
+from classes.units.bandit import Bandit
 
-pygame.init()
+import classes.unit as ut
+
 
 def create_unit(name, unit_class, team, game):
     """Creates a new unit object and adds it to the sprite groups
@@ -17,18 +19,29 @@ def create_unit(name, unit_class, team, game):
         obj: returns the newly-created unit object
     """
     
+    # If the given unit class is invalid, select a random one
+    if unit_class not in ut.unit_list:
+        print(f"[{unit_class}] is not a valid class")
+        unit_class = random.choice(ut.unit_list)
+        print(f"[{unit_class}] has been selected instead")
+    
     # Create the unit object
     match unit_class:
         
         case "Reaper":
-            unit = Reaper(name, team)
+            unit = Reaper(name, team, game.current_id)
         
         case "Knight":
-            unit = Knight(name, team)
+            unit = Knight(name, team, game.current_id)
+            
+        case "Bandit":
+            unit = Bandit(name, team, game.current_id)
         
         case _:
-            print("Error, invalid class. Defaulting to Knight")
-            unit = Knight(name, team)
+            raise Exception(f"An error has occured while creating Unit objects. (Class [{unit_class}] does not exist)")
+        
+    # Increment the current game id by 1
+    game.current_id += 1
     
     # Add the unit to the correct sprite group
     match team:
@@ -38,19 +51,12 @@ def create_unit(name, unit_class, team, game):
         case "enemy":
             game.enemies.add(unit)
             
-    # Add all of the units to a main sprite group as well
+    # Add all of the units to the main units sprite group as well
     game.all_units.add(unit)
     
+    # Optional
     return unit
 
-# player_list = [("Southpaw", "Reaper"),
-#                ("Genesis", "Knight"),
-#                ("Akshan", "Knight"),
-#                ("Samal", "Reaper")]
-
-# enemy_list = [("Fury", "Reaper"),
-#               ("Hawk", "Reaper"),
-#               ("Nova", "Knight")]
 
 def create_team(unit_list: list, team: str, game):
     """Creates units based on an input list and team name
@@ -60,28 +66,15 @@ def create_team(unit_list: list, team: str, game):
         create_unit(unit[0], unit[1], team, game)
         
 def set_positions(position_list, sprite_group):
-    for character in sprite_group:
+    for unit in sprite_group:
         
         # Assigns a coordinate position to the unit
         try:
             coordinates = position_list.pop(0)
             
-            # assign the coordinates to the character
-            character.x, character.y = coordinates
+            # assign the coordinates to the unit
+            unit.position = coordinates
         
         # If there are no available positions left, we leave the unit's coordinates at default
         except IndexError:
-            pass
-
-# create_team(player_list, "player")
-# create_team(enemy_list, "enemy")
-
-
-# TEMPORARY, the real list is at gui.screen
-player_positions = [(300, 210), 
-                   (230, 260), 
-                   (160, 310)]
-
-enemy_positions = [(720, 200),
-                   (790, 250),
-                   (860, 300)]
+            print("No available positions left!")

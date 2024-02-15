@@ -21,7 +21,7 @@ class Options(Scene):
         
         self.generate_buttons(self.button_list, 30, "freesansbold", "white", 120, 40, "lightgrey", (True, 350), (0, 50))
     
-    def update(self, dt, actions):
+    def update(self, actions):
         # Reset all selected
         for sprite in self.sprites.sprites():
             sprite.selected = False
@@ -91,6 +91,7 @@ class Options(Scene):
                     sprite.selected = True
             
             if actions["enter"]:
+                self.sprites.empty()              
                 while len(self.game.stack) > 1:
                     self.game.stack.pop()
                 
@@ -101,6 +102,8 @@ class Options(Scene):
             self.pointer -= 1
             
         if actions["escape"]:
+            # Clear sprites to save resources
+            self.sprites.empty()
             self.exit_scene()
             
         self.game.reset_keys()

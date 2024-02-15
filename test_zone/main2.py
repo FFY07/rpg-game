@@ -22,16 +22,16 @@ class Game():
                 "backspace": False,
                 "enter": False,
                 "escape": False
-                }
-        self.dt, self.prev_time = 0, 0
-        
+                }        
         self.screen_width = scr.SCREEN_WIDTH
         self.screen_height = scr.SCREEN_HEIGHT
         
         self.canvas = pygame.Surface((self.screen_width, self.screen_height))
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        
         self.stack = []
+        
+        # gives every sprite an id
+        self.current_id = 0
         self.sprites = pygame.sprite.Group()
         self.all_units = pygame.sprite.Group()
         self.players = pygame.sprite.Group()
@@ -50,16 +50,9 @@ class Game():
 
     def game_loop(self):
         while self.playing:
-            self.get_dt()
             self.event_handler()
             self.update()
             self.render()
-
-            
-    def get_dt(self):
-        current_time = time.time()
-        self.dt = current_time - self.prev_time
-        self.prev_time = current_time
         
     def event_handler(self):
         for event in pygame.event.get():
@@ -119,7 +112,7 @@ class Game():
                     self.actions["escape"] = False
                     
     def update(self):
-        self.stack[-1].update(self.dt, self.actions)
+        self.stack[-1].update(self.actions)
 
     def render(self):
         self.stack[-1].render(self.canvas)
