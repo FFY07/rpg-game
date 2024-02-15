@@ -6,10 +6,10 @@ from scenes.scene import Scene
 import gui2.screen as scr
 import resources2.images
 
-credit_section = [40, None, "yellow"]
-credit_title = [35, None, "white"]
-credit_desc = [35, None, "green"]
-credit_name = [30, "segoeuiemoji", "white"]
+credit_section = [50, None, "yellow"]
+credit_title = [40, None, "white"]
+credit_desc = [40, None, "green"]
+credit_name = [35, "segoeuiemoji", "white"]
 
 class Credits(Scene):
     def __init__(self, game: object):
@@ -28,24 +28,31 @@ class Credits(Scene):
             ]
 
         self.credits_body = [
-            ('[ Members ]', *credit_section, True, scr.SCREEN_HEIGHT + 150),
+            ('[ Members ]', *credit_section, True, scr.SCREEN_HEIGHT + 300),
             
-            ('Group Leader', *credit_title, True, scr.SCREEN_HEIGHT + 200),
-            ('Desmond Foo Fong Yoong', *credit_name, True, scr.SCREEN_HEIGHT + 250),
-            ('Group Members', *credit_title, True, scr.SCREEN_HEIGHT + 300),
-            ('Haarith Bin Naguri Ibrahim', *credit_name, True, scr.SCREEN_HEIGHT + 350),
-            ('[Didn\'t Even Test The Game]', *credit_section, True, scr.SCREEN_HEIGHT + 450),
-            ('P.S. If you see your name here,', *credit_desc, True, scr.SCREEN_HEIGHT + 500),
-            ('just message Desmond and he\'ll move it back ^_^ — RZ', *credit_desc, True, scr.SCREEN_HEIGHT + 550),
-            ('Haohong Luo ', *credit_name, True, scr.SCREEN_HEIGHT + 650),
-            ('Xu Xiang (Ye Xuxiang) Yap ', *credit_name, True, scr.SCREEN_HEIGHT + 700),
-            ('Yi Soon Pong ', *credit_name, True, scr.SCREEN_HEIGHT + 750),
-            ('Qiao Er Kang', *credit_name, True, scr.SCREEN_HEIGHT + 800)
+            ('Group Leader', *credit_title, True, scr.SCREEN_HEIGHT + 350),
+            ('Desmond Foo Fong Yoong 👑', *credit_name, True, scr.SCREEN_HEIGHT + 400),
+            ('Group Members', *credit_title, True, scr.SCREEN_HEIGHT + 550),
+            ('Haarith Bin Naguri Ibrahim', *credit_name, True, scr.SCREEN_HEIGHT + 600),
+            
+            ('IMPORTANT: IF YOU SEE YOUR NAME BELOW', *credit_desc, True, scr.SCREEN_HEIGHT + 800),
+            ('MESSAGE DESMOND AND HE WILL MOVE IT UP FOR FREE', *credit_desc, True, scr.SCREEN_HEIGHT + 850),
+            ('(because at least you bothered to run the game and check)', 30, None, "grey", True, scr.SCREEN_HEIGHT + 900),
+            ('THANKS — RZ', *credit_desc, True, scr.SCREEN_HEIGHT + 950),
+            ('he\'s so nice he wanted to give everyone the same grade', 25, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1050),
+            ('...but I\'m not that nice 😊', 25, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1075),
+            ('this is what you get for not contributing 🗡️', 25, "segoeuiemoji", "crimson", True, scr.SCREEN_HEIGHT + 1150),
+
+            ('0 GitHub Commits', *credit_section, True, scr.SCREEN_HEIGHT + 1500),
+            ('Haohong Luo ', *credit_name, True, scr.SCREEN_HEIGHT + 1550),
+            ('Xu Xiang (Ye Xuxiang) Yap ', *credit_name, True, scr.SCREEN_HEIGHT + 1600),
+            ('Yi Soon Pong ', *credit_name, True, scr.SCREEN_HEIGHT + 1650),
+            ('Qiao Er Kang', *credit_name, True, scr.SCREEN_HEIGHT + 1700)
             ]
 
         self.credits_footer = [
-            ('THANKS FOR PLAYING', *credit_section, True, scr.SCREEN_HEIGHT + 950),
-            (' ', *credit_section, True, scr.SCREEN_HEIGHT + 1000) # padding
+            ('THANKS FOR PLAYING', *credit_section, True, scr.SCREEN_HEIGHT + 2000),
+            (' ', *credit_section, True, scr.SCREEN_HEIGHT + 2100) # padding
             ]
 
         # Add the sections you want to load into this list
