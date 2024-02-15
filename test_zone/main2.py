@@ -24,6 +24,8 @@ class Game():
                 "escape": False
                 }
         self.fps = 60
+        self.clock = pygame.time.Clock()
+        
         self.screen_width = scr.SCREEN_WIDTH
         self.screen_height = scr.SCREEN_HEIGHT
         
@@ -113,6 +115,7 @@ class Game():
                     self.actions["escape"] = False
                     
     def update(self):
+        self.clock.tick(self.fps)
         self.stack[-1].update(self.actions)
 
     def render(self):

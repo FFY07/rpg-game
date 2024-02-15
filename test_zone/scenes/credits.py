@@ -17,8 +17,8 @@ class Credits(Scene):
         self.background = resources2.images.credits_background
         self.credits = pygame.sprite.Group()
         
-        self.clock = pygame.time.Clock()
-        self.clock.tick(30)
+        # Can't go below integer so use fps to slow it down below 1
+        self.game.fps = 60
         self.falling_speed = (0, -1)
 
         self.credits_header = [
@@ -39,20 +39,20 @@ class Credits(Scene):
             ('MESSAGE DESMOND AND HE WILL MOVE IT UP FOR FREE', *credit_desc, True, scr.SCREEN_HEIGHT + 850),
             ('(because at least you bothered to run the game and check)', 30, None, "grey", True, scr.SCREEN_HEIGHT + 900),
             ('THANKS — RZ', *credit_desc, True, scr.SCREEN_HEIGHT + 950),
-            ('he\'s so nice he wanted to give everyone the same grade', 25, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1050),
-            ('...but I\'m not that nice 😊', 25, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1075),
-            ('this is what you get for not contributing 🗡️', 25, "segoeuiemoji", "crimson", True, scr.SCREEN_HEIGHT + 1150),
+            ('he\'s so nice he wanted to give everyone the same grade', 25, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1150),
+            ('...but I\'m not that nice 😊', 25, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1175),
+            ('this is what you get for not contributing 👻', 25, "segoeuiemoji", "crimson", True, scr.SCREEN_HEIGHT + 1225),
 
-            ('0 GitHub Commits', *credit_section, True, scr.SCREEN_HEIGHT + 1500),
-            ('Haohong Luo ', *credit_name, True, scr.SCREEN_HEIGHT + 1550),
-            ('Xu Xiang (Ye Xuxiang) Yap ', *credit_name, True, scr.SCREEN_HEIGHT + 1600),
-            ('Yi Soon Pong ', *credit_name, True, scr.SCREEN_HEIGHT + 1650),
-            ('Qiao Er Kang', *credit_name, True, scr.SCREEN_HEIGHT + 1700)
+            ('0 GitHub Commits', *credit_section, True, scr.SCREEN_HEIGHT + 1600),
+            ('Haohong Luo ', *credit_name, True, scr.SCREEN_HEIGHT + 1650),
+            ('Xu Xiang (Ye Xuxiang) Yap ', *credit_name, True, scr.SCREEN_HEIGHT + 1700),
+            ('Yi Soon Pong ', *credit_name, True, scr.SCREEN_HEIGHT + 1750),
+            ('Qiao Er Kang', *credit_name, True, scr.SCREEN_HEIGHT + 1800)
             ]
 
         self.credits_footer = [
-            ('THANKS FOR PLAYING', *credit_section, True, scr.SCREEN_HEIGHT + 2000),
-            (' ', *credit_section, True, scr.SCREEN_HEIGHT + 2100) # padding
+            ('THANKS FOR PLAYING', *credit_section, True, scr.SCREEN_HEIGHT + 2100),
+            (' ', *credit_section, True, scr.SCREEN_HEIGHT + 2150) # padding
             ]
 
         # Add the sections you want to load into this list
@@ -65,7 +65,7 @@ class Credits(Scene):
 
     def update(self, actions):
         if actions["escape"] or actions["enter"]:
-            self.clock.tick(self.game.fps)
+            self.game.fps = 60
             self.exit_scene()
             
         self.credits.update()
@@ -73,7 +73,7 @@ class Credits(Scene):
         
         # Go back once credits are finished
         if len(self.credits) == 0:
-            self.clock.tick(self.game.fps)
+            self.game.fps = 60
             self.exit_scene()
         
     def render(self, screen):
