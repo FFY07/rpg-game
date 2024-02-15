@@ -3,15 +3,15 @@ import random
 from classes.unit import Unit
 
 # Range of values
-STRENGTH = (8, 15)
-INTELLIGENCE = (1, 5)
-DEFENCE = (1, 8)
-MAGIC_RESIST = (1, 8)
+STRENGTH = (1, 10)
+INTELLIGENCE = (5, 15)
+DEFENCE = (5, 15)
+MAGIC_RESIST = (5, 15)
 
-class Bandit(Unit):
+class Tank(Unit):
     def __init__(self, name, team, id_no = 0):
         super().__init__(name, team, id_no)
-        self.unit_class = "Bandit"
+        self.unit_class = "Tank"
         
         self.name = name
         self.team = team
@@ -22,11 +22,11 @@ class Bandit(Unit):
         self.defence = random.randint(*DEFENCE)
         self.magic_resist = random.randint(*MAGIC_RESIST)
         
-        self.size_scale = 2.5
+        self.size_scale = 4
         
         if self.team == "enemy":
             self.direction = "left"
-        
+            
         self.load_animations()
         
         self.image = self.animations["idle"][0]

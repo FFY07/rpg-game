@@ -28,3 +28,7 @@ class Reaper(Unit):
             self.direction = "left"
             
         self.load_animations()
+        
+        self.image = self.animations["idle"][0]
+        self.rect = self.image.get_rect()
+        self.rect.center = self.position

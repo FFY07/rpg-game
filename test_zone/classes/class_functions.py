@@ -1,8 +1,11 @@
 import random
 
+import gui2.screen as scr
+
 from classes.units.reaper import Reaper
 from classes.units.knight import Knight
 from classes.units.bandit import Bandit
+from classes.units.tank import Tank
 
 import classes.unit as ut
 
@@ -36,6 +39,9 @@ def create_unit(name, unit_class, team, game):
             
         case "Bandit":
             unit = Bandit(name, team, game.current_id)
+            
+        case "Tank":
+            unit = Tank(name, team, game.current_id)
         
         case _:
             raise Exception(f"An error has occured while creating Unit objects. (Class [{unit_class}] does not exist)")
@@ -73,8 +79,9 @@ def set_positions(position_list, sprite_group):
             coordinates = position_list.pop(0)
             
             # assign the coordinates to the unit
-            unit.position = coordinates
+            unit.rect.center = coordinates
         
         # If there are no available positions left, we leave the unit's coordinates at default
         except IndexError:
-            print("No available positions left!")
+            unit.rect.center = random.randint(0, scr.SCREEN_WIDTH), random.randint(0, scr.SCREEN_HEIGHT)
+            print(f"No available positions left! Randomising to {unit.position}!")

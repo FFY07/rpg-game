@@ -6,6 +6,8 @@ class Scene():
     def __init__(self, game: object):
         self.game = game
         self.prev = None
+        self.xc = scr.SCREEN_WIDTH // 2
+        self.yc = scr.SCREEN_HEIGHT // 2
     
     def update(self, actions):
         pass

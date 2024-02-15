@@ -17,7 +17,7 @@ class CreateChar(Scene):
         
         self.player_list = [("Slashy", "Reaper"),
                             ("Tiger", "Knight"),
-                            ("Joker", "whatever")]
+                            ("Joker", "Tank")]
         
         self.enemy_list = [("Quinn", "Bandit"),
                            ("Kuyz", "Knight"),

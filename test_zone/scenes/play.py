@@ -17,39 +17,35 @@ class Play(Scene):
         self.background = resources2.images.background_img
         self.text_sprites = pygame.sprite.Group()
         
-        # unit stands here when they want to attack
-        
-        self.crazy_guy = cf.create_unit("William", "Knight", "player", self.game)
-        self.crazy_guy.dx = 500
+        # unit stands here when they want to attack\
+        self.crazy_guy = cf.create_unit("William", "Tank", "enemy", self.game)
+        self.crazy_guy.dx = 5
         
         self.player_active_position = (300, 400)
         self.enemy_active_position = (500, 400)
         
-        # temporary list just for testing
-        self.player_positions = [(400, 300),
-                                 (370, 400),
-                                 (340, 500)
+        # testing coordinates
+        self.player_positions = [(self.xc - 500, self.yc + 150),
+                                (self.xc - 375, self.yc),
+                                (self.xc - 250, self.yc - 150)
         ]
         
-        self.enemy_positions = [(600, 300),
-                                (570, 400),
-                                (540, 500)
+        self.enemy_positions = [(self.xc + 500, self.yc + 150),
+                                (self.xc + 375, self.yc),
+                                (self.xc + 250, self.yc - 150)
         ]
         
-        text = ui_functions.TextSprite("PRESS WASD TO DANCE", 50, None, "white", True, 400)
+        text = ui_functions.TextSprite("PRESS WASD TO PARTY", 50, None, "white", True, 400)
         self.text_sprites.add(text)
         
         cf.set_positions(self.player_positions, self.game.players)
         cf.set_positions(self.enemy_positions, self.game.enemies)
-
-        # self.knight_test.position = ((scr.SCREEN_WIDTH // 2) + 100, scr.SCREEN_HEIGHT // 2)
-        # self.reaper_test.position = ((scr.SCREEN_WIDTH // 2) - 100, scr.SCREEN_HEIGHT // 2)
     
     def update(self, actions):
-        # print(self.crazy_guy.rect, self.crazy_guy.dx)
-        if self.crazy_guy.rect[0] > scr.SCREEN_WIDTH:
-            self.crazy_guy.rect[0] = 0
-            print("whee")
+        if self.crazy_guy.rect.left > scr.SCREEN_WIDTH - 64:
+            self.crazy_guy.dx = - 5
+        elif self.crazy_guy.rect.right < 64:
+            self.crazy_guy.dx = 5
         
         if actions["escape"]:
             next_scene = Options(self.game)
@@ -72,7 +68,7 @@ class Play(Scene):
                 sprite.death_test()
         
         # for sprite in self.game.all_units.sprites():
-        #     print(sprite.name, sprite.state, sprite.id, sprite.strength, sprite.defence)
+        #     print(sprite.name, sprite.state, sprite.id, sprite.rect)
             
         self.game.reset_keys()
         self.text_sprites.update()
@@ -80,5 +76,7 @@ class Play(Scene):
         
     def render(self, screen):
         screen.blit(pygame.transform.scale(self.background, (self.game.screen_width, self.game.screen_height)), (0, 0))
+        
+        # Rendering order (last to render = on top)
         self.text_sprites.draw(self.game.canvas)
         self.game.all_units.draw(self.game.canvas)

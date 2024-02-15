@@ -15,7 +15,10 @@ COINS = 0
 # IMPORTANT: UPDATE THIS WHEN ADDING A NEW CLASS
 unit_list = ["Knight",
              "Reaper",
-             "Bandit"]
+             "Bandit",
+             "Tank"]
+
+# Note: check knight.py for class-specific references
 
 class Unit(pygame.sprite.Sprite):
     def __init__(self, name, team, id_no = 0):
@@ -38,6 +41,7 @@ class Unit(pygame.sprite.Sprite):
         self.size_scale = 2
         self.unit_class = "Knight"
         
+        # Starting position
         self.position = (scr.SCREEN_WIDTH // 2, scr.SCREEN_HEIGHT // 2)
 
         self.current_frame = 0
@@ -52,10 +56,6 @@ class Unit(pygame.sprite.Sprite):
                        "death"
         ]
         self.animations = {}
-        
-        self.image = pygame.Surface((0, 0))
-        self.rect = self.image.get_rect()
-        self.rect.midbottom = self.position
         
     def load_animations(self):
         for state in self.states:
@@ -91,27 +91,14 @@ class Unit(pygame.sprite.Sprite):
         # Leaves character dead body on the ground
         elif self.current_frame >= len(self.animations[self.state]) and self.state == "death":
             self.current_frame = -1
-            
-        self.rect.move_ip(self.dx, self.dy)
-        
+
         self.image = self.animations[self.state][self.current_frame]
-        self.rect = self.image.get_rect()
-        self.rect.midbottom = self.position
-        new_pos = self.rect.midbottom
-        new_pos = new_pos[0] + self.dx, new_pos[1] + self.dy
-        self.rect.midbottom = new_pos
-        
-        # FOUND THE PROBLEM, WILL FIX LATER
-        # THE PROBLEM IS THAT EVERY FRAME REASSIGNS THE RECTANGLE AGAIN, SO EVERY TIME IT MOVES IT RESETS BACK
-        # BECAUSE WE ARE GET RECTING EACH FRAME AND MAKING THEM START FROM THE STARTING POSITION
+        self.rect.move_ip(self.dx, self.dy)
                 
     def state_change(self, target_state):
         """Resets the current frame to 0 so the animation doesn't start halfway"""
         self.current_frame = 0
         self.state = target_state
-        
-    def move(self):
-        self.rect.move_ip(self.dx, self.dy)
         
     def attack_test(self):
         self.state_change("attack")
