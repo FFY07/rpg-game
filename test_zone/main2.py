@@ -26,6 +26,15 @@ class Game():
         self.fps = 60
         self.clock = pygame.time.Clock()
         
+        # Checks if user is trying to type instead of send commands
+        self.typing = False
+        
+        # Holds the currently typed text in a buffer so we can assign it to a variable before clearing the buffer
+        self.text_buffer = ""
+        
+        # Readies the text buffer for output
+        self.text_ready = False
+        
         self.screen_width = scr.SCREEN_WIDTH
         self.screen_height = scr.SCREEN_HEIGHT
         
@@ -63,30 +72,52 @@ class Game():
                 self.running, self.playing = False, False
                         
             if event.type == pygame.KEYDOWN:
-
-                if event.key == pygame.K_w or event.key == pygame.K_UP:
-                    self.actions["up"] = True
+                if not self.typing:
+                    if event.key == pygame.K_w or event.key == pygame.K_UP:
+                        self.actions["up"] = True
+                        
+                    if event.key == pygame.K_a or event.key == pygame.K_LEFT:
+                        self.actions["left"] = True
+                        
+                    if event.key == pygame.K_s or event.key == pygame.K_DOWN:
+                        self.actions["down"] = True
                     
-                if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                    self.actions["left"] = True
+                    if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
+                        self.actions["right"] = True
+                        
+                    if event.key == pygame.K_SPACE:
+                        self.actions["space"] = True
                     
-                if event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                    self.actions["down"] = True
-                
-                if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                    self.actions["right"] = True
+                    if event.key == pygame.K_BACKSPACE:
+                        self.actions["backspace"] = True
                     
-                if event.key == pygame.K_SPACE:
-                    self.actions["space"] = True
-                
-                if event.key == pygame.K_BACKSPACE:
-                    self.actions["backspace"] = True
-                
-                if event.key == pygame.K_RETURN:
-                    self.actions["enter"] = True
-                
-                if event.key == pygame.K_ESCAPE:
-                    self.actions["escape"] = True
+                    if event.key == pygame.K_RETURN:
+                        self.actions["enter"] = True
+                    
+                    if event.key == pygame.K_ESCAPE:
+                        self.actions["escape"] = True
+                        
+                if self.typing:
+                    if event.key == pygame.K_BACKSPACE:
+                        
+                        # Set the text to everything except the last character
+                        self.text_buffer = self.text_buffer[:-1]
+                        
+                    elif event.key == pygame.K_RETURN or event.key == pygame.K_ESCAPE:
+                        
+                        # If escape is pressed, exit typing mode and clear the string as well
+                        if event.key == pygame.K_ESCAPE:
+                            self.text_buffer = ""
+                        
+                        else:
+                            self.text_ready = True
+                        
+                        # Exit typing mode and resume normal input
+                        self.typing = False
+                        
+                    else:
+                        # Add the text to the text buffer string
+                        self.text_buffer += event.unicode
                 
             if event.type == pygame.KEYUP:
 
@@ -133,7 +164,7 @@ class Game():
         # Initialise the first item in the stack, which is the Main Menu
         self.start = MainMenu(self)
         self.stack.append(self.start)
-        
+                
 # Make sure the function below only runs if this is the main file
 if __name__ == "__main__":
     # Initialise the game class

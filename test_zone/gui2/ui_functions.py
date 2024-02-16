@@ -73,6 +73,21 @@ def key_handler():
     
     return actions
 
+        
+def store_text(name: str, text_group: object, game: object):
+    if game.text_ready:
+        for sprite in text_group.sprites():
+            if sprite.name == name:
+                sprite.text = game.text_buffer
+        
+        # Also return the text if necessary
+        buffered_text = game.text_buffer
+        
+        game.text_buffer = ""
+        game.text_ready = False
+        
+        return buffered_text
+
 class TextSprite(pygame.sprite.Sprite):
     # Creates a text sprite; replace me with a docstring once all the parameters are done
     def __init__(self, text: str, 
@@ -118,11 +133,13 @@ class TextSprite(pygame.sprite.Sprite):
         self.dy = dy
         
         self.font = pygame.font.SysFont(text_font, size)
-        self.image = self.font.render(text, True, color)
+        self.image = self.font.render(self.text, True, self.color)
         self.rect = self.image.get_rect()
         self.rect.center = (self.x, self.y)
     
     def update(self):
+        self.image = self.font.render(self.text, True, self.color)
+        
         self.rect.move_ip(self.dx, self.dy)
         
         # Check if we're going upwards
