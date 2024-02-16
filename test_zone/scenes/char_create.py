@@ -1,5 +1,5 @@
 import pygame
-import sys
+import random 
 
 import gui2.ui_functions as ui_functions
 import classes.class_functions as cf
@@ -8,21 +8,32 @@ from scenes.scene import Scene
 from scenes.play import Play
 
 import resources2.images
+# input1_rect = pygame.Rect(80, 280, 170, 32)
+
 
 class CreateChar(Scene):
     def __init__(self, game: object):
         super().__init__(game)
-        self.background = resources2.images.char_create_background
+        self.background = pygame.Surface((1, 1))
         self.sprites = pygame.sprite.Group()
         
+        # temp = ui_functions.Button(80, 200, 'white', 170, 32)
+
         self.player_list = [("Slashy", "Reaper"),
                             ("Tiger", "Knight"),
                             ("Joker", "Tank")]
         
-        self.enemy_list = [("Quinn", "Bandit"),
-                           ("Kuyz", "Knight"),
-                           ("Ampersand", "Reaper")]
+        #random name and random classes 
+
+        class_list = ['Knight', 'Reaper', 'Tank', 'Bandit']
+        self.enemy_list = []
+        for i in range(self.game.max_enemies):
+            name  = 'AI ' + str(random.randint(10, 99))
+            classes = random.choice(class_list)
+            enemy =  (name, classes)
+            self.enemy_list.append(enemy)
         
+
         cf.create_team(self.player_list, "player", self.game)
         cf.create_team(self.enemy_list, "enemy", self.game)
         

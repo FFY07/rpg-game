@@ -18,8 +18,8 @@ class Play(Scene):
         self.text_sprites = pygame.sprite.Group()
         
         # unit stands here when they want to attack\
-        self.crazy_guy = cf.create_unit("William", "Tank", "enemy", self.game)
-        self.crazy_guy.dx = 5
+        self.crazy_guy = cf.create_unit("William", "Reaper", "enemy", self.game)
+        self.crazy_guy.dx, self.crazy_guy.dy = 5, 5
         
         self.player_active_position = (self.xc - 100, self.yc)
         self.enemy_active_position = (self.xc + 100, self.yc)
@@ -35,10 +35,8 @@ class Play(Scene):
                                 (self.xc + 250, self.yc - 150)
         ]
         
-        text = ui_functions.TextSprite("PRESS WASD TO PARTY", 50, None, "white", True, self.yc)
-        self.text_sprites.add(text)
-        text = ui_functions.TextSprite("Press Space to activate character with self.id == 0", 30, None, "white", True, self.yc + 100)
-        self.text_sprites.add(text)
+        self.text_sprites.add(ui_functions.TextSprite("PRESS WASD TO PARTY", 50, None, "white", True, self.yc))
+        self.text_sprites.add(ui_functions.TextSprite("Press Space to activate character with self.id == 0", 30, None, "white", True, self.yc + 100))
         text = ui_functions.TextSprite("Type", 30, "freesansbold", "white", self.xc - 200, self.yc + 200, "typing")
         self.text_sprites.add(text)
         text = ui_functions.TextSprite("[Last msg]", 20, "freesansbold", "white", self.xc - 300, self.yc + 300, "lastmsg")
@@ -46,6 +44,12 @@ class Play(Scene):
         
         cf.set_positions(self.player_positions, self.game.players)
         cf.set_positions(self.enemy_positions, self.game.enemies)
+
+        for sprite in self.game.players.sprites():
+            if sprite.id == None:
+                self.selected = sprite
+
+
         
     
     def update(self, actions):
@@ -59,6 +63,11 @@ class Play(Scene):
             self.crazy_guy.dx = - 5
         elif self.crazy_guy.rect.right < 64:
             self.crazy_guy.dx = 5
+
+        if self.crazy_guy.rect.top > scr.SCREEN_HEIGHT - 64:
+            self.crazy_guy.dy = - 5
+        elif self.crazy_guy.rect.bottom < 64:
+            self.crazy_guy.dy = 5
             
         for sprite in self.text_sprites:
             if sprite.name == "typing":
@@ -94,7 +103,7 @@ class Play(Scene):
                 
         if actions["enter"]:
             self.game.typing = True
-        
+
         # for sprite in self.game.all_units.sprites():
         #     print(sprite.name, sprite.state, sprite.id, sprite.rect)
             

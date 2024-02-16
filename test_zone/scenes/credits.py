@@ -36,7 +36,7 @@ class Credits(Scene):
             ('Haarith Bin Naguri Ibrahim', *credit_name, True, scr.SCREEN_HEIGHT + 600),
             
             ('IMPORTANT: IF YOU SEE YOUR NAME BELOW', *credit_desc, True, scr.SCREEN_HEIGHT + 800),
-            ('MESSAGE DESMOND AND HE WILL MOVE IT UP FOR FREE', *credit_desc, True, scr.SCREEN_HEIGHT + 850),
+            ('PLEASE CHANGE IT BEFORE THE DEADLINE', *credit_desc, True, scr.SCREEN_HEIGHT + 850),
             ('(because at least you bothered to run the game and check)', 30, None, "grey", True, scr.SCREEN_HEIGHT + 900),
             ('THANKS — RZ', *credit_desc, True, scr.SCREEN_HEIGHT + 950),
             ('he\'s so nice he wanted to give everyone the same grade', 25, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1150),

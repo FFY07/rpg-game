@@ -74,7 +74,7 @@ def key_handler():
     return actions
 
         
-def store_text(name: str, text_group: object, game: object):
+def store_text(name: str, text_group, game: object):
     if game.text_ready:
         for sprite in text_group.sprites():
             if sprite.name == name:
@@ -209,3 +209,7 @@ class Button(pygame.sprite.Sprite):
         else:
             self.image.fill(self.color)
             self.image.set_alpha(0)
+
+class CreatePlayerGUI(pygame.sprite.Sprite):
+    def __init__(self, y):
+        self.text_box = TextSprite("Enter Name", 20)

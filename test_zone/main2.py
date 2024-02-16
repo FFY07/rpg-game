@@ -48,9 +48,11 @@ class Game():
         self.all_units = pygame.sprite.Group()
         self.players = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
+
+        self.max_enemies = 3
+        self.max_players = 3
          
         self.start()
-        
         self.music = True
         self.sound = True
         self.volume = 1
@@ -58,8 +60,8 @@ class Game():
         pygame.mixer.music.load(sounds.copyright_pls)
         if self.music:
             pygame.mixer.music.play(-1)
-        
-
+            pygame.mixer.music.set_volume(0.1)
+            
     def game_loop(self):
         while self.playing:
             self.event_handler()

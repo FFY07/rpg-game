@@ -8,6 +8,7 @@ INTELLIGENCE = (1, 10)
 DEFENCE = (1, 5)
 MAGIC_RESIST = (1, 5)
 
+
 class Reaper(Unit):
     def __init__(self, name, team, id_no = 0):
         super().__init__(name, team, id_no)
