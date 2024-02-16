@@ -78,7 +78,7 @@ class Unit(pygame.sprite.Sprite):
         
             self.animations[state] = loaded_images
                 
-    def update(self):
+    def update(self):       
         current_time = pygame.time.get_ticks()
         if current_time - self.last_updated > 100 and self.current_frame != -1:
             self.last_updated = current_time
@@ -95,6 +95,7 @@ class Unit(pygame.sprite.Sprite):
 
         self.image = self.animations[self.state][self.current_frame]
         self.rect.move_ip(self.dx, self.dy)
+        
                 
     def state_change(self, target_state):
         """Resets the current frame to 0 so the animation doesn't start halfway"""

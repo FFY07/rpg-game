@@ -16,13 +16,16 @@ class Play(Scene):
         super().__init__(game)
         self.background = resources2.images.background_img
         self.text_sprites = pygame.sprite.Group()
+        self.pointer = 0
         
-        # unit stands here when they want to attack\
-        self.crazy_guy = cf.create_unit("William", "Reaper", "enemy", self.game)
-        self.crazy_guy.dx, self.crazy_guy.dy = 5, 5
-        
-        self.player_active_position = (self.xc - 100, self.yc)
-        self.enemy_active_position = (self.xc + 100, self.yc)
+        self.menu_gui = ui_functions.Button(100, 50, "cyan")
+
+        # self.crazy_guy = cf.create_unit("William", "Reaper", "enemy", self.game)
+        # self.crazy_guy.dx, self.crazy_guy.dy = 5, 5
+                
+        # unit stands here when they want to attack
+        # self.player_active_position = (self.xc - 100, self.yc)
+        # self.enemy_active_position = (self.xc + 100, self.yc)
         
         # testing coordinates
         self.player_positions = [(self.xc - 500, self.yc + 150),
@@ -35,43 +38,63 @@ class Play(Scene):
                                 (self.xc + 250, self.yc - 150)
         ]
         
-        self.text_sprites.add(ui_functions.TextSprite("PRESS WASD TO PARTY", 50, None, "white", True, self.yc))
-        self.text_sprites.add(ui_functions.TextSprite("Press Space to activate character with self.id == 0", 30, None, "white", True, self.yc + 100))
-        text = ui_functions.TextSprite("Type", 30, "freesansbold", "white", self.xc - 200, self.yc + 200, "typing")
-        self.text_sprites.add(text)
-        text = ui_functions.TextSprite("[Last msg]", 20, "freesansbold", "white", self.xc - 300, self.yc + 300, "lastmsg")
-        self.text_sprites.add(text)
+        # self.text_sprites.add(ui_functions.TextSprite("Type", 30, "freesansbold", "white", self.xc - 200, self.yc + 200, "typing"))
+        # self.text_sprites.add(ui_functions.TextSprite("[Last msg]", 20, "freesansbold", "white", self.xc - 300, self.yc + 300, "lastmsg"))
+        self.text_sprites.add(self.menu_gui)
         
         cf.set_positions(self.player_positions, self.game.players)
         cf.set_positions(self.enemy_positions, self.game.enemies)
-
-        for sprite in self.game.players.sprites():
-            if sprite.id == None:
-                self.selected = sprite
-
-
         
+        # Dictionaries make life easier (give up on sprite groups mode)
+        self.all_players = {}
+        self.all_enemies = {}
+        
+        for i, sprite in enumerate(self.game.players.sprites()):
+            self.all_players[i] = sprite     
+        self.alive_players = self.all_players
+        
+        for i, sprite in enumerate(self.game.enemies.sprites()):
+            self.all_enemies[i] = sprite        
+        self.alive_enemies = self.all_enemies
+    
+    def select_player(self, pointer):
+        self.all_players[pointer].selected = True
+            
+    def select_enemy(self, pointer):
+        self.all_enemies[pointer].selected = True
+
     
     def update(self, actions):
-        self.current_text = ui_functions.store_text("lastmsg", self.text_sprites, self.game)
+        # self.current_text = ui_functions.store_text("lastmsg", self.text_sprites, self.game)
         
-        # Print it if it is not empty
-        if self.current_text:
-            print(self.current_text)
+        # # Print it if it is not empty
+        # if self.current_text:
+        #     print(self.current_text)
         
-        if self.crazy_guy.rect.left > scr.SCREEN_WIDTH - 64:
-            self.crazy_guy.dx = - 5
-        elif self.crazy_guy.rect.right < 64:
-            self.crazy_guy.dx = 5
+        # if self.crazy_guy.rect.left > scr.SCREEN_WIDTH - 64:
+        #     self.crazy_guy.dx = - 5
+        # elif self.crazy_guy.rect.right < 64:
+        #     self.crazy_guy.dx = 5
 
-        if self.crazy_guy.rect.top > scr.SCREEN_HEIGHT - 64:
-            self.crazy_guy.dy = - 5
-        elif self.crazy_guy.rect.bottom < 64:
-            self.crazy_guy.dy = 5
+        # if self.crazy_guy.rect.top > scr.SCREEN_HEIGHT - 64:
+        #     self.crazy_guy.dy = - 5
+        # elif self.crazy_guy.rect.bottom < 64:
+        #     self.crazy_guy.dy = 5
             
-        for sprite in self.text_sprites:
-            if sprite.name == "typing":
-                sprite.text = self.game.text_buffer
+        # for sprite in self.text_sprites:
+        #     if sprite.name == "typing":
+        #         sprite.text = self.game.text_buffer
+        
+        # Reset the selected state of all sprites at the start of each loop
+        for sprite in self.game.all_units.sprites() or sprite in self.text_sprites.sprites():
+            sprite.selected = False
+        
+        # Constrains the pointer to the length of the player list
+        # This will break if the teams are uneven!!!
+        self.pointer = self.pointer % len(self.all_players)
+        
+        # Select player based on pointer position
+        self.select_player(self.pointer)
             
         if actions["space"]:
             for sprite in self.game.all_units.sprites():
@@ -94,18 +117,20 @@ class Play(Scene):
                 sprite.defend_test()
         
         if actions["up"]:
-            for sprite in self.game.all_units.sprites():
-                sprite.hurt_test()
+            self.pointer += 1
         
         if actions["down"]:
-            for sprite in self.game.all_units.sprites():
-                sprite.death_test()
-                
+            self.pointer -= 1
+            
         if actions["enter"]:
-            self.game.typing = True
+            # self.game.typing = True
+            pass
 
-        # for sprite in self.game.all_units.sprites():
-        #     print(sprite.name, sprite.state, sprite.id, sprite.rect)
+        for sprite in self.game.all_units.sprites():
+            if sprite.selected:
+                self.menu_gui.rect.center = sprite.rect.midright
+                self.menu_gui.selected = True
+                # print(f"Name: {sprite.name} Pointer: {self.pointer}")
             
         self.game.reset_keys()
         self.text_sprites.update()
