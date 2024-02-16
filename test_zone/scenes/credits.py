@@ -6,9 +6,9 @@ from scenes.scene import Scene
 import gui2.screen as scr
 import resources2.images
 
-credit_section = [50, None, "yellow"]
-credit_title = [40, None, "white"]
-credit_desc = [40, None, "green"]
+credit_section = [55, None, "yellow"]
+credit_title = [45, None, "white"]
+credit_desc = [45, None, "green"]
 credit_name = [35, "segoeuiemoji", "white"]
 
 class Credits(Scene):
@@ -18,8 +18,8 @@ class Credits(Scene):
         self.credits = pygame.sprite.Group()
         
         # Can't go below integer so use fps to slow it down below 1
-        self.game.fps = 60
-        self.falling_speed = (0, -1)
+        self.game.fps = 45
+        self.falling_speed = (0, -2)
 
         self.credits_header = [
             ('[ Credits ]', *credit_section, True, scr.SCREEN_HEIGHT - 50),
@@ -35,20 +35,21 @@ class Credits(Scene):
             ('Group Members', *credit_title, True, scr.SCREEN_HEIGHT + 550),
             ('Haarith Bin Naguri Ibrahim', *credit_name, True, scr.SCREEN_HEIGHT + 600),
             
-            ('IMPORTANT: IF YOU SEE YOUR NAME BELOW', *credit_desc, True, scr.SCREEN_HEIGHT + 800),
-            ('PLEASE CHANGE IT BEFORE THE DEADLINE', *credit_desc, True, scr.SCREEN_HEIGHT + 850),
-            ('(because at least you bothered to run the game and check)', 30, None, "grey", True, scr.SCREEN_HEIGHT + 900),
-            ('THANKS — RZ', *credit_desc, True, scr.SCREEN_HEIGHT + 950),
-            ('he\'s so nice he wanted to give everyone the same grade', 25, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1150),
-            ('...but I\'m not that nice 😊', 25, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1175),
-            ('this is what you get for not contributing 👻', 25, "segoeuiemoji", "crimson", True, scr.SCREEN_HEIGHT + 1225),
+            ('!! IF YOU SEE YOUR NAME BELOW !!', *credit_desc, True, scr.SCREEN_HEIGHT + 800),
+            ('!! PLEASE MOVE IT UP !!', *credit_desc, True, scr.SCREEN_HEIGHT + 850),
+            ('(reward for at least opening the game)', 45, None, "grey", True, scr.SCREEN_HEIGHT + 900),
+            ('(17/2/2024)', *credit_desc, True, scr.SCREEN_HEIGHT + 950),
+            ('Desmond wanted to give everyone the same grade regardless', 30, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1250),
+            ('...but I\'m not that nice 😇 — RZ', 30, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1275),
 
             ('0 GitHub Commits', *credit_section, True, scr.SCREEN_HEIGHT + 1600),
-            ('Haohong Luo ', *credit_name, True, scr.SCREEN_HEIGHT + 1650),
-            ('Xu Xiang (Ye Xuxiang) Yap ', *credit_name, True, scr.SCREEN_HEIGHT + 1700),
-            ('Yi Soon Pong ', *credit_name, True, scr.SCREEN_HEIGHT + 1750),
-            ('Qiao Er Kang', *credit_name, True, scr.SCREEN_HEIGHT + 1800)
+            ('Haohong Luo', *credit_name, True, scr.SCREEN_HEIGHT + 1650),
+            ('Xu Xiang (Ye Xuxiang) Yap', *credit_name, True, scr.SCREEN_HEIGHT + 1700),
+            ('Yi Soon Pong', *credit_name, True, scr.SCREEN_HEIGHT + 1750),
+            ('Qiao Er Kang', *credit_name, True, scr.SCREEN_HEIGHT + 1800),
+            ('They must have never even opened the game 👻', 35, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1950),
             ]
+        
 
         self.credits_footer = [
             ('THANKS FOR PLAYING', *credit_section, True, scr.SCREEN_HEIGHT + 2100),
