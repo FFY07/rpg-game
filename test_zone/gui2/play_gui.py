@@ -80,7 +80,6 @@ class PlayGUI(pygame.sprite.Sprite):
         
         self.gui_buttons[self.pointer].selected = True
         self.scene.target = self.enemy_units[self.target_pointer]
-        
                     
         if self.selecting:
             if self.game.actions["down"]:

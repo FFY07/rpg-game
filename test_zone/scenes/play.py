@@ -3,6 +3,7 @@ import pygame
 import gui2.screen as scr
 
 from scenes.scene import Scene
+from scenes.attack import Attack
 
 import gui2.ui_functions as ui_functions
 from gui2.play_gui import PlayGUI
@@ -139,6 +140,10 @@ class Play(Scene):
                 self.selecting = True
                 self.gui.selecting = True
                 self.game.reset_keys()
+                
+            if actions["backspace"]:
+                next_scene = Attack(self.game)
+                next_scene.start_scene()
         else:
             if actions["enter"]:
                 if self.gui.pointer == 0: # 0 = Attack / Begin Target Selection

@@ -10,7 +10,7 @@ credit_title = [45, None, "white"]
 credit_desc = [45, None, "green"]
 credit_name = [35, "segoeuiemoji", "white"]
 
-class Credits(Scene):
+class Attack(Scene):
     def __init__(self, game: object):
         super().__init__(game)
         self.background = resources2.images.credits_background
@@ -68,6 +68,9 @@ class Credits(Scene):
             self.game.fps = 60
             self.exit_scene()
             
+        if actions["backspace"]:
+            print("dammit it's a bug")
+            
         self.credits.update()
         self.game.reset_keys()
         
@@ -75,8 +78,11 @@ class Credits(Scene):
         if len(self.credits) == 0:
             self.game.fps = 60
             self.exit_scene()
+            
+        self.game.all_units.update()
         
     def render(self, screen):
-        screen.blit(pygame.transform.scale(self.background, (self.game.screen_width, self.game.screen_height)), (0, 0))
+        self.prev.render(screen)
         self.credits.draw(screen)
+
         
