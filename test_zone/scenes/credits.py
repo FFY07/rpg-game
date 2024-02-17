@@ -36,12 +36,12 @@ class Credits(Scene):
             
             ('!! IF YOU SEE YOUR NAME BELOW !!', *credit_desc, True, scr.SCREEN_HEIGHT + 800),
             ('!! PLEASE MOVE IT UP !!', *credit_desc, True, scr.SCREEN_HEIGHT + 850),
-            ('(reward for at least opening the game)', 45, None, "grey", True, scr.SCREEN_HEIGHT + 900),
+            ('(reward for at least opening the game) — RZ', 45, None, "grey", True, scr.SCREEN_HEIGHT + 900),
             ('(17/2/2024)', *credit_desc, True, scr.SCREEN_HEIGHT + 950),
-            ('Desmond wanted to give everyone the same grade regardless', 30, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1250),
-            ('...but I\'m not that nice 😇 — RZ', 30, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1275),
+            ('Desmond wanted to give everyone the same grade...', 30, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1250),
+            ('But I\'m not that nice 😇', 30, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1275),
 
-            ('0 GitHub Commits', *credit_section, True, scr.SCREEN_HEIGHT + 1600),
+            ('0 Lines Contributed', *credit_section, True, scr.SCREEN_HEIGHT + 1600),
             ('Haohong Luo', *credit_name, True, scr.SCREEN_HEIGHT + 1650),
             ('Xu Xiang (Ye Xuxiang) Yap', *credit_name, True, scr.SCREEN_HEIGHT + 1700),
             ('Yi Soon Pong', *credit_name, True, scr.SCREEN_HEIGHT + 1750),

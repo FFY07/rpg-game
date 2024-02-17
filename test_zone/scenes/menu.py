@@ -95,8 +95,7 @@ class MainMenu(Scene):
             
         self.game.reset_keys()
         self.sprites.update()
-        
-        # print(len(self.game.stack))
+
     
     def render(self, screen):
         screen.blit(pygame.transform.scale(self.background, (self.game.screen_width, self.game.screen_height)), (0, 0))
