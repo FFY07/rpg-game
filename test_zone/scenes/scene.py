@@ -39,12 +39,16 @@ class Scene():
                     rect_fill,
                     name,
                     x = True,
-                    y = True):
-        text_sprite = ui_functions.TextSprite(text, size, font, text_color, x, y, name)
-        button_sprite = ui_functions.Button(rect_width, rect_height, rect_fill, x, y, name)
+                    y = True,
+                    button_alpha = 100,
+                    text_alpha = 255):
+        button_sprite = ui_functions.Button(rect_width, rect_height, rect_fill, x, y, name, button_alpha)
+        text_sprite = ui_functions.TextSprite(text, size, font, text_color, x, y, name, 0, 0, text_alpha)
 
-        self.sprites.add(text_sprite)
+        
         self.sprites.add(button_sprite)
+        self.sprites.add(text_sprite)
+
         
     def generate_buttons(self, 
                          button_list, 
@@ -55,7 +59,9 @@ class Scene():
                          height,
                          fill,
                          xy: tuple,
-                         offset: tuple):
+                         offset: tuple,
+                         button_alpha = 100,
+                         text_alpha = 255):
         """Generates multiple buttons using a list"""
         start_x, start_y = xy
         offset_x, offset_y = offset
@@ -76,6 +82,17 @@ class Scene():
                                 button,
                                 start_x,
                                 start_y,
+                                button_alpha,
+                                text_alpha
                                 )
             start_x += offset_x
             start_y += offset_y
+            
+    def create_dict(self, sprite_group):
+        """Create enumerated dictionary from sprite group"""
+        sprite_dict = {}
+
+        for i, sprite in enumerate(sprite_group.sprites()):
+            sprite_dict[i] = sprite
+        
+        return sprite_dict

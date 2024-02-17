@@ -67,8 +67,8 @@ class Game():
             self.event_handler()
             self.update()
             self.render()
-        
-            # print(len(self.stack)) # DEBUG
+            
+            # print(len(self.stack)) #DEBUG
         
     def event_handler(self):
         for event in pygame.event.get():
@@ -81,7 +81,7 @@ class Game():
                         self.actions["up"] = True
                         
                     if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                        self.actions["left"] = True\
+                        self.actions["left"] = True
                         
                     if event.key == pygame.K_s or event.key == pygame.K_DOWN:
                         self.actions["down"] = True

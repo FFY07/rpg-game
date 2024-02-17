@@ -1,8 +1,6 @@
 import pygame, sys
 import gui2.screen as scr
 
-
-
 def key_handler():
     actions = {"up": False,
                "left": False,
@@ -98,7 +96,8 @@ class TextSprite(pygame.sprite.Sprite):
                 y_centered = True, 
                 name = False,
                 dx = 0, 
-                dy = 0
+                dy = 0,
+                alpha = 255
     ):
         """Generates a text sprite
         
@@ -118,6 +117,7 @@ class TextSprite(pygame.sprite.Sprite):
         self.name = name
         self.text = text
         self.color = color
+        self.alpha = alpha
         
         if x_centered is True:
             self.x = scr.SCREEN_WIDTH // 2
@@ -159,7 +159,7 @@ class TextSprite(pygame.sprite.Sprite):
                 self.kill()
 
         if self.selected:
-            self.image.set_alpha(255)
+            self.image.set_alpha(self.alpha)
         else:
             self.image.set_alpha(100)
 
@@ -170,7 +170,8 @@ class Button(pygame.sprite.Sprite):
                  color, 
                  x = True, 
                  y = True,  
-                 name = False):
+                 name = False,
+                 alpha = 100):
         super().__init__()
         self.width = width
         self.height = height
@@ -187,28 +188,50 @@ class Button(pygame.sprite.Sprite):
             self.y = y
         
         self.color = color
+        self.alpha = alpha
         
         self.selected = False
         self.toggled = False
+
         
         self.image = pygame.Surface((self.width, self.height))
         self.image.fill(self.color)
-        self.image.set_alpha(100)
+        self.image.set_alpha(self.alpha)
         self.rect = self.image.get_rect()
         self.rect.center = (self.x, self.y)
     
     def update(self):
         if self.toggled:
             self.image.fill("red")
-            self.image.set_alpha(100)
+            self.image.set_alpha(self.alpha)
 
         elif self.selected:
             self.image.fill(self.color)
-            self.image.set_alpha(100)
+            self.image.set_alpha(self.alpha)
             
         else:
             self.image.fill(self.color)
             self.image.set_alpha(0)
+            
+class TargetImage(pygame.sprite.Sprite):
+    def __init__(self, scene, image, x_offset = 0, y_offset = -100):
+        super().__init__()
+        self.scene = scene
+        self.target_sprite = scene.selected_unit
+        self.target_x, self.target_y = self.target_sprite.rect.center
+        
+        self.x_offset = x_offset
+        self.y_offset = y_offset
+        
+        self.image = image
+        self.rect = self.image.get_rect()
+        self.rect.center = (self.target_x + self.x_offset, self.target_y + self.y_offset)
+        
+    def update(self):
+        self.target_sprite = self.scene.selected_unit
+        self.target_x, self.target_y = self.target_sprite.rect.center
+        
+        self.rect.center = (self.target_x + self.x_offset, self.target_y + self.y_offset)
 
 class CreatePlayerGUI(pygame.sprite.Sprite):
     def __init__(self, y):

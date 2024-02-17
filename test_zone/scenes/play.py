@@ -6,7 +6,6 @@ from scenes.scene import Scene
 from scenes.attack import Attack
 
 import gui2.ui_functions as ui_functions
-from gui2.play_gui import PlayGUI
 import resources2.images
 
 from classes import class_functions as cf
@@ -55,7 +54,13 @@ class Play(Scene):
         for i, sprite in enumerate(self.game.enemies.sprites()):
             self.all_enemies[i] = sprite        
         self.alive_enemies = self.all_enemies
+        
+        self.selected_unit = self.all_players[0]
     
+        self.pointer_image = resources2.images.red_arrow_down
+        self.pointer_sprite = ui_functions.TargetImage(self, self.pointer_image)
+        self.ui_sprites.add(self.pointer_sprite)
+
     # Currently unused
     def select_player(self, pointer):
         self.all_players[pointer].selected = True
@@ -94,8 +99,7 @@ class Play(Scene):
         self.pointer = self.pointer % len(self.all_players)
         
         # Select player based on pointer position
-        self.selected_player = self.all_players[self.pointer]
-        
+        self.selected_unit = self.all_players[self.pointer]
 
         if actions["space"]:
             for sprite in self.game.all_units.sprites():
@@ -125,10 +129,13 @@ class Play(Scene):
             
         if actions["enter"]:
             # self.game.typing = True
-            next_scene = Attack(self.game, self.selected_player)
+            next_scene = Attack(self.game, self.selected_unit)
+            
+            # Give it an anchor because we will be returning to this screen
+            next_scene.anchor = self
             next_scene.start_scene()
         
-        print(self.pointer, self.selected_player)
+        # print(self.pointer, self.selected_unit, self.pointer_sprite.rect)
         
         self.ui_sprites.update()
         self.game.all_units.update()

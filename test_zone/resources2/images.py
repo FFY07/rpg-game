@@ -22,4 +22,6 @@ victory_img = pygame.transform.scale(victory_img, (600,500))
 defeat_img = pygame.image.load(f"{Path('test_zone/resources2/images/ui_elements/defeat.png')}")
 defeat_img = pygame.transform.scale(defeat_img, (600,500))
 
-target_img = victory_img = pygame.image.load(f"{Path('test_zone/resources2/images/ui_elements/target.png')}")
+target_img = pygame.image.load(f"{Path('test_zone/resources2/images/ui_elements/target.png')}")
+red_arrow_down = pygame.image.load(f"{Path('test_zone/resources2/images/ui_elements/red_arrow_down.png')}")
+red_arrow_down = pygame.transform.scale(red_arrow_down, (red_arrow_down.get_width() * 2, red_arrow_down.get_height() * 2))

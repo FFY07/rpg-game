@@ -2,6 +2,7 @@ from pathlib import Path
 
 import pygame
 import gui2.screen as scr
+import resources2.images
 
 MAX_HEALTH = 100
 MANA = 50
@@ -95,7 +96,6 @@ class Unit(pygame.sprite.Sprite):
 
         self.image = self.animations[self.state][self.current_frame]
         self.rect.move_ip(self.dx, self.dy)
-        
                 
     def state_change(self, target_state):
         """Resets the current frame to 0 so the animation doesn't start halfway"""
@@ -111,16 +111,3 @@ class Unit(pygame.sprite.Sprite):
     def deactivate(self):
         self.selected = False
         self.rect.center = self.prev_pos
-        
-        
-    def attack_test(self):
-        self.state_change("attack")
-    
-    def defend_test(self):
-        self.state_change("defend")
-    
-    def death_test(self):
-        self.state_change("death")
-        
-    def hurt_test(self):
-        self.state_change("hurt")

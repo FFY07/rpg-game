@@ -32,18 +32,18 @@ class Options(Scene):
             if sprite.name == "Music":
                 if self.game.music:
                     self.game.music = False
-                    sprite.toggled = True
+                    sprite.toggled = False
                 else:
                     self.game.music = True
-                    sprite.toggled = False
+                    sprite.toggled = True
                     
             elif sprite.name == "Sound":
                 if self.game.sound:
                     self.game.sound = False
-                    sprite.toggled = True
+                    sprite.toggled = False
                 else:
                     self.game.sound = True
-                    sprite.toggled = False
+                    sprite.toggled = True
             
         # Music toggle
         if self.pointer == 0:
