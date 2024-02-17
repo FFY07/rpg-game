@@ -56,4 +56,4 @@ class CreateChar(Scene):
     
     def render(self, screen):
         screen.blit(pygame.transform.scale(self.background, (self.game.screen_width, self.game.screen_height)), (0, 0))
-        self.sprites.draw(self.game.canvas)
+        self.sprites.draw(screen)

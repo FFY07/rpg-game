@@ -1,5 +1,4 @@
 import pygame
-import sys
 
 import gui2.ui_functions as ui_functions
 from scenes.scene import Scene

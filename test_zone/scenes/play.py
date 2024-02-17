@@ -5,6 +5,7 @@ import gui2.screen as scr
 from scenes.scene import Scene
 
 import gui2.ui_functions as ui_functions
+from gui2.play_gui import PlayGUI
 import resources2.images
 
 from classes import class_functions as cf
@@ -15,10 +16,15 @@ class Play(Scene):
     def __init__(self, game):
         super().__init__(game)
         self.background = resources2.images.background_img
-        self.text_sprites = pygame.sprite.Group()
+        self.ui_back = pygame.sprite.Group()
+        self.ui_front = pygame.sprite.Group()
         self.pointer = 0
         
-        self.menu_gui = ui_functions.Button(100, 50, "cyan")
+        # Menu navigation mode
+        self.selecting = False
+        
+        self.gui = PlayGUI(self.game.players, self, self.game)
+        self.ui_back.add(self.gui)
 
         # self.crazy_guy = cf.create_unit("William", "Reaper", "enemy", self.game)
         # self.crazy_guy.dx, self.crazy_guy.dy = 5, 5
@@ -38,9 +44,8 @@ class Play(Scene):
                                 (self.xc + 250, self.yc - 150)
         ]
         
-        # self.text_sprites.add(ui_functions.TextSprite("Type", 30, "freesansbold", "white", self.xc - 200, self.yc + 200, "typing"))
-        # self.text_sprites.add(ui_functions.TextSprite("[Last msg]", 20, "freesansbold", "white", self.xc - 300, self.yc + 300, "lastmsg"))
-        self.text_sprites.add(self.menu_gui)
+        # self.ui_back.add(ui_functions.TextSprite("Type", 30, "freesansbold", "white", self.xc - 200, self.yc + 200, "typing"))
+        # self.ui_back.add(ui_functions.TextSprite("[Last msg]", 20, "freesansbold", "white", self.xc - 300, self.yc + 300, "lastmsg"))
         
         cf.set_positions(self.player_positions, self.game.players)
         cf.set_positions(self.enemy_positions, self.game.enemies)
@@ -65,7 +70,7 @@ class Play(Scene):
 
     
     def update(self, actions):
-        # self.current_text = ui_functions.store_text("lastmsg", self.text_sprites, self.game)
+        # self.current_text = ui_functions.store_text("lastmsg", self.ui_back, self.game)
         
         # # Print it if it is not empty
         # if self.current_text:
@@ -81,12 +86,12 @@ class Play(Scene):
         # elif self.crazy_guy.rect.bottom < 64:
         #     self.crazy_guy.dy = 5
             
-        # for sprite in self.text_sprites:
+        # for sprite in self.ui_back:
         #     if sprite.name == "typing":
         #         sprite.text = self.game.text_buffer
         
         # Reset the selected state of all sprites at the start of each loop
-        for sprite in self.game.all_units.sprites() or sprite in self.text_sprites.sprites():
+        for sprite in self.game.all_units.sprites() or sprite in self.ui_back.sprites():
             sprite.selected = False
         
         # Constrains the pointer to the length of the player list
@@ -95,50 +100,56 @@ class Play(Scene):
         
         # Select player based on pointer position
         self.select_player(self.pointer)
-            
-        if actions["space"]:
-            for sprite in self.game.all_units.sprites():
-                if sprite.id == 0:
-                    if not sprite.selected:
-                        sprite.activate(self.player_active_position)
-                    else:
-                        sprite.deactivate()
-        
-        if actions["escape"]:
-            next_scene = Options(self.game)
-            next_scene.start_scene()
-            
-        if actions["right"]:
-            for sprite in self.game.all_units.sprites():
-                sprite.attack_test()
-                
-        if actions["left"]:
-            for sprite in self.game.all_units.sprites():
-                sprite.defend_test()
-        
-        if actions["up"]:
-            self.pointer += 1
-        
-        if actions["down"]:
-            self.pointer -= 1
-            
-        if actions["enter"]:
-            # self.game.typing = True
-            pass
 
-        for sprite in self.game.all_units.sprites():
-            if sprite.selected:
-                self.menu_gui.rect.center = sprite.rect.midright
-                self.menu_gui.selected = True
-                # print(f"Name: {sprite.name} Pointer: {self.pointer}")
+        # If we're selecting
+        if not self.selecting:
+            if actions["space"]:
+                for sprite in self.game.all_units.sprites():
+                    if sprite.id == 0:
+                        if not sprite.selected:
+                            sprite.activate(self.player_active_position)
+                        else:
+                            sprite.deactivate()
             
-        self.game.reset_keys()
-        self.text_sprites.update()
+            if actions["escape"]:
+                next_scene = Options(self.game)
+                next_scene.start_scene()
+                
+            if actions["right"]:
+                for sprite in self.game.all_units.sprites():
+                    sprite.attack_test()
+                    
+            if actions["left"]:
+                for sprite in self.game.all_units.sprites():
+                    sprite.defend_test()
+            
+            if actions["up"]:
+                self.pointer += 1
+            
+            if actions["down"]:
+                self.pointer -= 1
+                
+            if actions["enter"]:
+                # self.game.typing = True
+                
+                # Enables menu navigation mode
+                self.selecting = True
+                self.gui.selecting = True
+        else:
+            if actions["escape"]:
+                self.selecting = False
+                
+
+        self.ui_back.update()
+        self.ui_front.update()
         self.game.all_units.update()
+        
+        self.game.reset_keys()
         
     def render(self, screen):
         screen.blit(pygame.transform.scale(self.background, (self.game.screen_width, self.game.screen_height)), (0, 0))
         
         # Rendering order (last to render = on top)
-        self.text_sprites.draw(self.game.canvas)
-        self.game.all_units.draw(self.game.canvas)
+        self.ui_back.draw(screen)
+        self.game.all_units.draw(screen)
+        self.ui_front.draw(screen)
