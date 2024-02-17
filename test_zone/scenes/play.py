@@ -20,10 +20,13 @@ class Play(Scene):
         self.ui_front = pygame.sprite.Group()
         self.pointer = 0
         
+        self.attacker = None
+        self.target = None
+        
         # Menu navigation mode
         self.selecting = False
         
-        self.gui = PlayGUI(self.game.players, self, self.game)
+        self.gui = PlayGUI(self.game.all_units, self, self.game)
         self.ui_back.add(self.gui)
 
         # self.crazy_guy = cf.create_unit("William", "Reaper", "enemy", self.game)
@@ -135,7 +138,18 @@ class Play(Scene):
                 # Enables menu navigation mode
                 self.selecting = True
                 self.gui.selecting = True
+                self.game.reset_keys()
         else:
+            if actions["enter"]:
+                if self.gui.pointer == 0: # 0 = Attack / Begin Target Selection
+                    self.gui.targeting = True
+                    
+                
+                    if self.target:
+                        self.target.state_change("death")
+                        
+                self.game.reset_keys()
+            
             if actions["escape"]:
                 self.selecting = False
                 

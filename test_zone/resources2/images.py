@@ -21,3 +21,5 @@ victory_img = pygame.transform.scale(victory_img, (600,500))
 
 defeat_img = pygame.image.load(f"{Path('test_zone/resources2/images/ui_elements/defeat.png')}")
 defeat_img = pygame.transform.scale(defeat_img, (600,500))
+
+target_img = victory_img = pygame.image.load(f"{Path('test_zone/resources2/images/ui_elements/target.png')}")
