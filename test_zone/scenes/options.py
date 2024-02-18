@@ -91,7 +91,11 @@ class Options(Scene):
                     sprite.selected = True
             
             if actions["enter"]:
-                self.sprites.empty()              
+                self.sprites.empty()
+                pygame.mixer.music.load(self.game.music_path)
+                pygame.mixer.music.set_volume(self.game.volume)
+                pygame.mixer.music.play(-1)
+
                 while len(self.game.stack) > 1:
                     self.game.stack.pop()
                 

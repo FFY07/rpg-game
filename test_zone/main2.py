@@ -1,8 +1,7 @@
 import pygame, time
 
 import gui2.screen as scr
-import resources2.sounds as sounds
-import resources2.images as images
+import resources2.audio as audio
 
 from scenes.menu import MainMenu
 
@@ -55,12 +54,14 @@ class Game():
         self.start()
         self.music = True
         self.sound = True
-        self.volume = 1
+        self.volume = 0.2
         
-        pygame.mixer.music.load(sounds.copyright_pls)
+        self.music_path = audio.menu_alt
+        
+        pygame.mixer.music.load(self.music_path)
         if self.music:
             pygame.mixer.music.play(-1)
-            pygame.mixer.music.set_volume(0.1)
+            pygame.mixer.music.set_volume(self.volume)
             
     def game_loop(self):
         while self.playing:

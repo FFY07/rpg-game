@@ -8,9 +8,11 @@ pygame.init()
 
 # BGM
 battle = f"{Path('test_zone/resources2/audio/bgm/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Action 2.mp3')}"
+battle_alt = f"{Path('test_zone/resources2/audio/bgm/glorious_morning.mp3')}"
+
 start = f"{Path('test_zone/resources2/audio/bgm/Fantasy RPG Music Pack Vol.3/Tracks//mp3/Ambient 3.mp3')}"
 game_over = f"{Path('test_zone/resources2/audio/bgm/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Fx 3.mp3')}"
-copyright_pls = f"{Path('test_zone/resources2/audio/bgm/king.mp3')}"
+menu_alt = f"{Path('test_zone/resources2/audio/bgm/amaranth_inst.mp3')}"
 
 # Sound effects
 sword_sfx = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/unsheath_sword-6113.mp3')}")

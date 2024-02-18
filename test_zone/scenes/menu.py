@@ -26,6 +26,9 @@ class MainMenu(Scene):
         self.button_list = ["Play", "Options", "Credits", "Quit"]
         
         self.generate_buttons(self.button_list, 30, "freesansbold", "white", 140, 40, "lightgrey", (True, 350), (0, 50))
+        self.title_text = ui_functions.TextSprite("RPG ADVENTURE", 70, "High Tower Text", "red", True, self.yc - 200)
+
+        self.sprites.add(self.title_text)
     
     def update(self, actions):
         # Reset all selected

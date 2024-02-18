@@ -6,7 +6,8 @@ from scenes.scene import Scene
 from scenes.attack import Attack
 
 import gui2.ui_functions as ui_functions
-import resources2.images
+import resources2.images as images
+import resources2.audio as audio
 
 from classes import class_functions as cf
 
@@ -15,17 +16,17 @@ from scenes.options import Options
 class Play(Scene):
     def __init__(self, game):
         super().__init__(game)
-        self.background = resources2.images.background_img
+        pygame.mixer.music.load(audio.battle_alt)
+        pygame.mixer.music.set_volume(self.game.volume)
+        pygame.mixer.music.play(-1)
+        
+        self.background = images.background_img
         self.ui_sprites = pygame.sprite.Group()
         self.pointer = 0
 
         # self.crazy_guy = cf.create_unit("William", "Reaper", "enemy", self.game)
         # self.crazy_guy.dx, self.crazy_guy.dy = 5, 5
                 
-        # unit stands here when they want to attack
-        # self.player_active_position = (self.xc - 100, self.yc)
-        # self.enemy_active_position = (self.xc + 100, self.yc)
-        
         # testing coordinates
         self.player_positions = [(self.xc - 500, self.yc + 150),
                                 (self.xc - 375, self.yc),
@@ -57,7 +58,7 @@ class Play(Scene):
         
         self.selected_unit = self.all_players[0]
     
-        self.pointer_image = resources2.images.red_arrow_down
+        self.pointer_image = images.red_arrow_down
         self.pointer_sprite = ui_functions.TargetImage(self, self.pointer_image)
         self.ui_sprites.add(self.pointer_sprite)
 
@@ -100,26 +101,10 @@ class Play(Scene):
         
         # Select player based on pointer position
         self.selected_unit = self.all_players[self.pointer]
-
-        if actions["space"]:
-            for sprite in self.game.all_units.sprites():
-                if sprite.id == 0:
-                    if not sprite.selected:
-                        sprite.activate(self.player_active_position)
-                    else:
-                        sprite.deactivate()
         
         if actions["escape"]:
             next_scene = Options(self.game)
             next_scene.start_scene()
-            
-        if actions["right"]:
-            for sprite in self.game.all_units.sprites():
-                sprite.attack_test()
-                
-        if actions["left"]:
-            for sprite in self.game.all_units.sprites():
-                sprite.defend_test()
         
         if actions["up"]:
             self.pointer += 1
