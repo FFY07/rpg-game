@@ -25,15 +25,11 @@ class CreateChar(Scene):
         
         #random name and random classes 
 
-        class_list = ['Knight', 'Reaper', 'Tank', 'Bandit']
+        self.class_list = ['Knight', 'Reaper', 'Tank', 'Bandit']
         self.enemy_list = []
-        for i in range(self.game.max_enemies):
-            name  = 'AI ' + str(random.randint(10, 99))
-            classes = random.choice(class_list)
-            enemy =  (name, classes)
-            self.enemy_list.append(enemy)
         
-
+        self.create_enemies()
+        
         cf.create_team(self.player_list, "player", self.game)
         cf.create_team(self.enemy_list, "enemy", self.game)
         
@@ -42,6 +38,13 @@ class CreateChar(Scene):
         
         temporary_text2 = ui_functions.TextSprite("PRESS ENTER TO CONTINUE", 30, None, "white", True, 550)
         temporary_text2.add(self.sprites)
+        
+    def create_enemies(self):
+        for i in range(self.game.max_enemies):
+            name  = 'AI ' + str(random.randint(10, 99))
+            classes = random.choice(self.class_list)
+            enemy =  (name, classes)
+            self.enemy_list.append(enemy)
         
     def update(self, actions):
         if actions["escape"]:

@@ -50,7 +50,7 @@ class Game():
 
         self.max_enemies = 3
         self.max_players = 3
-         
+        
         self.start()
         self.music = True
         self.sound = True

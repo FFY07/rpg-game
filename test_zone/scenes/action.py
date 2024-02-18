@@ -1,9 +1,10 @@
 import pygame
 
 from scenes.scene import Scene
-from scenes.inventory import Inventory
 
-class Attack(Scene):
+# NOT WRITTEN YET
+
+class Action(Scene):
     def __init__(self, game: object, selected_unit: pygame.sprite.Sprite):
         super().__init__(game)
         self.sprites = pygame.sprite.Group()
@@ -14,7 +15,6 @@ class Attack(Scene):
         self.button_x, self.button_y = self.selected_unit.rect.midright
         self.button_x += self.x_offset
         self.button_y += self.y_offset
-        
         
         self.anchor = None
         
@@ -52,10 +52,7 @@ class Attack(Scene):
                     sprite.selected = True
                     
             if actions["enter"]:
-                next_scene = Inventory(self.game, self.selected_unit)
-                next_scene.anchor = self.anchor
-                next_scene.start_scene()
-                self.game.reset_keys()
+                print("Opening inventory (haven't code yet :/)")
         
         if self.pointer == 2:
             for _, sprite in self.button_dict.items():

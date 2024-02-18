@@ -59,6 +59,11 @@ class Unit(pygame.sprite.Sprite):
         ]
         self.animations = {}
         
+        self.inventory = {"Medicine": 1,
+                          "Anvil": 1,
+                          "Stoneskin": 1
+        }
+        
     def load_animations(self):
         for state in self.states:
             path = Path(f"test_zone/resources2/images/units/{self.unit_class}/{state}")
@@ -111,3 +116,28 @@ class Unit(pygame.sprite.Sprite):
     def deactivate(self):
         self.selected = False
         self.rect.center = self.prev_pos
+        
+    def consume_item(self, item):
+        """Probably shouldn't be coding all the item effects here :D I love deadlines"""
+        if self.inventory[item] > 0:
+            self.inventory[item] -= 1
+            
+            match item:
+                case "Medicine":
+                    self.health += 50
+                    if self.health > self.max_health:
+                        self.health = self.max_health
+                        
+                    print("Recovered health!")
+                    
+                case "Anvil":
+                    self.strength = int(self.strength * 1.1)
+                    
+                    print("Increased strength!")
+                    
+                case "Stoneskin":
+                    self.defence = int(self.defence * 1.1)
+                    
+                    print("Increased defence!")
+        else:
+            print(f"No {item} left!")
