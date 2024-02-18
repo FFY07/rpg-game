@@ -18,8 +18,8 @@ class Action(Scene):
         
         self.anchor = None
         
-        self.button_list = ["Attack ⚔", "Items 👛", "Shop 🛒"]
-        self.generate_buttons(self.button_list, 30, "segoeuiemoji", "white", 150, 50, "grey20", (self.button_x, self.button_y), (0, 50), 255)
+        self.button_list = ["Basic Attack", "Magic"]
+        self.generate_buttons(self.button_list, 30, None, "white", 150, 50, "grey20", (self.button_x, self.button_y), (0, 50), 255)
         
         # Create a dictionary for the buttons before we add our pointer sprite image
         self.button_dict = self.create_dict(self.sprites)

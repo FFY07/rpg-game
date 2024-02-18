@@ -44,7 +44,7 @@ class Attack(Scene):
             
             if actions["enter"]:
                 self.selected_unit.state_change("attack")
-                print("Opening targeting scene! (haven't code yet :P)")
+                print("Opening select move screen! (haven't code yet :P)")
         
         if self.pointer == 1:
             for _, sprite in self.button_dict.items():

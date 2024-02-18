@@ -18,11 +18,10 @@ class ChooseTarget(Scene):
         
         self.anchor = None
         
-        self.button_list = ["Attack ⚔", "Items 👛", "Shop 🛒"]
-        self.generate_buttons(self.button_list, 30, "segoeuiemoji", "white", 150, 50, "grey20", (self.button_x, self.button_y), (0, 50), 255)
+        self.enemy_dict = {}
+        for i, enemy in enumerate(self.game.enemies.sprites()):
+            self.enemy_dict[i] = enemy
         
-        # Create a dictionary for the buttons before we add our pointer sprite image
-        self.button_dict = self.create_dict(self.sprites)
         self.pointer = 0
         
     def update(self, actions):       
