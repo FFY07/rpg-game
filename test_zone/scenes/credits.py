@@ -23,7 +23,7 @@ class Credits(Scene):
         self.credits_header = [
             ('[ Credits ]', *credit_section, True, scr.SCREEN_HEIGHT - 50),
             ('PSB INTRODUCTION TO PROGRAMMING ASSIGNMENT', *credit_desc, True, scr.SCREEN_HEIGHT),
-            ('GAME CREATED BY (GROUP A1) ', *credit_desc, True, scr.SCREEN_HEIGHT + 50)
+            ('GAME CREATED BY (GROUP A1)', *credit_desc, True, scr.SCREEN_HEIGHT + 50)
             ]
 
         self.credits_body = [
@@ -39,24 +39,20 @@ class Credits(Scene):
             
             ('MOVE YOUR NAME OUT IF YOU SEE IT BELOW', *credit_desc, True, scr.SCREEN_HEIGHT + 900),
             ('THIS IS YOUR LAST CHANCE', *credit_section, True, scr.SCREEN_HEIGHT + 950),
-            ('— RZ (17/2/2024)', 45, None, "grey", True, scr.SCREEN_HEIGHT + 1000),
-
-            ('Desmond was planning to give everyone the same grade,', 30, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1100),
-            ('but I want the lecturer to see this first...', 30, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1150),
+            ('— RZ (17/2/2024)', 45, None, "grey", True, scr.SCREEN_HEIGHT + 1000),            
             
-            
-            ('Why is your name still here?', *credit_title, True, scr.SCREEN_HEIGHT + 1500),
-            ('Haohong Luo', *credit_name, True, scr.SCREEN_HEIGHT + 1550),
-            ('Xu Xiang (Ye Xuxiang) Yap', *credit_name, True, scr.SCREEN_HEIGHT + 1600),
-            ('Yi Soon Pong', *credit_name, True, scr.SCREEN_HEIGHT + 1650),
-            ('Qiao Er Kang', *credit_name, True, scr.SCREEN_HEIGHT + 1700),
-            ('(More proof on GitHub)', 35, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1950),
+            ('Hall of Fame', *credit_title, True, scr.SCREEN_HEIGHT + 1200),
+            ('Haohong Luo', *credit_name, True, scr.SCREEN_HEIGHT + 1250),
+            ('Xu Xiang (Ye Xuxiang) Yap', *credit_name, True, scr.SCREEN_HEIGHT + 1300),
+            ('Yi Soon Pong', *credit_name, True, scr.SCREEN_HEIGHT + 1350),
+            ('Qiao Er Kang', *credit_name, True, scr.SCREEN_HEIGHT + 1400),
+            ('(More proof on GitHub)', 35, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1550),
             ]
         
 
         self.credits_footer = [
-            ('THANKS FOR PLAYING', *credit_section, True, scr.SCREEN_HEIGHT + 2250),
-            (' ', *credit_section, True, scr.SCREEN_HEIGHT + 2300) # padding
+            ('THANKS FOR PLAYING', *credit_section, True, scr.SCREEN_HEIGHT + 1700),
+            (' ', *credit_section, True, scr.SCREEN_HEIGHT + 1700) # padding
             ]
 
         # Add the sections you want to load into this list
