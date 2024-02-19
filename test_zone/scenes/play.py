@@ -20,6 +20,8 @@ class Play(Scene):
         pygame.mixer.music.set_volume(self.game.volume)
         pygame.mixer.music.play(-1)
         
+        print("hi")
+        
         self.background = images.background_img
         self.ui_sprites = pygame.sprite.Group()
         self.pointer = 0
