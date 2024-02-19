@@ -16,8 +16,10 @@ class CreateChar(Scene):
         super().__init__(game)
         self.background = pygame.Surface((1, 1))
         self.sprites = pygame.sprite.Group()
-        
-        # temp = ui_functions.Button(80, 200, 'white', 170, 32)
+        self.gui_dict = {}
+        self.pointer = 0
+        self.selected_name_dict = {}
+        self.selected_class_dict = {}
 
         self.player_list = [("Slashy", "Reaper"),
                             ("Tiger", "Knight"),
@@ -33,12 +35,33 @@ class CreateChar(Scene):
         cf.create_team(self.player_list, "player", self.game)
         cf.create_team(self.enemy_list, "enemy", self.game)
         
-        temporary_text = ui_functions.TextSprite("INCOMPLETE CHARACTER CREATION SCREEN", 50)
-        temporary_text.add(self.sprites)
+        self.sprites.add(ui_functions.TextSprite("CREATE YOUR CHARACTER", 50, 'Impact', "white", True, 50))
+
+        # This only selects the rectangle and not the text
+        self.gui_dict["start"] = self.create_button("START GAME", 30, None, "white", 300, 40, 'white', 'start' , 1060, 680)[0]
         
-        temporary_text2 = ui_functions.TextSprite("PRESS ENTER TO CONTINUE", 30, None, "white", True, 550)
-        temporary_text2.add(self.sprites)
-        
+        # guirect = ui_functions.RectGUI()
+        #draw rect
+        self.create_guis(3)
+    
+    def create_guis(self, amount):
+        color_list = ["grey27", "grey27", "grey27"]
+        for i, color in zip(range(amount), color_list):
+            gui = ui_functions.RectGUI(57, 100 + i * 213, 700, 143, "white", 1 * i, color)
+            
+            self.sprites.add(ui_functions.TextSprite(f"Player {i + 1} ", 25, 'Impact', "white", 
+                                                     gui.rect.center[0] - 290, gui.rect.center[1] - 50))
+            
+            self.sprites.add(ui_functions.TextSprite("Name: ", 25, None, "white", 
+                                                     gui.rect.center[0] - 190, gui.rect.center[1] - 45))
+            
+            self.sprites.add(ui_functions.TextSprite("Class: ", 25, None, "white", 
+                                                     gui.rect.center[0] - 190, gui.rect.center[1] + 5))
+
+            self.create_button("hi", 30, None, "white", 300, 40, 'white', 'start' , gui.rect.center[0] - 150, gui.rect.center[1] - 45)
+            self.sprites.add(gui)
+            self.gui_dict[i] = gui
+            
     def create_enemies(self):
         for i in range(self.game.max_enemies):
             name  = 'AI ' + str(random.randint(10, 99))
@@ -47,16 +70,74 @@ class CreateChar(Scene):
             self.enemy_list.append(enemy)
         
     def update(self, actions):
+        for _, sprite in self.gui_dict.items():
+            sprite.selected = False
+
+        self.pointer = self.pointer % (len(self.gui_dict))
+
+        if self.pointer == 0:
+            for sprite in self.sprites.sprites():
+                if sprite.name == self.pointer:
+                    sprite.selected = True
+        
+                if actions["enter"]:
+                    self.selecting = True
+
+        if self.pointer == 1:
+            for sprite in self.sprites.sprites():
+                if sprite.name == self.pointer:
+                    sprite.selected = True
+        
+                if actions["enter"]:
+                    self.selecting = True
+                    
+        if self.pointer == 2:
+            for sprite in self.sprites.sprites():
+                if sprite.name == self.pointer:
+                    sprite.selected = True
+        
+                if actions["enter"]:
+                    self.selecting = True
+                    
+        if self.pointer == 3:
+            for sprite in self.sprites.sprites():
+                if sprite.name == "start":
+                    sprite.selected = True
+        
+                if actions["enter"]:
+                    next_scene = Play(self.game)
+                    next_scene.start_scene()
+        
+        self.selected_name_dict[self.pointer] = self.game.text_buffer
+        self.text_buffer = ""
+
+                
+
         if actions["escape"]:
             self.exit_scene()
-            
-        if actions["enter"]:            
+        
+        if actions['space']:
             next_scene = Play(self.game)
             next_scene.start_scene()
-            
+
+        # if actions["enter"]:            
+        #     next_scene = Play(self.game)
+        #     next_scene.start_scene()
+        
+        if actions['up']:
+            self.pointer -= 1 
+
+        if actions['down']:
+            print('check')
+            self.pointer += 1
+
+
         self.game.reset_keys()
         self.sprites.update()
     
     def render(self, screen):
         screen.blit(pygame.transform.scale(self.background, (self.game.screen_width, self.game.screen_height)), (0, 0))
         self.sprites.draw(screen)
+
+        for sprite in self.sprites.sprites():
+            sprite.draw_border(screen)

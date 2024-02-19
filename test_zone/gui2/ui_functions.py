@@ -136,6 +136,9 @@ class TextSprite(pygame.sprite.Sprite):
         self.image = self.font.render(self.text, True, self.color)
         self.rect = self.image.get_rect()
         self.rect.center = (self.x, self.y)
+
+    def draw_border(self, screen):
+        pass
     
     def update(self):
         self.image = self.font.render(self.text, True, self.color)
@@ -199,6 +202,9 @@ class Button(pygame.sprite.Sprite):
         self.image.set_alpha(self.alpha)
         self.rect = self.image.get_rect()
         self.rect.center = (self.x, self.y)
+
+    def draw_border(self, screen):
+        pass
     
     def update(self):
         if self.toggled:
@@ -233,6 +239,40 @@ class TargetImage(pygame.sprite.Sprite):
         
         self.rect.center = (self.target_x + self.x_offset, self.target_y + self.y_offset)
 
-class CreatePlayerGUI(pygame.sprite.Sprite):
-    def __init__(self, y):
-        self.text_box = TextSprite("Enter Name", 20)
+class RectGUI(pygame.sprite.Sprite):
+    def __init__(self,
+                 x = 57,
+                 y = 100,
+                 width = 700 ,
+                 height = 143,
+                 color = 'white',
+                 name = 0,
+                 border_color = "grey"):
+        super().__init__()
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        
+        self.name = name
+        self.color = color
+        self.border_color = border_color
+        self.default_border_color = self.border_color
+        
+        self.selected = False
+        # #(57, 100, 853, 143, 213)
+        # self.rect = pygame.Rect(x , y, width, height)
+        self.image = pygame.Surface((self.width, self.height))
+        self.image.fill(self.color)
+        self.image.set_alpha(0)
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (self.x, self.y)
+
+    def update(self):
+        if self.selected:
+            self.border_color = 'white'
+        else:
+            self.border_color = self.default_border_color
+
+    def draw_border(self, screen):
+        pygame.draw.rect(screen, self.border_color, self.rect, 5)

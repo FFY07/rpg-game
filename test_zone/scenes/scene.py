@@ -44,10 +44,11 @@ class Scene():
                     text_alpha = 255):
         button_sprite = ui_functions.Button(rect_width, rect_height, rect_fill, x, y, name, button_alpha)
         text_sprite = ui_functions.TextSprite(text, size, font, text_color, x, y, name, 0, 0, text_alpha)
-
         
         self.sprites.add(button_sprite)
         self.sprites.add(text_sprite)
+
+        return button_sprite, text_sprite
 
         
     def generate_buttons(self, 
