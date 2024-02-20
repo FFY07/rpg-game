@@ -2,7 +2,8 @@ from pathlib import Path
 
 import pygame
 import gui2.screen as scr
-import resources2.images
+import resources2.images as images
+import resources2.audio as audio
 
 MAX_HEALTH = 100
 MANA = 50
@@ -22,8 +23,9 @@ unit_list = ["Knight",
 # Note: check knight.py for class-specific references
 
 class Unit(pygame.sprite.Sprite):
-    def __init__(self, name, team, id_no = 0):
+    def __init__(self, name, team, id_no = 0, game = None):
         super().__init__()
+        self.game = game
         self.max_health = MAX_HEALTH
         self.health = self.max_health
         self.mana = MANA
@@ -59,6 +61,9 @@ class Unit(pygame.sprite.Sprite):
                        "death"
         ]
         self.animations = {}
+        self.anim_speed = 100
+        
+        self.attack_audio = audio.sword_sfx
         
         self.inventory = {"Health Potion": 1,
                           "Strength Potion": 1,
@@ -75,6 +80,7 @@ class Unit(pygame.sprite.Sprite):
             for frame in image_list:
                 image = pygame.image.load(frame)
                 image = pygame.transform.scale(image, (image.get_width()*self.size_scale, image.get_height()*self.size_scale))
+                # image = pygame.transform.scale(image, (160, 160))
             
                 if self.direction == "right":
                     loaded_images.append(image)
@@ -85,9 +91,10 @@ class Unit(pygame.sprite.Sprite):
         
             self.animations[state] = loaded_images
                 
-    def update(self):       
+    def update(self):
+        # self.game.canvas.blit(images.hit_effect, (0,0))
         current_time = pygame.time.get_ticks()
-        if current_time - self.last_updated > 100 and self.current_frame != -1:
+        if current_time - self.last_updated > self.anim_speed and self.current_frame != -1:
             self.last_updated = current_time
             self.current_frame += 1
         
@@ -129,6 +136,7 @@ class Unit(pygame.sprite.Sprite):
         """Probably shouldn't be coding all the item effects here :D I love deadlines"""
         if self.inventory[item] > 0:
             self.inventory[item] -= 1
+            pygame.mixer.Sound.play(audio.potion_sfx)
             
             match item:
                 case "Health Potion":
@@ -160,7 +168,11 @@ class Unit(pygame.sprite.Sprite):
         self.change_state("attack")
         target.change_state("hurt")
         target.health -= damage
+        pygame.mixer.Sound.play(self.attack_audio)
         
+        attack_effect = images.hit_effect
+        self.game.canvas.blit(attack_effect, (0,0))
+
         # temporary
         print(f"Target HP: {target.health}/{target.max_health}")
         

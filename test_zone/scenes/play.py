@@ -21,8 +21,6 @@ class Play(Scene):
         pygame.mixer.music.set_volume(self.game.volume)
         pygame.mixer.music.play(-1)
         
-        print("hi")
-        
         self.background = images.background_img
         self.ui_sprites = pygame.sprite.Group()
         self.pointer = 1
@@ -100,9 +98,6 @@ class Play(Scene):
             next_scene = GameOver(self.game, victor)
             next_scene.start_scene()
             print("started victory scene")
-
-        print(self.alive_enemy_dict, self.alive_player_dict)
-
         
         # self.current_text = ui_functions.store_text("lastmsg", self.ui_sprites, self.game)
         

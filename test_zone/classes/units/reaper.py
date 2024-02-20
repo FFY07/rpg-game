@@ -2,6 +2,8 @@ import random
 
 from classes.unit import Unit
 
+import resources2.audio as audio
+
 # Range of values
 STRENGTH = (10, 25)
 INTELLIGENCE = (1, 10)
@@ -10,9 +12,12 @@ MAGIC_RESIST = (1, 5)
 
 
 class Reaper(Unit):
-    def __init__(self, name, team, id_no = 0):
+    def __init__(self, name, team, id_no = 0, game = None):
         super().__init__(name, team, id_no)
+        self.game = game        
+
         self.unit_class = "Reaper"
+        self.attack_audio = audio.reaper_basic
         
         self.name = name
         self.team = team

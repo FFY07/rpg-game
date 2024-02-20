@@ -25,3 +25,6 @@ defeat_img = pygame.transform.scale(defeat_img, (600,500))
 target_img = pygame.image.load(f"{Path('test_zone/resources2/images/ui_elements/target.png')}")
 red_arrow_down = pygame.image.load(f"{Path('test_zone/resources2/images/ui_elements/red_arrow_down.png')}")
 red_arrow_down = pygame.transform.scale(red_arrow_down, (red_arrow_down.get_width() * 2, red_arrow_down.get_height() * 2))
+
+hit_effect = pygame.image.load(f"{Path('test_zone/resources2/images/effect/atk/smile.png')}")
+hit_effect = pygame.transform.scale(hit_effect, (256, 256))

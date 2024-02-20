@@ -25,7 +25,7 @@ class CreateCharSelect(Scene):
             if not sprite.name == "SELECTED" or sprite.name == "start":
                 self.gui_dict[i] = sprite
 
-        print(self.gui_dict)
+        # print(self.gui_dict)
         for _, sprite in self.gui_dict.items():
             sprite.selected = False
             if self.game.text_ready:

@@ -2,6 +2,8 @@ import random
 
 from classes.unit import Unit
 
+import resources2.audio as audio
+
 # Range of values
 STRENGTH = (5, 20)
 INTELLIGENCE = (3, 15)
@@ -9,9 +11,13 @@ DEFENCE = (1, 10)
 MAGIC_RESIST = (1, 5)
 
 class Knight(Unit):
-    def __init__(self, name, team, id_no = 0):
+    def __init__(self, name, team, id_no = 0, game = None):
         super().__init__(name, team, id_no)
-        self.unit_class = "Knight"
+        self.game = game
+        
+        self.unit_class = "Warrior"
+        self.attack_audio = audio.warrior_basic
+        self.anim_speed = 50
         
         self.name = name
         self.team = team
@@ -22,7 +28,7 @@ class Knight(Unit):
         self.defence = random.randint(*DEFENCE)
         self.magic_resist = random.randint(*MAGIC_RESIST)
         
-        self.size_scale = 3
+        self.size_scale = 3.5
         
         if self.team == "enemy":
             self.direction = "left"

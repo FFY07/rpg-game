@@ -32,16 +32,16 @@ def create_unit(name, unit_class, team, game):
     match unit_class:
         
         case "Reaper":
-            unit = Reaper(name, team, game.current_id)
+            unit = Reaper(name, team, game.current_id, game)
         
         case "Knight":
-            unit = Knight(name, team, game.current_id)
+            unit = Knight(name, team, game.current_id, game)
             
         case "Bandit":
-            unit = Bandit(name, team, game.current_id)
+            unit = Bandit(name, team, game.current_id, game)
             
         case "Tank":
-            unit = Tank(name, team, game.current_id)
+            unit = Tank(name, team, game.current_id, game)
         
         case _:
             raise Exception(f"An error has occured while creating Unit objects. (Class [{unit_class}] does not exist)")

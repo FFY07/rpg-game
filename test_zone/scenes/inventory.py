@@ -2,7 +2,7 @@ import pygame
 
 from scenes.scene import Scene
 
-# NOT WRITTEN YET
+import resources2.audio as audio
 
 class Inventory(Scene):
     def __init__(self, game: object, selected_unit: pygame.sprite.Sprite):

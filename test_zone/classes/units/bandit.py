@@ -9,10 +9,12 @@ DEFENCE = (1, 8)
 MAGIC_RESIST = (1, 8)
 
 class Bandit(Unit):
-    def __init__(self, name, team, id_no = 0):
+    def __init__(self, name, team, id_no = 0, game = None):
         super().__init__(name, team, id_no)
-        self.unit_class = "Bandit"
+        self.game = game
         
+        self.unit_class = "Bandit"
+
         self.name = name
         self.team = team
         self.id = id_no
