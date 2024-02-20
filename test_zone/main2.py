@@ -42,7 +42,6 @@ class Game():
         self.stack = []
         
         # gives every sprite an id
-        self.current_id = 0
         self.sprites = pygame.sprite.Group()
         self.all_units = pygame.sprite.Group()
         self.players = pygame.sprite.Group()
@@ -90,7 +89,7 @@ class Game():
                         self.actions["down"] = True
                     
                     if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                        self.actions["right"] = True
+                        self.actions["right"] = True    
                         
                     if event.key == pygame.K_SPACE:
                         self.actions["space"] = True

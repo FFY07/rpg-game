@@ -245,13 +245,15 @@ class RectGUI(pygame.sprite.Sprite):
     def __init__(self,
                  x = 57,
                  y = 100,
-                 width = 700 ,
+                 width = 700,
                  height = 143,
                  color = 'white',
                  name = 0,
-                 border_color = "grey"):
+                 border_color = "grey",
+                 game = None):
         super().__init__()
         self.sprites = pygame.sprite.Group()
+        self.game = game
         
         self.x = x
         self.y = y
@@ -263,7 +265,7 @@ class RectGUI(pygame.sprite.Sprite):
         self.color = color
         self.border_color = border_color
         self.default_border_color = self.border_color
-        
+        self.default_color = self.color
         self.selected_button = 0
         # #(57, 100, 853, 143, 213)
         # self.rect = pygame.Rect(x , y, width, height)
@@ -273,30 +275,41 @@ class RectGUI(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
         
+        self.selected_name = ""
+        
         self.player_text = TextSprite(f"Player {name + 1} ", 25, 'Impact', "white", 
                                     self.rect.center[0] - 290, self.rect.center[1] - 50)
         
         self.name_text = TextSprite("Name: ", 25, None, "white", 
                                      self.rect.center[0] - 190, self.rect.center[1] - 45)
         
-        self.name_button = "button object"
+        # self.name_button = "button object"
+        self.name_button = TextSprite("Type here", 30, None, "grey27",
+                                      self.rect.center[0] - 50, self.rect.center[1] - 45, f'T{self.name}')
         
         self.class_text = TextSprite("Class: ", 25, None, "white", 
                                      self.rect.center[0] - 190, self.rect.center[1] + 5)
         
         self.class_button = "another button here"
+        
 
         # Don't forget to put the buttons into the sprites below
         self.sprites.add([self.player_text,
                           self.name_text,
-                          self.class_text])
+                          self.class_text,
+                          self.name_button])
 
     def update(self):
         if self.selected:
             self.border_color = 'white'
+            self.color = "white"
+            self.name_button.text = self.game.text_buffer
+
         else:
             self.border_color = self.default_border_color
-            
+            self.color = self.default_color
+
+        # store_text(f"T{self.name}", self.sprites, self.game)
         self.sprites.update()
 
     def draw(self, screen):

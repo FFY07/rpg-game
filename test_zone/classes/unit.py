@@ -139,7 +139,7 @@ class Unit(pygame.sprite.Sprite):
                     print("Recovered health!")
                     
                 case "Strength Potion":
-                    self.strength = int(self.strength * 1.1)
+                    self.strength = int(self.strength * 999)
                     
                     print("Increased strength!")
                     

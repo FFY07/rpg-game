@@ -4,6 +4,7 @@ import gui2.screen as scr
 
 from scenes.scene import Scene
 from scenes.action import Action
+from scenes.end import GameOver
 
 from gui2 import ui_functions
 import resources2.images as images
@@ -49,18 +50,18 @@ class Play(Scene):
         # Make a list so we can dynamically adjust our pointer position
         self.player_list = []
         self.enemy_list = []
-        self.alive_player_dict = []
-        self.alive_enemy_dict = []
+        self.alive_player_dict = {}
+        self.alive_enemy_dict = {}
         
         for i, sprite in enumerate(self.game.players.sprites()):
             self.player_list.append(sprite)
-            if sprite.alive:
-                self.alive_player_list[i] = sprite
                 
         for i, sprite in enumerate(self.game.enemies.sprites()):
             self.enemy_list.append(sprite)
-            if sprite.alive:
-                self.alive_enemy_list[i] = sprite
+
+        # The reason why there is a dictionary and a list is because the list gets changed during game iteration
+        # While the alive dictionary needs to be fixed with keys so it doesn't keep appending
+        # Since it needs to be updated every loop
         
         self.selected_unit = self.player_list[0]
     
@@ -72,12 +73,36 @@ class Play(Scene):
     # def select_player(self, pointer):
     #     self.player_list[pointer].selected = True
     
-    def check_alive(self):
-        pass
+    def update_alive_dict(self):
+        self.alive_enemy_dict = {}
+        self.alive_player_dict = {}
 
+        for i, sprite in enumerate(self.game.players.sprites()):
+            if sprite.alive:
+                self.alive_player_dict[i] = sprite
+        for i, sprite in enumerate(self.game.enemies.sprites()):
+            if sprite.alive:
+                self.alive_enemy_dict[i] = sprite
 
     
     def update(self, actions):
+        self.update_alive_dict()
+
+        if not self.alive_player_dict:
+            victor = "enemy"
+            next_scene = GameOver(self.game, victor)
+            next_scene.start_scene()
+            print("started defeat scene")
+        
+        
+        if not self.alive_enemy_dict:
+            victor = "player"
+            next_scene = GameOver(self.game, victor)
+            next_scene.start_scene()
+            print("started victory scene")
+
+        print(self.alive_enemy_dict, self.alive_player_dict)
+
         
         # self.current_text = ui_functions.store_text("lastmsg", self.ui_sprites, self.game)
         

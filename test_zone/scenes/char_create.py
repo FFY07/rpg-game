@@ -17,6 +17,8 @@ class CreateChar(Scene):
         super().__init__(game)
         self.background = pygame.Surface((1, 1))
         self.sprites = pygame.sprite.Group()
+        self.ui_sprites = pygame.sprite.Group()
+        
         self.gui_dict = {}
         self.pointer = 0
         self.selected_name_dict = {}
@@ -50,9 +52,9 @@ class CreateChar(Scene):
         # color_list = ["grey27", "grey27", "grey27"]
         # for i, color in zip(range(amount), color_list):
         for i in range(amount):
-            gui = ui_functions.RectGUI(57, 100 + i * offset, 700, 143, "white", 1 * i, "grey27")
+            gui = ui_functions.RectGUI(57, 100 + i * offset, 700, 143, "white", i, "grey27", self.game)
 
-            self.create_button("hi", 30, None, "white", 300, 40, 'white', f'hi {i}' , gui.rect.center[0] - 150, gui.rect.center[1] - 45)
+            # self.create_button((f" Type here"), 30, None, "white", 0, 0, 'Black', f'T{i}' , gui.rect.center[0] - 50, gui.rect.center[1] - 45)
             self.sprites.add(gui)
             self.gui_dict[i] = gui
             
