@@ -41,6 +41,7 @@ class Unit(pygame.sprite.Sprite):
         self.name = name
         self.size_scale = 2
         self.unit_class = "Knight"
+        self.alive = True
         
         # Starting position
         self.position = (scr.SCREEN_WIDTH // 2, scr.SCREEN_HEIGHT // 2)
@@ -59,9 +60,9 @@ class Unit(pygame.sprite.Sprite):
         ]
         self.animations = {}
         
-        self.inventory = {"Medicine": 1,
-                          "Anvil": 1,
-                          "Stoneskin": 1
+        self.inventory = {"Health Potion": 1,
+                          "Strength Potion": 1,
+                          "Defence Potion": 1
         }
         
     def load_animations(self):
@@ -101,19 +102,26 @@ class Unit(pygame.sprite.Sprite):
 
         self.image = self.animations[self.state][self.current_frame]
         self.rect.move_ip(self.dx, self.dy)
+        
+        if self.alive:
+            if self.health <= 0:
+                self.alive = False
+                self.change_state("death")
                 
-    def state_change(self, target_state):
+    def change_state(self, target_state):
         """Resets the current frame to 0 so the animation doesn't start halfway"""
         self.current_frame = 0
         self.state = target_state
         
+        #
     def activate(self, active_pos):
-        """If self.selected is True, move character to the active position"""
+        """(CURRENTLY UNUSED) If self.selected is True, move character to the active position"""
         self.selected = True
         self.prev_pos = self.rect.center
         self.rect.center = active_pos
     
     def deactivate(self):
+        """(CURRENTLY UNUSED)"""
         self.selected = False
         self.rect.center = self.prev_pos
         
@@ -123,21 +131,36 @@ class Unit(pygame.sprite.Sprite):
             self.inventory[item] -= 1
             
             match item:
-                case "Medicine":
+                case "Health Potion":
                     self.health += 50
                     if self.health > self.max_health:
                         self.health = self.max_health
                         
                     print("Recovered health!")
                     
-                case "Anvil":
+                case "Strength Potion":
                     self.strength = int(self.strength * 1.1)
                     
                     print("Increased strength!")
                     
-                case "Stoneskin":
+                case "Defence Potion":
                     self.defence = int(self.defence * 1.1)
                     
                     print("Increased defence!")
         else:
             print(f"No {item} left!")
+            
+    def basic_attack(self, target):
+        damage = self.strength - target.defence
+        if damage < 0:
+            damage = 0
+        
+        # Fact: If you see anyone using the super-unintuitive max(0, damage) there's a 99.999% chance it was AI-generated
+        
+        self.change_state("attack")
+        target.change_state("hurt")
+        target.health -= damage
+        
+        # temporary
+        print(f"Target HP: {target.health}/{target.max_health}")
+        

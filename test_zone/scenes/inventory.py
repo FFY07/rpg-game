@@ -27,7 +27,7 @@ class Inventory(Scene):
         self.inventory_items = self.create_dict(self.sprites)
         # Create a dictionary for the buttons before we add our pointer sprite image
         self.pointer = 0
-        
+
     def select_item(self, item_name, actions):
         for _, button in self.inventory_items.items():
             if button.name == item_name:
@@ -35,7 +35,7 @@ class Inventory(Scene):
                     
         if actions["enter"]:
             self.selected_unit.consume_item(item_name)
-            self.selected_unit.state_change("defend") # TEMPORARY
+            self.selected_unit.change_state("defend") # TEMPORARY
         
     def update(self, actions):       
         self.pointer = self.pointer % len(self.inventory_list)
@@ -50,13 +50,13 @@ class Inventory(Scene):
             self.pointer -= 1
             
         if self.pointer == 0:
-            self.select_item("Medicine", actions)
+            self.select_item("Health Potion", actions)
         
         if self.pointer == 1:
-            self.select_item("Anvil", actions)
+            self.select_item("Strength Potion", actions)
         
         if self.pointer == 2:
-            self.select_item("Stoneskin", actions)
+            self.select_item("Defence Potion", actions)
         
         if actions["escape"] or actions["enter"]:
             self.sprites.empty()

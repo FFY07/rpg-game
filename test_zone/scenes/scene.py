@@ -42,6 +42,7 @@ class Scene():
                     y = True,
                     button_alpha = 100,
                     text_alpha = 255):
+        """Appends a TextSprite and Button object to the scene's self.sprites group"""
         button_sprite = ui_functions.Button(rect_width, rect_height, rect_fill, x, y, name, button_alpha)
         text_sprite = ui_functions.TextSprite(text, size, font, text_color, x, y, name, 0, 0, text_alpha)
         
@@ -63,7 +64,7 @@ class Scene():
                          offset: tuple,
                          button_alpha = 100,
                          text_alpha = 255):
-        """Generates multiple buttons using a list"""
+        """Generates multiple buttons using an input list of strings and outputs them into the scene's self.sprites group"""
         start_x, start_y = xy
         offset_x, offset_y = offset
         

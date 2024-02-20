@@ -1,8 +1,9 @@
 import pygame
 
 from scenes.scene import Scene
-
-# NOT WRITTEN YET
+from scenes.inventory import Inventory
+# from scenes.attack import ChooseAttack
+from scenes.target import ChooseTarget
 
 class Action(Scene):
     def __init__(self, game: object, selected_unit: pygame.sprite.Sprite):
@@ -18,8 +19,8 @@ class Action(Scene):
         
         self.anchor = None
         
-        self.button_list = ["Basic Attack", "Magic"]
-        self.generate_buttons(self.button_list, 30, None, "white", 150, 50, "grey20", (self.button_x, self.button_y), (0, 50), 255)
+        self.button_list = ["Attack ⚔", "Items 👛", "Shop 🛒"]
+        self.generate_buttons(self.button_list, 30, "segoeuiemoji", "white", 150, 50, "grey20", (self.button_x, self.button_y), (0, 50), 255)
         
         # Create a dictionary for the buttons before we add our pointer sprite image
         self.button_dict = self.create_dict(self.sprites)
@@ -43,8 +44,13 @@ class Action(Scene):
                     sprite.selected = True
             
             if actions["enter"]:
-                self.selected_unit.state_change("attack")
-                print("Opening targeting scene! (haven't code yet :P)")
+                
+                # ATTACK SELECT NOT COMPLETE; SKIPPING STRAIGHT TO SELECT TARGET
+                # next_scene = ChooseAttack(self.game, self.selected_unit)
+                next_scene = ChooseTarget(self.game, self.selected_unit)
+                next_scene.anchor = self.anchor
+                next_scene.start_scene()
+                self.game.reset_keys()
         
         if self.pointer == 1:
             for _, sprite in self.button_dict.items():
@@ -52,7 +58,10 @@ class Action(Scene):
                     sprite.selected = True
                     
             if actions["enter"]:
-                print("Opening inventory (haven't code yet :/)")
+                next_scene = Inventory(self.game, self.selected_unit)
+                next_scene.anchor = self.anchor
+                next_scene.start_scene()
+                self.game.reset_keys()
         
         if self.pointer == 2:
             for _, sprite in self.button_dict.items():

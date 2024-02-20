@@ -70,7 +70,8 @@ class Game():
             self.update()
             self.render()
             
-            # print(len(self.stack)) #DEBUG
+            # print(len(self.stack)) # DEBUG
+            # print(self.stack[-1]) # DEBUG
         
     def event_handler(self):
         for event in pygame.event.get():

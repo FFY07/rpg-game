@@ -1,9 +1,10 @@
 import pygame
 
 from scenes.scene import Scene
-from scenes.inventory import Inventory
 
-class Attack(Scene):
+# NOT WRITTEN YET; SKIPPING STRAIGHT TO TARGET
+
+class ChooseAttack(Scene):
     def __init__(self, game: object, selected_unit: pygame.sprite.Sprite):
         super().__init__(game)
         self.sprites = pygame.sprite.Group()
@@ -15,11 +16,10 @@ class Attack(Scene):
         self.button_x += self.x_offset
         self.button_y += self.y_offset
         
-        
         self.anchor = None
         
-        self.button_list = ["Attack ⚔", "Items 👛", "Shop 🛒"]
-        self.generate_buttons(self.button_list, 30, "segoeuiemoji", "white", 150, 50, "grey20", (self.button_x, self.button_y), (0, 50), 255)
+        self.button_list = ["Basic Attack", "Magic"]
+        self.generate_buttons(self.button_list, 30, None, "white", 150, 50, "grey20", (self.button_x, self.button_y), (0, 50), 255)
         
         # Create a dictionary for the buttons before we add our pointer sprite image
         self.button_dict = self.create_dict(self.sprites)
@@ -44,7 +44,7 @@ class Attack(Scene):
             
             if actions["enter"]:
                 self.selected_unit.state_change("attack")
-                print("Opening select move screen! (haven't code yet :P)")
+                print("Opening targeting scene! (haven't code yet :P)")
         
         if self.pointer == 1:
             for _, sprite in self.button_dict.items():
@@ -52,10 +52,7 @@ class Attack(Scene):
                     sprite.selected = True
                     
             if actions["enter"]:
-                next_scene = Inventory(self.game, self.selected_unit)
-                next_scene.anchor = self.anchor
-                next_scene.start_scene()
-                self.game.reset_keys()
+                print("Opening inventory (haven't code yet :/)")
         
         if self.pointer == 2:
             for _, sprite in self.button_dict.items():

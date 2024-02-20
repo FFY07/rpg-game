@@ -221,6 +221,8 @@ class Button(pygame.sprite.Sprite):
             
 class TargetImage(pygame.sprite.Sprite):
     def __init__(self, scene, image, x_offset = 0, y_offset = -100):
+        """Updates position based on the scene's self.selected_unit"""
+        
         super().__init__()
         self.scene = scene
         self.target_sprite = scene.selected_unit

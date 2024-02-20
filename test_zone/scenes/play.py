@@ -3,9 +3,9 @@ import pygame
 import gui2.screen as scr
 
 from scenes.scene import Scene
-from scenes.attack import Attack
+from scenes.action import Action
 
-import gui2.ui_functions as ui_functions
+from gui2 import ui_functions
 import resources2.images as images
 import resources2.audio as audio
 
@@ -24,7 +24,7 @@ class Play(Scene):
         
         self.background = images.background_img
         self.ui_sprites = pygame.sprite.Group()
-        self.pointer = 0
+        self.pointer = 1
 
         # self.crazy_guy = cf.create_unit("William", "Reaper", "enemy", self.game)
         # self.crazy_guy.dx, self.crazy_guy.dy = 5, 5
@@ -46,30 +46,22 @@ class Play(Scene):
         cf.set_positions(self.player_positions, self.game.players)
         cf.set_positions(self.enemy_positions, self.game.enemies)
         
-        # Dictionaries make life easier (give up on sprite groups mode)
-        self.all_players = {}
-        self.all_enemies = {}
+        # Make a list so we can dynamically adjust our pointer position
+        self.player_list = []
         
-        for i, sprite in enumerate(self.game.players.sprites()):
-            self.all_players[i] = sprite     
-        self.alive_players = self.all_players
+        for sprite in self.game.players.sprites():
+            self.player_list.append(sprite)     
         
-        for i, sprite in enumerate(self.game.enemies.sprites()):
-            self.all_enemies[i] = sprite        
-        self.alive_enemies = self.all_enemies
-        
-        self.selected_unit = self.all_players[0]
+        self.selected_unit = self.player_list[0]
     
         self.pointer_image = images.red_arrow_down
         self.pointer_sprite = ui_functions.TargetImage(self, self.pointer_image)
         self.ui_sprites.add(self.pointer_sprite)
 
-    # Currently unused
-    def select_player(self, pointer):
-        self.all_players[pointer].selected = True
-            
-    def select_enemy(self, pointer):
-        self.all_enemies[pointer].selected = True
+    # Currently unused; use only if we need to adjust the unit object's .selected attribute
+    # def select_player(self, pointer):
+    #     self.player_list[pointer].selected = True
+
 
     
     def update(self, actions):
@@ -78,16 +70,6 @@ class Play(Scene):
         # # Print it if it is not empty
         # if self.current_text:
         #     print(self.current_text)
-        
-        # if self.crazy_guy.rect.left > scr.SCREEN_WIDTH - 64:
-        #     self.crazy_guy.dx = - 5
-        # elif self.crazy_guy.rect.right < 64:
-        #     self.crazy_guy.dx = 5
-
-        # if self.crazy_guy.rect.top > scr.SCREEN_HEIGHT - 64:
-        #     self.crazy_guy.dy = - 5
-        # elif self.crazy_guy.rect.bottom < 64:
-        #     self.crazy_guy.dy = 5
             
         # for sprite in self.ui_sprites:
         #     if sprite.name == "typing":
@@ -96,13 +78,27 @@ class Play(Scene):
         # Reset the selected state of all sprites at the start of each loop
         for sprite in self.game.all_units.sprites() or sprite in self.ui_sprites.sprites():
             sprite.selected = False
+            
+            # # get rid of dead sprites
+            # if not sprite.alive:
+            #     sprite.kill()
+            # We cannot kill the sprite or they won't stay dead on the floor
+                
+        # Remove dead sprites from list
+        for i, sprite in enumerate(self.player_list):
+            if not sprite.alive:
+                self.player_list.pop(i)
         
         # Constrains the pointer to the length of the player list
         # This will break if the teams are uneven!!!
-        self.pointer = self.pointer % len(self.all_players)
+        self.pointer = self.pointer % len(self.player_list)
         
         # Select player based on pointer position
-        self.selected_unit = self.all_players[self.pointer]
+        try:
+            self.selected_unit = self.player_list[self.pointer]
+        except:
+            # GAME OVER ENEMY WINS SCREEN
+            print("Enemy wins!")
         
         if actions["escape"]:
             next_scene = Options(self.game)
@@ -116,9 +112,9 @@ class Play(Scene):
             
         if actions["enter"]:
             # self.game.typing = True
-            next_scene = Attack(self.game, self.selected_unit)
+            next_scene = Action(self.game, self.selected_unit)
             
-            # Give it an anchor because we will be returning to this screen
+            # Create an anchor because we will be returning to this screen
             next_scene.anchor = self
             next_scene.start_scene()
         
