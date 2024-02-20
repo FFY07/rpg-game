@@ -48,9 +48,19 @@ class Play(Scene):
         
         # Make a list so we can dynamically adjust our pointer position
         self.player_list = []
+        self.enemy_list = []
+        self.alive_player_dict = []
+        self.alive_enemy_dict = []
         
-        for sprite in self.game.players.sprites():
-            self.player_list.append(sprite)     
+        for i, sprite in enumerate(self.game.players.sprites()):
+            self.player_list.append(sprite)
+            if sprite.alive:
+                self.alive_player_list[i] = sprite
+                
+        for i, sprite in enumerate(self.game.enemies.sprites()):
+            self.enemy_list.append(sprite)
+            if sprite.alive:
+                self.alive_enemy_list[i] = sprite
         
         self.selected_unit = self.player_list[0]
     
@@ -61,10 +71,14 @@ class Play(Scene):
     # Currently unused; use only if we need to adjust the unit object's .selected attribute
     # def select_player(self, pointer):
     #     self.player_list[pointer].selected = True
+    
+    def check_alive(self):
+        pass
 
 
     
     def update(self, actions):
+        
         # self.current_text = ui_functions.store_text("lastmsg", self.ui_sprites, self.game)
         
         # # Print it if it is not empty
