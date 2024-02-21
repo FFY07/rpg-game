@@ -1,4 +1,6 @@
 # Parent class for the different scenes
+import pygame
+
 from gui2 import ui_functions
 import gui2.screen as scr
 
@@ -9,6 +11,10 @@ class Scene:
         self.prev = None
         self.xc = scr.SCREEN_WIDTH // 2
         self.yc = scr.SCREEN_HEIGHT // 2
+
+        self.sprites = pygame.sprite.Group()
+        self.button_sprites = pygame.sprite.Group()
+        self.text_sprites = pygame.sprite.Group()
 
     def update(self, actions):
         pass
@@ -53,8 +59,10 @@ class Scene:
             text, size, font, text_color, x, y, name, 0, 0, text_alpha
         )
 
-        self.sprites.add(button_sprite)
-        self.sprites.add(text_sprite)
+        self.button_sprites.add(button_sprite)
+        self.text_sprites.add(text_sprite)
+
+        self.sprites.add([button_sprite, text_sprite])
 
         return button_sprite, text_sprite
 
@@ -109,6 +117,7 @@ class Scene:
         return sprite_dict
 
     def update_alive_dict(self):
+        """Using a dictionary allows us to update our characters based on their key rather than appending an infinite list of characters per cycle"""
         self.alive_enemy_dict = {}
         self.alive_player_dict = {}
 

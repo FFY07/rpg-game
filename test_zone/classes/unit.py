@@ -60,6 +60,8 @@ class Unit(pygame.sprite.Sprite):
 
         self.inventory = {"Health Potion": 1, "Strength Potion": 1, "Defence Potion": 1}
 
+        self.moves = {"Basic Attack": self.basic_attack}
+
     def load_animations(self):
         for state in self.states:
             path = Path(f"test_zone/resources2/images/units/{self.unit_class}/{state}")
@@ -164,7 +166,7 @@ class Unit(pygame.sprite.Sprite):
         else:
             print(f"No {item} left!")
 
-    def basic_attack(self, target):
+    def basic_attack(self, target, target_team):
         damage = self.strength - target.defence
         if damage < 0:
             damage = 0

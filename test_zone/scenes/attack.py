@@ -1,6 +1,7 @@
 import pygame
 
 from scenes.scene import Scene
+from scenes.target import ChooseTarget
 
 # NOT WRITTEN YET; SKIPPING STRAIGHT TO TARGET
 
@@ -8,7 +9,6 @@ from scenes.scene import Scene
 class ChooseAttack(Scene):
     def __init__(self, game: object, selected_unit: pygame.sprite.Sprite):
         super().__init__(game)
-        self.sprites = pygame.sprite.Group()
         self.selected_unit = selected_unit
 
         self.x_offset = 50
@@ -19,9 +19,9 @@ class ChooseAttack(Scene):
 
         self.anchor = None
 
-        self.button_list = ["Basic Attack", "Magic"]
+        self.movelist = list(self.selected_unit.moves.keys())
         self.generate_buttons(
-            self.button_list,
+            self.movelist,
             30,
             None,
             "white",
@@ -34,47 +34,39 @@ class ChooseAttack(Scene):
         )
 
         # Create a dictionary for the buttons before we add our pointer sprite image
-        self.button_dict = self.create_dict(self.sprites)
+        self.button_dict = self.create_dict(self.button_sprites)
+        self.text_dict = self.create_dict(self.text_sprites)
         self.pointer = 0
 
+        print(self.button_dict)
+        print(self.movelist)
+
     def update(self, actions):
-        self.pointer = self.pointer % len(self.button_list)
+        self.pointer = self.pointer % len(self.movelist)
 
         for sprite in self.sprites.sprites():
             sprite.selected = False
 
+            # Experimental method since some dumbass (me) designed the "Button" as a function that glues two separate sprite objects together
+            if sprite.name == self.button_dict[self.pointer].name:
+                sprite.selected = True
+
+        self.selected_action = self.movelist[self.pointer]
+        self.button_dict[self.pointer].selected = True
+        self.text_dict[self.pointer].selected = True
+
+        print(self.pointer)
+        print(self.selected_action)
         if actions["down"]:
             self.pointer += 1
 
         if actions["up"]:
             self.pointer -= 1
 
-        if self.pointer == 0:
-            for _, sprite in self.button_dict.items():
-                if sprite.name == "Attack ⚔":
-                    sprite.selected = True
+        if actions["enter"]:
+            print(self.selected_action)
 
-            if actions["enter"]:
-                self.selected_unit.state_change("attack")
-                print("Opening targeting scene! (haven't code yet :P)")
-
-        if self.pointer == 1:
-            for _, sprite in self.button_dict.items():
-                if sprite.name == "Items 👛":
-                    sprite.selected = True
-
-            if actions["enter"]:
-                print("Opening inventory (haven't code yet :/)")
-
-        if self.pointer == 2:
-            for _, sprite in self.button_dict.items():
-                if sprite.name == "Shop 🛒":
-                    sprite.selected = True
-
-            if actions["enter"]:
-                print("Opening shop (haven't code yet D:)")
-
-        if actions["escape"] or actions["enter"]:
+        if actions["escape"]:
             self.sprites.empty()
             self.exit_scene()
 

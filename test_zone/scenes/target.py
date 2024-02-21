@@ -7,13 +7,10 @@ from gui2 import ui_functions
 
 import resources2.images as images
 
-# NOT WRITTEN YET
-
 
 class ChooseTarget(Scene):
     def __init__(self, game: object, selected_unit: pygame.sprite.Sprite):
         super().__init__(game)
-        self.sprites = pygame.sprite.Group()
         self.effect_sprites = pygame.sprite.Group()
 
         self.attacking_unit = selected_unit
@@ -29,6 +26,7 @@ class ChooseTarget(Scene):
         # Add pointer sprite
         self.sprites.add(ui_functions.TargetImage(self, images.enemy_target))
         self.pointer = 1
+        print("test")
 
     def update(self, actions):
         self.game.all_units.update()
@@ -52,7 +50,9 @@ class ChooseTarget(Scene):
                 sprite.selected = False
 
             # Move select screen not written yet under attack.py
-            self.attacking_unit.basic_attack(self.selected_unit)
+            self.attacking_unit.basic_attack(
+                self.selected_unit, self.anchor.alive_enemy_dict
+            )
             next_scene = EnemyTurn(self.game)
 
             # Number of times the enemy can attack

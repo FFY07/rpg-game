@@ -42,3 +42,12 @@ class Knight(Unit):
         self.image = self.animations["idle"][0]
         self.rect = self.image.get_rect()
         self.rect.center = self.position
+
+        # Add moves to moves dictionary
+        self.moves["Slash"] = self.slash
+
+    def slash(self, target, target_team):
+        damage = 50
+
+        self.target.health -= damage
+        print(f"Slashed {target.name}!")

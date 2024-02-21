@@ -3,14 +3,13 @@ import pygame
 from scenes.scene import Scene
 from scenes.inventory import Inventory
 
-# from scenes.attack import ChooseAttack
+from scenes.attack import ChooseAttack
 from scenes.target import ChooseTarget
 
 
 class Action(Scene):
     def __init__(self, game: object, selected_unit: pygame.sprite.Sprite):
         super().__init__(game)
-        self.sprites = pygame.sprite.Group()
         self.selected_unit = selected_unit
 
         self.x_offset = 50
@@ -58,9 +57,8 @@ class Action(Scene):
 
             if actions["enter"]:
 
-                # ATTACK SELECT NOT COMPLETE; SKIPPING STRAIGHT TO SELECT TARGET
-                # next_scene = ChooseAttack(self.game, self.selected_unit)
-                next_scene = ChooseTarget(self.game, self.selected_unit)
+                next_scene = ChooseAttack(self.game, self.selected_unit)
+                # next_scene = ChooseTarget(self.game, self.selected_unit)
                 next_scene.anchor = self.anchor
                 next_scene.start_scene()
                 self.game.reset_keys()
