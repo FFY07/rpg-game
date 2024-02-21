@@ -33,20 +33,27 @@ class EnemyTurn(Scene):
         # If there are no alive enemies, go back to play screen
         if self.alive_enemy_dict:
 
-            # Delay before attacking
+            # Delay before attacking which is actually useless code because we added a new check for player team idle below
             if self.current_time - self.start_time > self.wait and self.attacks:
+                self.target_team_ready = True
                 self.attacker = random.choice(list(self.alive_enemy_dict.values()))
                 self.target = random.choice(list(self.alive_player_dict.values()))
 
                 # If player character is not idle, wait until it is (where it will get deactivated on top)
-                if self.target.state == "idle":
-                    self.target.deactivate()  # Timing issue
+
+                # bandaid fix for currently attacking sprites to never be attacked
+                for sprite in list(self.alive_player_dict.values()):
+                    if sprite.state != "idle":
+                        self.target_team_ready = False
+
+                if self.target_team_ready:
+                    self.target.deactivate()  # Timing issue (force deactivate)
                     self.attacker.basic_attack(self.target)
                     self.attacks -= 1
                     self.start_time = pygame.time.get_ticks()
 
             # Check if we still have to wait for everyone's animations to finish
-            # And if the enemy still has moves left
+            # And if the enemy still has attacks left
             if self.attacks:
                 self.waiting = True
             else:
