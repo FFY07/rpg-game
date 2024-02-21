@@ -40,6 +40,7 @@ class EnemyTurn(Scene):
 
                 # If player character is not idle, wait until it is (where it will get deactivated on top)
                 if self.target.state == "idle":
+                    self.target.deactivate()  # Timing issue
                     self.attacker.basic_attack(self.target)
                     self.attacks -= 1
                     self.start_time = pygame.time.get_ticks()
