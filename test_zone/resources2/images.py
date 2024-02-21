@@ -1,6 +1,9 @@
 import pygame
 from pathlib import Path
 
+# This part is for my Black formatter extension don't worry about it
+# fmt: off
+
 #menu background
 menubackground_img = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/menubackground.png')}")
 
@@ -22,9 +25,12 @@ victory_img = pygame.transform.scale(victory_img, (600,500))
 defeat_img = pygame.image.load(f"{Path('test_zone/resources2/images/ui_elements/defeat.png')}")
 defeat_img = pygame.transform.scale(defeat_img, (600,500))
 
-target_img = pygame.image.load(f"{Path('test_zone/resources2/images/ui_elements/target.png')}")
-red_arrow_down = pygame.image.load(f"{Path('test_zone/resources2/images/ui_elements/red_arrow_down.png')}")
-red_arrow_down = pygame.transform.scale(red_arrow_down, (red_arrow_down.get_width() * 2, red_arrow_down.get_height() * 2))
+
+player_target = pygame.image.load(f"{Path('test_zone/resources2/images/ui_elements/player_target.png')}")
+player_target = pygame.transform.scale(player_target, (192, 192))
+
+enemy_target = pygame.image.load(f"{Path('test_zone/resources2/images/ui_elements/enemy_target.png')}")
+enemy_target = pygame.transform.scale(enemy_target, (192, 192))
 
 hit_effect = pygame.image.load(f"{Path('test_zone/resources2/images/effect/atk/smile.png')}")
 hit_effect = pygame.transform.scale(hit_effect, (256, 256))

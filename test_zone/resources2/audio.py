@@ -3,6 +3,7 @@ from pathlib import Path
 import pygame
 
 pygame.init()
+# fmt: off
 
 # Cannot load music streams here as pygame only holds one at a time (only the last-loaded music stream will play)
 
