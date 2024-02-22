@@ -6,9 +6,12 @@ import resources2.audio as audio
 
 
 class Inventory(Scene):
-    def __init__(self, game: object, selected_unit: pygame.sprite.Sprite):
+    def __init__(
+        self, game: object, selected_unit: pygame.sprite.Sprite, anchor: object
+    ):
         super().__init__(game)
         self.sprites = pygame.sprite.Group()
+        self.anchor = anchor
         self.selected_unit = selected_unit
         self.inventory_list = []
 

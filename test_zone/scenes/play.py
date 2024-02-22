@@ -126,10 +126,9 @@ class Play(Scene):
             self.pointer -= 1
 
         if actions["enter"]:
-            next_scene = Action(self.game, self.selected_unit)
+            # Create an anchor as well using self because we will be referencing this scene in the other menu scenes
+            next_scene = Action(self.game, self.selected_unit, self)
 
-            # Create an anchor because we will be returning to this screen
-            next_scene.anchor = self
             for sprite in self.ui_sprites:
                 sprite.selected = False
             next_scene.start_scene()

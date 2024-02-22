@@ -7,17 +7,18 @@ from scenes.target import ChooseTarget
 
 
 class ChooseAttack(Scene):
-    def __init__(self, game: object, selected_unit: pygame.sprite.Sprite):
+    def __init__(
+        self, game: object, selected_unit: pygame.sprite.Sprite, anchor: object
+    ):
         super().__init__(game)
         self.selected_unit = selected_unit
+        self.anchor = anchor
 
         self.x_offset = 50
         self.y_offset = 0
         self.button_x, self.button_y = self.selected_unit.rect.midright
         self.button_x += self.x_offset
         self.button_y += self.y_offset
-
-        self.anchor = None
 
         self.movelist = list(self.selected_unit.moves.keys())
         self.generate_buttons(
