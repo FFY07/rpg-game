@@ -166,7 +166,7 @@ class Unit(pygame.sprite.Sprite):
         else:
             print(f"No {item} left!")
 
-    def basic_attack(self, target, target_team):
+    def basic_attack(self, target: object, target_team: list):
         damage = self.strength - target.defence
         if damage < 0:
             damage = 0
@@ -186,4 +186,4 @@ class Unit(pygame.sprite.Sprite):
         self.game.canvas.blit(attack_effect, (0, 0))
 
         # temporary
-        print(f"Target HP: {target.health}/{target.max_health}")
+        print(f"[DEBUG] Target HP: {target.health}/{target.max_health}")

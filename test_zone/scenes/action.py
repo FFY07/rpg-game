@@ -35,7 +35,8 @@ class Action(Scene):
         )
 
         # Create a dictionary for the buttons before we add our pointer sprite image
-        self.button_dict = self.create_dict(self.sprites)
+        self.button_dict = self.create_dict(self.button_sprites)
+        self.text_dict = self.create_dict(self.text_sprites)
         self.pointer = 0
 
     def update(self, actions):
@@ -44,6 +45,9 @@ class Action(Scene):
         for sprite in self.sprites.sprites():
             sprite.selected = False
 
+        self.button_dict[self.pointer].selected = True
+        self.text_dict[self.pointer].selected = True
+
         if actions["down"]:
             self.pointer += 1
 
@@ -51,12 +55,7 @@ class Action(Scene):
             self.pointer -= 1
 
         if self.pointer == 0:
-            for _, sprite in self.button_dict.items():
-                if sprite.name == "Attack ⚔":
-                    sprite.selected = True
-
             if actions["enter"]:
-
                 next_scene = ChooseAttack(self.game, self.selected_unit)
                 # next_scene = ChooseTarget(self.game, self.selected_unit)
                 next_scene.anchor = self.anchor
@@ -64,10 +63,6 @@ class Action(Scene):
                 self.game.reset_keys()
 
         if self.pointer == 1:
-            for _, sprite in self.button_dict.items():
-                if sprite.name == "Items 👛":
-                    sprite.selected = True
-
             if actions["enter"]:
                 next_scene = Inventory(self.game, self.selected_unit)
                 next_scene.anchor = self.anchor
@@ -75,10 +70,6 @@ class Action(Scene):
                 self.game.reset_keys()
 
         if self.pointer == 2:
-            for _, sprite in self.button_dict.items():
-                if sprite.name == "Shop 🛒":
-                    sprite.selected = True
-
             if actions["enter"]:
                 print("Opening shop (haven't code yet D:)")
 

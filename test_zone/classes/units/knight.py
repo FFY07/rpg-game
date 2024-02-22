@@ -1,4 +1,4 @@
-import random
+import pygame, random
 
 from classes.unit import Unit
 
@@ -45,9 +45,36 @@ class Knight(Unit):
 
         # Add moves to moves dictionary
         self.moves["Slash"] = self.slash
+        self.moves["Execute"] = self.execute
 
     def slash(self, target, target_team):
         damage = 50
 
-        self.target.health -= damage
+        # PUT THIS WHOLE SECTION INTO ONE METHOD LATER
+        if self.team == "player":
+            self.activate(target.rect.midleft)
+        else:
+            self.activate(target.rect.midright)
+
+        self.change_state("attack")
+        target.change_state("hurt")
+        target.health -= damage
+        pygame.mixer.Sound.play(self.attack_audio)
+        # THIS WHOLE SECTION ABOVE INTO ONE METHOD
+
         print(f"Slashed {target.name}!")
+
+    def execute(self, target, target_team):
+        damage = 25
+
+        if self.team == "player":
+            self.activate(target.rect.midleft)
+        else:
+            self.activate(target.rect.midright)
+
+        self.change_state("attack")
+        target.change_state("hurt")
+        target.health -= damage
+        pygame.mixer.Sound.play(self.attack_audio)
+
+        print(f"Executed {target.name}")

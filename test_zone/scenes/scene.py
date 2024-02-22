@@ -59,6 +59,8 @@ class Scene:
             text, size, font, text_color, x, y, name, 0, 0, text_alpha
         )
 
+        # Put the button and sprite into their own groups so they can be indexed the same way
+        # THIS SYSTEM WILL BREAK IF EITHER GROUP GETS MODIFIED (index will change)
         self.button_sprites.add(button_sprite)
         self.text_sprites.add(text_sprite)
 

@@ -51,12 +51,16 @@ class ChooseAttack(Scene):
             if sprite.name == self.button_dict[self.pointer].name:
                 sprite.selected = True
 
-        self.selected_action = self.movelist[self.pointer]
+        self.selected_move = self.movelist[self.pointer]
+
+        # Update both the button and the text
         self.button_dict[self.pointer].selected = True
         self.text_dict[self.pointer].selected = True
 
         print(self.pointer)
-        print(self.selected_action)
+        print(self.selected_move)
+        # Execute the selected action (it's the attack function)
+
         if actions["down"]:
             self.pointer += 1
 
@@ -64,7 +68,13 @@ class ChooseAttack(Scene):
             self.pointer -= 1
 
         if actions["enter"]:
-            print(self.selected_action)
+            next_scene = ChooseTarget(
+                self.game,
+                self.selected_unit,
+                self.selected_unit.moves[self.selected_move],
+                self.anchor,
+            )
+            next_scene.start_scene()
 
         if actions["escape"]:
             self.sprites.empty()

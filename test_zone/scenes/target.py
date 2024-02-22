@@ -9,35 +9,34 @@ import resources2.images as images
 
 
 class ChooseTarget(Scene):
-    def __init__(self, game: object, selected_unit: pygame.sprite.Sprite):
+    def __init__(
+        self,
+        game: object,
+        attacking_unit: pygame.sprite.Sprite,
+        selected_move: object,
+        anchor: object,
+    ):
         super().__init__(game)
         self.effect_sprites = pygame.sprite.Group()
+        self.anchor = anchor
 
-        self.attacking_unit = selected_unit
+        self.attacking_unit = attacking_unit
+        self.selected_move = selected_move
 
-        self.all_enemies = []
+        self.enemies = list(self.anchor.alive_enemy_dict.values())
+        self.pointer = 0
 
-        # Add all enemy sprites to a list
-        for unit in self.game.enemies.sprites():
-            self.all_enemies.append(unit)
-
-        self.selected_unit = self.all_enemies[0]
+        # Select starting target
+        self.selected_unit = self.enemies[self.pointer]
 
         # Add pointer sprite
         self.sprites.add(ui_functions.TargetImage(self, images.enemy_target))
-        self.pointer = 1
-        print("test")
 
     def update(self, actions):
-        self.game.all_units.update()
-        # Remove dead sprites from list
-        for i, sprite in enumerate(self.all_enemies):
-            if not sprite.alive:
-                self.all_enemies.pop(i)
+        self.enemies = list(self.anchor.alive_enemy_dict.values())
+        self.pointer = self.pointer % len(self.enemies)
 
-        self.pointer = self.pointer % len(self.all_enemies)
-
-        self.selected_unit = self.all_enemies[self.pointer]
+        self.selected_unit = self.enemies[self.pointer]
 
         if actions["up"]:
             self.pointer += 1
@@ -49,10 +48,8 @@ class ChooseTarget(Scene):
             for sprite in self.sprites.sprites():
                 sprite.selected = False
 
-            # Move select screen not written yet under attack.py
-            self.attacking_unit.basic_attack(
-                self.selected_unit, self.anchor.alive_enemy_dict
-            )
+            # Call the move method (method is tied to the unit already) onto the enemy self.unit and the anchor (play.py) alive enemy dictionary
+            self.selected_move(self.selected_unit, self.enemies)
             next_scene = EnemyTurn(self.game)
 
             # Number of times the enemy can attack
@@ -68,6 +65,9 @@ class ChooseTarget(Scene):
 
         self.game.reset_keys()
         self.sprites.update()
+
+        # If game breaks try putting this at the start of the loop
+        self.game.all_units.update()
 
     def render(self, screen):
         self.anchor.render(screen)
