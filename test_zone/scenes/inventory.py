@@ -21,8 +21,6 @@ class Inventory(Scene):
         self.button_x += self.x_offset
         self.button_y += self.y_offset
 
-        self.anchor = None
-
         for item, _ in self.selected_unit.inventory.items():
             self.inventory_list.append(item)
 
