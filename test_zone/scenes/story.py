@@ -47,76 +47,7 @@ class Story(Scene):
             75,
         )
         self.position += 100
-        self.load_section(["Press Enter to Continue."], header, 50)
-
-        # self.story_header = [
-        #     ("Aventure to PSB Academy ", *story_header, True, scr.SCREEN_HEIGHT - 50),
-        #     ("Stupid story sorry ", *story_header, True, scr.SCREEN_HEIGHT - 100),
-        # ]
-
-        # self.story_body = [
-        #     (
-        #         "Inside PSB Academy, something wasn't right.",
-        #         *story_color,
-        #         True,
-        #         scr.SCREEN_HEIGHT + 100,
-        #     ),
-        #     (
-        #         "The students were acting strangely",
-        #         *story_color,
-        #         True,
-        #         scr.SCREEN_HEIGHT + 150,
-        #     ),
-        #     (
-        #         "They doing bad things like being a freerider",
-        #         *story_color,
-        #         True,
-        #         scr.SCREEN_HEIGHT + 200,
-        #     ),
-        #     ("Not doing their assigment", *story_color, True, scr.SCREEN_HEIGHT + 250),
-        #     (
-        #         "using Chatgpt to do all the quiz",
-        #         *story_color,
-        #         True,
-        #         scr.SCREEN_HEIGHT + 300,
-        #     ),
-        #     (
-        #         "You noticed and decided to stop it with friend",
-        #         *story_color,
-        #         True,
-        #         scr.SCREEN_HEIGHT + 350,
-        #     ),
-        #     (
-        #         "as all of you went through the keep seeing all the bad stuff ",
-        #         *story_color,
-        #         True,
-        #         scr.SCREEN_HEIGHT + 400,
-        #     ),
-        #     (
-        #         "happening because of the students being idiot.",
-        #         *story_color,
-        #         True,
-        #         scr.SCREEN_HEIGHT + 450,
-        #     ),
-        #     # ('Hall of Fame', *story_color, True, scr.SCREEN_HEIGHT + 250),
-        #     ("PLease kill them", *story_color, True, scr.SCREEN_HEIGHT + 550),
-        #     (
-        #         "Press Enter to Continue BTW",
-        #         *story_color,
-        #         True,
-        #         scr.SCREEN_HEIGHT + 600,
-        #     ),
-        # ]
-
-        # # Add the sections you want to load into this list
-        # self.story_list = [self.story_header, self.story_body]
-
-        # for section in self.story_list:
-        #     for credit in section:
-        #         credit_sprite = ui_functions.TextSprite(
-        #             *credit, False, *self.falling_speed
-        #         )
-        #         self.story.add(credit_sprite)
+        self.load_section(["Press Enter to Continue"], header, 50)
 
     def load_section(self, text_list, section_type, offset):
         for text in text_list:
