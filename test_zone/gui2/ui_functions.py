@@ -184,7 +184,7 @@ class TargetImage(pygame.sprite.Sprite):
 
 
 class HitImage(pygame.sprite.Sprite):
-    def __init__(self, attack_name, target: object):
+    def __init__(self, attack_name, target: object, speed=50):
         super().__init__()
         self.target = target
         self.attack_name = attack_name
@@ -197,7 +197,7 @@ class HitImage(pygame.sprite.Sprite):
 
         self.load_attack_sprites()
 
-        self.anim_speed = 100  # ticks
+        self.anim_speed = speed  # ticks
 
     def update(self):
         self.current_time = pygame.time.get_ticks()
@@ -206,7 +206,7 @@ class HitImage(pygame.sprite.Sprite):
             self.last_updated = self.current_time
             self.current_frame += 1
 
-            print(self.current_frame)
+            # print(self.target.name, self.current_frame)
 
         if self.current_frame < len(self.animations):
             self.image = self.animations[self.current_frame]
@@ -232,8 +232,8 @@ class HitImage(pygame.sprite.Sprite):
             image = pygame.transform.scale(
                 image,
                 (
-                    512,
-                    512,
+                    256,
+                    256,
                 ),
             )
 

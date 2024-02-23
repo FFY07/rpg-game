@@ -129,7 +129,8 @@ class Unit(pygame.sprite.Sprite):
         self.current_frame = 0
         self.state = target_state
 
-        #
+        if target_state == "death":
+            self.game.sprites.add(ui_functions.HitImage("blood5", self, 10))
 
     def activate(self, active_pos):
         """Move character to the active position"""
@@ -185,6 +186,7 @@ class Unit(pygame.sprite.Sprite):
         if self.game.sound:
             pygame.mixer.Sound.play(self.attack_audio)
 
+        # Create effect
         self.game.sprites.add(ui_functions.HitImage("atk", target))
 
         # temporary
