@@ -6,6 +6,8 @@ from scenes.scene import Scene
 
 # MAX PLAYERS IS STILL 3, SO WE HAVE TO SELL A CHARACTER TO BUY A NEW ONE
 
+# MAKE GACHA SYSTEM???
+
 
 class Shop(Scene):
     def __init__(

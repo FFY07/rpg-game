@@ -1,5 +1,5 @@
 import pygame
-import random 
+import random
 
 import gui2.ui_functions as ui_functions
 import classes.class_functions as cf
@@ -9,6 +9,7 @@ from scenes.play import Play
 from scenes.char_create_select import CreateCharSelect
 
 import resources2.images
+
 # input1_rect = pygame.Rect(80, 280, 170, 32)
 
 
@@ -18,53 +19,69 @@ class CreateChar(Scene):
         self.background = pygame.Surface((1, 1))
         self.sprites = pygame.sprite.Group()
         self.ui_sprites = pygame.sprite.Group()
-        
+
         self.gui_dict = {}
         self.pointer = 0
         self.selected_name_dict = {}
         self.selected_class_dict = {}
 
-        self.player_list = [("Slashy", "Reaper"),
-                            ("Tiger", "Knight"),
-                            ("Joker", "Tank")]
-        
-        #random name and random classes 
+        self.player_dict = {
+            0: ("Slashy", "Reaper"),
+            1: ("Tiger", "Tank"),
+            2: ("Tachikawa", "Knight"),
+        }
 
-        self.class_list = ['Knight', 'Reaper', 'Tank', 'Bandit']
+        # random name and random classes
+
+        self.class_list = ["Knight", "Reaper", "Tank", "Bandit"]
         self.enemy_list = []
-        
+
         self.create_enemies()
-        
-        cf.create_team(self.player_list, "player", self.game)
+
+        cf.create_team(list(self.player_dict.values()), "player", self.game)
         cf.create_team(self.enemy_list, "enemy", self.game)
-        
-        self.sprites.add(ui_functions.TextSprite("CREATE YOUR CHARACTER", 50, 'Impact', "white", True, 50, name = "SELECTED"))
+
+        self.sprites.add(
+            ui_functions.TextSprite(
+                "CREATE YOUR CHARACTER",
+                50,
+                "Impact",
+                "white",
+                True,
+                50,
+                name="SELECTED",
+            )
+        )
 
         # This only selects the rectangle and not the text
-        self.gui_dict["start"] = self.create_button("START GAME", 30, None, "white", 300, 40, 'white', 'start' , 1060, 680)[0]
-        
+        self.gui_dict["start"] = self.create_button(
+            "START GAME", 30, None, "white", 300, 40, "white", "start", 1060, 680
+        )[0]
+
         # guirect = ui_functions.RectGUI()
-        #draw rect
+        # draw rect
         self.create_guis(3, 213)
-    
+
     def create_guis(self, amount, offset):
         """Create some amount of GUIs"""
         # color_list = ["grey27", "grey27", "grey27"]
         # for i, color in zip(range(amount), color_list):
         for i in range(amount):
-            gui = ui_functions.RectGUI(57, 100 + i * offset, 700, 143, "white", i, "grey27", self.game)
+            gui = ui_functions.RectGUI(
+                57, 100 + i * offset, 700, 143, "white", i, "grey27", self.game
+            )
 
             # self.create_button((f" Type here"), 30, None, "white", 0, 0, 'Black', f'T{i}' , gui.rect.center[0] - 50, gui.rect.center[1] - 45)
             self.sprites.add(gui)
             self.gui_dict[i] = gui
-            
+
     def create_enemies(self):
         for i in range(self.game.max_enemies):
-            name  = 'AI ' + str(random.randint(10, 99))
+            name = "AI " + str(random.randint(10, 99))
             classes = random.choice(self.class_list)
-            enemy =  (name, classes)
+            enemy = (name, classes)
             self.enemy_list.append(enemy)
-        
+
     def update(self, actions):
         for sprite in self.sprites.sprites():
             if not sprite.name == "SELECTED":
@@ -76,7 +93,7 @@ class CreateChar(Scene):
             for sprite in self.sprites.sprites():
                 if sprite.name == self.pointer:
                     sprite.selected = True
-        
+
             if actions["enter"]:
                 next_scene = CreateCharSelect(self.game, self.pointer)
                 next_scene.start_scene()
@@ -85,59 +102,61 @@ class CreateChar(Scene):
             for sprite in self.sprites.sprites():
                 if sprite.name == self.pointer:
                     sprite.selected = True
-        
+
             if actions["enter"]:
                 next_scene = CreateCharSelect(self.game, self.pointer)
                 next_scene.start_scene()
-                    
+
         if self.pointer == 2:
             for sprite in self.sprites.sprites():
                 if sprite.name == self.pointer:
                     sprite.selected = True
-        
+
             if actions["enter"]:
                 next_scene = CreateCharSelect(self.game, self.pointer)
                 next_scene.start_scene()
-                    
+
         if self.pointer == 3:
             for sprite in self.sprites.sprites():
                 if sprite.name == "start":
                     sprite.selected = True
-        
+
             if actions["enter"]:
                 next_scene = Play(self.game)
                 next_scene.start_scene()
-        
+
         self.selected_name_dict[self.pointer] = self.game.text_buffer
         self.text_buffer = ""
 
-                
-
         if actions["escape"]:
             self.exit_scene()
-        
-        if actions['space']:
+
+        if actions["space"]:
             next_scene = Play(self.game)
             next_scene.start_scene()
 
-        # if actions["enter"]:            
+        # if actions["enter"]:
         #     next_scene = Play(self.game)
         #     next_scene.start_scene()
-        
-        if actions['up']:
-            self.pointer -= 1 
 
-        if actions['down']:
+        if actions["up"]:
+            self.pointer -= 1
+
+        if actions["down"]:
             self.pointer += 1
-
 
         self.game.reset_keys()
         self.sprites.update()
-        
+
         # print(f"Current pointer: {self.pointer}")
-    
+
     def render(self, screen):
-        screen.blit(pygame.transform.scale(self.background, (self.game.screen_width, self.game.screen_height)), (0, 0))
+        screen.blit(
+            pygame.transform.scale(
+                self.background, (self.game.screen_width, self.game.screen_height)
+            ),
+            (0, 0),
+        )
         self.sprites.draw(screen)
 
         for sprite in self.sprites.sprites():

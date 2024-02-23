@@ -1,4 +1,4 @@
-import pygame, time
+import pygame
 
 import gui2.screen as scr
 import resources2.audio as audio

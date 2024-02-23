@@ -184,10 +184,13 @@ class TargetImage(pygame.sprite.Sprite):
 
 
 class HitImage(pygame.sprite.Sprite):
-    def __init__(self, attack_name, target: object, speed=50):
+    def __init__(self, attack_name, target: object, speed=50, width=256, height=256):
         super().__init__()
         self.target = target
         self.attack_name = attack_name
+
+        self.width = width
+        self.height = height
 
         self.current_frame = 0
         self.last_updated = 0
@@ -232,8 +235,8 @@ class HitImage(pygame.sprite.Sprite):
             image = pygame.transform.scale(
                 image,
                 (
-                    256,
-                    256,
+                    self.width,
+                    self.height,
                 ),
             )
 
