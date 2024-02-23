@@ -20,7 +20,7 @@ class Play(Scene):
         super().__init__(game)
         pygame.mixer.music.load(audio.battle_alt)
         pygame.mixer.music.set_volume(self.game.volume)
-        pygame.mixer.music.play(-1)
+        pygame.mixer.music.play(-1, 0, 1000)
 
         self.background = images.background_img
         self.ui_sprites = pygame.sprite.Group()

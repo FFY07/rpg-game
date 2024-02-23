@@ -16,12 +16,15 @@ class CreateCharSelect(Scene):
         self.sprites = pygame.sprite.Group()
         self.menu_id = menu_id
         self.gui_dict = {}
+        self.chosen_name = "John Wick"
+        self.chosen_class = "Knight"
+        self.pointer = 0
 
         # Unnecessary
         self.class_list = cf.unit_list
 
         self.class_name = ui_functions.TextSprite(
-            self.prev.class_list[0], 40, None, "white", True, 100, "SELECTED"
+            cf.unit_list[0], 40, None, "white", True, 100, "SELECTED"
         )
         self.sprites.add(self.class_name)
 

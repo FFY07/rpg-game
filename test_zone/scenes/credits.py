@@ -22,12 +22,12 @@ class Credits(Scene):
         pygame.mixer.music.set_volume(self.game.volume)
         pygame.mixer.music.play(-1, 48, 5000)
 
-        # Can't go below integer so use fps to slow it down below 1
+        # Can't go below integer so use fps to tune the speed (higher fps = faster)
         self.game.fps = 60
         self.falling_speed = (0, -1)
 
         # Starting position
-        self.position = scr.SCREEN_HEIGHT - 50
+        self.position = scr.SCREEN_HEIGHT - 100
 
         self.load_section(
             [" — PSB INTRODUCTION TO — ", "PROGRAMMING ASSIGNMENT"], title, 50
@@ -47,8 +47,8 @@ class Credits(Scene):
                 "Desmond Foo Fong Yoong",
                 "Haarith Bin Naguri Ibrahim",
                 "Haohong Luo",
-                "Xu Xiang (Ye Xuxiang) Yap",
                 "Yi Soon Pong",
+                "Xu Xiang (Ye Xuxiang) Yap",
                 "Qiao Er Kang",
             ],
             name,
