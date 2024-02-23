@@ -104,7 +104,7 @@ class Options(Scene):
                 pygame.mixer.music.play(-1)
 
                 while len(self.game.stack) > 1:
-                    self.game.stack.pop()
+                    self.exit_scene()
 
         if actions["down"]:
             pygame.mixer.Sound.play(audio.click_sfx)

@@ -16,9 +16,6 @@ EXP_TO_NEXT_LEVEL = 100
 
 COINS = 0
 
-# IMPORTANT: UPDATE THIS WHEN ADDING A NEW CLASS
-unit_list = ["Knight", "Reaper", "Bandit", "Tank"]
-
 # Note: check knight.py for class-specific references
 
 

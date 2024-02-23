@@ -7,7 +7,8 @@ from classes.units.knight import Knight
 from classes.units.bandit import Bandit
 from classes.units.tank import Tank
 
-import classes.unit as ut
+# IMPORTANT: UPDATE THIS WHEN ADDING A NEW CLASS
+unit_list = ["Knight", "Reaper", "Bandit", "Tank"]
 
 
 def create_unit(name, unit_class, team, game):
@@ -23,9 +24,9 @@ def create_unit(name, unit_class, team, game):
     """
 
     # If the given unit class is invalid, select a random one
-    if unit_class not in ut.unit_list:
+    if unit_class not in unit_list:
         print(f"[{unit_class}] is not a valid class")
-        unit_class = random.choice(ut.unit_list)
+        unit_class = random.choice(unit_list)
         print(f"[{unit_class}] has been selected instead")
 
     # Create the unit object

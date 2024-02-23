@@ -3,80 +3,105 @@ import pygame
 import gui2.ui_functions as ui_functions
 from scenes.scene import Scene
 import gui2.screen as scr
-import resources2.images
+import resources2.images as images
+import resources2.audio as audio
 
-credit_section = [55, None, "yellow"]
-credit_title = [45, None, "white"]
-credit_desc = [45, None, "green"]
-credit_name = [35, "segoeuiemoji", "white"]
+title = [45, "hightowertext", "red2"]
+desc = [40, "hightowertext", "orangered"]
+name = [35, "Palatino Linotype", "grey95"]
+note = [40, "hightowertext", "red"]
+
 
 class Credits(Scene):
     def __init__(self, game: object):
         super().__init__(game)
-        self.background = resources2.images.credits_background
-        self.credits = pygame.sprite.Group()
-        
+        self.background = images.credits_background
+        self.sprites = pygame.sprite.Group()
+
+        pygame.mixer.music.load(audio.credits_bgm)
+        pygame.mixer.music.set_volume(self.game.volume)
+        pygame.mixer.music.play(-1, 48, 5000)
+
         # Can't go below integer so use fps to slow it down below 1
-        self.game.fps = 45
-        self.falling_speed = (0, -2)
+        self.game.fps = 60
+        self.falling_speed = (0, -1)
 
-        self.credits_header = [
-            ('[ Credits ]', *credit_section, True, scr.SCREEN_HEIGHT - 50),
-            ('PSB INTRODUCTION TO PROGRAMMING ASSIGNMENT', *credit_desc, True, scr.SCREEN_HEIGHT),
-            ('GAME CREATED BY (GROUP A1)', *credit_desc, True, scr.SCREEN_HEIGHT + 50)
-            ]
+        # Starting position
+        self.position = scr.SCREEN_HEIGHT - 50
 
-        self.credits_body = [
-            ('[ Members ]', *credit_section, True, scr.SCREEN_HEIGHT + 400),
-            
-            ('Group Leader', *credit_title, True, scr.SCREEN_HEIGHT + 450),
-            ('Desmond Foo Fong Yoong 👑', *credit_name, True, scr.SCREEN_HEIGHT + 500),
-            ('Group Members', *credit_title, True, scr.SCREEN_HEIGHT + 650),
-            ('Haarith Bin Naguri Ibrahim', *credit_name, True, scr.SCREEN_HEIGHT + 700),
-            
-            
-            # ('[ 0 Lines Contributed ]', *credit_section, True, scr.SCREEN_HEIGHT + 850),
-            
-            # ('MOVE YOUR NAME OUT IF YOU SEE IT BELOW', *credit_desc, True, scr.SCREEN_HEIGHT + 900),
-            # ('THIS IS YOUR LAST CHANCE', *credit_section, True, scr.SCREEN_HEIGHT + 950),
-            # ('— RZ (17/2/2024)', 45, None, "grey", True, scr.SCREEN_HEIGHT + 1000),            
-            
-            ('Hall of Fame', *credit_title, True, scr.SCREEN_HEIGHT + 750),
-            ('Haohong Luo', *credit_name, True, scr.SCREEN_HEIGHT + 800),
-            ('Xu Xiang (Ye Xuxiang) Yap', *credit_name, True, scr.SCREEN_HEIGHT + 850),
-            ('Yi Soon Pong', *credit_name, True, scr.SCREEN_HEIGHT + 900),
-            ('Qiao Er Kang', *credit_name, True, scr.SCREEN_HEIGHT + 950),
-            # ('(More proof on GitHub)', 35, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1550),
-            ]
-        
+        self.load_section(
+            [" — PSB INTRODUCTION TO — ", "PROGRAMMING ASSIGNMENT"], title, 50
+        )
+        self.position += 150
 
-        self.credits_footer = [
-            ('THANKS FOR PLAYING', *credit_section, True, scr.SCREEN_HEIGHT + 1000),
-            (' ', *credit_section, True, scr.SCREEN_HEIGHT + 1700) # padding
-            ]
+        self.load_section(["GAME CREATED BY"], desc, 100)
 
-        # Add the sections you want to load into this list
-        self.credits_list = [self.credits_header, self.credits_body, self.credits_footer]
-                    
-        for section in self.credits_list:
-            for credit in section:
-                credit_sprite = ui_functions.TextSprite(*credit, False, *self.falling_speed)
-                self.credits.add(credit_sprite)
+        self.load_section(["Desmond Foo Fong Yoong"], name, 50)
+        self.load_section([">9000 lines modified"], note, 100)
+        self.load_section(["Haarith Bin Naguri Ibrahim"], name, 50)
+        self.load_section([">100 lines modified"], note, 400)
+
+        self.load_section(["GROUP A1 MEMBERS"], desc, 100)
+        self.load_section(
+            [
+                "Desmond Foo Fong Yoong",
+                "Haarith Bin Naguri Ibrahim",
+                "Haohong Luo",
+                "Xu Xiang (Ye Xuxiang) Yap",
+                "Yi Soon Pong",
+                "Qiao Er Kang",
+            ],
+            name,
+            75,
+        )
+        self.position += 100
+        self.load_section(["THANKS FOR PLAYING"], title, 100)
+
+    def load_section(self, text_list, section_type, offset):
+        for text in text_list:
+            self.sprites.add(
+                ui_functions.TextSprite(
+                    text, *section_type, True, self.position, False, *self.falling_speed
+                )
+            )
+            self.position += offset
 
     def update(self, actions):
         if actions["escape"] or actions["enter"]:
             self.game.fps = 60
-            self.exit_scene()
-            
-        self.credits.update()
+
+            for sprite in self.game.all_units:
+                sprite.kill()
+
+            pygame.mixer.music.load(self.game.music_path)
+            pygame.mixer.music.set_volume(self.game.volume)
+            pygame.mixer.music.play(-1)
+
+            while len(self.game.stack) > 1:
+                self.exit_scene()
+
+        self.sprites.update()
         self.game.reset_keys()
-        
+
         # Go back once credits are finished
-        if len(self.credits) == 0:
+        if len(self.sprites) == 0:
             self.game.fps = 60
-            self.exit_scene()
-        
+
+            for sprite in self.game.all_units:
+                sprite.kill()
+
+            pygame.mixer.music.load(self.game.music_path)
+            pygame.mixer.music.set_volume(self.game.volume)
+            pygame.mixer.music.play(-1)
+
+            while len(self.game.stack) > 1:
+                self.exit_scene()
+
     def render(self, screen):
-        screen.blit(pygame.transform.scale(self.background, (self.game.screen_width, self.game.screen_height)), (0, 0))
-        self.credits.draw(screen)
-        
+        screen.blit(
+            pygame.transform.scale(
+                self.background, (self.game.screen_width, self.game.screen_height)
+            ),
+            (0, 0),
+        )
+        self.sprites.draw(screen)

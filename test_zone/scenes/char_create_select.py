@@ -17,45 +17,29 @@ class CreateCharSelect(Scene):
         self.menu_id = menu_id
         self.gui_dict = {}
 
-        self.chosen_character = (self.chosen_name, self.chosen_class)
-        # We need to output the result of text from self.game.text_buffer to some position in self.prev.some_list/dict
+        # Unnecessary
+        self.class_list = cf.unit_list
+
+        self.class_name = ui_functions.TextSprite(
+            self.prev.class_list[0], 40, None, "white", True, 100, "SELECTED"
+        )
+        self.sprites.add(self.class_name)
 
     def update(self, actions):
-        for i, sprite in enumerate(self.prev.sprites.sprites()):
-            if not sprite.name == "SELECTED" or sprite.name == "start":
-                self.gui_dict[i] = sprite
+        for sprite in self.sprites:
+            if sprite.name != "SELECTED":
+                sprite.selected = False
 
-        # print(self.gui_dict)
-        for _, sprite in self.gui_dict.items():
-            sprite.selected = False
-            if self.game.text_ready:
-                self.game.text_buffer = ""
-
-        if self.prev.pointer == 0:
-            for sprite in self.prev.sprites:
-                if sprite.name == "T0":
-                    sprite.selected = True
-
-        if self.prev.pointer == 1:
-            for sprite in self.prev.sprites:
-                if sprite.name == "T1":
-                    sprite.selected = True
-
-        if self.prev.pointer == 2:
-            for sprite in self.prev.sprites:
-                if sprite.name == "T2":
-                    sprite.selected = True
-
-        if actions["enter"]:
-            self.game.typing = True
-
-        if actions["escape"]:
-            # self.prev.player_dict[self.menu_id] = self.chosen_character
+        if self.pointer == 1:
+            # We need to output the result of text from self.game.text_buffer to some position in self.prev.some_list/dict
+            self.chosen_character = (self.chosen_name, self.chosen_class)
             self.exit_scene()
 
-        self.prev.sprites.update()
+        if actions["escape"]:
+            self.exit_scene()
+
+        self.sprites.update()
         self.game.reset_keys()
 
     def render(self, screen):
         self.sprites.draw(screen)
-        self.prev.render(screen)
