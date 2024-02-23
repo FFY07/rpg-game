@@ -187,7 +187,7 @@ class Unit(pygame.sprite.Sprite):
             pygame.mixer.Sound.play(self.attack_audio)
 
         # Create effect
-        self.game.sprites.add(ui_functions.HitImage("atk", target))
+        self.game.sprites.add(ui_functions.HitImage("atk", target, 2))
 
         # temporary
         print(f"[DEBUG] Target HP: {target.health}/{target.max_health}")
