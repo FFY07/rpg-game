@@ -15,7 +15,11 @@ start = f"{Path('test_zone/resources2/audio/bgm/Fantasy RPG Music Pack Vol.3/Tra
 game_over = f"{Path('test_zone/resources2/audio/bgm/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Fx 3.mp3')}"
 menu_alt = f"{Path('test_zone/resources2/audio/bgm/amaranth_inst.mp3')}"
 
+
+
 # Sound effects
+click_sfx = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/game_effects/click.mp3')}")
+
 sword_sfx = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/unsheath_sword-6113.mp3')}")
 
 reaper_basic = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/double_unsheath2.mp3')}")

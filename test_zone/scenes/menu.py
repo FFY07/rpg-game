@@ -5,7 +5,7 @@ import pygame
 from scenes.scene import Scene
 import resources2.images
 from gui2 import ui_functions
-
+import resources2.audio as audio
 from scenes.char_create import CreateChar
 from scenes.options import Options
 from scenes.credits import Credits
@@ -45,7 +45,7 @@ class MainMenu(Scene):
                     sprite.selected = True
             
             if actions["enter"]:
-                
+                pygame.mixer.Sound.play(audio.click_sfx)
                 # Removes any existing units before our character create screen
                 for sprite in self.game.all_units.sprites():
                     sprite.kill()
@@ -65,6 +65,7 @@ class MainMenu(Scene):
             
             if actions["enter"]:
                 # Plop the next scene onto the stack
+                pygame.mixer.Sound.play(audio.click_sfx)
                 next_scene = Options(self.game)
                 next_scene.start_scene()
                 
@@ -74,6 +75,7 @@ class MainMenu(Scene):
                     sprite.selected = True
             
             if actions["enter"]:
+                pygame.mixer.Sound.play(audio.click_sfx)
                 # Plop the next scene onto the stack
                 next_scene = Credits(self.game)
                 next_scene.start_scene()
@@ -84,16 +86,20 @@ class MainMenu(Scene):
                     sprite.selected = True
             
             if actions["enter"]:
+                pygame.mixer.Sound.play(audio.click_sfx)
                 # Plop the next scene onto the stack
                 self.game.running, self.game.playing = False, False
             
         if actions["down"]:
+            pygame.mixer.Sound.play(audio.click_sfx)
             self.pointer += 1
         
         if actions["up"]:
+            pygame.mixer.Sound.play(audio.click_sfx)
             self.pointer -= 1
             
         if actions["escape"]:
+            pygame.mixer.Sound.play(audio.click_sfx)
             self.game.running, self.game.playing = False, False
             
         self.game.reset_keys()
