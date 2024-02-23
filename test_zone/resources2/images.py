@@ -31,6 +31,3 @@ player_target = pygame.transform.scale(player_target, (192, 192))
 
 enemy_target = pygame.image.load(f"{Path('test_zone/resources2/images/ui_elements/enemy_target.png')}")
 enemy_target = pygame.transform.scale(enemy_target, (192, 192))
-
-hit_effect = pygame.image.load(f"{Path('test_zone/resources2/images/effect/atk/smile.png')}")
-hit_effect = pygame.transform.scale(hit_effect, (256, 256))

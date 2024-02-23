@@ -5,6 +5,8 @@ import gui2.screen as scr
 import resources2.images as images
 import resources2.audio as audio
 
+import gui2.ui_functions as ui_functions
+
 MAX_HEALTH = 100
 MANA = 50
 
@@ -183,8 +185,7 @@ class Unit(pygame.sprite.Sprite):
         if self.game.sound:
             pygame.mixer.Sound.play(self.attack_audio)
 
-        attack_effect = images.hit_effect
-        target.image.blit(attack_effect, (0, 0))
+        self.game.sprites.add(ui_functions.HitImage("atk", target))
 
         # temporary
         print(f"[DEBUG] Target HP: {target.health}/{target.max_health}")

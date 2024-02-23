@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pygame
 import gui2.screen as scr
 
@@ -179,6 +181,63 @@ class TargetImage(pygame.sprite.Sprite):
             self.image.set_alpha(255)
         else:
             self.image.set_alpha(0)
+
+
+class HitImage(pygame.sprite.Sprite):
+    def __init__(self, attack_name, target: object):
+        super().__init__()
+        self.target = target
+        self.attack_name = attack_name
+
+        self.current_frame = 0
+        self.last_updated = 0
+        self.current_time = 0
+
+        self.animations = []
+
+        self.load_attack_sprites()
+
+        self.anim_speed = 100  # ticks
+
+    def update(self):
+        self.current_time = pygame.time.get_ticks()
+
+        if self.current_time - self.last_updated > self.anim_speed:
+            self.last_updated = self.current_time
+            self.current_frame += 1
+
+            print(self.current_frame)
+
+        if self.current_frame < len(self.animations):
+            self.image = self.animations[self.current_frame]
+            self.rect = self.image.get_rect()
+            self.rect.center = self.target.rect.center
+
+        else:
+            # print(self.current_frame, self.animations)
+            self.kill()
+
+    def load_attack_sprites(self):
+        """Load attack sprite images"""
+
+        path = Path(f"test_zone/resources2/images/effect/{self.attack_name}")
+        image_list = list(path.glob("*.*"))
+
+        # Load images as pygame surfaces
+
+        for frame in image_list:
+            image = pygame.image.load(frame)
+
+            # Size of image
+            image = pygame.transform.scale(
+                image,
+                (
+                    512,
+                    512,
+                ),
+            )
+
+            self.animations.append(image)
 
 
 class RectGUI(pygame.sprite.Sprite):

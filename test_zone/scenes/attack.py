@@ -39,9 +39,6 @@ class ChooseAttack(Scene):
         self.text_dict = self.create_dict(self.text_sprites)
         self.pointer = 0
 
-        print(self.button_dict)
-        print(self.movelist)
-
     def update(self, actions):
         self.pointer = self.pointer % len(self.movelist)
 

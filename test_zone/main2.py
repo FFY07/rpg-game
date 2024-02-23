@@ -156,9 +156,11 @@ class Game:
     def update(self):
         self.clock.tick(self.fps)
         self.stack[-1].update(self.actions)
+        self.sprites.update()
 
     def render(self):
         self.stack[-1].render(self.canvas)
+        self.sprites.draw(self.canvas)
 
         self.screen.blit(
             pygame.transform.scale(
