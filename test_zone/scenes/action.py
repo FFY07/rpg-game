@@ -6,6 +6,7 @@ from scenes.inventory import Inventory
 from scenes.attack import ChooseAttack
 from scenes.target import ChooseTarget
 
+import resources2.audio as audio
 
 class Action(Scene):
     def __init__(
@@ -50,28 +51,34 @@ class Action(Scene):
         self.text_dict[self.pointer].selected = True
 
         if actions["down"]:
+            pygame.mixer.Sound.play(audio.click_sfx)
             self.pointer += 1
 
         if actions["up"]:
+            pygame.mixer.Sound.play(audio.click_sfx)
             self.pointer -= 1
 
         if self.pointer == 0:
             if actions["enter"]:
+                pygame.mixer.Sound.play(audio.click_sfx)
                 next_scene = ChooseAttack(self.game, self.selected_unit, self.anchor)
                 next_scene.start_scene()
                 self.game.reset_keys()
 
         if self.pointer == 1:
             if actions["enter"]:
+                pygame.mixer.Sound.play(audio.click_sfx)
                 next_scene = Inventory(self.game, self.selected_unit, self.anchor)
                 next_scene.start_scene()
                 self.game.reset_keys()
 
         if self.pointer == 2:
             if actions["enter"]:
+                pygame.mixer.Sound.play(audio.click_sfx)
                 print("Opening shop (haven't code yet D:)")
 
         if actions["escape"] or actions["enter"]:
+            pygame.mixer.Sound.play(audio.click_sfx)
             self.sprites.empty()
             self.exit_scene()
 

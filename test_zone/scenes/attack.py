@@ -3,6 +3,7 @@ import pygame
 from scenes.scene import Scene
 from scenes.target import ChooseTarget
 
+import resources2.audio as audio
 # NOT WRITTEN YET; SKIPPING STRAIGHT TO TARGET
 
 
@@ -58,12 +59,15 @@ class ChooseAttack(Scene):
         # Execute the selected action (it's the attack function)
 
         if actions["down"]:
+            pygame.mixer.Sound.play(audio.click_sfx)
             self.pointer += 1
 
         if actions["up"]:
+            pygame.mixer.Sound.play(audio.click_sfx)
             self.pointer -= 1
 
         if actions["enter"]:
+            pygame.mixer.Sound.play(audio.click_sfx)
             next_scene = ChooseTarget(
                 self.game,
                 self.selected_unit,
@@ -73,6 +77,7 @@ class ChooseAttack(Scene):
             next_scene.start_scene()
 
         if actions["escape"]:
+            pygame.mixer.Sound.play(audio.click_sfx)
             self.sprites.empty()
             self.exit_scene()
 

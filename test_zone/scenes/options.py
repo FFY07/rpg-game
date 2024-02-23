@@ -3,6 +3,7 @@ import pygame
 from scenes.scene import Scene
 import resources2.images
 from gui2 import ui_functions
+import resources2.audio as audio
 
 BUTTON_TEXT_SIZE = 30
 BUTTON_FONT = "freesansbold"
@@ -67,11 +68,13 @@ class Options(Scene):
         # Music toggle
         if self.pointer == 0:
             if actions["enter"]:
+                pygame.mixer.Sound.play(audio.click_sfx)
                 if self.game.music:
                     self.game.music = False
                     pygame.mixer.music.pause()
 
                 else:
+                    pygame.mixer.Sound.play(audio.click_sfx)
                     self.game.music = True
                     pygame.mixer.music.unpause()
 
@@ -79,22 +82,26 @@ class Options(Scene):
         if self.pointer == 1:
             # Toggles game sound effects
             if actions["enter"]:
+                pygame.mixer.Sound.play(audio.click_sfx)
                 if self.game.sound:
                     self.game.sound = False
                     self.game.volume = 1
 
                 else:
+                    pygame.mixer.Sound.play(audio.click_sfx)
                     self.game.sound = True
                     self.game_volume = 0
 
         # Back to previous scene
         if self.pointer == 2:
             if actions["enter"]:
+                pygame.mixer.Sound.play(audio.click_sfx)
                 self.exit_scene()
 
         # Back to main menu
         if self.pointer == 3:
             if actions["enter"]:
+                pygame.mixer.Sound.play(audio.click_sfx)
                 self.sprites.empty()
                 pygame.mixer.music.load(self.game.music_path)
                 pygame.mixer.music.set_volume(self.game.volume)
@@ -104,12 +111,15 @@ class Options(Scene):
                     self.game.stack.pop()
 
         if actions["down"]:
+            pygame.mixer.Sound.play(audio.click_sfx)
             self.pointer += 1
 
         if actions["up"]:
+            pygame.mixer.Sound.play(audio.click_sfx)
             self.pointer -= 1
 
         if actions["escape"]:
+            pygame.mixer.Sound.play(audio.click_sfx)
             # Clear sprites to save resources
             self.sprites.empty()
             self.exit_scene()
