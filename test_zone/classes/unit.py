@@ -180,10 +180,11 @@ class Unit(pygame.sprite.Sprite):
         self.change_state("attack")
         target.change_state("hurt")
         target.health -= damage
-        pygame.mixer.Sound.play(self.attack_audio)
+        if self.game.sound:
+            pygame.mixer.Sound.play(self.attack_audio)
 
         attack_effect = images.hit_effect
-        self.game.canvas.blit(attack_effect, (0, 0))
+        target.image.blit(attack_effect, (0, 0))
 
         # temporary
         print(f"[DEBUG] Target HP: {target.health}/{target.max_health}")

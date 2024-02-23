@@ -41,37 +41,20 @@ class Play(Scene):
             (self.xc + 375, self.yc),
             (self.xc + 250, self.yc - 150),
         ]
-
-        # self.ui_sprites.add(ui_functions.TextSprite("Type", 30, "freesansbold", "white", self.xc - 200, self.yc + 200, "typing"))
-        # self.ui_sprites.add(ui_functions.TextSprite("[Last msg]", 20, "freesansbold", "white", self.xc - 300, self.yc + 300, "lastmsg"))
-
         cf.set_positions(self.player_positions, self.game.players)
         cf.set_positions(self.enemy_positions, self.game.enemies)
-
-        # Make a list so we can dynamically adjust our pointer position
-        self.player_list = []
-        self.enemy_list = []
-        self.alive_player_dict = {}
-        self.alive_enemy_dict = {}
-
-        for i, sprite in enumerate(self.game.players.sprites()):
-            self.player_list.append(sprite)
-
-        for i, sprite in enumerate(self.game.enemies.sprites()):
-            self.enemy_list.append(sprite)
 
         # The reason why there is a dictionary and a list is because the list gets changed during game iteration
         # While the alive dictionary needs to be fixed with keys so it doesn't keep appending
         # Since it needs to be updated every loop
 
-        self.selected_unit = self.player_list[0]
+        self.selected_unit = self.game.players.sprites()[0]
 
         # Add pointer sprite
         self.ui_sprites.add(ui_functions.TargetImage(self, images.player_target))
 
-    # Currently unused; use only if we need to adjust the unit object's .selected attribute
-    # def select_player(self, pointer):
-    #     self.player_list[pointer].selected = True
+        self.button_dict = self.create_dict(self.button_sprites)
+        self.text_dict = self.create_dict(self.text_sprites)
 
     def update(self, actions):
         self.update_alive_dict()
@@ -88,32 +71,15 @@ class Play(Scene):
             next_scene.start_scene()
             return
 
-        # self.current_text = ui_functions.store_text("lastmsg", self.ui_sprites, self.game)
-
-        # # Print it if it is not empty
-        # if self.current_text:
-        #     print(self.current_text)
-
-        # for sprite in self.ui_sprites:
-        #     if sprite.name == "typing":
-        #         sprite.text = self.game.text_buffer
-
-        # Reset the selected state of all sprites at the start of each loop
         for sprite in self.game.all_units.sprites():
             sprite.selected = False
 
         for sprite in self.ui_sprites.sprites():
             sprite.selected = True
 
-        # Remove dead sprites from list
-        for i, sprite in enumerate(self.player_list):
-            if not sprite.alive:
-                self.player_list.pop(i)
+        self.pointer = self.pointer % len(self.alive_player_dict)
 
-        # Constrains the pointer to the length of the player list
-        self.pointer = self.pointer % len(self.player_list)
-
-        self.selected_unit = self.player_list[self.pointer]
+        self.selected_unit = list(self.alive_player_dict.values())[self.pointer]
 
         if actions["escape"]:
             next_scene = Options(self.game)
@@ -126,6 +92,7 @@ class Play(Scene):
             self.pointer -= 1
 
         if actions["enter"]:
+
             # Create an anchor as well using self because we will be referencing this scene in the other menu scenes
             next_scene = Action(self.game, self.selected_unit, self)
 

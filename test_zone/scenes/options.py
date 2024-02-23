@@ -18,7 +18,7 @@ class Options(Scene):
         self.background = resources2.images.options_background
         self.sprites = pygame.sprite.Group()
         self.pointer = 0
-        self.button_list = ["Music", "Sound", "Back", "Menu"]
+        self.button_list = ["Music", "Sound", "Back", "New Game"]
 
         self.generate_buttons(
             self.button_list,
@@ -31,6 +31,9 @@ class Options(Scene):
             (True, 350),
             (0, 50),
         )
+
+        self.button_dict = self.create_dict(self.button_sprites)
+        self.text_dict = self.create_dict(self.text_sprites)
 
     def update(self, actions):
         # Reset all selected
@@ -56,12 +59,13 @@ class Options(Scene):
                     self.game.sound = True
                     sprite.toggled = True
 
+        # Show button and text (button temporarily disabled)
+
+        # self.button_dict[self.pointer].selected = True
+        self.text_dict[self.pointer].selected = True
+
         # Music toggle
         if self.pointer == 0:
-            for sprite in self.sprites.sprites():
-                if sprite.name == "Music":
-                    sprite.selected = True
-
             if actions["enter"]:
                 if self.game.music:
                     self.game.music = False
@@ -73,11 +77,7 @@ class Options(Scene):
 
         # Sound toggle
         if self.pointer == 1:
-            for sprite in self.sprites.sprites():
-                if sprite.name == "Sound":
-                    sprite.selected = True
-
-            # Toggles game volume
+            # Toggles game sound effects
             if actions["enter"]:
                 if self.game.sound:
                     self.game.sound = False
@@ -89,18 +89,11 @@ class Options(Scene):
 
         # Back to previous scene
         if self.pointer == 2:
-            for sprite in self.sprites.sprites():
-                if sprite.name == "Back":
-                    sprite.selected = True
-
             if actions["enter"]:
                 self.exit_scene()
 
+        # Back to main menu
         if self.pointer == 3:
-            for sprite in self.sprites.sprites():
-                if sprite.name == "Menu":
-                    sprite.selected = True
-
             if actions["enter"]:
                 self.sprites.empty()
                 pygame.mixer.music.load(self.game.music_path)

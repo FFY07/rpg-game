@@ -65,6 +65,7 @@ class Inventory(Scene):
         if actions["up"]:
             self.pointer -= 1
 
+        # HARDCODE BECAUSE LAZY REWRITE IF WE CHANGE ANY VALUES IN INVENTORY ALSO RMB TO UPDATE HERE THX
         if self.pointer == 0:
             self.select_item("Health Potion", actions)
 

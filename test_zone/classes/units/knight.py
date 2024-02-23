@@ -59,7 +59,8 @@ class Knight(Unit):
         self.change_state("attack")
         target.change_state("hurt")
         target.health -= damage
-        pygame.mixer.Sound.play(self.attack_audio)
+        if self.game.sound:
+            pygame.mixer.Sound.play(self.attack_audio)
         # THIS WHOLE SECTION ABOVE INTO ONE METHOD
 
         print(f"Slashed {target.name}!")
@@ -75,6 +76,7 @@ class Knight(Unit):
         self.change_state("attack")
         target.change_state("hurt")
         target.health -= damage
-        pygame.mixer.Sound.play(self.attack_audio)
+        if self.game.sound:
+            pygame.mixer.Sound.play(self.attack_audio)
 
         print(f"Executed {target.name}")

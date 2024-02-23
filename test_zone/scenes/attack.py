@@ -58,8 +58,6 @@ class ChooseAttack(Scene):
         self.button_dict[self.pointer].selected = True
         self.text_dict[self.pointer].selected = True
 
-        print(self.pointer)
-        print(self.selected_move)
         # Execute the selected action (it's the attack function)
 
         if actions["down"]:
