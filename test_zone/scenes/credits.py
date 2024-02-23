@@ -35,23 +35,23 @@ class Credits(Scene):
             ('Haarith Bin Naguri Ibrahim', *credit_name, True, scr.SCREEN_HEIGHT + 700),
             
             
-            ('[ 0 Lines Contributed ]', *credit_section, True, scr.SCREEN_HEIGHT + 850),
+            # ('[ 0 Lines Contributed ]', *credit_section, True, scr.SCREEN_HEIGHT + 850),
             
-            ('MOVE YOUR NAME OUT IF YOU SEE IT BELOW', *credit_desc, True, scr.SCREEN_HEIGHT + 900),
-            ('THIS IS YOUR LAST CHANCE', *credit_section, True, scr.SCREEN_HEIGHT + 950),
-            ('— RZ (17/2/2024)', 45, None, "grey", True, scr.SCREEN_HEIGHT + 1000),            
+            # ('MOVE YOUR NAME OUT IF YOU SEE IT BELOW', *credit_desc, True, scr.SCREEN_HEIGHT + 900),
+            # ('THIS IS YOUR LAST CHANCE', *credit_section, True, scr.SCREEN_HEIGHT + 950),
+            # ('— RZ (17/2/2024)', 45, None, "grey", True, scr.SCREEN_HEIGHT + 1000),            
             
-            ('Hall of Fame', *credit_title, True, scr.SCREEN_HEIGHT + 1200),
-            ('Haohong Luo', *credit_name, True, scr.SCREEN_HEIGHT + 1250),
-            ('Xu Xiang (Ye Xuxiang) Yap', *credit_name, True, scr.SCREEN_HEIGHT + 1300),
-            ('Yi Soon Pong', *credit_name, True, scr.SCREEN_HEIGHT + 1350),
-            ('Qiao Er Kang', *credit_name, True, scr.SCREEN_HEIGHT + 1400),
-            ('(More proof on GitHub)', 35, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1550),
+            ('Hall of Fame', *credit_title, True, scr.SCREEN_HEIGHT + 750),
+            ('Haohong Luo', *credit_name, True, scr.SCREEN_HEIGHT + 800),
+            ('Xu Xiang (Ye Xuxiang) Yap', *credit_name, True, scr.SCREEN_HEIGHT + 850),
+            ('Yi Soon Pong', *credit_name, True, scr.SCREEN_HEIGHT + 900),
+            ('Qiao Er Kang', *credit_name, True, scr.SCREEN_HEIGHT + 950),
+            # ('(More proof on GitHub)', 35, "segoeuiemoji", "grey", True, scr.SCREEN_HEIGHT + 1550),
             ]
         
 
         self.credits_footer = [
-            ('THANKS FOR PLAYING', *credit_section, True, scr.SCREEN_HEIGHT + 1700),
+            ('THANKS FOR PLAYING', *credit_section, True, scr.SCREEN_HEIGHT + 1000),
             (' ', *credit_section, True, scr.SCREEN_HEIGHT + 1700) # padding
             ]
 
