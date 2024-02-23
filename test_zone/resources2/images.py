@@ -9,6 +9,7 @@ menubackground_img = pygame.image.load(f"{Path('test_zone/resources2/images/back
 
 options_background = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/option.jpg')}")
 credits_background = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/artofjoniken_forge2.jpg')}")
+story_background = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/story.jpg')}")
 
 #background image
 background_img = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/throne.png')}")

@@ -6,6 +6,7 @@ import classes.class_functions as cf
 
 from scenes.scene import Scene
 from scenes.play import Play
+from scenes.story import Story
 from scenes.char_create_select import CreateCharSelect
 
 import resources2.images
@@ -134,7 +135,7 @@ class CreateChar(Scene):
                 cf.create_team(self.enemy_list, "enemy", self.game)
 
                 # Start the game
-                next_scene = Play(self.game)
+                next_scene = Story(self.game)
                 next_scene.start_scene()
 
         # self.selected_name_dict[self.pointer] = self.game.text_buffer
@@ -144,7 +145,7 @@ class CreateChar(Scene):
             self.exit_scene()
 
         if actions["space"]:
-            next_scene = Play(self.game)
+            next_scene = Story(self.game)
             next_scene.start_scene()
 
         # if actions["enter"]:
