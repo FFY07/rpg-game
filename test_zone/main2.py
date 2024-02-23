@@ -158,6 +158,14 @@ class Game:
         self.stack[-1].update(self.actions)
         self.sprites.update()
 
+        if self.music:
+            pygame.mixer.music.unpause()
+
+        if not self.music:
+            pygame.mixer.music.pause()
+
+        pygame.mixer.music.set_volume(self.volume)
+
     def render(self):
         self.stack[-1].render(self.canvas)
         self.sprites.draw(self.canvas)

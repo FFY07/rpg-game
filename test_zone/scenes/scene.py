@@ -51,7 +51,8 @@ class Scene:
         button_alpha=100,
         text_alpha=255,
     ):
-        """Appends a TextSprite and Button object to the scene's self.sprites group"""
+        """Appends a TextSprite and Button object to the scene's self.sprites group\n
+        as well as self.button_sprites and self.text_sprites"""
         button_sprite = ui_functions.Button(
             rect_width, rect_height, rect_fill, x, y, name, button_alpha
         )

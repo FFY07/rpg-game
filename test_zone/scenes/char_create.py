@@ -19,14 +19,13 @@ class CreateChar(Scene):
         self.background = pygame.Surface((1, 1))
         self.sprites = pygame.sprite.Group()
 
-
-        self.gui_dict = {}
+        self.menu_dict = {}
         self.pointer = 0
 
         self.player_dict = {
-            0: ("Slashy", "Reaper"),
-            1: ("Tiger", "Tank"),
-            2: ("Tachikawa", "Knight"),
+            0: ("Default1", "Reaper"),
+            1: ("Default2", "Tank"),
+            2: ("Default3", "Knight"),
         }
 
         # CreateCharSelect(self.game, self.pointer)
@@ -36,8 +35,8 @@ class CreateChar(Scene):
 
         self.create_enemies()
 
-        cf.create_team(list(self.player_dict.values()), "player", self.game)
-        cf.create_team(self.enemy_list, "enemy", self.game)
+        # Create our menu guis (amount, offset)
+        self.create_guis(3, 213)
 
         self.sprites.add(
             ui_functions.TextSprite(
@@ -51,14 +50,21 @@ class CreateChar(Scene):
             )
         )
 
-        # This only selects the rectangle and not the text
-        self.gui_dict["start"] = self.create_button(
+        # Create the start game button
+        self.start_button = self.create_button(
             "START GAME", 30, None, "white", 300, 40, "white", "start", 1060, 680
-        )[0]
+        )
 
-        # guirect = ui_functions.RectGUI()
-        # draw rect
-        self.create_guis(3, 213)
+        self.text_dict = self.create_dict(self.text_sprites)
+        self.button_dict = self.create_dict(self.button_sprites)
+
+        # Get rid of the key we automatically generated
+        self.text_dict.pop(0)
+        self.button_dict.pop(0)
+
+        # Set the button background and text index to be right after the last item in our list of menu guis
+        self.button_dict[len(self.menu_dict)] = self.start_button[0]
+        self.text_dict[len(self.menu_dict)] = self.start_button[1]
 
     def create_guis(self, amount, offset):
         """Create some amount of GUIs"""
@@ -69,11 +75,10 @@ class CreateChar(Scene):
                 57, 100 + i * offset, 700, 143, "white", i, "grey27", self.game
             )
 
-            # self.create_button((f" Type here"), 30, None, "white", 0, 0, 'Black', f'T{i}' , gui.rect.center[0] - 50, gui.rect.center[1] - 45)
             self.sprites.add(gui)
-            self.gui_dict[i] = gui
+            gui.selected_name.text = self.player_dict[i][0]
 
-        self.gui_dict[self.pointer].name_text.text = self.player_dict[self.pointer][0]
+            self.menu_dict[i] = gui
 
     def create_enemies(self):
         for i in range(self.game.max_enemies):
@@ -87,41 +92,49 @@ class CreateChar(Scene):
             if not sprite.name == "SELECTED":
                 sprite.selected = False
 
-        self.pointer = self.pointer % (len(self.gui_dict))
+        # haha hardcode + 1
+        self.pointer = self.pointer % (len(self.menu_dict) + 1)
+
+        # Since they're separate dictionaries this will switch after len(self.menu_dict)
+        try:
+            # fmt: off
+            # This selects the selected_name.text from our rectgui using our self.pointer as the index
+            # Then slots it into the 0 index of our player dict which is the name (name, class) tuple
+            self.menu_dict[self.pointer].selected_name.text = self.player_dict[self.pointer][0]
+            # fmt: on
+            self.menu_dict[self.pointer].selected = True
+        except:
+            pass
+
+        try:
+            self.button_dict[self.pointer].selected = True
+            self.text_dict[self.pointer].selected = True
+        except:
+            pass
 
         if self.pointer == 0:
-            for sprite in self.sprites.sprites():
-                if sprite.name == self.pointer:
-                    sprite.selected = True
-
             if actions["enter"]:
                 next_scene = CreateCharSelect(self.game, self.pointer)
                 next_scene.start_scene()
 
         if self.pointer == 1:
-            for sprite in self.sprites.sprites():
-                if sprite.name == self.pointer:
-                    sprite.selected = True
-
             if actions["enter"]:
                 next_scene = CreateCharSelect(self.game, self.pointer)
                 next_scene.start_scene()
 
         if self.pointer == 2:
-            for sprite in self.sprites.sprites():
-                if sprite.name == self.pointer:
-                    sprite.selected = True
-
             if actions["enter"]:
                 next_scene = CreateCharSelect(self.game, self.pointer)
                 next_scene.start_scene()
 
         if self.pointer == 3:
-            for sprite in self.sprites.sprites():
-                if sprite.name == "start":
-                    sprite.selected = True
-
             if actions["enter"]:
+
+                # Create the characters
+                cf.create_team(list(self.player_dict.values()), "player", self.game)
+                cf.create_team(self.enemy_list, "enemy", self.game)
+
+                # Start the game
                 next_scene = Play(self.game)
                 next_scene.start_scene()
 

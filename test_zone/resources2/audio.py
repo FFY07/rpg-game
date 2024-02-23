@@ -24,7 +24,7 @@ warrior_basic = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character
 warrior_basic.set_volume(0.4)
 
 tank_basic = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/cannon-fire.mp3')}")
-tank_basic.set_volume(0.5)
+tank_basic.set_volume(0.25)
 
 magic_sfx = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/1168-za-warudo-sound-effect.mp3')}")
 magic_sfx.set_volume(0.4)

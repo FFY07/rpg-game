@@ -69,11 +69,9 @@ class Options(Scene):
             if actions["enter"]:
                 if self.game.music:
                     self.game.music = False
-                    pygame.mixer.music.pause()
 
                 else:
                     self.game.music = True
-                    pygame.mixer.music.unpause()
 
         # Sound toggle
         if self.pointer == 1:
@@ -81,11 +79,9 @@ class Options(Scene):
             if actions["enter"]:
                 if self.game.sound:
                     self.game.sound = False
-                    self.game.volume = 1
 
                 else:
                     self.game.sound = True
-                    self.game_volume = 0
 
         # Back to previous scene
         if self.pointer == 2:

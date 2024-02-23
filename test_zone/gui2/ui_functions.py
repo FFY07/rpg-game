@@ -264,6 +264,8 @@ class RectGUI(pygame.sprite.Sprite):
         self.width = width
         self.height = height
 
+        self.selected = False
+
         self.name = name
         self.color = color
         self.border_color = border_color
@@ -277,8 +279,6 @@ class RectGUI(pygame.sprite.Sprite):
         self.image.set_alpha(0)
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
-
-        self.selected_name = ""
 
         self.player_text = TextSprite(
             f"Player {name + 1} ",
@@ -299,7 +299,7 @@ class RectGUI(pygame.sprite.Sprite):
         )
 
         # self.name_button = "button object"
-        self.name_button = TextSprite(
+        self.selected_name = TextSprite(
             "Type here",
             30,
             None,
@@ -322,14 +322,14 @@ class RectGUI(pygame.sprite.Sprite):
 
         # Don't forget to put the buttons into the sprites below
         self.sprites.add(
-            [self.player_text, self.name_text, self.class_text, self.name_button]
+            [self.player_text, self.name_text, self.class_text, self.selected_name]
         )
 
     def update(self):
         if self.selected:
             self.border_color = "white"
             self.color = "white"
-            self.name_button.text = self.game.text_buffer
+            # self.selected_name.text = self.game.text_buffer
 
         else:
             self.border_color = self.default_border_color
