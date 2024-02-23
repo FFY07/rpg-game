@@ -128,6 +128,9 @@ class Game:
                         # Add the text to the text buffer string
                         self.text_buffer += event.unicode
 
+                # if self.sound:
+                #     pygame.mixer.Sound.play(audio.click_sfx)
+
             if event.type == pygame.KEYUP:
 
                 if event.key == pygame.K_w or event.key == pygame.K_UP:
