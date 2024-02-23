@@ -18,12 +18,10 @@ class CreateChar(Scene):
         super().__init__(game)
         self.background = pygame.Surface((1, 1))
         self.sprites = pygame.sprite.Group()
-        self.ui_sprites = pygame.sprite.Group()
+
 
         self.gui_dict = {}
         self.pointer = 0
-        self.selected_name_dict = {}
-        self.selected_class_dict = {}
 
         self.player_dict = {
             0: ("Slashy", "Reaper"),
@@ -31,7 +29,7 @@ class CreateChar(Scene):
             2: ("Tachikawa", "Knight"),
         }
 
-        # random name and random classes
+        # CreateCharSelect(self.game, self.pointer)
 
         self.class_list = ["Knight", "Reaper", "Tank", "Bandit"]
         self.enemy_list = []
@@ -74,6 +72,8 @@ class CreateChar(Scene):
             # self.create_button((f" Type here"), 30, None, "white", 0, 0, 'Black', f'T{i}' , gui.rect.center[0] - 50, gui.rect.center[1] - 45)
             self.sprites.add(gui)
             self.gui_dict[i] = gui
+
+        self.gui_dict[self.pointer].name_text.text = self.player_dict[self.pointer][0]
 
     def create_enemies(self):
         for i in range(self.game.max_enemies):
@@ -125,7 +125,7 @@ class CreateChar(Scene):
                 next_scene = Play(self.game)
                 next_scene.start_scene()
 
-        self.selected_name_dict[self.pointer] = self.game.text_buffer
+        # self.selected_name_dict[self.pointer] = self.game.text_buffer
         self.text_buffer = ""
 
         if actions["escape"]:

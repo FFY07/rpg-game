@@ -24,8 +24,7 @@ class Knight(Unit):
         self.team = team
         self.id = id_no
 
-        # self.strength = random.randint(*STRENGTH)
-        self.strength = 999
+        self.strength = random.randint(*STRENGTH)
         self.intelligence = random.randint(*INTELLIGENCE)
         self.defence = random.randint(*DEFENCE)
         self.magic_resist = random.randint(*MAGIC_RESIST)

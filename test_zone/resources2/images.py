@@ -7,7 +7,7 @@ from pathlib import Path
 #menu background
 menubackground_img = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/menubackground.png')}")
 
-options_background = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/seaview.png')}")
+options_background = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/option.jpg')}")
 credits_background = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/space.png')}")
 char_create_background = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/grunge.jpg')}")
 

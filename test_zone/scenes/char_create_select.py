@@ -50,6 +50,7 @@ class CreateCharSelect(Scene):
             self.game.typing = True
 
         if actions["escape"]:
+            # self.prev.player_dict[self.menu_id] = self.chosen_character
             self.exit_scene()
 
         self.prev.sprites.update()
