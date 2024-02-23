@@ -8,8 +8,9 @@ from pathlib import Path
 menubackground_img = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/menubackground.png')}")
 
 options_background = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/option.jpg')}")
-credits_background = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/artofjoniken_forge2.jpg')}")
+credits_background = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/artofjoniken_forge.jpg')}")
 story_background = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/story.jpg')}")
+char_select_background = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/artofjokinen_castle.jpg')}")
 
 #background image
 background_img = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/throne.png')}")
