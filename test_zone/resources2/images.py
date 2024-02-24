@@ -10,6 +10,7 @@ menubackground_img = pygame.image.load(f"{Path('test_zone/resources2/images/back
 options_background = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/option.jpg')}")
 credits_background = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/artofjoniken_forge2.jpg')}")
 story_background = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/story.jpg')}")
+char_select_menu = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/artofjokinen_siege.jpg')}") 
 char_select_background = pygame.image.load(f"{Path('test_zone/resources2/images/backgrounds/artofjokinen_castle.jpg')}")
 
 #background image
@@ -28,3 +29,9 @@ player_target = pygame.transform.scale(player_target, (192, 192))
 
 enemy_target = pygame.image.load(f"{Path('test_zone/resources2/images/ui_elements/enemy_target.png')}")
 enemy_target = pygame.transform.scale(enemy_target, (192, 192))
+
+# Marketing images
+knight_marketing = pygame.image.load(f"{Path('test_zone/resources2/images/units/Knight/knight_marketing.png')}")
+reaper_marketing = pygame.image.load(f"{Path('test_zone/resources2/images/units/Reaper/reaper_marketing.jpg')}")
+bandit_marketing = pygame.image.load(f"{Path('test_zone/resources2/images/units/Knight/knight_marketing.png')}")
+tank_marketing = pygame.image.load(f"{Path('test_zone/resources2/images/units/Knight/knight_marketing.png')}")

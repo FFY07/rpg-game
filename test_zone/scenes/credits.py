@@ -78,7 +78,13 @@ class Credits(Scene):
         self.position += 100
         self.load_section(["ASSETS FROM"], desc, 75)
         self.load_section(
-            ["itch.io", "Honkai Impact 3rd", "World of Tanks", "Slay The Spire"],
+            [
+                "itch.io",
+                "artofjokinen (deviantart)",
+                "Honkai Impact 3rd",
+                "World of Tanks",
+                "Slay The Spire",
+            ],
             name,
             75,
         )

@@ -9,7 +9,7 @@ from scenes.play import Play
 from scenes.story import Story
 from scenes.char_create_select import CreateCharSelect
 
-import resources2.images
+import resources2.images as images
 
 # input1_rect = pygame.Rect(80, 280, 170, 32)
 
@@ -17,7 +17,7 @@ import resources2.images
 class CreateChar(Scene):
     def __init__(self, game: object):
         super().__init__(game)
-        self.background = pygame.Surface((1, 1))
+        self.background = images.char_select_menu
         self.sprites = pygame.sprite.Group()
 
         self.menu_dict = {}
@@ -62,7 +62,7 @@ class CreateChar(Scene):
         self.text_dict.pop(0)
         self.button_dict.pop(0)
 
-        # Set the button background and text index to be right after the last item in our list of menu guis
+        # Set the button background and text index to be right after the last item in our list of menu guis (this is the start game button)
         self.button_dict[len(self.menu_dict)] = self.start_button[0]
         self.text_dict[len(self.menu_dict)] = self.start_button[1]
 
@@ -72,7 +72,7 @@ class CreateChar(Scene):
         # for i, color in zip(range(amount), color_list):
         for i in range(amount):
             gui = ui_functions.RectGUI(
-                57, 100 + i * offset, 700, 143, "white", i, "grey27", self.game
+                57, 100 + i * offset, 700, 143, "black", i, "grey27", self.game
             )
 
             self.sprites.add(gui)
@@ -101,6 +101,7 @@ class CreateChar(Scene):
             # This selects the selected_name.text from our rectgui using our self.pointer as the index
             # Then slots it into the 0 index of our player dict which is the name (name, class) tuple
             self.menu_dict[self.pointer].selected_name.text = self.player_dict[self.pointer][0]
+            self.menu_dict[self.pointer].image = cf.marketing_images[self.player_dict[self.pointer][1]]
             # fmt: on
             self.menu_dict[self.pointer].selected = True
         except:

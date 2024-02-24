@@ -276,7 +276,7 @@ class RectGUI(pygame.sprite.Sprite):
         # self.rect = pygame.Rect(x , y, width, height)
         self.image = pygame.Surface((self.width, self.height))
         self.image.fill(self.color)
-        self.image.set_alpha(0)
+        self.image.set_alpha(255)
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
 
@@ -326,6 +326,7 @@ class RectGUI(pygame.sprite.Sprite):
         )
 
     def update(self):
+        # self.image.scale()
         if self.selected:
             self.border_color = "white"
             self.color = "white"
