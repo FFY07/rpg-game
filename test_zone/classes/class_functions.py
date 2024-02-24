@@ -77,7 +77,7 @@ def create_team(unit_list: list, team: str, game):
         create_unit(unit[0], unit[1], team, game)
 
 
-def set_positions(position_list, sprite_group):
+def set_positions(position_list, sprite_group, anchor="center"):
     for unit in sprite_group:
 
         # Assigns a coordinate position to the unit
@@ -85,7 +85,25 @@ def set_positions(position_list, sprite_group):
             coordinates = position_list.pop(0)
 
             # assign the coordinates to the unit
-            unit.rect.center = coordinates
+            match anchor:
+                case "center":
+                    unit.rect.center = coordinates
+
+                case "midbottom":
+                    unit.rect.midbottom = coordinates
+
+                case "midtop":
+                    unit.rect.midtop == coordinates
+
+                case "midleft":
+                    unit.rect.midleft == coordinates
+
+                case "midright":
+                    unit.rect.midright == coordinates
+
+                case _:
+                    print("Invalid anchor, check the code again!")
+                    unit.rect.center == coordinates
 
         # If there are no available positions left, we leave the unit's coordinates at default
         except IndexError:

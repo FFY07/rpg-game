@@ -15,6 +15,7 @@ class CreateCharSelect(Scene):
         super().__init__(game)
         self.sprites = pygame.sprite.Group()
         self.display_units = pygame.sprite.Group()
+        self.display_units_list = []
 
         self.background = images.char_select_background
 
@@ -25,6 +26,12 @@ class CreateCharSelect(Scene):
         self.chosen_class = "Knight"
         self.pointer = 0
         self.character_pointer = 0
+        self.scroll_speed = 50
+
+        self.position_list = []
+        for i, unit in enumerate(cf.unit_list):
+            x_offset = 150
+            self.position_list.append((self.xc + (x_offset * i), self.yc))
 
         self.class_name = ui_functions.TextSprite(
             cf.unit_list[self.character_pointer],
@@ -43,6 +50,22 @@ class CreateCharSelect(Scene):
                 cf.create_unit(self.chosen_name, unit, "player", self.game, True)
             )
 
+        for unit in self.display_units.sprites():
+            self.display_units_list.append(unit)
+
+        # Works but doesn't do anything
+        # for unit in self.display_units.sprites():
+        #     for _, image_set in unit.animations.items():
+        #         for image in image_set:
+        #             pygame.transform.scale(
+        #                 image, (image.get_width() * 4, image.get_height() * 4)
+        #             )
+        #             unit.rect = image.get_rect()
+
+        cf.set_positions(self.position_list, self.display_units, "center")
+
+        self.center_position = (self.xc, self.yc)
+
     def update(self, actions):
         for sprite in self.sprites:
             if sprite.name != "SELECTED":
@@ -58,11 +81,22 @@ class CreateCharSelect(Scene):
             cf.unit_list[self.character_pointer],
         )
 
+        if (
+            self.display_units_list[self.character_pointer].rect.center[0]
+            == self.center_position[0]
+        ):
+            for unit in self.display_units_list:
+                unit.dx, unit.dy = 0, 0
+
         if actions["left"]:
             self.character_pointer += 1
+            for unit in self.display_units.sprites():
+                unit.dx = -self.scroll_speed
 
         if actions["right"]:
             self.character_pointer -= 1
+            for unit in self.display_units.sprites():
+                unit.dx = self.scroll_speed
 
         if self.pointer == 0:
             if actions["enter"]:
@@ -76,7 +110,8 @@ class CreateCharSelect(Scene):
         self.sprites.update()
         self.game.reset_keys()
 
-        print(self.chosen_character)
+        # print(self.chosen_character)
+        # print(self.position_list)
 
     def render(self, screen):
         screen.blit(
