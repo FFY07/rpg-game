@@ -1,7 +1,7 @@
 # Simple Turn-Based Battle Game
 
 ## Overview
-This is a simple RPG game based Python's pygame library. The game utilises a 3v3 turn-based system with different classes, attacks, and items to choose from. The team that gets wiped out first loses. 
+This is a simple RPG game based Python's pygame library. The game utilises a 3v3 turn-based system with different classes, attacks, and items to choose from.
 
 ## Features
 ### Gameplay
