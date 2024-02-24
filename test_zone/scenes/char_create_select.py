@@ -17,7 +17,6 @@ class CreateCharSelect(Scene):
         self.background = images.char_select_background
 
         self.menu_id = menu_id
-        self.gui_dict = {}
 
         self.chosen_name = "John Wick"
         self.chosen_class = "Knight"
@@ -44,6 +43,7 @@ class CreateCharSelect(Scene):
                 sprite.selected = False
 
         self.character_pointer = self.character_pointer % len(cf.unit_list)
+        # self.pointer = self.pointer % len(self.button_sprites)
 
         self.class_name.text = cf.unit_list[self.character_pointer]
 
@@ -53,10 +53,14 @@ class CreateCharSelect(Scene):
         if actions["right"]:
             self.character_pointer -= 1
 
-        if self.pointer == 1:
-            # We need to output the result of text from self.game.text_buffer to some position in self.prev.some_list/dict
-            self.chosen_character = (self.chosen_name, self.chosen_class)
-            self.exit_scene()
+        if self.pointer == 0:
+            if actions["enter"]:
+                self.chosen_character = (
+                    self.chosen_name,
+                    cf.unit_list[self.character_pointer],
+                )
+                self.prev.player_dict[self.menu_id] = self.chosen_character
+                self.exit_scene()
 
         if actions["escape"]:
             self.exit_scene()
