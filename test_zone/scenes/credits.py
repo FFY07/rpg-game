@@ -6,8 +6,8 @@ import gui2.screen as scr
 import resources2.images as images
 import resources2.audio as audio
 
-title = [45, "hightowertext", "red2"]
-desc = [40, "hightowertext", "orangered"]
+title = [55, "hightowertext", "red2"]
+desc = [50, "hightowertext", "orangered"]
 name = [35, "Palatino Linotype", "grey95"]
 note = [40, "hightowertext", "red"]
 
@@ -19,7 +19,7 @@ class Credits(Scene):
         self.sprites = pygame.sprite.Group()
 
         pygame.mixer.music.load(audio.credits_bgm)
-        pygame.mixer.music.set_volume(self.game.volume)
+        self.game.volume = 0.4
         pygame.mixer.music.play(-1, 48, 5000)
 
         # Can't go below integer so use fps to tune the speed (higher fps = faster)
@@ -34,14 +34,14 @@ class Credits(Scene):
         )
         self.position += 150
 
-        self.load_section(["GAME CREATED BY"], desc, 100)
+        self.load_section(["GAME CREATED BY"], desc, 75)
 
         self.load_section(["Desmond Foo Fong Yoong"], name, 50)
         self.load_section([">9000 lines modified"], note, 100)
         self.load_section(["Haarith Bin Naguri Ibrahim"], name, 50)
-        self.load_section([">100 lines modified"], note, 400)
+        self.load_section([">90 lines modified"], note, 400)
 
-        self.load_section(["GROUP A1 MEMBERS"], desc, 100)
+        self.load_section(["GROUP A1 MEMBERS"], desc, 75)
         self.load_section(
             [
                 "Desmond Foo Fong Yoong",
@@ -69,6 +69,7 @@ class Credits(Scene):
     def update(self, actions):
         if actions["escape"] or actions["enter"]:
             self.game.fps = 60
+            self.game.volume = 0.8
 
             for sprite in self.game.all_units:
                 sprite.kill()
@@ -86,6 +87,7 @@ class Credits(Scene):
         # Go back once credits are finished
         if len(self.sprites) == 0:
             self.game.fps = 60
+            self.game.volume = 0.8
 
             for sprite in self.game.all_units:
                 sprite.kill()

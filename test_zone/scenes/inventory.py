@@ -1,6 +1,7 @@
 import pygame
 
 from scenes.scene import Scene
+from scenes.enemy_turn import EnemyTurn
 
 import resources2.audio as audio
 
@@ -50,8 +51,11 @@ class Inventory(Scene):
             self.selected_unit.consume_item(item_name)
             self.selected_unit.change_state("defend")  # TEMPORARY
 
-            while self.game.stack[-1] != self.anchor:
-                self.exit_scene()
+            # while self.game.stack[-1] != self.anchor:
+            #     self.exit_scene()
+
+            next_scene = EnemyTurn(self.game, self.anchor)
+            next_scene.start_scene()
 
     def update(self, actions):
         self.pointer = self.pointer % len(self.inventory_list)

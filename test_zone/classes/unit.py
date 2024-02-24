@@ -56,6 +56,9 @@ class Unit(pygame.sprite.Sprite):
         self.anim_speed = 100
 
         self.attack_audio = audio.sword_sfx
+        self.death_audio = audio.death_sfx
+
+        self.death_effect = ui_functions.HitImage("blood1", self, 100)
 
         self.inventory = {"Health Potion": 1, "Strength Potion": 1, "Defence Potion": 1}
 
@@ -127,7 +130,8 @@ class Unit(pygame.sprite.Sprite):
         self.state = target_state
 
         if target_state == "death":
-            self.game.sprites.add(ui_functions.HitImage("blood5", self, 10))
+            self.game.sprites.add(self.death_effect)
+            pygame.mixer.Sound.play(self.death_audio)
 
     def activate(self, active_pos):
         """Move character to the active position"""

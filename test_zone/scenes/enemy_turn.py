@@ -8,10 +8,12 @@ import resources2.images as images
 
 
 class EnemyTurn(Scene):
-    def __init__(self, game: object):
+    def __init__(self, game: object, anchor: object):
         super().__init__(game)
         self.sprites = pygame.sprite.Group()
         self.effect_sprites = pygame.sprite.Group()
+
+        self.anchor = anchor
 
         self.alive_players = []
         self.alive_enemies = []

@@ -50,12 +50,8 @@ class ChooseTarget(Scene):
 
             # Call the move method (method is tied to the unit already) onto the enemy self.unit and the anchor (play.py) alive enemy dictionary
             self.selected_move(self.selected_unit, self.enemies)
-            next_scene = EnemyTurn(self.game)
+            next_scene = EnemyTurn(self.game, self.anchor)
 
-            # Number of times the enemy can attack
-            next_scene.attacks = 1
-
-            next_scene.anchor = self.anchor
             next_scene.start_scene()
 
         if actions["escape"]:

@@ -56,9 +56,9 @@ class Game:
         self.start()
         self.music = True
         self.sound = True
-        self.volume = 0.2
+        self.volume = 0.8
 
-        self.music_path = audio.menu_alt
+        self.music_path = audio.menu
 
         pygame.mixer.music.load(self.music_path)
         if self.music:
