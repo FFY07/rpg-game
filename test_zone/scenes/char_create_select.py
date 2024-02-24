@@ -88,12 +88,12 @@ class CreateCharSelect(Scene):
             for unit in self.display_units_list:
                 unit.dx, unit.dy = 0, 0
 
-        if actions["left"]:
+        if actions["right"]:
             self.character_pointer += 1
             for unit in self.display_units.sprites():
                 unit.dx = -self.scroll_speed
 
-        if actions["right"]:
+        if actions["left"]:
             self.character_pointer -= 1
             for unit in self.display_units.sprites():
                 unit.dx = self.scroll_speed
