@@ -50,7 +50,14 @@ class EnemyTurn(Scene):
 
                 if self.target_team_ready:
                     self.target.deactivate()  # Timing issue (force deactivate)
-                    self.attacker.basic_attack(self.target, self.alive_player_dict)
+
+                    # Enemy chooses a random move to attack with
+                    self.attacker_attack = random.choice(
+                        list(self.attacker.moves.values())
+                    )
+                    self.attacker_attack(
+                        self.target, list(self.alive_player_dict.values())
+                    )
                     self.attacks -= 1
                     self.start_time = pygame.time.get_ticks()
 

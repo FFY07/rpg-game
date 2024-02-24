@@ -46,7 +46,7 @@ class Knight(Unit):
         self.moves["Slash"] = self.slash
         self.moves["Execute"] = self.execute
 
-    def slash(self, target, target_team):
+    def slash(self, target: object, target_team: list):
         damage = 50
 
         # PUT THIS WHOLE SECTION INTO ONE METHOD LATER
@@ -64,7 +64,7 @@ class Knight(Unit):
 
         print(f"Slashed {target.name}!")
 
-    def execute(self, target, target_team):
+    def execute(self, target: object, target_team: list):
         damage = 25
 
         if self.team == "player":

@@ -43,7 +43,7 @@ class Tank(Unit):
         # Add moves to moves dictionary
         self.moves["Machine Gun"] = self.machine_gun
 
-    def machine_gun(self, target, target_team):
+    def machine_gun(self, target: object, target_team: list):
         try:
             # Selects 2 targets from the target team
             target_list = random.sample(target_team, 2)
