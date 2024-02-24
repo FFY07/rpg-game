@@ -17,6 +17,7 @@ BUTTON_WIDTH = 200
 BUTTON_HEIGHT = 40
 BUTTON_OFFSET = 50
 
+
 class MainMenu(Scene):
     def __init__(self, game):
         super().__init__(game)
@@ -24,58 +25,69 @@ class MainMenu(Scene):
         self.sprites = pygame.sprite.Group()
         self.pointer = 0
         self.button_list = ["Play", "Options", "Credits", "Quit"]
-        
-        self.generate_buttons(self.button_list, 30, "freesansbold", "white", 140, 40, "lightgrey", (True, 350), (0, 50))
-        self.title_text = ui_functions.TextSprite("RPG ADVENTURE", 70, "High Tower Text", "red", True, self.yc - 200)
+
+        self.generate_buttons(
+            self.button_list,
+            30,
+            "freesansbold",
+            "white",
+            140,
+            40,
+            "lightgrey",
+            (True, 350),
+            (0, 50),
+        )
+        self.title_text = ui_functions.TextSprite(
+            "RPG ADVENTURE", 70, "High Tower Text", "red", True, self.yc - 200
+        )
 
         self.sprites.add(self.title_text)
-    
+
     def update(self, actions):
         # Reset all selected
         for sprite in self.sprites.sprites():
             sprite.selected = False
-        
+
         # if self.pointer > len(self.button_list) - 1 or self.pointer < 0:
         # OR we just use maths instead
         self.pointer = self.pointer % len(self.button_list)
-        
+
         if self.pointer == 0:
             for sprite in self.sprites.sprites():
                 if sprite.name == "Play":
                     sprite.selected = True
-            
+
             if actions["enter"]:
-                pygame.mixer.Sound.play(audio.click_sfx)
                 # Removes any existing units before our character create screen
                 for sprite in self.game.all_units.sprites():
                     sprite.kill()
-                
+
                 # Reset the current sprite id
                 self.game.current_id = 0
-                
+
                 # Plop the next scene onto the stack
 
                 next_scene = CreateChar(self.game)
                 next_scene.start_scene()
-                
+
         if self.pointer == 1:
             for sprite in self.sprites.sprites():
                 if sprite.name == "Options":
                     sprite.selected = True
-            
+
             if actions["enter"]:
+
                 # Plop the next scene onto the stack
-                pygame.mixer.Sound.play(audio.click_sfx)
                 next_scene = Options(self.game)
                 next_scene.start_scene()
-                
+
         if self.pointer == 2:
             for sprite in self.sprites.sprites():
                 if sprite.name == "Credits":
                     sprite.selected = True
-            
+
             if actions["enter"]:
-                pygame.mixer.Sound.play(audio.click_sfx)
+
                 # Plop the next scene onto the stack
                 next_scene = Credits(self.game)
                 next_scene.start_scene()
@@ -84,29 +96,30 @@ class MainMenu(Scene):
             for sprite in self.sprites.sprites():
                 if sprite.name == "Quit":
                     sprite.selected = True
-            
+
             if actions["enter"]:
-                pygame.mixer.Sound.play(audio.click_sfx)
+
                 # Plop the next scene onto the stack
                 self.game.running, self.game.playing = False, False
-            
+
         if actions["down"]:
-            pygame.mixer.Sound.play(audio.click_sfx)
             self.pointer += 1
-        
+
         if actions["up"]:
-            pygame.mixer.Sound.play(audio.click_sfx)
             self.pointer -= 1
-            
+
         if actions["escape"]:
-            pygame.mixer.Sound.play(audio.click_sfx)
             self.game.running, self.game.playing = False, False
-            
+
         self.game.reset_keys()
         self.sprites.update()
 
-    
     def render(self, screen):
-        screen.blit(pygame.transform.scale(self.background, (self.game.screen_width, self.game.screen_height)), (0, 0))
+        screen.blit(
+            pygame.transform.scale(
+                self.background, (self.game.screen_width, self.game.screen_height)
+            ),
+            (0, 0),
+        )
 
         self.sprites.draw(self.game.canvas)
