@@ -1,4 +1,4 @@
-import random
+import pygame, random
 
 from classes.unit import Unit
 
@@ -38,3 +38,23 @@ class Reaper(Unit):
         self.image = self.animations["idle"][0]
         self.rect = self.image.get_rect()
         self.rect.center = self.position
+
+        self.moves["Sacrifice"] = self.sacrifice
+
+    def sacrifice(self, target, target_team):
+        damage = 999
+        
+        if self.team == "player":
+            self.activate(target.rect.midleft)
+        else:
+            self.activate(target.rect.midright)
+
+        self.health -= damage
+        self.change_state("hurt")
+        self.change_state("attack")
+        target.change_state("hurt")
+        target.health -= damage 
+        if self.game.sound:
+            pygame.mixer.Sound.play(self.attack_audio)
+
+        print(f"you sacrifice yourself to kill {target.name}")
