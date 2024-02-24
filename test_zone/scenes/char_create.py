@@ -17,6 +17,7 @@ import resources2.images as images
 class CreateChar(Scene):
     def __init__(self, game: object):
         super().__init__(game)
+        # self.background = pygame.Surface(0, 0)
         self.background = images.char_select_menu
         self.sprites = pygame.sprite.Group()
 
@@ -81,7 +82,7 @@ class CreateChar(Scene):
         # for i, color in zip(range(amount), color_list):
         for i in range(amount):
             gui = ui_functions.RectGUI(
-                57, 100 + i * offset, 700, 143, "black", i, "grey27", self.game
+                57, 100 + i * offset, 610, 172, "black", i, "grey27", self.game
             )
 
             self.sprites.add(gui)
@@ -172,7 +173,6 @@ class CreateChar(Scene):
         self.sprites.update()
 
         # print(f"Current pointer: {self.pointer}")
-        # print(len(self.menu_dict)) # idk why it will crash sometimes; seems to happen if we press anything too quickly
 
     def render(self, screen):
         screen.blit(
