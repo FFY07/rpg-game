@@ -24,9 +24,9 @@ class CreateChar(Scene):
         self.pointer = 0
 
         self.player_dict = {
-            0: ("Default1", "Reaper"),
-            1: ("Default2", "Tank"),
-            2: ("Default3", "Knight"),
+            0: ("Player1", "Reaper"),
+            1: ("Player2", "Tank"),
+            2: ("Player3", "Knight"),
         }
 
         # CreateCharSelect(self.game, self.pointer)
@@ -50,9 +50,18 @@ class CreateChar(Scene):
             )
         )
 
-        # Create the start game button
+        # Create the start game button 1060, 680
         self.start_button = self.create_button(
-            "START GAME", 30, None, "white", 300, 40, "white", "start", 1060, 680
+            "START GAME",
+            50,
+            None,
+            "white",
+            300,
+            60,
+            "white",
+            "start",
+            1060,
+            self.yc + 280,
         )
 
         self.text_dict = self.create_dict(self.text_sprites)
@@ -77,7 +86,7 @@ class CreateChar(Scene):
 
             self.sprites.add(gui)
             gui.selected_name.text = self.player_dict[i][0]
-
+            gui.image = cf.marketing_images[self.player_dict[i][1]]
             self.menu_dict[i] = gui
 
     def create_enemies(self):
@@ -163,6 +172,7 @@ class CreateChar(Scene):
         self.sprites.update()
 
         # print(f"Current pointer: {self.pointer}")
+        # print(len(self.menu_dict)) # idk why it will crash sometimes; seems to happen if we press anything too quickly
 
     def render(self, screen):
         screen.blit(

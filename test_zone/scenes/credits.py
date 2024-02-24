@@ -41,13 +41,13 @@ class Credits(Scene):
         self.load_section(["Haarith Bin Naguri Ibrahim"], name, 50)
         self.load_section(["75 lines"], note, 200)
 
-        self.load_section(["MUSIC AND SFX"], desc, 75)
+        self.load_section(["MUSIC DESIGN"], desc, 75)
         self.load_section(["Desmond Foo Fong Yoong"], name, 100)
 
-        self.load_section(["IMAGES AND VFX"], desc, 75)
+        self.load_section(["VISUAL DESIGN"], desc, 75)
         self.load_section(["Desmond Foo Fong Yoong"], name, 100)
 
-        self.load_section(["DESIGN AND PLANNING"], desc, 75)
+        self.load_section(["GAMEPLAY"], desc, 75)
         self.load_section(
             [
                 "Desmond Foo Fong Yoong",
