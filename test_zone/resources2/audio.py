@@ -27,8 +27,8 @@ reaper_basic = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_
 warrior_basic = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/heavy_slash.mp3')}")
 warrior_basic.set_volume(1)
 
-tank_basic = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/wot_122mm.mp3')}")
-tank_basic.set_volume(1)
+tank_basic = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/Tank/wot_122mm.mp3')}")
+tank_machine_gun = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/Tank/wot_autocannon.mp3')}")
 
 magic_sfx = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/1168-za-warudo-sound-effect.mp3')}")
 magic_sfx.set_volume(0.4)
