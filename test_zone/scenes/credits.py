@@ -7,7 +7,7 @@ import resources2.images as images
 import resources2.audio as audio
 
 title = [55, "hightowertext", "red2"]
-desc = [50, "hightowertext", "orangered"]
+desc = [45, "hightowertext", "orangered"]
 name = [35, "Palatino Linotype", "grey95"]
 note = [40, "hightowertext", "red"]
 
@@ -20,7 +20,7 @@ class Credits(Scene):
 
         pygame.mixer.music.load(audio.credits_bgm)
         self.game.volume = 0.4
-        pygame.mixer.music.play(-1, 48, 5000)
+        pygame.mixer.music.play(-1, 44, 5000)
 
         # Can't go below integer so use fps to tune the speed (higher fps = faster)
         self.game.fps = 60
@@ -34,13 +34,34 @@ class Credits(Scene):
         )
         self.position += 150
 
-        self.load_section(["GAME CREATED BY"], desc, 75)
+        self.load_section(["GAME WRITTEN BY"], desc, 75)
 
         self.load_section(["Desmond Foo Fong Yoong"], name, 50)
-        self.load_section([">9000 lines modified"], note, 100)
+        self.load_section(["12,671 lines"], note, 100)
         self.load_section(["Haarith Bin Naguri Ibrahim"], name, 50)
-        self.load_section([">90 lines modified"], note, 400)
+        self.load_section(["75 lines"], note, 200)
 
+        self.load_section(["MUSIC AND SFX"], desc, 75)
+        self.load_section(["Desmond Foo Fong Yoong"], name, 100)
+
+        self.load_section(["IMAGES AND VFX"], desc, 75)
+        self.load_section(["Desmond Foo Fong Yoong"], name, 100)
+
+        self.load_section(["DESIGN AND PLANNING"], desc, 75)
+        self.load_section(
+            [
+                "Desmond Foo Fong Yoong",
+                # "Haarith Bin Naguri Ibrahim?" — Don't feel like putting because he MIA after first 2 weeks
+            ],
+            name,
+            75,
+        )
+        self.position += 25
+
+        self.load_section(["PROJECT COORDINATOR"], desc, 75)
+        self.load_section(["Desmond Foo Fong Yoong"], name, 100)
+
+        self.position += 100
         self.load_section(["GROUP A1 MEMBERS"], desc, 75)
         self.load_section(
             [
@@ -51,6 +72,13 @@ class Credits(Scene):
                 "Xu Xiang (Ye Xuxiang) Yap",
                 "Qiao Er Kang",
             ],
+            name,
+            75,
+        )
+        self.position += 100
+        self.load_section(["ASSETS FROM"], desc, 75)
+        self.load_section(
+            ["itch.io", "Honkai Impact 3rd", "World of Tanks", "Slay The Spire"],
             name,
             75,
         )

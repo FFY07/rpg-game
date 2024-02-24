@@ -14,17 +14,17 @@ class CreateCharSelect(Scene):
     def __init__(self, game: object, menu_id: int):
         super().__init__(game)
         self.sprites = pygame.sprite.Group()
+        self.display_units = pygame.sprite.Group()
+
         self.background = images.char_select_background
 
         self.menu_id = menu_id
 
+        # Default setup, note that cf.unit_list holds the list of classes
         self.chosen_name = "John Wick"
         self.chosen_class = "Knight"
         self.pointer = 0
         self.character_pointer = 0
-
-        # Unnecessary
-        self.class_list = cf.unit_list
 
         self.class_name = ui_functions.TextSprite(
             cf.unit_list[self.character_pointer],
@@ -37,6 +37,12 @@ class CreateCharSelect(Scene):
         )
         self.sprites.add(self.class_name)
 
+        # Add our display units
+        for unit in cf.unit_list:
+            self.display_units.add(
+                cf.create_unit(self.chosen_name, unit, "player", self.game, True)
+            )
+
     def update(self, actions):
         for sprite in self.sprites:
             if sprite.name != "SELECTED":
@@ -47,6 +53,11 @@ class CreateCharSelect(Scene):
 
         self.class_name.text = cf.unit_list[self.character_pointer]
 
+        self.chosen_character = (
+            self.chosen_name,
+            cf.unit_list[self.character_pointer],
+        )
+
         if actions["left"]:
             self.character_pointer += 1
 
@@ -55,18 +66,17 @@ class CreateCharSelect(Scene):
 
         if self.pointer == 0:
             if actions["enter"]:
-                self.chosen_character = (
-                    self.chosen_name,
-                    cf.unit_list[self.character_pointer],
-                )
                 self.prev.player_dict[self.menu_id] = self.chosen_character
                 self.exit_scene()
 
         if actions["escape"]:
             self.exit_scene()
 
+        self.display_units.update()
         self.sprites.update()
         self.game.reset_keys()
+
+        print(self.chosen_character)
 
     def render(self, screen):
         screen.blit(
@@ -75,4 +85,5 @@ class CreateCharSelect(Scene):
             ),
             (0, 0),
         )
+        self.display_units.draw(screen)
         self.sprites.draw(screen)

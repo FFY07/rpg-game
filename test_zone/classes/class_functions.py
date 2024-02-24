@@ -11,7 +11,7 @@ from classes.units.tank import Tank
 unit_list = ["Knight", "Reaper", "Bandit", "Tank"]
 
 
-def create_unit(name, unit_class, team, game):
+def create_unit(name, unit_class, team, game, standalone=False):
     """Creates a new unit object and adds it to the sprite groups
 
     Args:
@@ -53,17 +53,19 @@ def create_unit(name, unit_class, team, game):
     game.current_id += 1
 
     # Add the unit to the correct sprite group
-    match team:
-        case "player":
-            game.players.add(unit)
 
-        case "enemy":
-            game.enemies.add(unit)
+    if not standalone:
+        match team:
+            case "player":
+                game.players.add(unit)
 
-    # Add all of the units to the main units sprite group as well
-    game.all_units.add(unit)
+            case "enemy":
+                game.enemies.add(unit)
 
-    # Optional
+        # Add all of the units to the main units sprite group as well
+        game.all_units.add(unit)
+
+    # If unit is a standalone unit, we'll want to store it somewhere
     return unit
 
 
