@@ -26,7 +26,7 @@ This is a simple RPG game based Python's pygame library. The game utilises a 3v3
   <b>IMPORTANT: Make sure you check the PATH option when installing!</b> Also disable the path length limit as well to avoid future headaches.
 </details>
 
-### Installing pygame
+#### Installing pygame
 With Python installed, open command prompt `cmd` and enter the command `pip3 install pygame`
 
 ### Running the game
