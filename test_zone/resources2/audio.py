@@ -29,6 +29,8 @@ warrior_basic.set_volume(1)
 
 tank_basic = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/Tank/wot_122mm.mp3')}")
 tank_machine_gun = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/Tank/wot_autocannon.mp3')}")
+tank_load_shell = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/Tank/wot_load_shell.mp3')}")
+tank_183mm = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/Tank/wot_183mm.mp3')}")
 
 magic_sfx = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/1168-za-warudo-sound-effect.mp3')}")
 magic_sfx.set_volume(0.4)

@@ -47,9 +47,9 @@ class Knight(Unit):
         self.moves["Execute"] = self.execute
 
     def slash(self, target: object, target_team: list):
-        damage = 50
+        damage = 25
 
-        # PUT THIS WHOLE SECTION INTO ONE METHOD LATER
+        # PUT THIS WHOLE SECTION INTO ONE METHOD LATER?
         if self.team == "player":
             self.activate(target.rect.midleft)
         else:
@@ -60,12 +60,12 @@ class Knight(Unit):
         target.health -= damage
         if self.game.sound:
             pygame.mixer.Sound.play(self.attack_audio)
-        # THIS WHOLE SECTION ABOVE INTO ONE METHOD
+        # THIS WHOLE SECTION ABOVE INTO ONE METHOD?
 
         print(f"Slashed {target.name}!")
 
     def execute(self, target: object, target_team: list):
-        damage = 25
+        damage = 50
 
         if self.team == "player":
             self.activate(target.rect.midleft)

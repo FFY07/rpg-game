@@ -170,12 +170,8 @@ class Unit(pygame.sprite.Sprite):
         else:
             print(f"No {item} left!")
 
-    def basic_attack(self, target: object, target_team: list):
-        damage = self.strength - target.defence
-        if damage < 0:
-            damage = 0
-
-        # Observation: If you see anyone using the super-unintuitive max(0, damage) there's a 99.999% chance it was AI-generated
+    def melee(self, target):
+        """Melee will not deactivate if called multiple times in one turn"""
         if self.team == "player":
             self.activate(target.rect.midleft)
         else:
@@ -183,7 +179,19 @@ class Unit(pygame.sprite.Sprite):
 
         self.change_state("attack")
         target.change_state("hurt")
+
+    def basic_attack(self, target: object, target_team: list):
+        damage = self.strength - target.defence
+        if damage < 0:
+            damage = 0
+
+        # Observation: If you see anyone using the super-unintuitive max(0, damage) there's a 99.999% chance it was AI-generated
+        self.melee(target)
+
+        self.change_state("attack")
+        target.change_state("hurt")
         target.health -= damage
+
         if self.game.sound:
             pygame.mixer.Sound.play(self.attack_audio)
 

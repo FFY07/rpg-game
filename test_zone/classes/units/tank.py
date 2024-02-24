@@ -7,7 +7,7 @@ import gui2.ui_functions as ui_functions
 
 # Range of values
 STRENGTH = (1, 20)
-INTELLIGENCE = (5, 15)
+INTELLIGENCE = (10, 20)
 DEFENCE = (5, 15)
 MAGIC_RESIST = (5, 15)
 
@@ -40,8 +40,36 @@ class Tank(Unit):
         self.rect = self.image.get_rect()
         self.rect.center = self.position
 
+        self.cannon_shells = 0
+
         # Add moves to moves dictionary
+        self.moves["Cannon"] = self.cannon
         self.moves["Machine Gun"] = self.machine_gun
+
+    def cannon(self, target: object, target_team: list):
+        if not self.cannon_shells:
+            self.cannon_shells += 1
+            if self.game.sound:
+                pygame.mixer.Sound.play(audio.tank_load_shell)
+                self.game.sprites.add(ui_functions.HitImage("tank_charge", self, 2))
+
+        # If we have cannon shells, proceed to fire
+        else:
+            self.cannon_shells = 0
+            if self.game.sound:
+                pygame.mixer.Sound.play(audio.tank_183mm)
+            damage = (self.intelligence - target.magic_resist) * 3
+
+            if damage < 0:
+                damage = 0
+
+            self.game.sprites.add(ui_functions.HitImage("tank_cannon", target, 2))
+
+            self.melee(target)
+            self.change_state("attack")
+            target.change_state("hurt")
+            target.health -= damage
+            print(f"[DEBUG] {target.name} HP: {target.health}")
 
     def machine_gun(self, target: object, target_team: list):
         try:
@@ -55,6 +83,9 @@ class Tank(Unit):
             damage = self.intelligence - t.magic_resist
             if damage < 0:
                 damage = 0
+
+            self.change_state("attack")
+            t.change_state("hurt")
             t.health -= damage
 
             # Create effect
