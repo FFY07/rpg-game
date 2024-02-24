@@ -134,7 +134,7 @@ class Game:
 
             if event.type == pygame.KEYUP:
 
-                if event.key == pygame.K_w or event.key == pygame.K_UP:
+                if event.key == pygame.K_w or event.key == pygame.K_UP: 
                     self.actions["up"] = False
 
                 if event.key == pygame.K_a or event.key == pygame.K_LEFT:
