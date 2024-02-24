@@ -32,8 +32,8 @@ class EnemyTurn(Scene):
     def update(self, actions):
         self.update_alive_dict()
 
-        # If there are no alive enemies, go back to play screen
-        if self.alive_enemy_dict:
+        # If either team is dead, go back to play screen
+        if self.alive_enemy_dict and self.alive_player_dict:
 
             # Delay before attacking which is actually useless code because we added a new check for player team idle below
             if self.current_time - self.start_time > self.wait and self.attacks:
