@@ -47,35 +47,45 @@ class Knight(Unit):
         self.moves["Execute"] = self.execute
 
     def slash(self, target: object, target_team: list):
-        damage = 25
+        mana_cost = 10
+        if self.mana > mana_cost:
+            self.mana -= mana_cost
+            damage = 25
 
-        # PUT THIS WHOLE SECTION INTO ONE METHOD LATER?
-        if self.team == "player":
-            self.activate(target.rect.midleft)
-        else:
-            self.activate(target.rect.midright)
+            # PUT THIS WHOLE SECTION INTO ONE METHOD LATER?
+            if self.team == "player":
+                self.activate(target.rect.midleft)
+            else:
+                self.activate(target.rect.midright)
 
-        self.change_state("attack")
-        target.change_state("hurt")
-        target.health -= damage
-        if self.game.sound:
-            pygame.mixer.Sound.play(self.attack_audio)
-        # THIS WHOLE SECTION ABOVE INTO ONE METHOD?
+            self.change_state("attack")
+            target.change_state("hurt")
+            target.health -= damage
+            if self.game.sound:
+                pygame.mixer.Sound.play(self.attack_audio)
+            # THIS WHOLE SECTION ABOVE INTO ONE METHOD?
 
-        print(f"Slashed {target.name}!")
+            print(f"Slashed {target.name}!")
+
+            return True
 
     def execute(self, target: object, target_team: list):
-        damage = 50
+        mana_cost = 20
+        if self.mana >= mana_cost:
+            self.mana -= mana_cost
+            damage = 50
 
-        if self.team == "player":
-            self.activate(target.rect.midleft)
-        else:
-            self.activate(target.rect.midright)
+            if self.team == "player":
+                self.activate(target.rect.midleft)
+            else:
+                self.activate(target.rect.midright)
 
-        self.change_state("attack")
-        target.change_state("hurt")
-        target.health -= damage
-        if self.game.sound:
-            pygame.mixer.Sound.play(self.attack_audio)
+            self.change_state("attack")
+            target.change_state("hurt")
+            target.health -= damage
+            if self.game.sound:
+                pygame.mixer.Sound.play(self.attack_audio)
 
-        print(f"Executed {target.name}")
+            print(f"Executed {target.name}")
+
+            return True

@@ -55,11 +55,13 @@ class EnemyTurn(Scene):
                     self.attacker_attack = random.choice(
                         list(self.attacker.moves.values())
                     )
-                    self.attacker_attack(
+
+                    # If the move has no mana, reroll the attacker + move and try again
+                    if self.attacker_attack(
                         self.target, list(self.alive_player_dict.values())
-                    )
-                    self.attacks -= 1
-                    self.start_time = pygame.time.get_ticks()
+                    ):
+                        self.attacks -= 1
+                        self.start_time = pygame.time.get_ticks()
 
             # Check if we still have to wait for everyone's animations to finish
             # And if the enemy still has attacks left

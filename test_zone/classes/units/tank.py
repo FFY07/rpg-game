@@ -47,50 +47,70 @@ class Tank(Unit):
         self.moves["Machine Gun"] = self.machine_gun
 
     def cannon(self, target: object, target_team: list):
-        if not self.cannon_shells:
-            self.cannon_shells += 1
-            if self.game.sound:
-                pygame.mixer.Sound.play(audio.tank_load_shell)
-                self.game.sprites.add(ui_functions.HitImage("tank_charge", self, 2))
+        mana_cost = 40
 
-        # If we have cannon shells, proceed to fire
+        if self.mana >= mana_cost:
+            if not self.cannon_shells:
+                self.cannon_shells += 1
+                if self.game.sound:
+                    pygame.mixer.Sound.play(audio.tank_load_shell)
+                    self.game.sprites.add(ui_functions.HitImage("tank_charge", self, 2))
+
+            # If we have cannon shells, proceed to fire
+            else:
+                self.cannon_shells = 0
+                self.mana -= mana_cost
+                if self.game.sound:
+                    pygame.mixer.Sound.play(audio.tank_183mm)
+                damage = (self.intelligence - target.magic_resist) * 3
+
+                if damage < 0:
+                    damage = 0
+
+                self.game.sprites.add(ui_functions.HitImage("tank_cannon", target, 2))
+
+                self.melee(target)
+                self.change_state("attack")
+                target.change_state("hurt")
+                target.health -= damage
+                print(f"[DEBUG] {target.name} HP: {target.health}")
+
+            return True
         else:
-            self.cannon_shells = 0
-            if self.game.sound:
-                pygame.mixer.Sound.play(audio.tank_183mm)
-            damage = (self.intelligence - target.magic_resist) * 3
-
-            if damage < 0:
-                damage = 0
-
-            self.game.sprites.add(ui_functions.HitImage("tank_cannon", target, 2))
-
-            self.melee(target)
-            self.change_state("attack")
-            target.change_state("hurt")
-            target.health -= damage
-            print(f"[DEBUG] {target.name} HP: {target.health}")
+            # Attack fail
+            return False
 
     def machine_gun(self, target: object, target_team: list):
-        try:
-            # Selects 2 targets from the target team
-            target_list = random.sample(target_team, 2)
-        except:
-            # in case there's only 1 target left
-            target_list = target_team
+        mana_cost = 30
 
-        for t in target_list:
-            damage = self.intelligence - t.magic_resist
-            if damage < 0:
-                damage = 0
+        if self.mana >= mana_cost:
+            self.mana -= mana_cost
+            print(f"[DEBUG] Mana: {self.mana + mana_cost} - {mana_cost} = {self.mana}")
+            try:
+                # Selects 2 targets from the target team
+                target_list = random.sample(target_team, 2)
+            except:
+                # in case there's only 1 target left
+                target_list = target_team
 
-            self.change_state("attack")
-            t.change_state("hurt")
-            t.health -= damage
+            for t in target_list:
+                damage = self.intelligence - t.magic_resist
+                if damage < 0:
+                    damage = 0
 
-            # Create effect
-            self.game.sprites.add(ui_functions.HitImage("tank_mg", t, 2))
-            print(f"[DEBUG] {t.name} HP: {t.health}")
+                self.change_state("attack")
+                t.change_state("hurt")
+                t.health -= damage
 
-        if self.game.sound:
-            pygame.mixer.Sound.play(audio.tank_machine_gun)
+                # Create effect
+                self.game.sprites.add(ui_functions.HitImage("tank_mg", t, 2))
+                print(f"[DEBUG] {t.name} HP: {t.health}")
+
+            if self.game.sound:
+                pygame.mixer.Sound.play(audio.tank_machine_gun)
+
+            return True
+
+        else:
+            # Attack fail
+            return False

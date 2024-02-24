@@ -8,7 +8,7 @@ import resources2.audio as audio
 import gui2.ui_functions as ui_functions
 
 MAX_HEALTH = 100
-MANA = 50
+MANA = 100
 
 START_LEVEL = 1
 BASE_EXP = 0
@@ -60,7 +60,12 @@ class Unit(pygame.sprite.Sprite):
 
         self.death_effect = ui_functions.HitImage("blood1", self, 100)
 
-        self.inventory = {"Health Potion": 1, "Strength Potion": 1, "Defence Potion": 1}
+        self.inventory = {
+            "Health Potion": 3,
+            "Mana Potion": 3,
+            "Strength Shard": 1,
+            "Defence Shard": 1,
+        }
 
         self.moves = {"Basic Attack": self.basic_attack}
 
@@ -155,7 +160,12 @@ class Unit(pygame.sprite.Sprite):
 
                     print("Recovered health!")
 
-                case "Strength Potion":
+                case "Mana Potion":
+                    self.mana += 50
+
+                    print("Recovered mana!")
+
+                case "Strength Shard":
                     self.prev_strength = self.strength
                     self.strength = int(self.strength * 999)
 
@@ -163,7 +173,7 @@ class Unit(pygame.sprite.Sprite):
                         f"Increased strength from {self.prev_strength} to {self.strength}!"
                     )
 
-                case "Defence Potion":
+                case "Defence Shard":
                     self.defence = int(self.defence * 1.1)
 
                     print("Increased defence!")
@@ -200,3 +210,5 @@ class Unit(pygame.sprite.Sprite):
 
         # temporary
         print(f"[DEBUG] Target HP: {target.health}/{target.max_health}")
+
+        return True

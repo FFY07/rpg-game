@@ -70,14 +70,19 @@ class Inventory(Scene):
             self.pointer -= 1
 
         # HARDCODE BECAUSE LAZY REWRITE IF WE CHANGE ANY VALUES IN INVENTORY ALSO RMB TO UPDATE HERE THX
+
+        # NOPE PLEASE REWRITE THIS BS
         if self.pointer == 0:
             self.select_item("Health Potion", actions)
 
         if self.pointer == 1:
-            self.select_item("Strength Potion", actions)
+            self.select_item("Mana Potion", actions)
 
         if self.pointer == 2:
-            self.select_item("Defence Potion", actions)
+            self.select_item("Strength Shard", actions)
+
+        if self.pointer == 3:
+            self.select_item("Defence Shard", actions)
 
         if actions["escape"]:
             self.sprites.empty()

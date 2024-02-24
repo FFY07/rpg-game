@@ -38,6 +38,8 @@ magic_sfx.set_volume(0.4)
 potion_sfx = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/potion.wav')}")
 potion_sfx.set_volume(0.4)
 
+oom_sfx = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/game_effects/error.wav')}")
+
 death_sfx = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/warzone_armour_crack.wav')}")
 
 # Stupid section

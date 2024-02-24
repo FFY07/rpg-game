@@ -104,7 +104,7 @@ class Credits(Scene):
     def update(self, actions):
         if actions["escape"] or actions["enter"]:
             self.game.fps = 60
-            self.game.volume = 0.8
+            self.game.volume = 0.6
 
             for sprite in self.game.all_units:
                 sprite.kill()
@@ -122,7 +122,7 @@ class Credits(Scene):
         # Go back once credits are finished
         if len(self.sprites) == 0:
             self.game.fps = 60
-            self.game.volume = 0.8
+            self.game.volume = 0.6
 
             for sprite in self.game.all_units:
                 sprite.kill()
