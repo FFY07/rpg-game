@@ -128,7 +128,6 @@ class Game:
                         # Add the text to the text buffer string
                         self.text_buffer += event.unicode
 
-                # FOR SOME REASON THIS CAN CAUSE THE GAME TO CRASH
                 # if self.sound:
                 #     pygame.mixer.Sound.play(audio.click_sfx)
 
