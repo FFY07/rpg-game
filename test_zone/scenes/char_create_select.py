@@ -71,7 +71,7 @@ class CreateCharSelect(Scene):
             if sprite.name != "SELECTED":
                 sprite.selected = False
 
-        self.character_pointer = self.character_pointer % len(cf.unit_list)
+        # self.character_pointer = self.character_pointer % len(cf.unit_list)
         # self.pointer = self.pointer % len(self.button_sprites)
 
         self.class_name.text = cf.unit_list[self.character_pointer]
@@ -81,6 +81,7 @@ class CreateCharSelect(Scene):
             cf.unit_list[self.character_pointer],
         )
 
+        # If the selected character reaches the center x position, stop all units in place
         if (
             self.display_units_list[self.character_pointer].rect.center[0]
             == self.center_position[0]
@@ -88,15 +89,20 @@ class CreateCharSelect(Scene):
             for unit in self.display_units_list:
                 unit.dx, unit.dy = 0, 0
 
+        # We're doing the character_pointer range check manually instead of modulo
+        # Because I want to stop it from moving past the original range
+        # This is not as impressive as continuous scroll but adding it will require too much work to be rewritten
         if actions["right"]:
-            self.character_pointer += 1
-            for unit in self.display_units.sprites():
-                unit.dx = -self.scroll_speed
+            if self.character_pointer + 1 < len(self.display_units):
+                self.character_pointer += 1
+                for unit in self.display_units.sprites():
+                    unit.dx = -self.scroll_speed
 
         if actions["left"]:
-            self.character_pointer -= 1
-            for unit in self.display_units.sprites():
-                unit.dx = self.scroll_speed
+            if self.character_pointer > 0:
+                self.character_pointer -= 1
+                for unit in self.display_units.sprites():
+                    unit.dx = self.scroll_speed
 
         if self.pointer == 0:
             if actions["enter"]:

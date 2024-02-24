@@ -20,7 +20,7 @@ class Credits(Scene):
 
         pygame.mixer.music.load(audio.credits_bgm)
         self.game.volume = 0.4
-        pygame.mixer.music.play(-1, 44, 5000)
+        pygame.mixer.music.play(-1, 44, 3000)
 
         # Can't go below integer so use fps to tune the speed (higher fps = faster)
         self.game.fps = 60
