@@ -180,12 +180,18 @@ class Unit(pygame.sprite.Sprite):
         else:
             print(f"No {item} left!")
 
-    def melee(self, target):
-        """Melee will not deactivate if called multiple times in one turn"""
+    def melee(self, target, distance=0):
+        """Warps in front of the target"""
+
+        # Do not call this multiple times in a loop as the deactivate is currently not set to handle repeated activations
         if self.team == "player":
-            self.activate(target.rect.midleft)
+            destx, desty = target.rect.midleft
+            destx -= distance
+            self.activate((destx, desty))
         else:
-            self.activate(target.rect.midright)
+            destx, desty = target.rect.midright
+            destx += distance
+            self.activate((destx, desty))
 
         self.change_state("attack")
         target.change_state("hurt")
@@ -207,6 +213,7 @@ class Unit(pygame.sprite.Sprite):
 
         # Create effect
         self.game.sprites.add(ui_functions.HitImage("atk", target, 2))
+        self.game.sprites.add(ui_functions.DamageText(target, damage))
 
         # temporary
         print(f"[DEBUG] Target HP: {target.health}/{target.max_health}")
