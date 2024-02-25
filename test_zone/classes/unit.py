@@ -227,8 +227,8 @@ class Unit(pygame.sprite.Sprite):
         self.update_stats(target, damage, "atk", 2)
         if self.mana < self.max_mana:
             self.mana += 5
-            if self.mana > 100:
-                self.mana = 100
+            if self.mana > self.max_mana:
+                self.mana = self.max_mana
         if self.game.sound:
             pygame.mixer.Sound.play(self.attack_audio)
 
