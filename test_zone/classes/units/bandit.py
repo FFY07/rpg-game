@@ -45,14 +45,9 @@ class Bandit(Unit):
             damage = 5
             damagemana = 20
 
-            # PUT THIS WHOLE SECTION INTO ONE METHOD LATER?
-            if self.team == "player":
-                self.activate(target.rect.midleft)
-            else:
-                self.activate(target.rect.midright)
-
-            self.change_state("attack")
-            target.change_state("hurt")
+            self.melee(target)
+            self.update_stats(target, damage, "atk", 2)
+         
             target.health -= damage
             target.mana -= damagemana
             self.mana += damagemana
@@ -61,7 +56,6 @@ class Bandit(Unit):
 
             if self.game.sound:
                 pygame.mixer.Sound.play(self.attack_audio)
-            # THIS WHOLE SECTION ABOVE INTO ONE METHOD?
 
             print(f"You steal 20 mana from {target.name}!")
             print(f"[DEBUG] Target MANA: {target.mana}/{target.max_mana}")
@@ -75,21 +69,17 @@ class Bandit(Unit):
             self.mana -= mana_cost
             damage = 1
             stealratio = 0.1
-            # PUT THIS WHOLE SECTION INTO ONE METHOD LATER?
-            if self.team == "player":
-                self.activate(target.rect.midleft)
-            else:
-                self.activate(target.rect.midright)
+            
+            self.melee(target)
+            self.update_stats(target, damage, "atk", 2)
 
-            self.change_state("attack")
-            target.change_state("hurt")
             target.health -= damage
             target.strength += math.floor(target.strength * stealratio)
             self.strength += math.floor(target.strength * stealratio)
 
             if self.game.sound:
                 pygame.mixer.Sound.play(self.attack_audio)
-            # THIS WHOLE SECTION ABOVE INTO ONE METHOD?
+    
 
             print(f"You steal {math.floor(target.strength * stealratio)} damage from {target.name}!")
             print(f"[DEBUG] DAMAGE: {self.strength}")
