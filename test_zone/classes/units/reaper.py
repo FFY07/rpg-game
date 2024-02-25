@@ -48,7 +48,7 @@ class Reaper(Unit):
             damage = 999
 
             self.melee(target)
-            self.update_stats(target, damage, "atk", 2)
+            self.update_stats(target, damage, "reaper_sacrifice", 2)
             self.health -= damage
             self.change_state("hurt")
 

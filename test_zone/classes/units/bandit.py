@@ -59,8 +59,8 @@ class Bandit(Unit):
                 pygame.mixer.Sound.play(self.attack_audio)
 
             print(f"You steal 20 mana from {target.name}!")
-            print(f"[DEBUG] Target MANA: {target.mana}/{target.max_mana}")
-            print(f"[DEBUG] Your Mana: {self.mana}/{self.max_mana}")
+            # print(f"[DEBUG] Target MANA: {target.mana}/{target.max_mana}")
+            # print(f"[DEBUG] Your Mana: {self.mana}/{self.max_mana}")
             return True
         
 
