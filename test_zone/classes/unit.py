@@ -124,8 +124,10 @@ class Unit(pygame.sprite.Sprite):
         self.image = self.animations[self.state][self.current_frame]
         self.rect.move_ip(self.dx, self.dy)
 
+        # Checks if unit is dead
         if self.alive:
             if self.health <= 0:
+                self.health = 0
                 self.alive = False
                 self.change_state("death")
 
@@ -180,7 +182,7 @@ class Unit(pygame.sprite.Sprite):
         else:
             print(f"No {item} left!")
 
-    def melee(self, target, distance=0):
+    def melee(self, target: object, distance=0):
         """Warps in front of the target"""
 
         # Do not call this multiple times in a loop as the deactivate is currently not set to handle repeated activations
@@ -196,24 +198,35 @@ class Unit(pygame.sprite.Sprite):
         self.change_state("attack")
         target.change_state("hurt")
 
-    def basic_attack(self, target: object, target_team: list):
-        damage = self.strength - target.defence
-        if damage < 0:
-            damage = 0
-
-        # Observation: If you see anyone using the super-unintuitive max(0, damage) there's a 99.999% chance it was AI-generated
-        self.melee(target)
+    def update_stats(
+        self, target: object, damage: int, damage_effect_name="atk", effect_speed=2
+    ):
+        """Update animations, damage text, exp, coins, etc."""
+        self.exp += damage
+        self.coins += damage
 
         self.change_state("attack")
         target.change_state("hurt")
         target.health -= damage
 
+        self.game.sprites.add(
+            ui_functions.HitImage(damage_effect_name, target, effect_speed)
+        )
+        self.game.sprites.add(ui_functions.DamageText(target, damage))
+
+    def basic_attack(self, target: object, target_team: list):
+        damage = self.strength - target.defence
+        if damage < 0:
+            damage = 0
+
+        # Note: If you see anyone using the super-unintuitive max(0, damage) there's a 99.999% chance it was AI-generated
+
+        # Melee is optional and only for direct attacks
+        self.melee(target)
+        self.update_stats(target, damage, "atk", 2)
+
         if self.game.sound:
             pygame.mixer.Sound.play(self.attack_audio)
-
-        # Create effect
-        self.game.sprites.add(ui_functions.HitImage("atk", target, 2))
-        self.game.sprites.add(ui_functions.DamageText(target, damage))
 
         # temporary
         print(f"[DEBUG] Target HP: {target.health}/{target.max_health}")

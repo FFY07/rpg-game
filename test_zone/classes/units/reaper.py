@@ -47,20 +47,15 @@ class Reaper(Unit):
             self.mana -= mana_cost
             damage = 999
 
-            if self.team == "player":
-                self.activate(target.rect.midleft)
-            else:
-                self.activate(target.rect.midright)
-
+            self.melee(target)
+            self.update_stats(target, damage, "atk", 2)
             self.health -= damage
             self.change_state("hurt")
-            self.change_state("attack")
-            target.change_state("hurt")
-            target.health -= damage
+
             if self.game.sound:
                 pygame.mixer.Sound.play(self.attack_audio)
 
-            print(f"you sacrifice yourself to kill {target.name}")
+            print(f"{self.name} sacrificed itself to kill {target.name}")
 
             return True
 

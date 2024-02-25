@@ -52,18 +52,11 @@ class Knight(Unit):
             self.mana -= mana_cost
             damage = 25
 
-            # PUT THIS WHOLE SECTION INTO ONE METHOD LATER?
-            if self.team == "player":
-                self.activate(target.rect.midleft)
-            else:
-                self.activate(target.rect.midright)
+            self.melee(target)
+            self.update_stats(target, damage, "blood2", 2)
 
-            self.change_state("attack")
-            target.change_state("hurt")
-            target.health -= damage
             if self.game.sound:
                 pygame.mixer.Sound.play(self.attack_audio)
-            # THIS WHOLE SECTION ABOVE INTO ONE METHOD?
 
             print(f"Slashed {target.name}!")
 
@@ -75,14 +68,9 @@ class Knight(Unit):
             self.mana -= mana_cost
             damage = 50
 
-            if self.team == "player":
-                self.activate(target.rect.midleft)
-            else:
-                self.activate(target.rect.midright)
+            self.melee(target)
+            self.update_stats(target, damage, "blood3", 2)
 
-            self.change_state("attack")
-            target.change_state("hurt")
-            target.health -= damage
             if self.game.sound:
                 pygame.mixer.Sound.play(self.attack_audio)
 

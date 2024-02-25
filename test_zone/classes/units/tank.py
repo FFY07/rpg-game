@@ -67,12 +67,9 @@ class Tank(Unit):
                 if damage < 0:
                     damage = 0
 
-                self.game.sprites.add(ui_functions.HitImage("tank_cannon", target, 2))
-
                 self.melee(target)
-                self.change_state("attack")
-                target.change_state("hurt")
-                target.health -= damage
+                self.update_stats(target, damage, "tank_cannon", 2)
+
                 print(f"[DEBUG] {target.name} HP: {target.health}")
 
             return True
@@ -85,7 +82,6 @@ class Tank(Unit):
 
         if self.mana >= mana_cost:
             self.mana -= mana_cost
-            print(f"[DEBUG] Mana: {self.mana + mana_cost} - {mana_cost} = {self.mana}")
             try:
                 # Selects 2 targets from the target team
                 target_list = random.sample(target_team, 2)
@@ -98,12 +94,8 @@ class Tank(Unit):
                 if damage < 0:
                     damage = 0
 
-                self.change_state("attack")
-                t.change_state("hurt")
-                t.health -= damage
+                self.update_stats(t, damage, "tank_mg", 2)
 
-                # Create effect
-                self.game.sprites.add(ui_functions.HitImage("tank_mg", t, 2))
                 print(f"[DEBUG] {t.name} HP: {t.health}")
 
             if self.game.sound:
