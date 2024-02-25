@@ -220,7 +220,7 @@ class Unit(pygame.sprite.Sprite):
         if damage < 0:
             damage = 0
 
-        # Note: If you see anyone using the super-unintuitive max(0, damage) there's a 99.999% chance it was AI-generated
+        # Note: If you see anyone using the counterintuitive max(0, damage) there's a 99.999% chance it was AI-generated
 
         # Melee is optional and only for direct attacks
         self.melee(target)
