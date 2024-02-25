@@ -8,7 +8,7 @@ import resources2.audio as audio
 import gui2.ui_functions as ui_functions
 
 MAX_HEALTH = 100
-MANA = 100
+MAX_MANA = 100
 
 START_LEVEL = 1
 BASE_EXP = 0
@@ -25,7 +25,8 @@ class Unit(pygame.sprite.Sprite):
         self.game = game
         self.max_health = MAX_HEALTH
         self.health = self.max_health
-        self.mana = MANA
+        self.max_mana = MAX_MANA
+        self.mana = self.max_mana
 
         self.level = START_LEVEL
         self.exp = BASE_EXP
@@ -224,11 +225,14 @@ class Unit(pygame.sprite.Sprite):
         # Melee is optional and only for direct attacks
         self.melee(target)
         self.update_stats(target, damage, "atk", 2)
-
+        if self.mana < self.max_mana:
+            self.mana += 5
+            if self.mana > 100:
+                self.mana = 100
         if self.game.sound:
             pygame.mixer.Sound.play(self.attack_audio)
 
         # temporary
         print(f"[DEBUG] Target HP: {target.health}/{target.max_health}")
-
+        print(f"[DEBUG]  SELF MANA: {self.mana}/{self.max_mana}")
         return True
