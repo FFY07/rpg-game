@@ -38,6 +38,7 @@ class Bandit(Unit):
 
         self.moves["Mana Theft (10)"] = self.manatheft
         self.moves["Stat Theft (20)"] = self.statstealing
+        self.moves["Underwear Theft (10)"] = self.stealunderwear
     def manatheft(self, target: object, target_team: list):
         mana_cost = 10
         if self.mana > mana_cost:
@@ -83,4 +84,30 @@ class Bandit(Unit):
 
             print(f"You steal {math.floor(target.strength * stealratio)} damage from {target.name}!")
             print(f"[DEBUG] DAMAGE: {self.strength}")
+            return True
+        
+    def stealunderwear(self, target: object, target_team: list):
+        mana_cost = 10
+        if self.mana > mana_cost:
+            self.mana -= mana_cost
+            damage = 999
+
+
+
+            if self.strength == 15:
+                self.melee(target)
+                self.update_stats(target, damage, "atk", 2)
+                self.strength = 10
+                target.health -= damage
+
+                if self.game.sound:
+                    pygame.mixer.Sound.play(self.attack_audio)
+
+                print(f"You steal underwear from {target.name}!, {target.name} fell ashame rather to died")
+
+            else:
+                self.strength += 1
+                print('You dont have enought strength to steal underwear')
+                print(f"{self.strength}/15 ")
+
             return True
