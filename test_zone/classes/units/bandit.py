@@ -1,6 +1,7 @@
 import pygame,random,math
 
 from classes.unit import Unit
+import gui2.ui_functions as ui_functions
 
 # Range of values
 STRENGTH = (8, 15)
@@ -47,7 +48,7 @@ class Bandit(Unit):
             damagemana = 20
 
             self.melee(target)
-            self.update_stats(target, damage, "atk", 2)
+            self.update_stats(target, damage, "manasteal", 2)
          
             target.health -= damage
             target.mana -= damagemana
@@ -57,6 +58,7 @@ class Bandit(Unit):
 
             if self.game.sound:
                 pygame.mixer.Sound.play(self.attack_audio)
+                self.game.sprites.add(ui_functions.HitImage("tank_charge", self, 2))
 
             print(f"You steal 20 mana from {target.name}!")
             # print(f"[DEBUG] Target MANA: {target.mana}/{target.max_mana}")
@@ -72,7 +74,7 @@ class Bandit(Unit):
             stealratio = 0.1
             
             self.melee(target)
-            self.update_stats(target, damage, "atk", 2)
+            self.update_stats(target, damage, "statsteal", 2)
 
             target.health -= damage
             target.strength += math.floor(target.strength * stealratio)
@@ -94,10 +96,10 @@ class Bandit(Unit):
 
 
 
-            if self.strength == 15:
+            if self.strength >= 15:
                 self.melee(target)
                 self.update_stats(target, damage, "atk", 2)
-                self.strength = 10
+                self.strength -= 5
                 target.health -= damage
 
                 if self.game.sound:
