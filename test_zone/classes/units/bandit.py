@@ -1,4 +1,4 @@
-import random
+import pygame,random
 
 from classes.unit import Unit
 
@@ -34,3 +34,33 @@ class Bandit(Unit):
         self.image = self.animations["idle"][0]
         self.rect = self.image.get_rect()
         self.rect.center = self.position
+
+
+        self.moves["Mana Theft (10)"] = self.manatheft
+
+    def manatheft(self, target: object, target_team: list):
+        mana_cost = 10
+        if self.mana > mana_cost:
+            self.mana -= mana_cost
+            damage = 5
+            damagemana = 20
+
+            # PUT THIS WHOLE SECTION INTO ONE METHOD LATER?
+            if self.team == "player":
+                self.activate(target.rect.midleft)
+            else:
+                self.activate(target.rect.midright)
+
+            self.change_state("attack")
+            target.change_state("hurt")
+            target.health -= damage
+            target.mana -= damagemana
+            self.mana += damagemana
+
+            if self.game.sound:
+                pygame.mixer.Sound.play(self.attack_audio)
+            # THIS WHOLE SECTION ABOVE INTO ONE METHOD?
+
+            print(f"You steal 20 mana from {target.name}!")
+
+            return True
