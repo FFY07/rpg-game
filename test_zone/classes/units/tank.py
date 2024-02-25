@@ -43,8 +43,8 @@ class Tank(Unit):
         self.cannon_shells = 0
 
         # Add moves to moves dictionary
-        self.moves["Cannon"] = self.cannon
-        self.moves["Machine Gun"] = self.machine_gun
+        self.moves["Cannon (40)"] = self.cannon
+        self.moves["Machine Gun (20)"] = self.machine_gun
 
     def cannon(self, target: object, target_team: list):
         mana_cost = 40
@@ -81,7 +81,7 @@ class Tank(Unit):
             return False
 
     def machine_gun(self, target: object, target_team: list):
-        mana_cost = 30
+        mana_cost = 20
 
         if self.mana >= mana_cost:
             self.mana -= mana_cost

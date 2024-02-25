@@ -39,7 +39,7 @@ class Reaper(Unit):
         self.rect = self.image.get_rect()
         self.rect.center = self.position
 
-        self.moves["Sacrifice"] = self.sacrifice
+        self.moves["Sacrifice (100)"] = self.sacrifice
 
     def sacrifice(self, target, target_team):
         mana_cost = 100
