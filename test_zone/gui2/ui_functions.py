@@ -3,6 +3,8 @@ from pathlib import Path
 import pygame
 import gui2.screen as scr
 
+import resources2.fonts as fonts
+
 
 def store_text(name: str, text_group, game: object):
     if game.text_ready:
@@ -25,7 +27,7 @@ class TextSprite(pygame.sprite.Sprite):
         self,
         text: str,
         size: int,
-        text_font="freesansbold",
+        text_font=None,
         color="white",
         x_centered=True,
         y_centered=True,
@@ -67,7 +69,11 @@ class TextSprite(pygame.sprite.Sprite):
         self.dx = dx
         self.dy = dy
 
-        self.font = pygame.font.SysFont(text_font, size)
+        try:
+            self.font = pygame.font.Font(text_font, size)
+        except:
+            self.font = pygame.font.SysFont(text_font, size)
+
         self.image = self.font.render(self.text, True, self.color)
         self.rect = self.image.get_rect()
         self.rect.center = (self.x, self.y)
@@ -241,6 +247,62 @@ class HitImage(pygame.sprite.Sprite):
             )
 
             self.animations.append(image)
+
+
+class DamageText(pygame.sprite.Sprite):
+    def __init__(self, target: object, damage: int, crit=False, color=False):
+        super().__init__()
+        self.damage_amount = str(damage)
+        self.target = target
+        self.crit = crit
+        self.text_font = fonts.pixeloid_bold
+        self.size = 50
+
+        # If no color is set, use our own default colors
+        if not color:
+            if self.crit:
+                self.color = "orangered"
+            else:
+                self.color = "white"
+
+            # If damage is 0
+            if not damage:
+                self.color = "deepskyblue"
+        try:
+            self.font = pygame.font.Font(self.text_font, self.size)
+        except:
+            self.font = pygame.font.SysFont(self.text_font, self.size)
+
+        self.image = self.font.render(self.damage_amount, True, self.color)
+
+        self.rect = self.image.get_rect()
+        self.rect.center = self.target.rect.center
+
+        # How many frames before the sprite dies :(
+        self.max_lifetime = 180
+        self.lifetime = self.max_lifetime
+
+        self.dx = 0
+        self.dy = -2
+
+    def update(self):
+        self.fade_start = 120
+
+        # move damage text up
+        self.rect.move_ip(self.dx, self.dy)
+
+        # Oh no it's growing old
+        self.lifetime -= 1
+
+        # Alpha ranges from 0 to 255, so we need to normalise it
+        if self.lifetime > self.fade_start:
+            normaliser = (self.lifetime - self.fade_start) / (
+                self.max_lifetime - self.fade_start
+            )
+            self.image.set_alpha(int(f"{int((255 * normaliser))}"))
+
+        if self.lifetime <= 0:
+            self.kill()
 
 
 class RectGUI(pygame.sprite.Sprite):

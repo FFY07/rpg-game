@@ -5,7 +5,7 @@ import pygame
 from scenes.scene import Scene
 import resources2.images
 from gui2 import ui_functions
-import resources2.audio as audio
+import resources2.fonts as fonts
 from scenes.char_create import CreateChar
 from scenes.options import Options
 from scenes.credits import Credits
@@ -38,7 +38,7 @@ class MainMenu(Scene):
             (0, 50),
         )
         self.title_text = ui_functions.TextSprite(
-            "RPG ADVENTURE", 70, "High Tower Text", "red", True, self.yc - 200
+            "RPG ADVENTURE", 140, fonts.squealer_embossed, "red", True, self.yc - 200
         )
 
         self.sprites.add(self.title_text)
