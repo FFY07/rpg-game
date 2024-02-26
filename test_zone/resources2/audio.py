@@ -9,14 +9,11 @@ pygame.init()
 
 
 # BGM
-battle = f"{Path('test_zone/resources2/audio/bgm/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Action 2.mp3')}"
-battle_alt = f"{Path('test_zone/resources2/audio/bgm/sts_mind_bloom.mp3')}"
+battle_alt = f"{Path('test_zone/resources2/audio/bgm/sts_mind_bloom.wav')}"
 
-start = f"{Path('test_zone/resources2/audio/bgm/Fantasy RPG Music Pack Vol.3/Tracks//mp3/Ambient 3.mp3')}"
-game_over = f"{Path('test_zone/resources2/audio/bgm/Fantasy RPG Music Pack Vol.3/Tracks/mp3/Fx 3.mp3')}"
-menu = f"{Path('test_zone/resources2/audio/bgm/sts_main.mp3')}"
+menu = f"{Path('test_zone/resources2/audio/bgm/sts_main.wav')}"
 
-credits_bgm = f"{Path('test_zone/resources2/audio/bgm/Phantom.mp3')}"
+credits_bgm = f"{Path('test_zone/resources2/audio/bgm/Phantom.wav')}"
 
 # Stupid section
 easter = f"{Path('test_zone/resources2/audio/bgm/driftveil-city-theme-pokémon-black-&-white-(toothless-dancing)-made-with-Voicemod.mp3')}"
@@ -26,21 +23,21 @@ easter = f"{Path('test_zone/resources2/audio/bgm/driftveil-city-theme-pokémon-b
 
 class SoundEffects():
     def __init__(self):        
-        self.click_sfx = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/game_effects/click.mp3')}")
+        self.click_sfx = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/game_effects/click.wav')}")
 
-        self.sword_sfx = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/unsheath_sword-6113.mp3')}")
+        self.sword_sfx = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/unsheath_sword-6113.wav')}")
 
-        self.reaper_basic = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/double_unsheath2.mp3')}")
+        self.reaper_basic = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/Reaper/double_unsheath2.wav')}")
 
-        self.warrior_basic = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/heavy_slash.mp3')}")
+        self.warrior_basic = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/Warrior/heavy_slash.wav')}")
         self.warrior_basic.set_volume(1)
 
-        self.tank_basic = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/Tank/wot_37mm.mp3')}")
-        self.tank_machine_gun = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/Tank/wot_autocannon.mp3')}")
-        self.tank_load_shell = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/Tank/wot_load_shell.mp3')}")
-        self.tank_183mm = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/Tank/wot_183mm.mp3')}")
+        self.tank_basic = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/Tank/wot_37mm.wav')}")
+        self.tank_machine_gun = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/Tank/wot_autocannon.wav')}")
+        self.tank_load_shell = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/Tank/wot_load_shell.wav')}")
+        self.tank_183mm = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/Tank/wot_183mm.wav')}")
 
-        self.magic_sfx = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/1168-za-warudo-sound-effect.mp3')}")
+        self.magic_sfx = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/1168-za-warudo-sound-effect.wav')}")
         self.magic_sfx.set_volume(0.4)
 
         self.potion_sfx = pygame.mixer.Sound(f"{Path('test_zone/resources2/audio/character_effects/potion.wav')}")
