@@ -4,10 +4,10 @@ from classes.unit import Unit
 import gui2.ui_functions as ui_functions
 
 # Range of values
-STRENGTH = (8, 15)
-INTELLIGENCE = (1, 5)
-DEFENCE = (1, 8)
-MAGIC_RESIST = (1, 8)
+STRENGTH = (10, 10)
+INTELLIGENCE = (3, 3)
+DEFENCE = (60, 60)
+MAGIC_RESIST = (40, 40)
 
 
 class Bandit(Unit):
@@ -71,7 +71,7 @@ class Bandit(Unit):
         if self.mana > mana_cost:
             self.mana -= mana_cost
             damage = self.calc_damage(target, "physical", 0.05)
-            stealratio = 100
+            stealratio = 0.1
 
             self.melee(target)
             self.update_stats(target, damage, "statsteal", 2)

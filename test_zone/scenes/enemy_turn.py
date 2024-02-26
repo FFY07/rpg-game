@@ -39,12 +39,14 @@ class EnemyTurn(Scene):
             if self.current_time - self.start_time > self.wait and self.attacks:
                 self.target_team_ready = True
                 self.attacker = random.choice(list(self.alive_enemy_dict.values()))
-                self.target = random.choice(list(self.alive_player_dict.values()))
+
+                # Randomly choose from either team
+                self.target = random.choice(list(self.alive_player_dict.values()) + list(self.alive_enemy_dict.values()))
 
                 # If player character is not idle, wait until it is (where it will get deactivated on top)
 
-                # bandaid fix for currently attacking sprites to never be attacked
-                for sprite in list(self.alive_player_dict.values()):
+                # bandaid fix for currently attacking sprites to never be attacked (else the position and animation will mess up)
+                for sprite in (list(self.alive_player_dict.values()) + list(self.alive_enemy_dict.values())):
                     if sprite.state != "idle":
                         self.target_team_ready = False
 
@@ -58,7 +60,7 @@ class EnemyTurn(Scene):
 
                     # If the move has no mana, reroll the attacker + move and try again
                     if self.attacker_attack(
-                        self.target, list(self.alive_player_dict.values())
+                        self.target, (list(self.alive_player_dict.values()) + list(self.alive_enemy_dict.values()))
                     ):
                         self.attacks -= 1
                         self.start_time = pygame.time.get_ticks()

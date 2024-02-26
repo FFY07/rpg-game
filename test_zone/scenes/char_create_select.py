@@ -5,8 +5,6 @@ import gui2.ui_functions as ui_functions
 import classes.class_functions as cf
 
 from scenes.scene import Scene
-from scenes.play import Play
-
 import resources2.images as images
 
 
@@ -52,15 +50,8 @@ class CreateCharSelect(Scene):
 
         for unit in self.display_units.sprites():
             self.display_units_list.append(unit)
-
-        # Works but doesn't do anything
-        # for unit in self.display_units.sprites():
-        #     for _, image_set in unit.animations.items():
-        #         for image in image_set:
-        #             pygame.transform.scale(
-        #                 image, (image.get_width() * 4, image.get_height() * 4)
-        #             )
-        #             unit.rect = image.get_rect()
+        
+        self.name_field = ui_functions.TextSprite()
 
         cf.set_positions(self.position_list, self.display_units, "center")
 

@@ -207,6 +207,14 @@ class Unit(pygame.sprite.Sprite):
         else:
             print(f"No {item} left!")
 
+    def is_target_hostile(self, target) -> bool:
+        """Returns True if target is not on the same team as us"""
+        if self.team != target.team:
+            return True
+        
+        else:
+            return False
+
     def melee(self, target: object, distance=0):
         """Warps in front of the target"""
 
@@ -240,6 +248,24 @@ class Unit(pygame.sprite.Sprite):
         )
         self.game.sprites.add(ui_functions.DamageText(target, int(damage)))
 
+    def update_healstats(
+        self, target: object, heal: int, damage_effect_name="healing", effect_speed=2
+    ):
+        """Update animations, damage text, exp, coins, etc."""
+        # Game design-wise it would be better to not have float exp and coins
+  
+        self.change_state("defend")
+        target.change_state("defend")
+        target.health += heal
+        
+        # THIS IS NOT AI WRITTEN,  it will always set the smallest number, this code ensure that it wont heal more than max_health)
+        target.health = min(target.max_health, target.health) 
+
+        self.game.sprites.add( 
+            ui_functions.HitImage(damage_effect_name, target, effect_speed)
+        )
+        self.game.sprites.add(ui_functions.DamageText(target, int(heal)))
+
     def calc_damage(
         self, target: object, damage_type="Physical", multiplier=1.0
     ) -> float:
@@ -270,27 +296,26 @@ class Unit(pygame.sprite.Sprite):
 
     def basic_attack(self, target: object, target_team: list):
         """Basic physical attack that also restores a bit of mana"""
+        if self.is_target_hostile(target):
+            damage = self.calc_damage(target, "physical", 1)
 
+            # Melee is optional and only for direct attacks
+            self.melee(target)
+            self.update_stats(target, damage, "atk", 2)
 
-        damage = self.calc_damage(target, "physical", 1)
+            # Add mana when attacking
+            if self.mana < self.max_mana:
+                self.mana += 5
+                if self.mana > self.max_mana:
+                    self.mana = self.max_mana
 
-        # Melee is optional and only for direct attacks
-        self.melee(target)
-        self.update_stats(target, damage, "atk", 2)
+            if self.game.sound:
+                pygame.mixer.Sound.play(self.attack_audio)
 
-        # Add mana when attacking
-        if self.mana < self.max_mana:
-            self.mana += 5
-            if self.mana > self.max_mana:
-                self.mana = self.max_mana
+            # temporary
+            print(f"[DEBUG] Target {target.name} HP: {target.health}/{target.max_health}")
+            print(f"[DEBUG] {self.name} MANA: {self.mana}/{self.max_mana}")
+            print(f"[DEBUG] {self.name} EXP: {self.exp} COINS: {self.coins}")
 
-        if self.game.sound:
-            pygame.mixer.Sound.play(self.attack_audio)
-
-        # temporary
-        print(f"[DEBUG] Target {target.name} HP: {target.health}/{target.max_health}")
-        print(f"[DEBUG] {self.name} MANA: {self.mana}/{self.max_mana}")
-        print(f"[DEBUG] {self.name} EXP: {self.exp} COINS: {self.coins}")
-
-        # Note: the game will check if the attack returns True, else the attack will not proceed (e.g. prevent attacking with not enough mana)
-        return True
+            # Note: the game will check if the attack returns True, else the attack will not proceed (e.g. prevent attacking with not enough mana)
+            return True

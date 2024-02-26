@@ -6,10 +6,10 @@ import resources2.audio as audio
 import gui2.ui_functions as ui_functions
 
 # Range of values
-STRENGTH = (1, 20)
-INTELLIGENCE = (10, 20)
-DEFENCE = (5, 15)
-MAGIC_RESIST = (5, 15)
+STRENGTH = (2, 2)
+INTELLIGENCE = (17, 17)
+DEFENCE = (60, 60)
+MAGIC_RESIST = (30, 30)
 
 
 class Tank(Unit):
