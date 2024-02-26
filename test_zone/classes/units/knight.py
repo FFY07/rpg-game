@@ -45,6 +45,13 @@ class Knight(Unit):
         # Add moves to moves dictionary
         self.moves["Life Steal (15)"] = self.lifesteal
         self.moves["Execute (30)"] = self.execute
+        
+    def level_stats(self):
+        self.health += self.max_health / 10
+        self.strength += 2
+        self.intelligence += 10
+        self.defence += 5
+        self.magic_resist += 2
 
     def lifesteal(self, target: object, target_team: list):
         if  self.is_target_hostile(target):

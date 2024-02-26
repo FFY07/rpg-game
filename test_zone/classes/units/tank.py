@@ -45,6 +45,13 @@ class Tank(Unit):
         # Add moves to moves dictionary
         self.moves["Cannon (30)"] = self.cannon
         self.moves["Machine Gun (15)"] = self.machine_gun
+        
+    def level_stats(self):
+        self.health += self.max_health / 10
+        self.strength += 2
+        self.intelligence += 10
+        self.defence += 5
+        self.magic_resist += 2
 
     def cannon(self, target: object, target_team: list):
         if self.is_target_hostile(target):

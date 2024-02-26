@@ -40,6 +40,13 @@ class Bandit(Unit):
         self.moves["Mana Theft (10)"] = self.manatheft
         self.moves["Stat Theft (20)"] = self.statstealing
         self.moves["Underwear Theft (10)"] = self.stealunderwear
+        
+    def level_stats(self):
+        self.health += self.max_health / 10
+        self.strength += 2
+        self.intelligence += 10
+        self.defence += 5
+        self.magic_resist += 2
 
     def manatheft(self, target: object, target_team: list):
         if  self.is_target_hostile(target):
@@ -63,8 +70,7 @@ class Bandit(Unit):
                     self.game.sprites.add(ui_functions.HitImage("tank_charge", self, 2))
 
                 print(f"You steal 20 mana from {target.name}!")
-                # print(f"[DEBUG] Target MANA: {target.mana}/{target.max_mana}")
-                # print(f"[DEBUG] Your Mana: {self.mana}/{self.max_mana}")
+    
                 return True
 
     def statstealing(self, target: object, target_team: list):
@@ -73,7 +79,7 @@ class Bandit(Unit):
             if self.mana > mana_cost:
                 self.mana -= mana_cost
                 damage = self.calc_damage(target, "physical", 0.05)
-                stealratio = 0.1
+                stealratio = 0.05 
 
                 self.melee(target)
                 self.update_stats(target, damage, "statsteal", 2)

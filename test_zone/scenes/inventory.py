@@ -90,7 +90,10 @@ class Inventory(Scene):
 
         self.game.reset_keys()
         self.sprites.update()
+    
         self.game.all_units.update()
+        
+        self.anchor.healthbars.update()
 
         # for item in self.selected_unit.inventory.items():
         #     print(item)

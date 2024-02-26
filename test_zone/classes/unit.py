@@ -3,7 +3,6 @@ import random
 import pygame
 
 import gui2.screen as scr
-import resources2.images as images
 import resources2.audio as audio
 
 import gui2.ui_functions as ui_functions
@@ -11,8 +10,6 @@ import gui2.ui_functions as ui_functions
 MAX_HEALTH = 100
 MAX_MANA = 100
 
-START_LEVEL = 1
-BASE_EXP = 0
 EXP_TO_NEXT_LEVEL = 100
 
 COINS = 0
@@ -30,9 +27,27 @@ class Unit(pygame.sprite.Sprite):
         self.crit_chance = 20
         self.crit_mult = 1.5
 
-        self.level = START_LEVEL
-        self.exp = BASE_EXP
-        self.exp_to_next_level = EXP_TO_NEXT_LEVEL
+        self.level = 1
+        self.level_exp_dict = {1: 100,
+                           2: 150,
+                           3: 220,
+                           4: 340,
+                           5: 450,
+                           6: 560,
+                           7: 680,
+                           8: 840,
+                           9: 1200,
+                           10: 1400,
+                           11: 1700,
+                           12: 2000,
+                           13: 2400,
+                           14: 2900,
+                           15: 4000,
+                           16: 5500,
+                           17: 7200,
+        }
+        
+        self.exp = 0
 
         self.coins = COINS
 
@@ -139,19 +154,21 @@ class Unit(pygame.sprite.Sprite):
                 self.change_state("death")
 
     def update_level(self):
+        """Updates the level of the unit based on their exp"""
+        
+        # Only updates if the unit is alive
         if self.alive:
-            # if self.level <= len(self.level_dict)
-            # else print can't level anymore or something most RPGs and games like LoL also have max levels
+            
+            # Max level cannot exceed the level dict
+            if self.level < len(self.level_exp_dict):
+                
+                if self.exp > self.level_exp_dict[self.level]:
+                    self.exp -= self.level_exp_dict[self.level]
+                    self.level += 1
+                    self.level_stats()
 
-            # Please change this to a dictionary system {1: 100, 2: 150, 3: 240, 4: 350, etc}
-            # if self.exp > self.level_dict[self.level]:
-
-            if self.exp > self.exp_to_next_level:
-                self.exp -= self.exp_to_next_level
-                self.level += 1
-
-                # We can spawn particles or something here as well
-                print(f"{self.name} has levelled up to {self.level}!")
+                    # We can spawn particles or something here as well
+                    print(f"{self.name} has levelled up to {self.level}!")
 
     def change_state(self, target_state):
         """Resets the current frame to 0 so the animation doesn't start halfway"""

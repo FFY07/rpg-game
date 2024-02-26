@@ -109,7 +109,6 @@ class Game:
                 if self.typing:
                     if event.key == pygame.K_BACKSPACE:
 
-                        # Set the text to everything except the last character
                         self.text_buffer = self.text_buffer[:-1]
 
                     elif event.key == pygame.K_RETURN or event.key == pygame.K_ESCAPE:
@@ -118,6 +117,7 @@ class Game:
                         if event.key == pygame.K_ESCAPE:
                             self.text_buffer = ""
 
+                        # Indicate that the text buffer is ready to be saved somewher
                         else:
                             self.text_ready = True
 

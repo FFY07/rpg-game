@@ -6,21 +6,6 @@ import gui2.screen as scr
 import resources2.fonts as fonts
 
 
-def store_text(name: str, text_group, game: object):
-    if game.text_ready:
-        for sprite in text_group.sprites():
-            if sprite.name == name:
-                sprite.text = game.text_buffer
-
-        # Also return the text if necessary
-        buffered_text = game.text_buffer
-
-        game.text_buffer = ""
-        game.text_ready = False
-
-        return buffered_text
-
-
 class TextSprite(pygame.sprite.Sprite):
     # Creates a text sprite; replace me with a docstring once all the parameters are done
     def __init__(
@@ -348,7 +333,7 @@ class RectGUI(pygame.sprite.Sprite):
             "Impact",
             "white",
             self.rect.center[0] - 290,
-            self.rect.center[1] - 50,
+            self.rect.center[1] - 105,
         )
 
         self.name_text = TextSprite(
@@ -357,7 +342,7 @@ class RectGUI(pygame.sprite.Sprite):
             None,
             "white",
             self.rect.center[0] - 190,
-            self.rect.center[1] - 45,
+            self.rect.center[1] - 105,
         )
 
         # self.name_button = "button object"
@@ -365,26 +350,26 @@ class RectGUI(pygame.sprite.Sprite):
             "Type here",
             30,
             None,
-            "grey27",
+            "white",
             self.rect.center[0] - 50,
-            self.rect.center[1] - 45,
+            self.rect.center[1] - 105,
             f"T{self.name}",
         )
 
-        self.class_text = TextSprite(
-            "Class: ",
-            25,
-            None,
-            "white",
-            self.rect.center[0] - 190,
-            self.rect.center[1] + 5,
-        )
+        # self.class_text = TextSprite(
+        #     "Class: ",
+        #     25,
+        #     None,
+        #     "white",
+        #     self.rect.center[0] - 190,
+        #     self.rect.center[1] + 5,
+        # )
 
         self.class_button = "another button here"
 
         # Don't forget to put the buttons into the sprites below
         self.sprites.add(
-            [self.player_text, self.name_text, self.class_text, self.selected_name]
+            [self.player_text, self.name_text, self.selected_name]
         )
 
     def update(self):
@@ -404,3 +389,59 @@ class RectGUI(pygame.sprite.Sprite):
     def draw(self, screen):
         pygame.draw.rect(screen, self.border_color, self.rect, 5)
         self.sprites.draw(screen)
+
+
+class Healthbar(pygame.sprite.Sprite):
+    def __init__(
+            self,
+            unit: object,
+            width = 60,
+            height = 10,
+            color = 'green'
+    ):
+        
+        super().__init__() 
+        self.sprites = pygame.sprite.Group()
+
+        self.unit = unit
+        self.width = width
+        self.max_width = self.width
+        
+        self.height = height
+
+        self.color = color
+
+        self.image = pygame.Surface((self.width, self.height))
+        self.image.fill(self.color)
+        self.image.set_alpha(255)
+        self.rect = self.image.get_rect()
+        self.rect.topleft = self.unit.rect.midbottom
+
+        self.player_text = TextSprite(
+            "test",
+            25,
+            "Impact",
+            "white",
+            self.rect.center[0] - 290,
+            self.rect.center[1] - 105,
+         )
+        
+        self.sprites.add(self.player_text)
+    
+    # This one should update outside the play.py
+    def update(self):
+        self.ratio = self.unit.health / self.unit.max_health
+        self.width = max(0, int(self.max_width * self.ratio)) #omg use max must be ai write one omgggg jk 
+        self.image = pygame.transform.scale(self.image, (self.width, self.height))
+        self.rect = self.image.get_rect()
+        self.rect.topleft = self.unit.rect.midbottom
+        
+        # print(f"Unit: {self.unit.name} HP: {self.unit.health / self.unit.max_health = } Width: {self.width} Rect: {self.rect} Image: {self.image} Ratio: {self.ratio}")
+
+        self.sprites.update()
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.border_color, self.rect, 5)
+        self.sprites.draw(screen)
+
+
