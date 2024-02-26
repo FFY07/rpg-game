@@ -8,7 +8,7 @@ from scenes.menu import MainMenu
 clock = pygame.time.Clock()
 clock.tick(60)
 
-
+# meaningless 
 # We'll use a state stack system instead of each scene having its own individual loops
 class Game:
     def __init__(self):
