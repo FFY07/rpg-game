@@ -113,6 +113,8 @@ def set_positions(position_list, sprite_group, anchor="center"):
                     print("Invalid anchor, check the code again!")
                     unit.rect.center == coordinates
 
+            unit.position = coordinates
+
         # If there are no available positions left, we leave the unit's coordinates at default
         except IndexError:
             unit.rect.center = random.randint(0, scr.SCREEN_WIDTH), random.randint(

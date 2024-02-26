@@ -20,7 +20,7 @@ class Play(Scene):
         super().__init__(game)
         pygame.mixer.music.load(audio.battle_alt)
         pygame.mixer.music.play(-1, 0, 1000)
-        
+
         self.stat_guis = pygame.sprite.Group()
 
         self.background = images.background_img
@@ -45,6 +45,15 @@ class Play(Scene):
         cf.set_positions(self.player_positions, self.game.players)
         cf.set_positions(self.enemy_positions, self.game.enemies)
 
+        # Move sprites off-screen
+        for sprite in self.game.players:
+            sprite.rect.center = sprite.rect.center[0] - 200, sprite.rect.center[1]
+            sprite.dx = 5
+
+        for sprite in self.game.enemies:
+            sprite.rect.center = sprite.rect.center[0] + 200, sprite.rect.center[1]
+            sprite.dx = -5
+
         # The reason why there is a dictionary and a list is because the list gets changed during game iteration
         # While the alive dictionary needs to be fixed with keys so it doesn't keep appending
         # Since it needs to be updated every loop
@@ -56,19 +65,30 @@ class Play(Scene):
 
         self.button_dict = self.create_dict(self.button_sprites)
         self.text_dict = self.create_dict(self.text_sprites)
-        
+
         for sprite in self.game.all_units.sprites():
             stat_bar = ui_functions.Statbar(sprite)
             self.stat_guis.add(stat_bar)
             self.ui_sprites.add(stat_bar)
-    # def create_health_gui(self, x, y, width = 120, height = 60):
-        
-        # gui = ui_functions.Healthbar(x, y , width, height, "green")
 
-        # self.ui_sprites.add(gui)
+    # def create_health_gui(self, x, y, width = 120, height = 60):
+
+    # gui = ui_functions.Healthbar(x, y , width, height, "green")
+
+    # self.ui_sprites.add(gui)
 
     def update(self, actions):
         self.update_alive_dict()
+
+        for sprite in self.game.all_units:
+            rectx, recty = sprite.rect.center
+            if rectx > scr.SCREEN_WIDTH:
+                sprite.rect.center = 0, recty
+            elif rectx < 0:
+                sprite.rect.center = scr.SCREEN_WIDTH, recty
+
+            if rectx == sprite.position[0]:
+                sprite.dx = 0
 
         if not self.alive_player_dict:
             victor = "enemy"
@@ -127,7 +147,7 @@ class Play(Scene):
         # Rendering order (last to render = on top)
         self.game.all_units.draw(screen)
         self.ui_sprites.draw(screen)
-        
+
         # for group in self.manual_groups:
         #     group.update()
         #     group.draw(screen)
