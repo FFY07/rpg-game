@@ -93,7 +93,7 @@ class Inventory(Scene):
     
         self.game.all_units.update()
         
-        self.anchor.healthbars.update()
+        self.anchor.stat_guis.update()
 
         # for item in self.selected_unit.inventory.items():
         #     print(item)

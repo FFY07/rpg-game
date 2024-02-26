@@ -82,7 +82,7 @@ class Action(Scene):
     
         self.game.all_units.update()
         
-        self.anchor.healthbars.update()
+        self.anchor.stat_guis.update()
 
     def render(self, screen):
         self.anchor.render(screen)

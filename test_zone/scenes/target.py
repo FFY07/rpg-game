@@ -87,7 +87,7 @@ class ChooseTarget(Scene):
 
         # If game breaks try putting this at the start of the loop
         self.game.all_units.update()
-        self.anchor.healthbars.update()
+        self.anchor.stat_guis.update()
 
     def render(self, screen):
         self.anchor.render(screen)

@@ -21,7 +21,7 @@ class Play(Scene):
         pygame.mixer.music.load(audio.battle_alt)
         pygame.mixer.music.play(-1, 0, 1000)
         
-        self.healthbars = pygame.sprite.Group()
+        self.stat_guis = pygame.sprite.Group()
 
         self.background = images.background_img
         self.ui_sprites = pygame.sprite.Group()
@@ -58,11 +58,9 @@ class Play(Scene):
         self.text_dict = self.create_dict(self.text_sprites)
         
         for sprite in self.game.all_units.sprites():
-            # self.create_health_gui(*sprite.rect.midtop)
-            healthbar = ui_functions.Healthbar(sprite)
-            self.healthbars.add(healthbar)
-            self.ui_sprites.add(healthbar)
-
+            stat_bar = ui_functions.Statbar(sprite)
+            self.stat_guis.add(stat_bar)
+            self.ui_sprites.add(stat_bar)
     # def create_health_gui(self, x, y, width = 120, height = 60):
         
         # gui = ui_functions.Healthbar(x, y , width, height, "green")
@@ -129,3 +127,7 @@ class Play(Scene):
         # Rendering order (last to render = on top)
         self.game.all_units.draw(screen)
         self.ui_sprites.draw(screen)
+        
+        # for group in self.manual_groups:
+        #     group.update()
+        #     group.draw(screen)

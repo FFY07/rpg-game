@@ -93,7 +93,7 @@ class EnemyTurn(Scene):
         self.game.all_units.update()
         
         # This could go badly
-        self.anchor.healthbars.update()
+        self.anchor.stat_guis.update()
 
     def render(self, screen):
         self.anchor.render(screen)

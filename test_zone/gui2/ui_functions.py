@@ -391,31 +391,31 @@ class RectGUI(pygame.sprite.Sprite):
         self.sprites.draw(screen)
 
 
-class Healthbar(pygame.sprite.Sprite):
+class Statbar(pygame.sprite.Sprite):
     def __init__(
             self,
             unit: object,
-            width = 60,
-            height = 10,
-            color = 'green'
+            color = 'green',
+            y_offset = 0
     ):
-        
         super().__init__() 
         self.sprites = pygame.sprite.Group()
-
         self.unit = unit
-        self.width = width
+        self.width = 100
         self.max_width = self.width
         
-        self.height = height
+        self.y_offset = y_offset
+        
+        self.height = 15
 
         self.color = color
 
         self.image = pygame.Surface((self.width, self.height))
-        self.image.fill(self.color)
+        self.image.fill(color)
         self.image.set_alpha(255)
         self.rect = self.image.get_rect()
-        self.rect.topleft = self.unit.rect.midbottom
+
+        self.rect.center = self.unit.rect.midbottom[0], self.unit.rect.midbottom[1] + self.y_offset
 
         self.player_text = TextSprite(
             "test",
@@ -434,7 +434,7 @@ class Healthbar(pygame.sprite.Sprite):
         self.width = max(0, int(self.max_width * self.ratio)) #omg use max must be ai write one omgggg jk 
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
         self.rect = self.image.get_rect()
-        self.rect.topleft = self.unit.rect.midbottom
+        self.rect.center = self.unit.rect.midbottom
         
         # print(f"Unit: {self.unit.name} HP: {self.unit.health / self.unit.max_health = } Width: {self.width} Rect: {self.rect} Image: {self.image} Ratio: {self.ratio}")
 
@@ -445,3 +445,15 @@ class Healthbar(pygame.sprite.Sprite):
         self.sprites.draw(screen)
 
 
+["green", "deepskyblue1", "grey27", "pink"]
+class InfoGUI():
+    def __init__(self, unit: object, bars: list):
+        self.unit = unit
+        self.bar_offset = 20
+        self.bars = pygame.sprite.Group()
+        self.text_sprites = pygame.sprite.Group()
+        
+        for i, color in enumerate(bars):
+            self.bars.add(Statbar(self.unit, color, i * self.bar_offset))
+        
+            
