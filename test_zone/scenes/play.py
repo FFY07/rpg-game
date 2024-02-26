@@ -45,14 +45,14 @@ class Play(Scene):
         cf.set_positions(self.player_positions, self.game.players)
         cf.set_positions(self.enemy_positions, self.game.enemies)
 
-        # Move sprites off-screen
+        # Move sprites off-screen (due to how rubbish this 1 am code is, only low multiples of 10 will work)
         for sprite in self.game.players:
             sprite.rect.center = sprite.rect.center[0] - 200, sprite.rect.center[1]
-            sprite.dx = 5
+            sprite.dx = 20
 
         for sprite in self.game.enemies:
             sprite.rect.center = sprite.rect.center[0] + 200, sprite.rect.center[1]
-            sprite.dx = -5
+            sprite.dx = -20
 
         # The reason why there is a dictionary and a list is because the list gets changed during game iteration
         # While the alive dictionary needs to be fixed with keys so it doesn't keep appending

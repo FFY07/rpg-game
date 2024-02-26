@@ -75,6 +75,9 @@ class Unit(pygame.sprite.Sprite):
         self.animations = {}
         self.anim_speed = 100
 
+        self.stat_bar_center_offset_x = 0
+        self.stat_bar_center_offset_y = -100
+
         self.death_effect = ui_functions.HitImage("blood1", self, 100)
 
         self.inventory = {

@@ -41,6 +41,8 @@ class Warrior(Unit):
         self.rect = self.image.get_rect()
         self.rect.center = self.position
 
+        self.stat_bar_center_offset_y = -50
+
         # Add moves to moves dictionary
         self.moves["Life Steal (15)"] = self.lifesteal
         self.moves["Execute (30)"] = self.execute

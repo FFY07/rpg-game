@@ -368,9 +368,7 @@ class RectGUI(pygame.sprite.Sprite):
         self.class_button = "another button here"
 
         # Don't forget to put the buttons into the sprites below
-        self.sprites.add(
-            [self.player_text, self.name_text, self.selected_name]
-        )
+        self.sprites.add([self.player_text, self.name_text, self.selected_name])
 
     def update(self):
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
@@ -392,20 +390,15 @@ class RectGUI(pygame.sprite.Sprite):
 
 
 class Statbar(pygame.sprite.Sprite):
-    def __init__(
-            self,
-            unit: object,
-            color = 'green',
-            y_offset = 0
-    ):
-        super().__init__() 
+    def __init__(self, unit: object, color="green", y_offset=0):
+        super().__init__()
         self.sprites = pygame.sprite.Group()
         self.unit = unit
         self.width = 100
         self.max_width = self.width
-        
+
         self.y_offset = y_offset
-        
+
         self.height = 15
 
         self.color = color
@@ -415,7 +408,10 @@ class Statbar(pygame.sprite.Sprite):
         self.image.set_alpha(255)
         self.rect = self.image.get_rect()
 
-        self.rect.center = self.unit.rect.midbottom[0], self.unit.rect.midbottom[1] + self.y_offset
+        self.rect.center = (
+            self.unit.rect.midbottom[0],
+            self.unit.rect.midbottom[1] + self.y_offset,
+        )
 
         self.player_text = TextSprite(
             "test",
@@ -424,18 +420,23 @@ class Statbar(pygame.sprite.Sprite):
             "white",
             self.rect.center[0] - 290,
             self.rect.center[1] - 105,
-         )
-        
+        )
+
         self.sprites.add(self.player_text)
-    
+
     # This one should update outside the play.py
     def update(self):
         self.ratio = self.unit.health / self.unit.max_health
-        self.width = max(0, int(self.max_width * self.ratio)) #omg use max must be ai write one omgggg jk 
+        self.width = max(
+            0, int(self.max_width * self.ratio)
+        )  # omg use max must be ai write one omgggg jk
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
         self.rect = self.image.get_rect()
-        self.rect.center = self.unit.rect.midbottom
-        
+        self.rect.center = (
+            self.unit.rect.center[0] + self.unit.stat_bar_center_offset_x,
+            self.unit.rect.center[1] + self.unit.stat_bar_center_offset_y,
+        )
+
         # print(f"Unit: {self.unit.name} HP: {self.unit.health / self.unit.max_health = } Width: {self.width} Rect: {self.rect} Image: {self.image} Ratio: {self.ratio}")
 
         self.sprites.update()
@@ -446,14 +447,14 @@ class Statbar(pygame.sprite.Sprite):
 
 
 ["green", "deepskyblue1", "grey27", "pink"]
-class InfoGUI():
+
+
+class InfoGUI:
     def __init__(self, unit: object, bars: list):
         self.unit = unit
         self.bar_offset = 20
         self.bars = pygame.sprite.Group()
         self.text_sprites = pygame.sprite.Group()
-        
+
         for i, color in enumerate(bars):
             self.bars.add(Statbar(self.unit, color, i * self.bar_offset))
-        
-            
