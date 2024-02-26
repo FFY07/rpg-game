@@ -79,9 +79,9 @@ class Action(Scene):
 
         self.game.reset_keys()
         self.sprites.update()
-    
+
         self.game.all_units.update()
-        
+
         self.anchor.stat_guis.update()
 
     def render(self, screen):

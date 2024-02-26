@@ -2,6 +2,7 @@ import pygame, random
 
 from scenes.scene import Scene
 
+
 class EnemyTurn(Scene):
     def __init__(self, game: object, anchor: object):
         super().__init__(game)
@@ -58,9 +59,7 @@ class EnemyTurn(Scene):
                     )
 
                     # If the move has no mana, reroll the attacker + move and try again
-                    if self.attacker_attack(
-                        self.target, self.targeted_list
-                    ):
+                    if self.attacker_attack(self.target, self.targeted_list):
                         self.attacks -= 1
                         self.start_time = pygame.time.get_ticks()
 
@@ -91,7 +90,7 @@ class EnemyTurn(Scene):
         self.current_time = pygame.time.get_ticks()
         self.sprites.update()
         self.game.all_units.update()
-        
+
         # This could go badly
         self.anchor.stat_guis.update()
 
