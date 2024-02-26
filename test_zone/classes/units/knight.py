@@ -43,14 +43,14 @@ class Knight(Unit):
         self.rect.center = self.position
 
         # Add moves to moves dictionary
-        self.moves["Slash (10)"] = self.slash
+        self.moves["Slash (15)"] = self.slash
         self.moves["Execute (30)"] = self.execute
 
     def slash(self, target: object, target_team: list):
-        mana_cost = 10
+        mana_cost = 15
         if self.mana > mana_cost:
             self.mana -= mana_cost
-            damage = 25
+            damage = self.calc_damage(target, "physical", 2)
 
             self.melee(target)
             self.update_stats(target, damage, "blood2", 2)
@@ -66,7 +66,7 @@ class Knight(Unit):
         mana_cost = 30
         if self.mana >= mana_cost:
             self.mana -= mana_cost
-            damage = 50
+            damage = self.calc_damage(target, "physical", 3)
 
             self.melee(target)
             self.update_stats(target, damage, "blood3", 2)

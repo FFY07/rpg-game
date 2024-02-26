@@ -43,11 +43,11 @@ class Tank(Unit):
         self.cannon_shells = 0
 
         # Add moves to moves dictionary
-        self.moves["Cannon (40)"] = self.cannon
-        self.moves["Machine Gun (20)"] = self.machine_gun
+        self.moves["Cannon (30)"] = self.cannon
+        self.moves["Machine Gun (15)"] = self.machine_gun
 
     def cannon(self, target: object, target_team: list):
-        mana_cost = 40
+        mana_cost = 30
 
         if self.mana >= mana_cost:
             if not self.cannon_shells:
@@ -58,19 +58,15 @@ class Tank(Unit):
 
             # If we have cannon shells, proceed to fire
             else:
-                self.cannon_shells = 0
                 self.mana -= mana_cost
                 if self.game.sound:
                     pygame.mixer.Sound.play(audio.tank_183mm)
-                damage = (self.intelligence - target.magic_resist) * 3
+                self.cannon_shells = 0
 
-                if damage < 0:
-                    damage = 0
+                damage = self.calc_damage(target, "magic", 5)
 
                 self.melee(target)
                 self.update_stats(target, damage, "tank_cannon", 2)
-
-                print(f"[DEBUG] {target.name} HP: {target.health}")
 
             return True
         else:
@@ -78,7 +74,7 @@ class Tank(Unit):
             return False
 
     def machine_gun(self, target: object, target_team: list):
-        mana_cost = 20
+        mana_cost = 15
 
         if self.mana >= mana_cost:
             self.mana -= mana_cost
@@ -90,13 +86,8 @@ class Tank(Unit):
                 target_list = target_team
 
             for t in target_list:
-                damage = self.intelligence - t.magic_resist
-                if damage < 0:
-                    damage = 0
-
+                damage = self.calc_damage(t, "magic", 1.5)
                 self.update_stats(t, damage, "tank_mg", 2)
-
-                print(f"[DEBUG] {t.name} HP: {t.health}")
 
             if self.game.sound:
                 pygame.mixer.Sound.play(audio.tank_machine_gun)

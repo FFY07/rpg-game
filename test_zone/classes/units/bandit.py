@@ -1,4 +1,4 @@
-import pygame,random,math
+import pygame, random, math
 
 from classes.unit import Unit
 import gui2.ui_functions as ui_functions
@@ -9,47 +9,48 @@ INTELLIGENCE = (1, 5)
 DEFENCE = (1, 8)
 MAGIC_RESIST = (1, 8)
 
+
 class Bandit(Unit):
-    def __init__(self, name, team, id_no = 0, game = None):
+    def __init__(self, name, team, id_no=0, game=None):
         super().__init__(name, team, id_no)
         self.game = game
-        
+
         self.unit_class = "Bandit"
 
         self.name = name
         self.team = team
         self.id = id_no
-        
+
         self.strength = random.randint(*STRENGTH)
         self.intelligence = random.randint(*INTELLIGENCE)
         self.defence = random.randint(*DEFENCE)
         self.magic_resist = random.randint(*MAGIC_RESIST)
-        
+
         self.size_scale = 2.5
-        
+
         if self.team == "enemy":
             self.direction = "left"
-        
+
         self.load_animations()
-        
+
         self.image = self.animations["idle"][0]
         self.rect = self.image.get_rect()
         self.rect.center = self.position
 
-
         self.moves["Mana Theft (10)"] = self.manatheft
         self.moves["Stat Theft (20)"] = self.statstealing
         self.moves["Underwear Theft (10)"] = self.stealunderwear
+
     def manatheft(self, target: object, target_team: list):
         mana_cost = 10
         if self.mana > mana_cost:
             self.mana -= mana_cost
-            damage = 5
+            damage = self.calc_damage(target, "physical", 0.1)
             damagemana = 20
 
             self.melee(target)
             self.update_stats(target, damage, "manasteal", 2)
-         
+
             target.health -= damage
             target.mana -= damagemana
             self.mana += damagemana
@@ -64,15 +65,14 @@ class Bandit(Unit):
             # print(f"[DEBUG] Target MANA: {target.mana}/{target.max_mana}")
             # print(f"[DEBUG] Your Mana: {self.mana}/{self.max_mana}")
             return True
-        
 
     def statstealing(self, target: object, target_team: list):
         mana_cost = 20
         if self.mana > mana_cost:
             self.mana -= mana_cost
-            damage = 1
+            damage = self.calc_damage(target, "physical", 0.05)
             stealratio = 0.1
-            
+
             self.melee(target)
             self.update_stats(target, damage, "statsteal", 2)
 
@@ -82,19 +82,18 @@ class Bandit(Unit):
 
             if self.game.sound:
                 pygame.mixer.Sound.play(self.attack_audio)
-    
 
-            print(f"You steal {math.floor(target.strength * stealratio)} damage from {target.name}!")
+            print(
+                f"You steal {math.floor(target.strength * stealratio)} damage from {target.name}!"
+            )
             print(f"[DEBUG] DAMAGE: {self.strength}")
             return True
-        
+
     def stealunderwear(self, target: object, target_team: list):
         mana_cost = 10
         if self.mana > mana_cost:
             self.mana -= mana_cost
-            damage = 999
-
-
+            damage = self.calc_damage(target, "physical", 999)
 
             if self.strength >= 15:
                 self.melee(target)
@@ -105,11 +104,13 @@ class Bandit(Unit):
                 if self.game.sound:
                     pygame.mixer.Sound.play(self.attack_audio)
 
-                print(f"You steal underwear from {target.name}!, {target.name} fell ashame rather to died")
+                print(
+                    f"You steal underwear from {target.name}!, {target.name} fell ashame rather to died"
+                )
 
             else:
                 self.strength += 1
-                print('You dont have enought strength to steal underwear')
+                print("You dont have enought strength to steal underwear")
                 print(f"{self.strength}/15 ")
 
             return True

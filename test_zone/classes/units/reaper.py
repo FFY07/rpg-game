@@ -45,7 +45,7 @@ class Reaper(Unit):
         mana_cost = 100
         if self.mana >= mana_cost:
             self.mana -= mana_cost
-            damage = 999
+            damage = self.calc_damage(target, "physical", 999)
 
             self.melee(target)
             self.update_stats(target, damage, "reaper_sacrifice", 1)

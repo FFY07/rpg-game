@@ -1,6 +1,7 @@
 from pathlib import Path
-
+import random
 import pygame
+
 import gui2.screen as scr
 import resources2.images as images
 import resources2.audio as audio
@@ -27,6 +28,10 @@ class Unit(pygame.sprite.Sprite):
         self.health = self.max_health
         self.max_mana = MAX_MANA
         self.mana = self.max_mana
+
+        # 20% default is quite high, want to change?
+        self.crit_chance = 20
+        self.crit_mult = 1.5
 
         self.level = START_LEVEL
         self.exp = BASE_EXP
@@ -125,12 +130,31 @@ class Unit(pygame.sprite.Sprite):
         self.image = self.animations[self.state][self.current_frame]
         self.rect.move_ip(self.dx, self.dy)
 
-        # Checks if unit is dead
+        # Checks unit state
+        self.update_alive()
+        self.update_level()
+
+    def update_alive(self):
         if self.alive:
             if self.health <= 0:
                 self.health = 0
                 self.alive = False
                 self.change_state("death")
+
+    def update_level(self):
+        if self.alive:
+            # if self.level <= len(self.level_dict)
+            # else print can't level anymore or something most RPGs and games like LoL also have max levels
+
+            # Please change this to a dictionary system {1: 100, 2: 150, 3: 240, 4: 350, etc}
+            # if self.exp > self.level_dict[self.level]:
+
+            if self.exp > self.exp_to_next_level:
+                self.exp -= self.exp_to_next_level
+                self.level += 1
+
+                # We can spawn particles or something here as well
+                print(f"{self.name} has levelled up to {self.level}!")
 
     def change_state(self, target_state):
         """Resets the current frame to 0 so the animation doesn't start halfway"""
@@ -203,8 +227,9 @@ class Unit(pygame.sprite.Sprite):
         self, target: object, damage: int, damage_effect_name="atk", effect_speed=2
     ):
         """Update animations, damage text, exp, coins, etc."""
-        self.exp += damage
-        self.coins += damage
+        # Game design-wise it would be better to not have float exp and coins
+        self.exp += int(damage)
+        self.coins += int(damage)
 
         self.change_state("attack")
         target.change_state("hurt")
@@ -213,26 +238,57 @@ class Unit(pygame.sprite.Sprite):
         self.game.sprites.add(
             ui_functions.HitImage(damage_effect_name, target, effect_speed)
         )
-        self.game.sprites.add(ui_functions.DamageText(target, damage))
+        self.game.sprites.add(ui_functions.DamageText(target, int(damage)))
+
+    def calc_damage(
+        self, target: object, damage_type="Physical", multiplier=1.0
+    ) -> float:
+        """Checks for crit and enemy resistances"""
+
+        if damage_type == "physical":
+            base_damage = self.strength * multiplier
+        elif damage_type == "magic":
+            base_damage = self.intelligence * multiplier
+
+        # Check for crit
+        if self.crit_chance >= random.randint(0, 100):
+            damage = base_damage * self.crit_mult
+        else:
+            damage = base_damage
+
+        # Check target resistances
+        if damage_type == "physical":
+            final_damage = damage / (1 + (target.defence / 100))
+
+        elif damage_type == "magic":
+            final_damage = damage / (1 + (target.magic_resist / 100))
+
+        if final_damage < 0:
+            final_damage = 0
+
+        return final_damage
 
     def basic_attack(self, target: object, target_team: list):
-        damage = self.strength - target.defence
-        if damage < 0:
-            damage = 0
-
-        # Note: If you see anyone using the counterintuitive max(0, damage) there's a 99.999% chance it was AI-generated
+        """Basic physical attack that also restores a bit of mana"""
+        damage = self.calc_damage(target, "physical", 1)
 
         # Melee is optional and only for direct attacks
         self.melee(target)
         self.update_stats(target, damage, "atk", 2)
+
+        # Add mana when attacking
         if self.mana < self.max_mana:
             self.mana += 5
             if self.mana > self.max_mana:
                 self.mana = self.max_mana
+
         if self.game.sound:
             pygame.mixer.Sound.play(self.attack_audio)
 
         # temporary
-        print(f"[DEBUG] Target HP: {target.health}/{target.max_health}")
-        print(f"[DEBUG]  SELF MANA: {self.mana}/{self.max_mana}")
+        print(f"[DEBUG] Target {target.name} HP: {target.health}/{target.max_health}")
+        print(f"[DEBUG] {self.name} MANA: {self.mana}/{self.max_mana}")
+        print(f"[DEBUG] {self.name} EXP: {self.exp} COINS: {self.coins}")
+
+        # Note: the game will check if the attack returns True, else the attack will not proceed (e.g. prevent attacking with not enough mana)
         return True
