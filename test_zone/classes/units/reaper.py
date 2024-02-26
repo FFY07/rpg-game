@@ -59,53 +59,55 @@ class Reaper(Unit):
                 return True
 
     def sacrifice(self, target, target_team):
-        if  self.is_target_hostile(target):
-            mana_cost = 50
-            if self.mana >= mana_cost:  
-                self.mana -= mana_cost
+         mana_cost = 50
+         if self.mana >= mana_cost:  
+            if self.is_target_hostile(target):
+                mana_cost = 50
+                if self.mana >= mana_cost:  
+                    self.mana -= mana_cost
 
-                if self.health >= (self.max_health * 0.2):
-                    damage = self.calc_damage(target, "physical", 0.5)
-                    self.melee(target)
-                    self.update_stats(target, damage, "statsteal", 1)
-                    self.health -= damage
-                    self.change_state("attack")
+                    if self.health >= (self.max_health * 0.2):
+                        damage = self.calc_damage(target, "physical", 0.5)
+                        self.melee(target)
+                        self.update_stats(target, damage, "statsteal", 1)
+                        self.health -= damage
+                        self.change_state("attack")
 
-                else:
-                    damage = self.calc_damage(target, "physical", 999)
+                    else:
+                        damage = self.calc_damage(target, "physical", 999)
 
-                    self.melee(target)
-                    self.update_stats(target, damage, "reaper_sacrifice", 1)
-                    self.health -= damage
-                    self.change_state("hurt")
+                        self.melee(target)
+                        self.update_stats(target, damage, "reaper_sacrifice", 1)
+                        self.health -= damage
+                        self.change_state("hurt")
 
-                if self.game.sound:
-                    pygame.mixer.Sound.play(self.attack_audio)
+                    if self.game.sound:
+                        pygame.mixer.Sound.play(self.attack_audio)
 
-                print(f"{self.name} sacrificed itself to kill {target.name}")
-
-            return True
-        
-        else:
-            mana_cost = 50
-            if self.mana >= mana_cost:  
-                self.mana -= mana_cost
-
-                self.max_health += self.max_health + target.health
-                self.health += self.health + target.health
-                self.strength += self.strength + target.strength
-                self.defence += self.defence + target.defence
-                
-                damage = 999
-                self.melee(target)
-                self.update_stats(target, damage, "statsteal", 1)
-
-                print(f"{self.name} sacrifice {target.name} to increase it owns stat ! ")
-                print(f"[DEBUG]: {self.max_health}, {self.health},  {self.strength}, {self.defence}")
-               
-
-                if self.game.sound:
-                    pygame.mixer.Sound.play(self.attack_audio)
+                    print(f"{self.name} sacrificed itself to kill {target.name}")
 
                 return True
             
+            else:
+                mana_cost = 50
+                if self.mana >= mana_cost:  
+                    self.mana -= mana_cost
+
+                    self.max_health += self.max_health + target.health
+                    self.health += self.health + target.health
+                    self.strength += self.strength + target.strength
+                    self.defence += self.defence + target.defence
+                    
+                    damage = 999
+                    self.melee(target)
+                    self.update_stats(target, damage, "statsteal", 1)
+
+                    print(f"{self.name} sacrifice {target.name} to increase it owns stat ! ")
+                    print(f"[DEBUG]: {self.max_health}, {self.health},  {self.strength}, {self.defence}")
+                
+
+                    if self.game.sound:
+                        pygame.mixer.Sound.play(self.attack_audio)
+
+                    return True
+                

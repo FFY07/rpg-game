@@ -2,11 +2,6 @@ import pygame, random
 
 from scenes.scene import Scene
 
-from gui2 import ui_functions
-
-import resources2.images as images
-
-
 class EnemyTurn(Scene):
     def __init__(self, game: object, anchor: object):
         super().__init__(game)
@@ -31,26 +26,30 @@ class EnemyTurn(Scene):
 
     def update(self, actions):
         self.update_alive_dict()
+        self.enemies_list = list(self.alive_enemy_dict.values())
+        self.players_list = list(self.alive_player_dict.values())
+
+        # Select a random team to target
+        self.targeted_list = random.choice([self.enemies_list, self.players_list])
 
         # If either team is dead, go back to play screen
         if self.alive_enemy_dict and self.alive_player_dict:
 
             # Delay before attacking which is actually useless code because we added a new check for player team idle below
             if self.current_time - self.start_time > self.wait and self.attacks:
-                self.target_team_ready = True
-                self.attacker = random.choice(list(self.alive_enemy_dict.values()))
+                self.ready_to_attack = True
+                self.attacker = random.choice(self.enemies_list)
 
                 # Randomly choose from either team
-                self.target = random.choice(list(self.alive_player_dict.values()) + list(self.alive_enemy_dict.values()))
+                self.target = random.choice(self.targeted_list)
 
                 # If player character is not idle, wait until it is (where it will get deactivated on top)
-
-                # bandaid fix for currently attacking sprites to never be attacked (else the position and animation will mess up)
-                for sprite in (list(self.alive_player_dict.values()) + list(self.alive_enemy_dict.values())):
+                # this is a bandaid fix for currently attacking sprites to never be attacked (else the position and animation will mess up)
+                for sprite in self.targeted_list:
                     if sprite.state != "idle":
-                        self.target_team_ready = False
+                        self.ready_to_attack = False
 
-                if self.target_team_ready:
+                if self.ready_to_attack:
                     self.target.deactivate()  # Timing issue (force deactivate)
 
                     # Enemy chooses a random move to attack with
@@ -60,7 +59,7 @@ class EnemyTurn(Scene):
 
                     # If the move has no mana, reroll the attacker + move and try again
                     if self.attacker_attack(
-                        self.target, (list(self.alive_player_dict.values()) + list(self.alive_enemy_dict.values()))
+                        self.target, self.targeted_list
                     ):
                         self.attacks -= 1
                         self.start_time = pygame.time.get_ticks()

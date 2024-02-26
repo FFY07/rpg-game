@@ -1,11 +1,11 @@
 import pygame
-import random
 
 import gui2.ui_functions as ui_functions
 import classes.class_functions as cf
 
 from scenes.scene import Scene
 import resources2.images as images
+import resources2.fonts as fonts
 
 
 class CreateCharSelect(Scene):
@@ -51,7 +51,7 @@ class CreateCharSelect(Scene):
         for unit in self.display_units.sprites():
             self.display_units_list.append(unit)
         
-        self.name_field = ui_functions.TextSprite()
+        self.name_field = ui_functions.TextSprite("Enter name here", 50, fonts.pixeloid_mono, "white", True, self.xy + 200)
 
         cf.set_positions(self.position_list, self.display_units, "center")
 

@@ -17,9 +17,6 @@ EXP_TO_NEXT_LEVEL = 100
 
 COINS = 0
 
-# Note: check knight.py for class-specific references
-
-
 class Unit(pygame.sprite.Sprite):
     def __init__(self, name, team, id_no=0, game=None):
         super().__init__()
@@ -235,7 +232,8 @@ class Unit(pygame.sprite.Sprite):
         self, target: object, damage: int, damage_effect_name="atk", effect_speed=2
     ):
         """Update animations, damage text, exp, coins, etc."""
-        # Game design-wise it would be better to not have float exp and coins
+
+        # Game design-wise it would be better to not have float exp and coins so we int them
         self.exp += int(damage)
         self.coins += int(damage)
 
@@ -251,8 +249,7 @@ class Unit(pygame.sprite.Sprite):
     def update_healstats(
         self, target: object, heal: int, damage_effect_name="healing", effect_speed=2
     ):
-        """Update animations, damage text, exp, coins, etc."""
-        # Game design-wise it would be better to not have float exp and coins
+        """Update heal stats or something"""
   
         self.change_state("defend")
         target.change_state("defend")

@@ -43,37 +43,40 @@ class Knight(Unit):
         self.rect.center = self.position
 
         # Add moves to moves dictionary
-        self.moves["Slash (15)"] = self.slash
+        self.moves["Life Steal (15)"] = self.lifesteal
         self.moves["Execute (30)"] = self.execute
 
-    def slash(self, target: object, target_team: list):
-        mana_cost = 15
-        if self.mana > mana_cost:
-            self.mana -= mana_cost
-            damage = self.calc_damage(target, "physical", 2)
+    def lifesteal(self, target: object, target_team: list):
+        if  self.is_target_hostile(target):
+            mana_cost = 15
+            if self.mana > mana_cost:
+                self.mana -= mana_cost
+                damage = self.calc_damage(target, "physical", 2)
 
-            self.melee(target)
-            self.update_stats(target, damage, "blood2", 2)
+                self.melee(target)
+                self.update_stats(target, damage, "blood2", 2)
+                self.lifesteal = 0.7
+                self.health += (damage * self.lifesteal)
+                if self.game.sound:
+                    pygame.mixer.Sound.play(self.attack_audio)
 
-            if self.game.sound:
-                pygame.mixer.Sound.play(self.attack_audio)
+                print(f"You attack {target.name} for {damage} and steal {damage * self.lifesteal} health!")
 
-            print(f"Slashed {target.name}!")
-
-            return True
+                return True
 
     def execute(self, target: object, target_team: list):
-        mana_cost = 30
-        if self.mana >= mana_cost:
-            self.mana -= mana_cost
-            damage = self.calc_damage(target, "physical", 3)
+        if  self.is_target_hostile(target):
+            mana_cost = 30
+            if self.mana >= mana_cost:
+                self.mana -= mana_cost
+                damage = self.calc_damage(target, "physical", 3)
 
-            self.melee(target)
-            self.update_stats(target, damage, "blood3", 2)
+                self.melee(target)
+                self.update_stats(target, damage, "blood3", 2)
 
-            if self.game.sound:
-                pygame.mixer.Sound.play(self.attack_audio)
+                if self.game.sound:
+                    pygame.mixer.Sound.play(self.attack_audio)
 
-            print(f"Executed {target.name}")
+                print(f"Executed {target.name}")
 
-            return True
+                return True

@@ -42,76 +42,79 @@ class Bandit(Unit):
         self.moves["Underwear Theft (10)"] = self.stealunderwear
 
     def manatheft(self, target: object, target_team: list):
-        mana_cost = 10
-        if self.mana > mana_cost:
-            self.mana -= mana_cost
-            damage = self.calc_damage(target, "physical", 0.1)
-            damagemana = 20
+        if  self.is_target_hostile(target):
+            mana_cost = 10
+            if self.mana > mana_cost:
+                self.mana -= mana_cost
+                damage = self.calc_damage(target, "physical", 0.1)
+                damagemana = 20
 
-            self.melee(target)
-            self.update_stats(target, damage, "manasteal", 2)
+                self.melee(target)
+                self.update_stats(target, damage, "manasteal", 2)
 
-            target.health -= damage
-            target.mana -= damagemana
-            self.mana += damagemana
-            if self.mana > self.max_mana:
-                self.mana = self.max_mana
+                target.health -= damage
+                target.mana -= damagemana
+                self.mana += damagemana
+                if self.mana > self.max_mana:
+                    self.mana = self.max_mana
 
-            if self.game.sound:
-                pygame.mixer.Sound.play(self.attack_audio)
-                self.game.sprites.add(ui_functions.HitImage("tank_charge", self, 2))
+                if self.game.sound:
+                    pygame.mixer.Sound.play(self.attack_audio)
+                    self.game.sprites.add(ui_functions.HitImage("tank_charge", self, 2))
 
-            print(f"You steal 20 mana from {target.name}!")
-            # print(f"[DEBUG] Target MANA: {target.mana}/{target.max_mana}")
-            # print(f"[DEBUG] Your Mana: {self.mana}/{self.max_mana}")
-            return True
+                print(f"You steal 20 mana from {target.name}!")
+                # print(f"[DEBUG] Target MANA: {target.mana}/{target.max_mana}")
+                # print(f"[DEBUG] Your Mana: {self.mana}/{self.max_mana}")
+                return True
 
     def statstealing(self, target: object, target_team: list):
-        mana_cost = 20
-        if self.mana > mana_cost:
-            self.mana -= mana_cost
-            damage = self.calc_damage(target, "physical", 0.05)
-            stealratio = 0.1
+        if  self.is_target_hostile(target):
+            mana_cost = 20
+            if self.mana > mana_cost:
+                self.mana -= mana_cost
+                damage = self.calc_damage(target, "physical", 0.05)
+                stealratio = 0.1
 
-            self.melee(target)
-            self.update_stats(target, damage, "statsteal", 2)
-
-            target.health -= damage
-            self.strength += max(10,math.floor(target.strength * stealratio))
-            target.strength -= max(5,math.floor(target.strength * stealratio))
-
-
-            if self.game.sound:
-                pygame.mixer.Sound.play(self.attack_audio)
-
-            print(
-                f"You steal {math.floor(target.strength * stealratio)} damage from {target.name}!"
-            )
-            print(f"[DEBUG] DAMAGE: {self.strength}")
-            return True
-
-    def stealunderwear(self, target: object, target_team: list):
-        mana_cost = 10
-        if self.mana > mana_cost:
-            self.mana -= mana_cost
-            damage = self.calc_damage(target, "physical", 999)
-
-            if self.strength >= 15:
                 self.melee(target)
-                self.update_stats(target, damage, "atk", 2)
-                self.strength -= 5
+                self.update_stats(target, damage, "statsteal", 2)
+
                 target.health -= damage
+                self.strength += max(10,math.floor(target.strength * stealratio))
+                target.strength -= max(5,math.floor(target.strength * stealratio))
+
 
                 if self.game.sound:
                     pygame.mixer.Sound.play(self.attack_audio)
 
                 print(
-                    f"You steal underwear from {target.name}!, {target.name} fell ashame rather to died"
+                    f"You steal {math.floor(target.strength * stealratio)} damage from {target.name}!"
                 )
+                print(f"[DEBUG] DAMAGE: {self.strength}")
+                return True
 
-            else:
-                self.strength += 1
-                print("You dont have enought strength to steal underwear")
-                print(f"{self.strength}/15 ")
+    def stealunderwear(self, target: object, target_team: list):
+        if  self.is_target_hostile(target):
+            mana_cost = 10
+            if self.mana > mana_cost:
+                self.mana -= mana_cost
+                damage = self.calc_damage(target, "physical", 999)
 
-            return True
+                if self.strength >= 15:
+                    self.melee(target)
+                    self.update_stats(target, damage, "atk", 2)
+                    self.strength -= 5
+                    target.health -= damage
+
+                    if self.game.sound:
+                        pygame.mixer.Sound.play(self.attack_audio)
+
+                    print(
+                        f"You steal underwear from {target.name}!, {target.name} fell ashame rather to died"
+                    )
+
+                else:
+                    self.strength += 1
+                    print("You dont have enought strength to steal underwear")
+                    print(f"{self.strength}/15 ")
+
+                return True
