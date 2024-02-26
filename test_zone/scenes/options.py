@@ -93,7 +93,7 @@ class Options(Scene):
         if self.pointer == 3:
             if actions["enter"]:
                 self.sprites.empty()
-                pygame.mixer.music.load(self.game.music_path)
+                pygame.mixer.music.load(self.game.intro_music_path)
                 pygame.mixer.music.set_volume(self.game.volume)
                 pygame.mixer.music.play(-1)
 

@@ -12,7 +12,7 @@ class CreateCharSelect(Scene):
     def __init__(self, game: object, menu_id: int):
         super().__init__(game)
         self.sprites = pygame.sprite.Group()
-        
+
         self.display_units = pygame.sprite.Group()
         self.display_units_list = []
 
@@ -52,12 +52,34 @@ class CreateCharSelect(Scene):
 
         for unit in self.display_units.sprites():
             self.display_units_list.append(unit)
-        
+
         # Set character name
-        self.name_field = self.create_button("Enter Name", 50, fonts.pixeloid_mono, "white", 400, 60, "yellow", "name", True, self.yc + 200)
-        
+        self.name_field = self.create_button(
+            "Enter Name",
+            50,
+            fonts.pixeloid_mono,
+            "white",
+            400,
+            60,
+            "yellow",
+            "name",
+            True,
+            self.yc + 200,
+        )
+
         # Confirm character
-        self.exit_button = self.create_button("Create", 50, fonts.pixeloid_sans, "white", 200, 60, "deepskyblue1", "exit", True, self.yc + 300)
+        self.exit_button = self.create_button(
+            "Create",
+            50,
+            fonts.pixeloid_sans,
+            "white",
+            200,
+            60,
+            "deepskyblue1",
+            "exit",
+            True,
+            self.yc + 300,
+        )
 
         cf.set_positions(self.position_list, self.display_units, "center")
 
@@ -67,10 +89,10 @@ class CreateCharSelect(Scene):
         for sprite in self.sprites:
             if sprite.name != "SELECTED":
                 sprite.selected = False
-                
+
             if self.game.typing and sprite.name == "name":
                 sprite.text = self.game.text_buffer
-                
+
         if self.game.text_ready:
             self.chosen_name = self.game.text_buffer
             self.game.text_ready = False
@@ -107,13 +129,13 @@ class CreateCharSelect(Scene):
                 self.character_pointer -= 1
                 for unit in self.display_units.sprites():
                     unit.dx = self.scroll_speed
-                    
+
         if actions["down"]:
             self.pointer += 1
-        
+
         if actions["up"]:
             self.pointer -= 1
-            
+
         if self.pointer == 0:
             if actions["enter"]:
                 for sprite in self.button_sprites.sprites():
@@ -123,8 +145,8 @@ class CreateCharSelect(Scene):
 
         if self.pointer == 1:
             if actions["enter"]:
-                print(self.chosen_character)
                 self.prev.player_dict[self.menu_id] = self.chosen_character
+                self.game.text_buffer = ""
                 self.exit_scene()
 
         if actions["escape"]:

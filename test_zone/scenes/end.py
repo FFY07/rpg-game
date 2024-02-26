@@ -22,7 +22,7 @@ class GameOver(Scene):
         if actions["escape"] or actions["enter"]:
             # for sprite in self.game.all_units:
             #     sprite.kill()
-            # pygame.mixer.music.load(self.game.music_path)
+            # pygame.mixer.music.load(self.game.intro_music_path)
             # pygame.mixer.music.set_volume(self.game.volume)
             # pygame.mixer.music.play(-1)
 
