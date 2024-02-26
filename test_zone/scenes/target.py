@@ -20,6 +20,7 @@ class ChooseTarget(Scene):
         super().__init__(game)
         self.effect_sprites = pygame.sprite.Group()
         self.anchor = anchor
+        self.hostile = True
 
         self.attacking_unit = attacking_unit
         self.selected_move = selected_move
@@ -35,9 +36,18 @@ class ChooseTarget(Scene):
 
     def update(self, actions):
         self.enemies = list(self.anchor.alive_enemy_dict.values())
-        self.pointer = self.pointer % len(self.enemies)
+        self.players = list(self.anchor.alive_player_dict.values())
 
-        self.selected_unit = self.enemies[self.pointer]
+        if self.hostile:
+            self.target_team = self.enemies
+
+        # Check if we're targeting friendly or enemy team
+        else:
+            self.target_team = self.players
+
+        self.pointer = self.pointer % len(self.target_team)
+
+        self.selected_unit = self.target_team[self.pointer]
 
         if actions["up"]:
             self.pointer += 1
@@ -45,12 +55,18 @@ class ChooseTarget(Scene):
         if actions["down"]:
             self.pointer -= 1
 
+        if actions["left"]:
+            self.hostile = False
+        
+        if actions["right"]:
+            self.hostile = True
+
         if actions["enter"]:
             for sprite in self.sprites.sprites():
                 sprite.selected = False
 
             # Call the move method (method is tied to the unit already) onto the enemy self.unit and the anchor (play.py) alive enemy dictionary
-            if self.selected_move(self.selected_unit, self.enemies):
+            if self.selected_move(self.selected_unit, self.target_team):
                 next_scene = EnemyTurn(self.game, self.anchor)
                 next_scene.start_scene()
 

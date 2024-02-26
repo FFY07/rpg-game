@@ -39,18 +39,41 @@ class Reaper(Unit):
         self.rect = self.image.get_rect()
         self.rect.center = self.position
 
-        self.moves["Sacrifice (100)"] = self.sacrifice
+        self.moves["Healing (10)"] = self.healing
+        self.moves["Sacrifice (50)"] = self.sacrifice
+
+
+    def healing(self, target, target_team):
+        mana_cost = 10
+        healing = -30
+        if self.mana >= mana_cost:  
+            self.mana -= mana_cost
+
+        damage = healing
+        self.melee(target)
+        self.update_stats(target, damage, "healing", 1)
+        
+        return True
 
     def sacrifice(self, target, target_team):
-        mana_cost = 100
-        if self.mana >= mana_cost:
+        mana_cost = 50
+        if self.mana >= mana_cost:  
             self.mana -= mana_cost
-            damage = self.calc_damage(target, "physical", 999)
 
-            self.melee(target)
-            self.update_stats(target, damage, "reaper_sacrifice", 1)
-            self.health -= damage
-            self.change_state("hurt")
+            if self.health >= (self.max_health * 0.2):
+                damage = self.calc_damage(target, "physical", 0.5)
+                self.melee(target)
+                self.update_stats(target, damage, "statsteal", 1)
+                self.health -= damage
+                self.change_state("attack")
+
+            else:
+                damage = self.calc_damage(target, "physical", 999)
+
+                self.melee(target)
+                self.update_stats(target, damage, "reaper_sacrifice", 1)
+                self.health -= damage
+                self.change_state("hurt")
 
             if self.game.sound:
                 pygame.mixer.Sound.play(self.attack_audio)

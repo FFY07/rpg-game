@@ -71,14 +71,15 @@ class Bandit(Unit):
         if self.mana > mana_cost:
             self.mana -= mana_cost
             damage = self.calc_damage(target, "physical", 0.05)
-            stealratio = 0.1
+            stealratio = 100
 
             self.melee(target)
             self.update_stats(target, damage, "statsteal", 2)
 
             target.health -= damage
-            target.strength += math.floor(target.strength * stealratio)
-            self.strength += math.floor(target.strength * stealratio)
+            self.strength += max(10,math.floor(target.strength * stealratio))
+            target.strength -= max(5,math.floor(target.strength * stealratio))
+
 
             if self.game.sound:
                 pygame.mixer.Sound.play(self.attack_audio)

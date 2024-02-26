@@ -270,6 +270,8 @@ class Unit(pygame.sprite.Sprite):
 
     def basic_attack(self, target: object, target_team: list):
         """Basic physical attack that also restores a bit of mana"""
+
+
         damage = self.calc_damage(target, "physical", 1)
 
         # Melee is optional and only for direct attacks
