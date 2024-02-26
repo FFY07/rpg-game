@@ -14,6 +14,7 @@ EXP_TO_NEXT_LEVEL = 100
 
 COINS = 0
 
+
 class Unit(pygame.sprite.Sprite):
     def __init__(self, name, team, id_no=0, game=None):
         super().__init__()
@@ -28,25 +29,26 @@ class Unit(pygame.sprite.Sprite):
         self.crit_mult = 1.5
 
         self.level = 1
-        self.level_exp_dict = {1: 100,
-                           2: 150,
-                           3: 220,
-                           4: 340,
-                           5: 450,
-                           6: 560,
-                           7: 680,
-                           8: 840,
-                           9: 1200,
-                           10: 1400,
-                           11: 1700,
-                           12: 2000,
-                           13: 2400,
-                           14: 2900,
-                           15: 4000,
-                           16: 5500,
-                           17: 7200,
+        self.level_exp_dict = {
+            1: 100,
+            2: 150,
+            3: 220,
+            4: 340,
+            5: 450,
+            6: 560,
+            7: 680,
+            8: 840,
+            9: 1200,
+            10: 1400,
+            11: 1700,
+            12: 2000,
+            13: 2400,
+            14: 2900,
+            15: 4000,
+            16: 5500,
+            17: 7200,
         }
-        
+
         self.exp = 0
 
         self.coins = COINS
@@ -73,9 +75,6 @@ class Unit(pygame.sprite.Sprite):
         self.animations = {}
         self.anim_speed = 100
 
-        self.attack_audio = audio.sword_sfx
-        self.death_audio = audio.death_sfx
-
         self.death_effect = ui_functions.HitImage("blood1", self, 100)
 
         self.inventory = {
@@ -86,6 +85,21 @@ class Unit(pygame.sprite.Sprite):
         }
 
         self.moves = {"Basic Attack": self.basic_attack}
+
+    def load_sounds(self):
+        """Hardcode the sounds"""
+        match self.unit_class:
+            case "Tank":
+                self.default_attack_sfx = self.game.audio_handler.tank_basic
+
+            case "Warrior":
+                self.default_attack_sfx = self.game.audio_handler.warrior_basic
+
+            case "Reaper":
+                self.default_attack_sfx = self.game.audio_handler.reaper_basic
+
+            case _:
+                self.default_attack_sfx = self.game.audio_handler.sword_sfx
 
     def load_animations(self):
         for state in self.states:
@@ -155,13 +169,13 @@ class Unit(pygame.sprite.Sprite):
 
     def update_level(self):
         """Updates the level of the unit based on their exp"""
-        
+
         # Only updates if the unit is alive
         if self.alive:
-            
+
             # Max level cannot exceed the level dict
             if self.level < len(self.level_exp_dict):
-                
+
                 if self.exp > self.level_exp_dict[self.level]:
                     self.exp -= self.level_exp_dict[self.level]
                     self.level += 1
@@ -177,7 +191,7 @@ class Unit(pygame.sprite.Sprite):
 
         if target_state == "death":
             self.game.sprites.add(self.death_effect)
-            pygame.mixer.Sound.play(self.death_audio)
+            pygame.mixer.Sound.play(self.game.audio_handler.death_sfx)
 
     def activate(self, active_pos):
         """Move character to the active position"""
@@ -191,7 +205,7 @@ class Unit(pygame.sprite.Sprite):
         """Probably shouldn't be coding all the item effects here :D I love deadlines"""
         if self.inventory[item] > 0:
             self.inventory[item] -= 1
-            pygame.mixer.Sound.play(audio.potion_sfx)
+            pygame.mixer.Sound.play(self.game.audio_handler.potion_sfx)
 
             match item:
                 case "Health Potion":
@@ -225,7 +239,7 @@ class Unit(pygame.sprite.Sprite):
         """Returns True if target is not on the same team as us"""
         if self.team != target.team:
             return True
-        
+
         else:
             return False
 
@@ -267,15 +281,15 @@ class Unit(pygame.sprite.Sprite):
         self, target: object, heal: int, damage_effect_name="healing", effect_speed=2
     ):
         """Update heal stats or something"""
-  
+
         self.change_state("defend")
         target.change_state("defend")
         target.health += heal
-        
-        # THIS IS NOT AI WRITTEN,  it will always set the smallest number, this code ensure that it wont heal more than max_health)
-        target.health = min(target.max_health, target.health) 
 
-        self.game.sprites.add( 
+        # THIS IS NOT AI WRITTEN,  it will always set the smallest number, this code ensure that it wont heal more than max_health)
+        target.health = min(target.max_health, target.health)
+
+        self.game.sprites.add(
             ui_functions.HitImage(damage_effect_name, target, effect_speed)
         )
         self.game.sprites.add(ui_functions.DamageText(target, int(heal)))
@@ -324,10 +338,12 @@ class Unit(pygame.sprite.Sprite):
                     self.mana = self.max_mana
 
             if self.game.sound:
-                pygame.mixer.Sound.play(self.attack_audio)
+                pygame.mixer.Sound.play(self.default_attack_sfx)
 
             # temporary
-            print(f"[DEBUG] Target {target.name} HP: {target.health}/{target.max_health}")
+            print(
+                f"[DEBUG] Target {target.name} HP: {target.health}/{target.max_health}"
+            )
             print(f"[DEBUG] {self.name} MANA: {self.mana}/{self.max_mana}")
             print(f"[DEBUG] {self.name} EXP: {self.exp} COINS: {self.coins}")
 

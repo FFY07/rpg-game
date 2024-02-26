@@ -18,7 +18,6 @@ class Tank(Unit):
         self.game = game
 
         self.unit_class = "Tank"
-        self.attack_audio = audio.tank_basic
 
         self.name = name
         self.team = team
@@ -36,6 +35,8 @@ class Tank(Unit):
 
         self.load_animations()
 
+        self.load_sounds()
+
         self.image = self.animations["idle"][0]
         self.rect = self.image.get_rect()
         self.rect.center = self.position
@@ -45,7 +46,7 @@ class Tank(Unit):
         # Add moves to moves dictionary
         self.moves["Cannon (30)"] = self.cannon
         self.moves["Machine Gun (15)"] = self.machine_gun
-        
+
     def level_stats(self):
         self.health += self.max_health / 10
         self.strength += 2
@@ -61,14 +62,16 @@ class Tank(Unit):
                 if not self.cannon_shells:
                     self.cannon_shells += 1
                     if self.game.sound:
-                        pygame.mixer.Sound.play(audio.tank_load_shell)
-                        self.game.sprites.add(ui_functions.HitImage("tank_charge", self, 2))
+                        pygame.mixer.Sound.play(self.game.audio_handler.tank_load_shell)
+                        self.game.sprites.add(
+                            ui_functions.HitImage("tank_charge", self, 2)
+                        )
 
                 # If we have cannon shells, proceed to fire
                 else:
                     self.mana -= mana_cost
                     if self.game.sound:
-                        pygame.mixer.Sound.play(audio.tank_183mm)
+                        pygame.mixer.Sound.play(self.game.audio_handler.tank_183mm)
                     self.cannon_shells = 0
 
                     damage = self.calc_damage(target, "magic", 5)
@@ -99,7 +102,7 @@ class Tank(Unit):
                     self.update_stats(t, damage, "tank_mg", 2)
 
                 if self.game.sound:
-                    pygame.mixer.Sound.play(audio.tank_machine_gun)
+                    pygame.mixer.Sound.play(self.game.audio_handler.tank_machine_gun)
 
                 return True
 

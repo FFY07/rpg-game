@@ -27,7 +27,7 @@ class CreateChar(Scene):
         self.player_dict = {
             0: ("Player1", "Reaper"),
             1: ("Player2", "Tank"),
-            2: ("Player3", "Knight"),
+            2: ("Player3", "Warrior"),
         }
 
         # CreateCharSelect(self.game, self.pointer)

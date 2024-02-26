@@ -49,7 +49,6 @@ class Game:
         self.players = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
 
-
         self.max_enemies = 3
 
         self.max_players = 3
@@ -59,9 +58,10 @@ class Game:
         self.sound = True
         self.volume = 0.6
 
-        self.music_path = audio.menu
+        self.intro_music_path = audio.menu
+        self.audio_handler = audio.SoundEffects()
 
-        pygame.mixer.music.load(self.music_path)
+        pygame.mixer.music.load(self.intro_music_path)
         if self.music:
             pygame.mixer.music.play(-1)
             pygame.mixer.music.set_volume(self.volume)
@@ -129,8 +129,8 @@ class Game:
                         # Add the text to the text buffer string
                         self.text_buffer += event.unicode
 
-                # if self.sound:
-                #     pygame.mixer.Sound.play(audio.click_sfx)
+                if self.sound:
+                    pygame.mixer.Sound.play(self.audio_handler.click_sfx)
 
             if event.type == pygame.KEYUP:
 

@@ -57,7 +57,7 @@ class ChooseTarget(Scene):
 
         if actions["left"]:
             self.hostile = False
-        
+
         if actions["right"]:
             self.hostile = True
 
@@ -71,8 +71,8 @@ class ChooseTarget(Scene):
                 next_scene.start_scene()
 
             else:
-                print("not enough mana!")
-                pygame.mixer.Sound.play(audio.oom_sfx)
+                print("not enough mana/invalid target!")
+                pygame.mixer.Sound.play(self.game.audio_handler.oom_sfx)
                 self.sprites.empty()
                 while self.game.stack[-1] != self.anchor:
                     self.exit_scene()

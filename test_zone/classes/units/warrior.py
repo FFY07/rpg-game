@@ -11,13 +11,12 @@ DEFENCE = (55, 55)
 MAGIC_RESIST = (55, 55)
 
 
-class Knight(Unit):
+class Warrior(Unit):
     def __init__(self, name, team, id_no=0, game=None):
         super().__init__(name, team, id_no)
         self.game = game
 
         self.unit_class = "Warrior"
-        self.attack_audio = audio.warrior_basic
         self.anim_speed = 50
 
         self.name = name
@@ -35,7 +34,7 @@ class Knight(Unit):
             self.direction = "left"
 
         self.load_animations()
-
+        self.load_sounds()
         # Loads the first idle frame so the proper rect size can be generated
         # Make sure all images are the same size
         self.image = self.animations["idle"][0]
@@ -45,7 +44,7 @@ class Knight(Unit):
         # Add moves to moves dictionary
         self.moves["Life Steal (15)"] = self.lifesteal
         self.moves["Execute (30)"] = self.execute
-        
+
     def level_stats(self):
         self.health += self.max_health / 10
         self.strength += 2
@@ -54,7 +53,7 @@ class Knight(Unit):
         self.magic_resist += 2
 
     def lifesteal(self, target: object, target_team: list):
-        if  self.is_target_hostile(target):
+        if self.is_target_hostile(target):
             mana_cost = 15
             if self.mana > mana_cost:
                 self.mana -= mana_cost
@@ -63,16 +62,18 @@ class Knight(Unit):
                 self.melee(target)
                 self.update_stats(target, damage, "blood2", 2)
                 self.lifesteal = 0.7
-                self.health += (damage * self.lifesteal)
+                self.health += damage * self.lifesteal
                 if self.game.sound:
-                    pygame.mixer.Sound.play(self.attack_audio)
+                    pygame.mixer.Sound.play(self.default_attack_sfx)
 
-                print(f"You attack {target.name} for {damage} and steal {damage * self.lifesteal} health!")
+                print(
+                    f"You attack {target.name} for {damage} and steal {damage * self.lifesteal} health!"
+                )
 
                 return True
 
     def execute(self, target: object, target_team: list):
-        if  self.is_target_hostile(target):
+        if self.is_target_hostile(target):
             mana_cost = 30
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
@@ -82,7 +83,7 @@ class Knight(Unit):
                 self.update_stats(target, damage, "blood3", 2)
 
                 if self.game.sound:
-                    pygame.mixer.Sound.play(self.attack_audio)
+                    pygame.mixer.Sound.play(self.default_attack_sfx)
 
                 print(f"Executed {target.name}")
 
