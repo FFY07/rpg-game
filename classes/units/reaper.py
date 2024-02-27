@@ -5,7 +5,7 @@ from classes.unit import Unit
 import resources.audio as audio
 
 # Range of values
-STRENGTH = (16, 16)
+STRENGTH = (25, 25)
 INTELLIGENCE = (5, 5)
 DEFENCE = (20, 20)
 MAGIC_RESIST = (40, 40)
@@ -40,8 +40,8 @@ class Reaper(Unit):
         self.rect = self.image.get_rect()
         self.rect.center = self.position
 
-        self.moves["Healing (10)"] = self.healing
-        self.moves["Sacrifice (50)"] = self.sacrifice
+        self.moves["Soul Attack (10)"] = self.soulattack
+        # self.moves["Sacrifice (50)"] = self.sacrifice
         self.moves["Harvest (99)"] = self.harvest
 
 
@@ -52,71 +52,73 @@ class Reaper(Unit):
         self.defence += 5
         self.magic_resist += 2
 
-    def healing(self, target, target_team):
-        if not self.is_target_hostile(target) and target.health != target.max_health:
-            mana_cost = 10
-            healing = 30
-            if self.mana >= mana_cost:
-                self.mana -= mana_cost
+    def soulattack(self, target, target_team):
+        if self.is_target_hostile(target) :
+            health_cost = 10
+        
+            if self.health >= health_cost:
+                self.health -= health_cost
 
-                heal = healing
+                self.strength = STRENGTH[0] * (1 -(self.health/self.max_health))
+                damage, crit = self.calc_damage(target, "physical", 2)
+
+            
                 self.melee(target)
-                self.update_healstats(target, heal, "healing", 1)
+                self.update_stats(target, damage, crit, "hlood2", 1)
+        
+        return True
 
-                print(f"{self.name} heal {target.name} 30 hp ! ")
-                print(f"[DEBUG]:{target.health}/{target.max_health} ")
-                return True
 
-    def sacrifice(self, target, target_team):
-        mana_cost = 50
-        if self.mana >= mana_cost:
-            if self.is_target_hostile(target):
-                if self.health <= (self.max_health * 0.3):
-                    mana_cost = 50
-                    if self.mana >= mana_cost:
-                        self.mana -= mana_cost
+    # def sacrifice(self, target, target_team):
+    #     mana_cost = 50
+    #     if self.mana >= mana_cost:
+    #         if self.is_target_hostile(target):
+    #             if self.health <= (self.max_health * 0.3):
+    #                 mana_cost = 50
+    #                 if self.mana >= mana_cost:
+    #                     self.mana -= mana_cost
 
-                        damage, crit = self.calc_damage(target, "physical", 999)
+    #                     damage, crit = self.calc_damage(target, "physical", 999)
 
-                        self.melee(target)
-                        self.update_stats(target, damage, crit, "reaper_sacrifice", 1)
-                        self.health -= damage
-                        self.change_state("hurt")
+    #                     self.melee(target)
+    #                     self.update_stats(target, damage, crit, "reaper_sacrifice", 1)
+    #                     self.health -= damage
+    #                     self.change_state("hurt")
 
-                    if self.game.sound:
-                        pygame.mixer.find_channel().play(self.default_attack_sfx)
+    #                 if self.game.sound:
+    #                     pygame.mixer.find_channel().play(self.default_attack_sfx)
 
-                    print(f"{self.name} sacrificed itself to kill {target.name}")
+    #                 print(f"{self.name} sacrificed itself to kill {target.name}")
 
-                    return True
+    #                 return True
 
-            else:
-                if target != self:
-                    mana_cost = 50
-                    if self.mana >= mana_cost:
-                        self.mana -= mana_cost
+    #         else:
+    #             if target != self:
+    #                 mana_cost = 50
+    #                 if self.mana >= mana_cost:
+    #                     self.mana -= mana_cost
 
-                        self.max_health += self.max_health + target.health
-                        self.health += self.health + target.health
-                        self.strength += self.strength + target.strength
-                        self.defence += self.defence + target.defence
+    #                     self.max_health += self.max_health + target.health
+    #                     self.health += self.health + target.health
+    #                     self.strength += self.strength + target.strength
+    #                     self.defence += self.defence + target.defence
 
-                        damage = 999
-                        crit = False
-                        self.melee(target)
-                        self.update_stats(target, damage, crit, "statsteal", 1)
+    #                     damage = 999
+    #                     crit = False
+    #                     self.melee(target)
+    #                     self.update_stats(target, damage, crit, "statsteal", 1)
 
-                        print(
-                            f"{self.name} sacrifice {target.name} to increase it owns stat ! "
-                        )
-                        print(
-                            f"[DEBUG]: {self.max_health}, {self.health},  {self.strength}, {self.defence}"
-                        )
+    #                     print(
+    #                         f"{self.name} sacrifice {target.name} to increase it owns stat ! "
+    #                     )
+    #                     print(
+    #                         f"[DEBUG]: {self.max_health}, {self.health},  {self.strength}, {self.defence}"
+    #                     )
 
-                        if self.game.sound:
-                            pygame.mixer.find_channel().play(self.default_attack_sfx)
+    #                     if self.game.sound:
+    #                         pygame.mixer.find_channel().play(self.default_attack_sfx)
 
-                        return True
+    #                     return True
 
     def harvest(self, target: object, target_team: list):
         if self.is_target_hostile(target):
