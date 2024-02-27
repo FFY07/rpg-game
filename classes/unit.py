@@ -112,7 +112,7 @@ class Unit(pygame.sprite.Sprite):
             # Load images as pygame surfaces
             loaded_images = []
             for frame in image_list:
-                image = pygame.image.load(frame)
+                image = pygame.image.load(frame).convert_alpha()
                 image = pygame.transform.scale(
                     image,
                     (
@@ -194,7 +194,7 @@ class Unit(pygame.sprite.Sprite):
 
         if target_state == "death":
             self.game.sprites.add(self.death_effect)
-            pygame.mixer.Sound.play(self.game.audio_handler.death_sfx)
+            pygame.mixer.find_channel().play(self.game.audio_handler.death_sfx)
 
     def activate(self, active_pos):
         """Move character to the active position"""
@@ -348,7 +348,7 @@ class Unit(pygame.sprite.Sprite):
                     self.mana = self.max_mana
 
             if self.game.sound:
-                pygame.mixer.Sound.play(self.default_attack_sfx)
+                pygame.mixer.find_channel().play(self.default_attack_sfx)
 
             # temporary
             print(

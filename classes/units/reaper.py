@@ -82,7 +82,7 @@ class Reaper(Unit):
                         self.change_state("hurt")
 
                     if self.game.sound:
-                        pygame.mixer.Sound.play(self.default_attack_sfx)
+                        pygame.mixer.find_channel().play(self.default_attack_sfx)
 
                     print(f"{self.name} sacrificed itself to kill {target.name}")
 
@@ -112,6 +112,6 @@ class Reaper(Unit):
                         )
 
                         if self.game.sound:
-                            pygame.mixer.Sound.play(self.default_attack_sfx)
+                            pygame.mixer.find_channel().play(self.default_attack_sfx)
 
                         return True

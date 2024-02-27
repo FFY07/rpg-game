@@ -5,33 +5,33 @@ from pathlib import Path
 # fmt: off
 
 #menu background
-menubackground_img = pygame.image.load(f"{Path('resources/images/backgrounds/menubackground.png')}")
+menubackground_img = pygame.image.load(f"{Path('resources/images/backgrounds/menubackground.png')}").convert()
 
-options_background = pygame.image.load(f"{Path('resources/images/backgrounds/option.jpg')}")
-credits_background = pygame.image.load(f"{Path('resources/images/backgrounds/artofjoniken_forge2.jpg')}")
-story_background = pygame.image.load(f"{Path('resources/images/backgrounds/story.jpg')}")
-char_select_menu = pygame.image.load(f"{Path('resources/images/backgrounds/artofjokinen_siege.jpg')}") 
-char_select_background = pygame.image.load(f"{Path('resources/images/backgrounds/artofjokinen_castle.jpg')}")
+options_background = pygame.image.load(f"{Path('resources/images/backgrounds/option.jpg')}").convert()
+credits_background = pygame.image.load(f"{Path('resources/images/backgrounds/artofjoniken_forge2.jpg')}").convert()
+story_background = pygame.image.load(f"{Path('resources/images/backgrounds/story.jpg')}").convert()
+char_select_menu = pygame.image.load(f"{Path('resources/images/backgrounds/artofjokinen_siege.jpg')}").convert()
+char_select_background = pygame.image.load(f"{Path('resources/images/backgrounds/artofjokinen_castle.jpg')}").convert()
 
 #background image
-background_img = pygame.image.load(f"{Path('resources/images/backgrounds/throne.png')}")
+background_img = pygame.image.load(f"{Path('resources/images/backgrounds/throne.png')}").convert()
 
 #load victory and defeat images
-victory_img = pygame.image.load(f"{Path('resources/images/ui_elements/victory.png')}")
+victory_img = pygame.image.load(f"{Path('resources/images/ui_elements/victory.png')}").convert_alpha()
 victory_img = pygame.transform.scale(victory_img, (600,500))
 
-defeat_img = pygame.image.load(f"{Path('resources/images/ui_elements/defeat.png')}")
+defeat_img = pygame.image.load(f"{Path('resources/images/ui_elements/defeat.png')}").convert_alpha()
 defeat_img = pygame.transform.scale(defeat_img, (600,500))
 
 
-player_target = pygame.image.load(f"{Path('resources/images/ui_elements/player_target.png')}")
+player_target = pygame.image.load(f"{Path('resources/images/ui_elements/player_target.png')}").convert_alpha()
 player_target = pygame.transform.scale(player_target, (192, 192))
 
-enemy_target = pygame.image.load(f"{Path('resources/images/ui_elements/enemy_target.png')}")
+enemy_target = pygame.image.load(f"{Path('resources/images/ui_elements/enemy_target.png')}").convert_alpha()
 enemy_target = pygame.transform.scale(enemy_target, (192, 192))
 
 # Marketing images
-warrior_marketing = pygame.image.load(f"{Path('resources/images/units/Warrior/Kassadin_0.jpg')}")
-reaper_marketing = pygame.image.load(f"{Path('resources/images/units/Reaper/reaper_marketing.jpg')}")
-bandit_marketing = pygame.image.load(f"{Path('resources/images/units/Bandit/bandit_marketing.jpg')}")
-tank_marketing = pygame.image.load(f"{Path('resources/images/units/Tank/tank_marketing.jpg')}")
+warrior_marketing = pygame.image.load(f"{Path('resources/images/units/Warrior/Kassadin_0.jpg')}").convert()
+reaper_marketing = pygame.image.load(f"{Path('resources/images/units/Reaper/reaper_marketing.jpg')}").convert()
+bandit_marketing = pygame.image.load(f"{Path('resources/images/units/Bandit/bandit_marketing.jpg')}").convert()
+tank_marketing = pygame.image.load(f"{Path('resources/images/units/Tank/tank_marketing.jpg')}").convert()

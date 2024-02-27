@@ -8,6 +8,7 @@ from scenes.menu import MainMenu
 clock = pygame.time.Clock()
 clock.tick(60)
 
+# useless attempt to fix crashing
 pygame.mixer.set_num_channels(16)
 
 
@@ -132,9 +133,9 @@ class Game:
                         # Add the text to the text buffer string
                         self.text_buffer += event.unicode
 
-                # Still will crash
-                if self.sound:
-                    pygame.mixer.find_channel().play(self.audio_handler.click_sfx)
+                # # Still will crash
+                # if self.sound:
+                #     pygame.mixer.find_channel().play(self.audio_handler.click_sfx)
 
             if event.type == pygame.KEYUP:
 

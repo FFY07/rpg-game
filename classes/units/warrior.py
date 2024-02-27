@@ -64,7 +64,7 @@ class Warrior(Unit):
                 self.lifesteal = 0.7
                 self.health += damage * self.lifesteal
                 if self.game.sound:
-                    pygame.mixer.Sound.play(self.default_attack_sfx)
+                    pygame.mixer.find_channel().play(self.default_attack_sfx)
 
                 print(
                     f"You attack {target.name} for {damage} and steal {damage * self.lifesteal} health!"
@@ -83,7 +83,7 @@ class Warrior(Unit):
                 self.update_stats(target, damage, crit, "blood3", 2)
 
                 if self.game.sound:
-                    pygame.mixer.Sound.play(self.default_attack_sfx)
+                    pygame.mixer.find_channel().play(self.default_attack_sfx)
 
                 print(f"Executed {target.name}")
 

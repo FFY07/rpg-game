@@ -62,16 +62,18 @@ class Tank(Unit):
                 if not self.cannon_shells:
                     self.cannon_shells += 1
                     if self.game.sound:
-                        pygame.mixer.Sound.play(self.game.audio_handler.tank_load_shell)
-                        self.game.sprites.add(
-                            ui_functions.HitImage("tank_charge", self, 2)
+                        pygame.mixer.find_channel().play(
+                            self.game.audio_handler.tank_load_shell
                         )
+                    self.game.sprites.add(ui_functions.HitImage("tank_charge", self, 2))
 
                 # If we have cannon shells, proceed to fire
                 else:
                     self.mana -= mana_cost
                     if self.game.sound:
-                        pygame.mixer.Sound.play(self.game.audio_handler.tank_183mm)
+                        pygame.mixer.find_channel().play(
+                            self.game.audio_handler.tank_183mm
+                        )
                     self.cannon_shells = 0
 
                     damage, crit = self.calc_damage(target, "magic", 5)
@@ -102,7 +104,9 @@ class Tank(Unit):
                     self.update_stats(t, damage, crit, "tank_mg", 2)
 
                 if self.game.sound:
-                    pygame.mixer.Sound.play(self.game.audio_handler.tank_machine_gun)
+                    pygame.mixer.find_channel().play(
+                        self.game.audio_handler.tank_machine_gun
+                    )
 
                 return True
 

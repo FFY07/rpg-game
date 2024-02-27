@@ -220,7 +220,7 @@ class HitImage(pygame.sprite.Sprite):
         # Load images as pygame surfaces
 
         for frame in image_list:
-            image = pygame.image.load(frame)
+            image = pygame.image.load(frame).convert_alpha()
 
             # Size of image
             image = pygame.transform.scale(
@@ -271,7 +271,7 @@ class DamageText(pygame.sprite.Sprite):
         self.dy = -2
 
     def update(self):
-        self.fade_start = 120
+        self.fade_start = 10
 
         # move damage text up
         self.rect.move_ip(self.dx, self.dy)
