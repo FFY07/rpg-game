@@ -66,6 +66,7 @@ class Tank(Unit):
                             self.game.audio_handler.tank_load_shell
                         )
                     self.game.sprites.add(ui_functions.HitImage("tank_charge", self, 2))
+                    self.change_state("defend")
 
                 # If we have cannon shells, proceed to fire
                 else:
