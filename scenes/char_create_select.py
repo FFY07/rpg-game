@@ -57,21 +57,23 @@ class CreateCharSelect(Scene):
         self.name_field = self.create_button(
             "Enter Name",
             50,
-            fonts.pixeloid_mono,
+            None,
             "white",
             400,
             60,
-            "yellow",
+            "deepskyblue1",
             "name",
             True,
             self.yc + 200,
+            100,
+            
         )
 
         # Confirm character
         self.exit_button = self.create_button(
             "Create",
             50,
-            fonts.pixeloid_sans,
+            None,
             "white",
             200,
             60,

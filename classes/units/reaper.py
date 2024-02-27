@@ -42,6 +42,8 @@ class Reaper(Unit):
 
         self.moves["Healing (10)"] = self.healing
         self.moves["Sacrifice (50)"] = self.sacrifice
+        self.moves["Harvest (99)"] = self.harvest
+
 
     def level_stats(self):
         self.health += self.max_health / 10
@@ -115,3 +117,22 @@ class Reaper(Unit):
                             pygame.mixer.find_channel().play(self.default_attack_sfx)
 
                         return True
+
+    def harvest(self, target: object, target_team: list):
+        if self.is_target_hostile(target):
+            mana_cost = 99
+
+            if self.mana >= mana_cost:
+                self.mana -= mana_cost
+
+                target_list = target_team
+
+                for t in target_list:
+                    damage, crit = self.calc_damage(t, "physical", 999)
+                    self.update_stats(t, damage, crit, "atk", 2)
+
+                if self.game.sound:(
+                        pygame.mixer.find_channel().play(self.default_attack_sfx)
+                    )
+
+                return True
