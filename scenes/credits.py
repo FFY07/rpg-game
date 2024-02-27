@@ -37,7 +37,7 @@ class Credits(Scene):
         self.load_section(["GAME WRITTEN BY"], desc, 75)
 
         self.load_section(["Desmond Foo Fong Yoong"], name, 50)
-        self.load_section(["12,671 lines"], note, 100)
+        self.load_section(["19,895 lines"], note, 100)
         self.load_section(["Haarith Bin Naguri Ibrahim"], name, 50)
         self.load_section(["75 lines"], note, 200)
 
