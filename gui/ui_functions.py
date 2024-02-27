@@ -500,7 +500,7 @@ class InfoGUI:
                 "mana",
                 (
                     self.unit.stat_bar_center_offset_x,
-                    self.unit.stat_bar_center_offset_y + self.bar.offset,
+                    self.unit.stat_bar_center_offset_y + self.bar_offset,
                 ),
             )
         )
