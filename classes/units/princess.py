@@ -54,7 +54,7 @@ class Princess(Unit):
     def healing(self, target, target_team):
         if not self.is_target_hostile(target):
             mana_cost = 10
-            healing = 30
+            healing = 100
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
 

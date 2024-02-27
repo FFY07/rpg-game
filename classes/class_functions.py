@@ -11,6 +11,11 @@ import resources.images as images
 
 # IMPORTANT: UPDATE THIS WHEN ADDING A NEW CLASS
 unit_list = ["Warrior", "Reaper", "Bandit", "Tank", "Princess"]
+unit_des_list = ["a",
+                 "b",
+                 "c",
+                 "d",
+                 "e"]
 marketing_images = {
     "Warrior": images.warrior_marketing,
     "Reaper": images.reaper_marketing,

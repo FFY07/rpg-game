@@ -42,8 +42,20 @@ class CreateCharSelect(Scene):
             100,
             "SELECTED",
         )
-        self.sprites.add(self.class_name)
 
+        self.class_des = ui_functions.TextSprite(
+            cf.unit_des_list[self.character_pointer],
+            40,
+            None,
+            "white",
+            True,
+            170,
+            "SELECTED",
+        )
+
+
+        self.sprites.add(self.class_name)
+        self.sprites.add(self.class_des)
         # Add our display units
         for unit in cf.unit_list:
             self.display_units.add(
