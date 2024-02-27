@@ -1,8 +1,8 @@
 # Parent class for the different scenes
 import pygame
 
-from gui2 import ui_functions
-import gui2.screen as scr
+from gui import ui_functions
+import gui.screen as scr
 
 
 class Scene:

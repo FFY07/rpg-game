@@ -3,7 +3,7 @@ import pygame
 from scenes.scene import Scene
 from scenes.enemy_turn import EnemyTurn
 
-import resources2.audio as audio
+import resources.audio as audio
 
 
 class Inventory(Scene):

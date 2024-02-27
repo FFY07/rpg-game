@@ -1,7 +1,7 @@
 import pygame
 import random
 
-import gui2.ui_functions as ui_functions
+import gui.ui_functions as ui_functions
 import classes.class_functions as cf
 
 from scenes.scene import Scene
@@ -9,7 +9,7 @@ from scenes.play import Play
 from scenes.story import Story
 from scenes.char_create_select import CreateCharSelect
 
-import resources2.images as images
+import resources.images as images
 
 # input1_rect = pygame.Rect(80, 280, 170, 32)
 

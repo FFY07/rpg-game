@@ -3,10 +3,10 @@ import pygame
 from scenes.scene import Scene
 from scenes.enemy_turn import EnemyTurn
 
-from gui2 import ui_functions
+from gui import ui_functions
 
-import resources2.images as images
-import resources2.audio as audio
+import resources.images as images
+import resources.audio as audio
 
 
 class ChooseTarget(Scene):

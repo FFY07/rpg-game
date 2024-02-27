@@ -1,9 +1,9 @@
 from pathlib import Path
 
 import pygame
-import gui2.screen as scr
+import gui.screen as scr
 
-import resources2.fonts as fonts
+import resources.fonts as fonts
 
 
 class TextSprite(pygame.sprite.Sprite):

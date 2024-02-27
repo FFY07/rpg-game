@@ -1,7 +1,7 @@
 import pygame
 
-import gui2.screen as scr
-import resources2.audio as audio
+import gui.screen as scr
+import resources.audio as audio
 
 from scenes.menu import MainMenu
 

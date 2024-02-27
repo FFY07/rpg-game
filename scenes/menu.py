@@ -3,9 +3,9 @@
 import pygame
 
 from scenes.scene import Scene
-import resources2.images
-from gui2 import ui_functions
-import resources2.fonts as fonts
+import resources.images
+from gui import ui_functions
+import resources.fonts as fonts
 from scenes.char_create import CreateChar
 from scenes.options import Options
 from scenes.credits import Credits
@@ -21,7 +21,7 @@ BUTTON_OFFSET = 50
 class MainMenu(Scene):
     def __init__(self, game):
         super().__init__(game)
-        self.background = resources2.images.menubackground_img
+        self.background = resources.images.menubackground_img
         self.sprites = pygame.sprite.Group()
         self.pointer = 0
         self.button_list = ["Play", "Options", "Credits", "Quit"]

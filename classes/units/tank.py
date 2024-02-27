@@ -2,8 +2,8 @@ import random, pygame
 
 from classes.unit import Unit
 
-import resources2.audio as audio
-import gui2.ui_functions as ui_functions
+import resources.audio as audio
+import gui.ui_functions as ui_functions
 
 # Range of values
 STRENGTH = (10, 10)

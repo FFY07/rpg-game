@@ -3,7 +3,7 @@ import pygame
 from scenes.scene import Scene
 from scenes.target import ChooseTarget
 
-import resources2.audio as audio
+import resources.audio as audio
 
 # NOT WRITTEN YET; SKIPPING STRAIGHT TO TARGET
 

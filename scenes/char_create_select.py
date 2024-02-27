@@ -1,11 +1,11 @@
 import pygame
 
-import gui2.ui_functions as ui_functions
+import gui.ui_functions as ui_functions
 import classes.class_functions as cf
 
 from scenes.scene import Scene
-import resources2.images as images
-import resources2.fonts as fonts
+import resources.images as images
+import resources.fonts as fonts
 
 
 class CreateCharSelect(Scene):

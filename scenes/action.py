@@ -6,7 +6,7 @@ from scenes.inventory import Inventory
 from scenes.attack import ChooseAttack
 from scenes.target import ChooseTarget
 
-import resources2.audio as audio
+import resources.audio as audio
 
 
 class Action(Scene):

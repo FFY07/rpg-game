@@ -3,7 +3,7 @@ import pygame
 from scenes.scene import Scene
 from scenes.credits import Credits
 
-import resources2.images as images
+import resources.images as images
 
 
 class GameOver(Scene):

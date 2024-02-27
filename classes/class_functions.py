@@ -1,13 +1,13 @@
 import random
 
-import gui2.screen as scr
+import gui.screen as scr
 
 from classes.units.reaper import Reaper
 from classes.units.warrior import Warrior
 from classes.units.bandit import Bandit
 from classes.units.tank import Tank
 from classes.units.princess import Princess
-import resources2.images as images
+import resources.images as images
 
 # IMPORTANT: UPDATE THIS WHEN ADDING A NEW CLASS
 unit_list = ["Warrior", "Reaper", "Bandit", "Tank", "Princess"]
@@ -16,7 +16,7 @@ marketing_images = {
     "Reaper": images.reaper_marketing,
     "Bandit": images.bandit_marketing,
     "Tank": images.tank_marketing,
-    "Princess": images.background_img
+    "Princess": images.background_img,
 }
 
 
@@ -52,7 +52,7 @@ def create_unit(name, unit_class, team, game, standalone=False):
 
         case "Tank":
             unit = Tank(name, team, game.current_id, game)
-        
+
         case "Princess":
             unit = Princess(name, team, game.current_id, game)
 

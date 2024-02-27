@@ -1,7 +1,7 @@
 import pygame, random, math
 
 from classes.unit import Unit
-import gui2.ui_functions as ui_functions
+import gui.ui_functions as ui_functions
 
 # Range of values
 STRENGTH = (8, 8)

@@ -1,14 +1,14 @@
 import pygame
 
-import gui2.screen as scr
+import gui.screen as scr
 
 from scenes.scene import Scene
 from scenes.action import Action
 from scenes.end import GameOver
 
-from gui2 import ui_functions
-import resources2.images as images
-import resources2.audio as audio
+from gui import ui_functions
+import resources.images as images
+import resources.audio as audio
 
 from classes import class_functions as cf
 

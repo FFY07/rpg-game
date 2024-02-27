@@ -1,9 +1,9 @@
 import pygame
 
 from scenes.scene import Scene
-import resources2.images
-from gui2 import ui_functions
-import resources2.audio as audio
+import resources.images
+from gui import ui_functions
+import resources.audio as audio
 
 BUTTON_TEXT_SIZE = 30
 BUTTON_FONT = "freesansbold"
@@ -16,7 +16,7 @@ BUTTON_OFFSET = 50
 class Options(Scene):
     def __init__(self, game):
         super().__init__(game)
-        self.background = resources2.images.options_background
+        self.background = resources.images.options_background
         self.sprites = pygame.sprite.Group()
         self.pointer = 0
         self.button_list = ["Music", "Sound", "Back", "New Game"]

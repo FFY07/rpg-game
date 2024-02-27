@@ -2,14 +2,15 @@ import pygame, random
 
 from classes.unit import Unit
 
-import resources2.audio as audio
+import resources.audio as audio
 
 
-#Range value
+# Range value
 STRENGTH = (11, 11)
 INTELLIGENCE = (25, 25)
 DEFENCE = (10, 10)
 MAGIC_RESIST = (5, 5)
+
 
 class Princess(Unit):
     def __init__(self, name, team, id_no=0, game=None):
@@ -41,7 +42,6 @@ class Princess(Unit):
         self.rect.center = self.position
         # self.rect.center[1] = self.rect.center[1] - 20
         self.moves["Healing (10)"] = self.healing
-
 
     def level_stats(self):
         self.health += self.max_health / 10

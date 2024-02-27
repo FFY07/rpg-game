@@ -2,10 +2,10 @@ from pathlib import Path
 import random
 import pygame
 
-import gui2.screen as scr
-import resources2.audio as audio
+import gui.screen as scr
+import resources.audio as audio
 
-import gui2.ui_functions as ui_functions
+import gui.ui_functions as ui_functions
 
 MAX_HEALTH = 100
 MAX_MANA = 100

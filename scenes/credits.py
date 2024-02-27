@@ -1,10 +1,10 @@
 import pygame
 
-import gui2.ui_functions as ui_functions
+import gui.ui_functions as ui_functions
 from scenes.scene import Scene
-import gui2.screen as scr
-import resources2.images as images
-import resources2.audio as audio
+import gui.screen as scr
+import resources.images as images
+import resources.audio as audio
 
 title = [55, "hightowertext", "red2"]
 desc = [45, "hightowertext", "orangered"]
