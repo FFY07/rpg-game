@@ -214,7 +214,7 @@ class HitImage(pygame.sprite.Sprite):
     def load_attack_sprites(self):
         """Load attack sprite images"""
 
-        path = Path(f"test_zone/resources2/images/effect/{self.attack_name}")
+        path = Path(f"resources2/images/effect/{self.attack_name}")
         image_list = list(path.glob("*.*"))
 
         # Load images as pygame surfaces
