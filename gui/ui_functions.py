@@ -446,6 +446,7 @@ class Statbar(pygame.sprite.Sprite):
 
         # print(f"Unit: {self.unit.name} HP: {self.unit.health / self.unit.max_health = } Width: {self.width} Rect: {self.rect} Image: {self.image} Ratio: {self.ratio}")
 
+    # currently unused
     def draw(self, screen):
         pygame.draw.rect(screen, self.border_color, self.rect, 5)
         self.sprites.draw(screen)
@@ -478,18 +479,47 @@ class InfoGUI:
             )
             self.bars.add(Statbar(self.unit, item[0], item[1], i * self.bar_offset))
 
-        # PROBLEM: THIS DOES NOT FOLLOW ANY OBJECTS
-        # SOLUTION: MAKE NEW TEXT SPRITE?
-        self.player_text = TextSprite(
-            "test",
-            25,
-            "Impact",
-            "white",
-            self.unit.rect.center[0] - 290,
-            self.unit.rect.center[1] - 105,
+        # 3 DAYS BEFORE DEADLINE HARDCODE TIME
+        # Health text
+        self.text_sprites.add(
+            TrackingText(
+                "",
+                self.unit,
+                "health",
+                (
+                    self.unit.stat_bar_center_offset_x,
+                    self.unit.stat_bar_center_offset_y,
+                ),
+            )
         )
 
-        self.text_sprites.add(self.player_text)
+        self.text_sprites.add(
+            TrackingText(
+                "",
+                self.unit,
+                "mana",
+                (
+                    self.unit.stat_bar_center_offset_x,
+                    self.unit.stat_bar_center_offset_y + 20,
+                ),
+            )
+        )
+
+        # EXP text
+        self.text_sprites.add(
+            TrackingText(
+                "",
+                self.unit,
+                "exp",
+                (-20, -100),
+                20,
+                "yellow",
+                fonts.pixeloid_bold,
+            )
+        )
+
+        # Unit name
+        self.text_sprites.add(TrackingText(self.unit.name, self.unit, "", (-40, -120)))
 
         self.sprites.add([self.bars, self.text_sprites])
 
@@ -498,3 +528,59 @@ class InfoGUI:
 
     def draw(self, screen):
         pass
+
+
+class TrackingText(pygame.sprite.Sprite):
+    def __init__(
+        self,
+        text: str,
+        unit: object,
+        flag="",
+        offset=(0, 0),
+        size=20,
+        color="white",
+        font=fonts.pixeloid_sans,
+    ):
+        super().__init__()
+        self.text = text
+        self.flag = flag
+        self.unit = unit
+        self.offset_x = offset[0]
+        self.offset_y = offset[1]
+        self.size = size
+        self.color = color
+
+        try:
+            self.font = pygame.font.Font(font, size)
+        except:
+            self.font = pygame.font.SysFont(font, size)
+
+        self.image = self.font.render(self.text, True, self.color)
+        self.rect = self.image.get_rect()
+
+        self.rect.center = (
+            self.unit.rect.center[0] + self.offset_x,
+            self.unit.rect.center[1] + self.offset_y,
+        )
+
+    def update(self):
+
+        # No time left let's hardcode this 3 days before deadline woooo
+        if self.flag == "exp":
+            self.text = f"Lvl: {self.unit.level} EXP: {int(self.unit.exp)}/{self.unit.level_exp_dict[self.unit.level]}"
+            self.image = self.font.render(self.text, True, self.color)
+
+        if self.flag == "health":
+            self.text = f"{int(self.unit.health)}/{int(self.unit.max_health)}"
+            self.image = self.font.render(self.text, True, self.color)
+
+        if self.flag == "mana":
+            self.text = f"{int(self.unit.mana)}/{int(self.unit.max_mana)})"
+            self.image = self.font.render(self.text, True, self.color)
+
+        self.rect = self.image.get_rect()
+
+        self.rect.midleft = (
+            self.unit.rect.center[0] + self.offset_x,
+            self.unit.rect.center[1] + self.offset_y,
+        )
