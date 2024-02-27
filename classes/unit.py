@@ -106,7 +106,7 @@ class Unit(pygame.sprite.Sprite):
 
     def load_animations(self):
         for state in self.states:
-            path = Path(f"resources2/images/units/{self.unit_class}/{state}")
+            path = Path(f"resources/images/units/{self.unit_class}/{state}")
             image_list = list(path.glob("*.*"))
 
             # Load images as pygame surfaces
