@@ -21,7 +21,7 @@ class CreateCharSelect(Scene):
         # Indiates which menu we're modifying
         self.menu_id = menu_id
 
-        # Default setup, note that cf.unit_list holds the list of classes
+        # Default setup, note that cf.unit_dict holds the list of classes
         self.chosen_name = "John Wick"
         self.chosen_class = "Knight"
         self.pointer = 0
@@ -29,12 +29,12 @@ class CreateCharSelect(Scene):
         self.scroll_speed = 50
 
         self.position_list = []
-        for i, unit in enumerate(cf.unit_list):
+        for i, unit in enumerate(list(cf.unit_dict.keys())):
             x_offset = 150
             self.position_list.append((self.xc + (x_offset * i), self.yc))
 
         self.class_name = ui_functions.TextSprite(
-            cf.unit_list[self.character_pointer],
+            list(cf.unit_dict.keys())[self.character_pointer],
             40,
             None,
             "white",
@@ -44,7 +44,7 @@ class CreateCharSelect(Scene):
         )
 
         self.class_des = ui_functions.TextSprite(
-            cf.unit_des_list[self.character_pointer],
+            list(cf.unit_dict.values())[self.character_pointer],
             40,
             None,
             "white",
@@ -53,11 +53,10 @@ class CreateCharSelect(Scene):
             "SELECTED",
         )
 
-
         self.sprites.add(self.class_name)
         self.sprites.add(self.class_des)
         # Add our display units
-        for unit in cf.unit_list:
+        for unit in cf.unit_dict.keys():
             self.display_units.add(
                 cf.create_unit(self.chosen_name, unit, "player", self.game, True)
             )
@@ -78,7 +77,6 @@ class CreateCharSelect(Scene):
             True,
             self.yc + 200,
             100,
-            
         )
 
         # Confirm character
@@ -114,12 +112,12 @@ class CreateCharSelect(Scene):
         self.pointer = self.pointer % len(self.button_sprites)
         list(self.button_sprites.sprites())[self.pointer].selected = True
 
-        self.class_name.text = cf.unit_list[self.character_pointer]
+        self.class_name.text = list(cf.unit_dict.keys())[self.character_pointer]
         self.class_des.text = cf.unit_des_list[self.character_pointer]
 
         self.chosen_character = (
             self.chosen_name,
-            cf.unit_list[self.character_pointer],
+            list(cf.unit_dict.keys())[self.character_pointer],
         )
 
         # If the selected character reaches the center x position, stop all units in place

@@ -93,8 +93,8 @@ class CreateChar(Scene):
     def create_enemies(self):
         for i in range(self.game.max_enemies):
             name = "AI " + str(random.randint(10, 99))
-            classes = random.choice(cf.unit_list)
-            enemy = (name, classes)
+            classes = random.choice(list(cf.unit_dict.items()))
+            enemy = (name, classes[0])
             self.enemy_list.append(enemy)
 
     def update(self, actions):

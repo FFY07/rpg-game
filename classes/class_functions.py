@@ -10,12 +10,8 @@ from classes.units.princess import Princess
 import resources.images as images
 
 # IMPORTANT: UPDATE THIS WHEN ADDING A NEW CLASS
-unit_list = ["Warrior", "Reaper", "Bandit", "Tank", "Princess"]
-unit_des_list = ["a",
-                 "b",
-                 "c",
-                 "d",
-                 "e"]
+unit_dict = {"Warrior": "a", "Reaper": "b", "Bandit": "c", "Tank": "d", "Princess": "e"}
+
 marketing_images = {
     "Warrior": images.warrior_marketing,
     "Reaper": images.reaper_marketing,
@@ -38,9 +34,9 @@ def create_unit(name, unit_class, team, game, standalone=False):
     """
 
     # If the given unit class is invalid, select a random one
-    if unit_class not in unit_list:
+    if unit_class not in unit_dict.keys():
         print(f"[{unit_class}] is not a valid class")
-        unit_class = random.choice(unit_list)
+        unit_class = random.choice(list(unit_dict.keys()))
         print(f"[{unit_class}] has been selected instead")
 
     # Create the unit object
@@ -89,9 +85,9 @@ def create_unit(name, unit_class, team, game, standalone=False):
 def create_team(unit_list: list, team: str, game):
     """Creates units based on an input list and team name
 
-    unit_list = list of tuples (name, char_class)"""
-    for unit in unit_list:
-        create_unit(unit[0], unit[1], team, game)
+    unit_dict = list of tuples (name, char_class)"""
+    for name, unit in unit_list:
+        create_unit(name, unit, team, game)
 
 
 def set_positions(position_list, sprite_group, anchor="center"):
