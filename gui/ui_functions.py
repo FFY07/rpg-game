@@ -494,6 +494,7 @@ class InfoGUI:
                     self.unit.stat_bar_center_offset_x,
                     self.unit.stat_bar_center_offset_y,
                 ),
+                16,
             )
         )
 
@@ -506,6 +507,7 @@ class InfoGUI:
                     self.unit.stat_bar_center_offset_x,
                     self.unit.stat_bar_center_offset_y + self.bar_offset,
                 ),
+                16,
             )
         )
 
@@ -515,8 +517,11 @@ class InfoGUI:
                 "",
                 self.unit,
                 "exp",
-                (-20, -100),
-                20,
+                (
+                    self.unit.stat_bar_center_offset_x,
+                    self.unit.stat_bar_center_offset_y + (self.bar_offset * 2),
+                ),
+                14,
                 "yellow",
                 fonts.pixeloid_bold,
             )

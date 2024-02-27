@@ -125,7 +125,10 @@ class Tank(Unit):
                 self.mana -= mana_cost
                 for t in target_team:
                     damage, crit = self.calc_damage(t, "magic", 1.5)
-                    self.update_stats(t, damage, crit, "magma", 2, 192, 192)
+                    self.update_stats(t, damage, crit, "magma", 2)
                     t.burn_stacks.append([3, self.intelligence])
+
+                # Halves defence for 2 turns
+                self.bonus_defence_stacks.append([2, -self.defence / 2])
 
                 return True

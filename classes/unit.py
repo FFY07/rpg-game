@@ -261,7 +261,7 @@ class Unit(pygame.sprite.Sprite):
                     self.bonus_defence += effect[1]
 
                     if not effect[0]:
-                        self.bonus_intelligence_stacks.pop(i)
+                        self.bonus_defence_stacks.pop(i)
 
             self.bonus_magic_resist = 0
             if self.bonus_magic_resist_stacks:
