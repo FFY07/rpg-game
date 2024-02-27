@@ -90,8 +90,14 @@ class Unit(pygame.sprite.Sprite):
         }
 
         # Turn-based effects
+
+        # Example usage: burn for 5 rounds, 10 damage each = self.burn_stacks.append[5, 10]
+        # Increase bonus_defence by 5 for 3 rounds = self.bonus_defence_stacks = [3, 5]
         self.burn_stacks = []
-        self.regen_stacks = []
+        self.health_regen_stacks = []
+
+        # Give every character default mana regen (-1 = infinite)
+        self.mana_regen_stacks = [[-1, 5]]
 
         self.bonus_strength = 0
         self.bonus_strength_stacks = []
@@ -168,6 +174,12 @@ class Unit(pygame.sprite.Sprite):
                 self.alive = False
                 self.change_state("death")
 
+            if self.health > self.max_health:
+                self.health = self.max_health
+
+            if self.mana > self.max_mana:
+                self.mana = self.max_mana
+
     def update_level(self):
         """Updates the level of the unit based on their exp"""
 
@@ -187,80 +199,100 @@ class Unit(pygame.sprite.Sprite):
 
     def tick_effects(self):
         damage = 0
+        if self.alive:
 
-        # Forget it, let's just hardcode
-        # self.bonus_strength = stat_tick(self.bonus_strength_stacks)
-        # def stat_tick(stacks_list):
-        #     bonus = 0
-        #     for effect in stacks_list:
-        #         effect[0] -= 1
-        #         bonus += effect[1]
+            # Forget it, let's just hardcode
+            # self.bonus_strength = stat_tick(self.bonus_strength_stacks)
+            # def stat_tick(stacks_list):
+            #     bonus = 0
+            #     for effect in stacks_list:
+            #         effect[0] -= 1
+            #         bonus += effect[1]
 
-        #         if not effect[0]:
+            #         if not effect[0]:
 
-        if len(self.burn_stacks) > 0:
-            print(self.burn_stacks)
-            # self.game.sprites.add(
-            #     ui_functions.HitImage(damage_effect_name, target, effect_speed)
-            # )
-            # Example burn: [5, 10] = tick 5 turns, 10 damage each time
-            for burn in self.burn_stacks:
-                burn[0] -= 1
-                damage += burn[1]
+            if self.burn_stacks:
+                self.game.sprites.add(ui_functions.HitImage("magma", self, 1))
+                # Example burn: [5, 10] = tick 5 turns, 10 damage each time
+                for i, burn in enumerate(self.burn_stacks):
+                    if not burn[0] < 0:
+                        burn[0] -= 1
+                    damage += burn[1]
 
-                # If there are no more ticks left on the burn, remove it from the list
-                if not burn[0]:
-                    self.burn_stacks.pop(burn)
+                    # If there are no more ticks left on the burn, remove it from the list
+                    if not burn[0]:
+                        self.burn_stacks.pop(i)
 
-        # negative negative = positive
-        if self.regen_stacks:
-            for regen in self.regen_stacks:
-                regen[0] -= 1
-                damage -= regen[1]
+            # negative negative = positive
+            if self.health_regen_stacks:
+                for i, regen in enumerate(self.health_regen_stacks):
+                    if not regen[0] < 0:
+                        regen[0] -= 1
+                    damage -= regen[1]
 
-                if not regen[0]:
-                    self.regen_stacks.pop(regen)
+                    if not regen[0]:
+                        self.health_regen_stacks.pop(i)
 
-        # reset bonus_strength before calculating how much we get
-        self.bonus_strength = 0
-        if self.bonus_strength_stacks:
-            for effect in self.bonus_strength_stacks:
-                effect[0] -= 1
-                self.bonus_strength += effect[1]
+            if self.mana_regen_stacks:
+                for i, regen in enumerate(self.mana_regen_stacks):
+                    if not regen[0] < 0:
+                        regen[0] -= 1
+                    self.mana += regen[1]
 
-                if not effect[0]:
-                    self.bonus_strength_stacks.pop(effect)
+                    if not regen[0]:
+                        self.mana_regen_stacks.pop(i)
 
-        self.bonus_intelligence = 0
-        if self.bonus_intelligence_stacks:
-            for effect in self.bonus_intelligence_stacks:
-                effect[0] -= 1
-                self.bonus_intelligence += effect[1]
+            # reset bonus_strength before calculating how much we get
+            self.bonus_strength = 0
+            if self.bonus_strength_stacks:
+                for i, effect in enumerate(self.bonus_strength_stacks):
+                    if not effect[0] < 0:
+                        effect[0] -= 1
+                    self.bonus_strength += effect[1]
 
-                if not effect[0]:
-                    self.bonus_intelligence_stacks.pop(effect)
+                    if not effect[0]:
+                        self.bonus_strength_stacks.pop(i)
 
-        self.bonus_defence = 0
-        if self.bonus_defence_stacks:
-            for effect in self.bonus_defence_stacks:
-                effect[0] -= 1
-                self.bonus_defence += effect[1]
+            self.bonus_intelligence = 0
+            if self.bonus_intelligence_stacks:
+                for i, effect in enumerate(self.bonus_intelligence_stacks):
+                    if not effect[0] < 0:
+                        effect[0] -= 1
+                    self.bonus_intelligence += effect[1]
 
-                if not effect[0]:
-                    self.bonus_intelligence_stacks.pop(effect)
+                    if not effect[0]:
+                        self.bonus_intelligence_stacks.pop(i)
 
-        self.bonus_magic_resist = 0
-        if self.bonus_magic_resist_stacks:
-            for effect in self.bonus_magic_resist_stacks:
-                effect[0] -= 1
-                self.bonus_magic_resist += effect[1]
+            self.bonus_defence = 0
+            if self.bonus_defence_stacks:
+                for i, effect in enumerate(self.bonus_defence_stacks):
+                    if not effect[0] < 0:
+                        effect[0] -= 1
+                    self.bonus_defence += effect[1]
 
-                if not effect[0]:
-                    self.bonus_magic_resist_stacks.pop(effect)
+                    if not effect[0]:
+                        self.bonus_intelligence_stacks.pop(i)
 
-        if damage:
-            self.change_state("hurt")
-            self.health -= damage
+            self.bonus_magic_resist = 0
+            if self.bonus_magic_resist_stacks:
+                for i, effect in enumerate(self.bonus_magic_resist_stacks):
+                    if not effect[0] < 0:
+                        effect[0] -= 1
+                    self.bonus_magic_resist += effect[1]
+
+                    if not effect[0]:
+                        self.bonus_magic_resist_stacks.pop(i)
+
+            if damage > 0:
+                self.health -= damage
+                self.game.sprites.add(ui_functions.DamageText(self, int(damage)))
+
+            if damage < 0:
+                self.health -= damage
+
+                self.game.sprites.add(
+                    ui_functions.DamageText(self, abs(int(damage)), False, "green")
+                )
 
     def change_state(self, target_state):
         """Resets the current frame to 0 so the animation doesn't start halfway"""
@@ -394,7 +426,7 @@ class Unit(pygame.sprite.Sprite):
         self.game.sprites.add(ui_functions.DamageText(target, int(regen)))
 
     def calc_damage(
-        self, target: object, damage_type="Physical", multiplier=1.0
+        self, target: object, damage_type="physical", multiplier=1.0
     ) -> float:
         """Checks for crit and enemy resistances"""
 
@@ -438,7 +470,7 @@ class Unit(pygame.sprite.Sprite):
 
             # Add mana when attacking
             if self.mana < self.max_mana:
-                self.mana += 5
+                self.mana += 10
                 if self.mana > self.max_mana:
                     self.mana = self.max_mana
 
