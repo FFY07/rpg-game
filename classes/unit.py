@@ -29,6 +29,8 @@ class Unit(pygame.sprite.Sprite):
         self.crit_mult = 1.5
 
         self.level = 1
+
+        # Exp to next level
         self.level_exp_dict = {
             1: 100,
             2: 150,
