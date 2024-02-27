@@ -89,6 +89,34 @@ class Unit(pygame.sprite.Sprite):
             "Defence Shard": 1,
         }
 
+        # Turn-based effects
+        self.burn_stacks = []
+        self.regen_stacks = []
+
+        self.bonus_strength = 0
+        self.bonus_strength_stacks = []
+
+        self.bonus_intelligence = 0
+        self.bonus_intelligence_stacks = []
+
+        self.bonus_defence = 0
+        self.bonus_defence_stacks = []
+
+        self.bonus_magic_resist = 0
+        self.bonus_magic_resist_stacks = []
+
+        # Counter-based effects
+        self.curse_stacks = int
+        self.parry_stacks = []
+
+        # def parry(self, number):
+        #     for i in range(3):
+        #         self.parry_stacks.append(self.strength * 2)
+
+        # if target.parry_stacks:
+        #     damage = target.parry_stacks.pop(0)
+        #     self.health -= damage
+
         self.moves = {"Basic Attack": self.basic_attack}
 
     def load_sounds(self):
@@ -133,38 +161,6 @@ class Unit(pygame.sprite.Sprite):
 
             self.animations[state] = loaded_images
 
-    def update(self):
-        # self.game.canvas.blit(images.hit_effect, (0,0))
-        current_time = pygame.time.get_ticks()
-        if (
-            current_time - self.last_updated > self.anim_speed
-            and self.current_frame != -1
-        ):
-            self.last_updated = current_time
-            self.current_frame += 1
-
-        # Resets back to idle frame after completing an animation state
-        if (
-            self.current_frame >= len(self.animations[self.state])
-            and self.state != "death"
-        ):
-            self.current_frame = 0
-            self.state = "idle"
-
-        # Leaves character dead body on the ground
-        elif (
-            self.current_frame >= len(self.animations[self.state])
-            and self.state == "death"
-        ):
-            self.current_frame = -1
-
-        self.image = self.animations[self.state][self.current_frame]
-        self.rect.move_ip(self.dx, self.dy)
-
-        # Checks unit state
-        self.update_alive()
-        self.update_level()
-
     def update_alive(self):
         if self.alive:
             if self.health <= 0:
@@ -188,6 +184,83 @@ class Unit(pygame.sprite.Sprite):
 
                     # We can spawn particles or something here as well
                     print(f"{self.name} has levelled up to {self.level}!")
+
+    def tick_effects(self):
+        damage = 0
+
+        # Forget it, let's just hardcode
+        # self.bonus_strength = stat_tick(self.bonus_strength_stacks)
+        # def stat_tick(stacks_list):
+        #     bonus = 0
+        #     for effect in stacks_list:
+        #         effect[0] -= 1
+        #         bonus += effect[1]
+
+        #         if not effect[0]:
+
+        if len(self.burn_stacks) > 0:
+            print(self.burn_stacks)
+            # self.game.sprites.add(
+            #     ui_functions.HitImage(damage_effect_name, target, effect_speed)
+            # )
+            # Example burn: [5, 10] = tick 5 turns, 10 damage each time
+            for burn in self.burn_stacks:
+                burn[0] -= 1
+                damage += burn[1]
+
+                # If there are no more ticks left on the burn, remove it from the list
+                if not burn[0]:
+                    self.burn_stacks.pop(burn)
+
+        # negative negative = positive
+        if self.regen_stacks:
+            for regen in self.regen_stacks:
+                regen[0] -= 1
+                damage -= regen[1]
+
+                if not regen[0]:
+                    self.regen_stacks.pop(regen)
+
+        # reset bonus_strength before calculating how much we get
+        self.bonus_strength = 0
+        if self.bonus_strength_stacks:
+            for effect in self.bonus_strength_stacks:
+                effect[0] -= 1
+                self.bonus_strength += effect[1]
+
+                if not effect[0]:
+                    self.bonus_strength_stacks.pop(effect)
+
+        self.bonus_intelligence = 0
+        if self.bonus_intelligence_stacks:
+            for effect in self.bonus_intelligence_stacks:
+                effect[0] -= 1
+                self.bonus_intelligence += effect[1]
+
+                if not effect[0]:
+                    self.bonus_intelligence_stacks.pop(effect)
+
+        self.bonus_defence = 0
+        if self.bonus_defence_stacks:
+            for effect in self.bonus_defence_stacks:
+                effect[0] -= 1
+                self.bonus_defence += effect[1]
+
+                if not effect[0]:
+                    self.bonus_intelligence_stacks.pop(effect)
+
+        self.bonus_magic_resist = 0
+        if self.bonus_magic_resist_stacks:
+            for effect in self.bonus_magic_resist_stacks:
+                effect[0] -= 1
+                self.bonus_magic_resist += effect[1]
+
+                if not effect[0]:
+                    self.bonus_magic_resist_stacks.pop(effect)
+
+        if damage:
+            self.change_state("hurt")
+            self.health -= damage
 
     def change_state(self, target_state):
         """Resets the current frame to 0 so the animation doesn't start halfway"""
@@ -326,9 +399,9 @@ class Unit(pygame.sprite.Sprite):
         """Checks for crit and enemy resistances"""
 
         if damage_type == "physical":
-            base_damage = self.strength * multiplier
+            base_damage = (self.strength + self.bonus_strength) * multiplier
         elif damage_type == "magic":
-            base_damage = self.intelligence * multiplier
+            base_damage = (self.intelligence + self.bonus_intelligence) * multiplier
 
         # Check for crit
         if self.crit_chance >= random.randint(0, 100):
@@ -340,10 +413,14 @@ class Unit(pygame.sprite.Sprite):
 
         # Check target resistances
         if damage_type == "physical":
-            final_damage = damage / (1 + (target.defence / 100))
+            final_damage = damage / (
+                1 + ((target.defence + target.bonus_defence) / 100)
+            )
 
         elif damage_type == "magic":
-            final_damage = damage / (1 + (target.magic_resist / 100))
+            final_damage = damage / (
+                1 + ((target.magic_resist + target.bonus_magic_resist) / 100)
+            )
 
         if final_damage < 0:
             final_damage = 0
@@ -386,3 +463,35 @@ class Unit(pygame.sprite.Sprite):
                 return self.mana / self.max_mana
             case "exp":
                 return self.exp / self.level_exp_dict[self.level]
+
+    def update(self):
+        # self.game.canvas.blit(images.hit_effect, (0,0))
+        current_time = pygame.time.get_ticks()
+        if (
+            current_time - self.last_updated > self.anim_speed
+            and self.current_frame != -1
+        ):
+            self.last_updated = current_time
+            self.current_frame += 1
+
+        # Resets back to idle frame after completing an animation state
+        if (
+            self.current_frame >= len(self.animations[self.state])
+            and self.state != "death"
+        ):
+            self.current_frame = 0
+            self.state = "idle"
+
+        # Leaves character dead body on the ground
+        elif (
+            self.current_frame >= len(self.animations[self.state])
+            and self.state == "death"
+        ):
+            self.current_frame = -1
+
+        self.image = self.animations[self.state][self.current_frame]
+        self.rect.move_ip(self.dx, self.dy)
+
+        # Checks unit state
+        self.update_alive()
+        self.update_level()

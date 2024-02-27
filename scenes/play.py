@@ -80,8 +80,13 @@ class Play(Scene):
             )
 
     def update(self, actions):
+        # At the start of the turn, decrement all debuffs
+        for sprite in self.game.all_units:
+            sprite.tick_effects()
+
         self.update_alive_dict()
 
+        # No idea why I didn't have to do .sprites()
         for sprite in self.game.all_units:
             rectx, recty = sprite.rect.center
             if rectx > scr.SCREEN_WIDTH:
@@ -89,7 +94,7 @@ class Play(Scene):
             elif rectx < 0:
                 sprite.rect.center = scr.SCREEN_WIDTH, recty
 
-            if rectx == sprite.position[0]:
+            if rectx == sprite.position[0] > 5 or sprite.position[0] < 5:
                 sprite.dx = 0
 
         if not self.alive_player_dict:
