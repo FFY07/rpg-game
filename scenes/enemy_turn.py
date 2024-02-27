@@ -87,6 +87,10 @@ class EnemyTurn(Scene):
             for sprite in self.game.all_units.sprites():
                 sprite.deactivate()
 
+            # Tick all time-based effects
+            for sprite in self.game.all_units:
+                sprite.tick_effects()
+
             while self.game.stack[-1] != self.anchor:
                 self.exit_scene()
 

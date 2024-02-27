@@ -60,7 +60,7 @@ class Game:
 
         self.start()
         self.music = True
-        self.sound = True
+        self.sound = False
         self.volume = 0.6
 
         self.intro_music_path = audio.menu

@@ -45,6 +45,8 @@ class Princess(Unit):
 
         self.moves["Mana Regen (20)"] = self.regenmana
 
+        self.moves["Regen (15)"] = self.regen
+
     def level_stats(self):
         self.health += self.max_health / 10
         self.strength += 2
@@ -77,5 +79,18 @@ class Princess(Unit):
                 self.melee(target)
                 self.update_manastats(target, regen, "healing", 1)
                 self.change_state("defend")
+
+                return True
+
+    def regen(self, target: object, target_team: list):
+        if not self.is_target_hostile(target):
+            mana_cost = 15
+            if self.mana >= mana_cost:
+                self.mana -= mana_cost
+                target.health_regen_stacks.append([3, self.intelligence])
+
+                damage, crit = self.calc_damage(target, "magic", 0.1)
+                self.melee(target)
+                self.update_stats(target, damage, crit, "healing", 2)
 
                 return True

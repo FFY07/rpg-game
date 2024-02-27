@@ -253,6 +253,10 @@ class DamageText(pygame.sprite.Sprite):
             # If damage is 0
             if not damage:
                 self.color = "deepskyblue"
+
+        else:
+            self.color = color
+
         try:
             self.font = pygame.font.Font(self.text_font, self.size)
         except:
