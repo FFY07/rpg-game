@@ -42,6 +42,7 @@ class Princess(Unit):
         self.rect.center = self.position
         # self.rect.center[1] = self.rect.center[1] - 20
         self.moves["Healing (10)"] = self.healing
+        self.moves["Mana Regen (20)"] = self.regenmana
 
     def level_stats(self):
         self.health += self.max_health / 10
@@ -64,3 +65,18 @@ class Princess(Unit):
                 print(f"{self.name} heal {target.name} 30 hp ! ")
                 print(f"[DEBUG]:{target.health}/{target.max_health} ")
                 return True
+
+    def regenmana(self, target, target_team):
+        if not self.is_target_hostile(target):
+            mana_cost = 20
+            regen = 40
+            if self.mana >= mana_cost:
+                self.mana -= mana_cost
+
+                self.melee(target)
+                self.update_manastats(target, regen, "healing", 1)       
+                self.change_state("defend")
+
+                return True
+
+             
