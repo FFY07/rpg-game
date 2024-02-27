@@ -304,6 +304,24 @@ class Unit(pygame.sprite.Sprite):
         )
         self.game.sprites.add(ui_functions.DamageText(target, int(heal)))
 
+
+    #obvious what this do if u know healthstats
+    def update_manastats(
+        self, target: object, regen: int, damage_effect_name="healing", effect_speed=2
+    ):
+
+        self.change_state("defend")
+        target.change_state("defend")
+        target.mana += regen
+        target.mana = min(target.max_mana, target.mana)
+
+        self.game.sprites.add(
+            ui_functions.HitImage(damage_effect_name, target, effect_speed)
+        )
+        self.game.sprites.add(ui_functions.DamageText(target, int(regen)))
+
+
+
     def calc_damage(
         self, target: object, damage_type="Physical", multiplier=1.0
     ) -> float:
