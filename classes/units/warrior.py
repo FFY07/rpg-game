@@ -2,7 +2,7 @@ import pygame, random
 
 from classes.unit import Unit
 
-import resources.audio as audio
+from gui import ui_functions
 
 # Range of values
 STRENGTH = (12, 12)
@@ -42,7 +42,8 @@ class Warrior(Unit):
         self.rect.center = self.position
 
         # Add moves to moves dictionary
-        self.moves["Life Steal (15)"] = self.lifesteal
+        # self.moves["Life Steal (15)"] = self.lifesteal
+        self.moves["Rally (25)"] = self.rally
         self.moves["Execute (30)"] = self.execute
 
     def level_stats(self):
@@ -52,25 +53,41 @@ class Warrior(Unit):
         self.defence += 5
         self.magic_resist += 2
 
-    def lifesteal(self, target: object, target_team: list):
-        if self.is_target_hostile(target):
-            mana_cost = 15
+    def rally(self, target: object, target_team: list):
+        mana_cost = 25
+        if not self.is_target_hostile(target):
             if self.mana > mana_cost:
                 self.mana -= mana_cost
-                damage, crit = self.calc_damage(target, "physical", 2)
 
-                self.melee(target)
-                self.update_stats(target, damage, crit, "blood2", 2)
-                self.lifesteal = 0.7
-                self.health += damage * self.lifesteal
-                if self.game.sound:
-                    pygame.mixer.find_channel().play(self.default_attack_sfx)
+                for t in target_team:
+                    t.bonus_strength_stacks.append([5, self.strength / 2])
+                    t.bonus_intelligence_stacks.append([5, self.intelligence / 2])
+                    t.bonus_defence_stacks.append([5, self.defence / 2])
+                    t.bonus_magic_resist_stacks.append([5, self.magic_resist / 2])
 
-                print(
-                    f"You attack {target.name} for {damage} and steal {damage * self.lifesteal} health!"
-                )
+                    self.game.sprites.add(ui_functions.HitImage("stat_buff", t, 2))
 
                 return True
+
+    # def lifesteal(self, target: object, target_team: list):
+    #     if self.is_target_hostile(target):
+    #         mana_cost = 15
+    #         if self.mana > mana_cost:
+    #             self.mana -= mana_cost
+    #             damage, crit = self.calc_damage(target, "physical", 2)
+
+    #             self.melee(target)
+    #             self.update_stats(target, damage, crit, "blood2", 2)
+    #             self.lifesteal = 0.7
+    #             self.health += damage * self.lifesteal
+    #             if self.game.sound:
+    #                 pygame.mixer.find_channel().play(self.default_attack_sfx)
+
+    #             print(
+    #                 f"You attack {target.name} for {damage} and steal {damage * self.lifesteal} health!"
+    #             )
+
+    #             return True
 
     def execute(self, target: object, target_team: list):
         if self.is_target_hostile(target):
