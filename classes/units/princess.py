@@ -42,6 +42,7 @@ class Princess(Unit):
         self.rect.center = self.position
         # self.rect.center[1] = self.rect.center[1] - 20
         self.moves["Healing (10)"] = self.healing
+
         self.moves["Mana Regen (20)"] = self.regenmana
 
     def level_stats(self):
@@ -74,9 +75,7 @@ class Princess(Unit):
                 self.mana -= mana_cost
 
                 self.melee(target)
-                self.update_manastats(target, regen, "healing", 1)       
+                self.update_manastats(target, regen, "healing", 1)
                 self.change_state("defend")
 
                 return True
-
-             
