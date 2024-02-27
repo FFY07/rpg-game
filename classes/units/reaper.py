@@ -45,7 +45,7 @@ class Reaper(Unit):
         self.moves["Harvest Soul (-10HP)"] = self.harvestsoul
         self.moves["Sacrifice (-40% Current HP)"] = self.sacrifice
         self.moves["Dead Scythe (-25HP)"] = self.deadscythe
-        self.moves["Blood Ritual (20)"] = self.blood_ritual
+        self.moves["Blood Ritual (50% current HP)"] = self.blood_ritual
 
     def level_stats(self):
         self.health += self.max_health / 10
@@ -132,15 +132,11 @@ class Reaper(Unit):
     def blood_ritual(self, target: object, target_team: list):
         """Sacrifices half of current health to boost strength for 3 turns"""
         if not self.is_target_hostile(target):
-            mana_cost = 25
-            if self.mana >= mana_cost:
-                self.mana -= mana_cost
+            self.health = self.health / 2
 
-                self.health = self.health / 2
+            # Effectively 2 times strength for 3 turns
+            target.bonus_strength_stacks.append([3, self.strength * 1])
 
-                # Effectively 2 times strength for 3 turns
-                target.bonus_strength_stacks.append([3, self.strength * 1])
+            self.game.sprites.add(ui_functions.HitImage("blood2", self, 2))
 
-                self.game.sprites.add(ui_functions.HitImage("blood2", self, 2))
-
-                return True
+            return True
