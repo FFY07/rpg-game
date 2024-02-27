@@ -19,7 +19,7 @@ class Options(Scene):
         self.background = resources.images.options_background
         self.sprites = pygame.sprite.Group()
         self.pointer = 0
-        self.button_list = ["Music", "Sound", "Back", "New Game"]
+        self.button_list = ["Music", "Sound", "Save", "Back", "New Game"]
 
         self.generate_buttons(
             self.button_list,
@@ -84,13 +84,33 @@ class Options(Scene):
                 else:
                     self.game.sound = True
 
-        # Back to previous scene
         if self.pointer == 2:
+            if actions["enter"]:
+                for sprite in self.game.all_units.sprites():
+                    with open("save.txt", "w") as savefile:
+                        pass
+                        # self.health
+                        # self.mana
+
+                        # self.crit_chance
+                        # self.crit_mult
+
+                        # self.level
+                        # self.exp
+                        # self.coins
+
+                        # self.unit_class
+                        # self.team
+
+                        # self.inventory
+
+        # Back to previous scene
+        if self.pointer == 3:
             if actions["enter"]:
                 self.exit_scene()
 
         # Back to main menu
-        if self.pointer == 3:
+        if self.pointer == 4:
             if actions["enter"]:
                 self.sprites.empty()
                 pygame.mixer.music.load(self.game.intro_music_path)

@@ -83,8 +83,8 @@ class Unit(pygame.sprite.Sprite):
         self.death_effect = ui_functions.HitImage("blood1", self, 100)
 
         self.inventory = {
-            "Health Potion": 3,
-            "Mana Potion": 3,
+            "Health Potion": 2,
+            "Mana Potion": 2,
             "Strength Shard": 1,
             "Defence Shard": 1,
         }
