@@ -72,7 +72,7 @@ class ChooseTarget(Scene):
 
             else:
                 print("not enough mana/invalid target!")
-                pygame.mixer.Sound.play(self.game.audio_handler.oom_sfx)
+                pygame.mixer.find_channel().play(self.game.audio_handler.oom_sfx)
                 self.sprites.empty()
                 while self.game.stack[-1] != self.anchor:
                     self.exit_scene()

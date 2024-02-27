@@ -390,14 +390,16 @@ class RectGUI(pygame.sprite.Sprite):
 
 
 class Statbar(pygame.sprite.Sprite):
-    def __init__(self, unit: object, color="green", y_offset=0):
+    def __init__(self, unit: object, color="green", y_offset=0, static=False):
         super().__init__()
         self.sprites = pygame.sprite.Group()
         self.unit = unit
         self.width = 100
         self.max_width = self.width
+        self.static = static
 
         self.y_offset = y_offset
+        self.unit.stat_bar_center_offset_x = -(self.width // 2)
 
         self.height = 15
 
@@ -409,37 +411,29 @@ class Statbar(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
         self.rect.center = (
-            self.unit.rect.midbottom[0],
-            self.unit.rect.midbottom[1] + self.y_offset,
+            self.unit.rect.center[0] + self.unit.stat_bar_center_offset_x,
+            self.unit.rect.center[1]
+            + self.unit.stat_bar_center_offset_y
+            + self.y_offset,
         )
-
-        self.player_text = TextSprite(
-            "test",
-            25,
-            "Impact",
-            "white",
-            self.rect.center[0] - 290,
-            self.rect.center[1] - 105,
-        )
-
-        self.sprites.add(self.player_text)
 
     # This one should update outside the play.py
     def update(self):
-        self.ratio = self.unit.health / self.unit.max_health
-        self.width = max(
-            0, int(self.max_width * self.ratio)
-        )  # omg use max must be ai write one omgggg jk
-        self.image = pygame.transform.scale(self.image, (self.width, self.height))
+        if not self.static:
+            self.ratio = self.unit.health / self.unit.max_health
+            self.width = max(
+                0, int(self.max_width * self.ratio)
+            )  # omg use max must be ai write one omgggg jk
+            self.image = pygame.transform.scale(self.image, (self.width, self.height))
         self.rect = self.image.get_rect()
-        self.rect.center = (
+        self.rect.midleft = (
             self.unit.rect.center[0] + self.unit.stat_bar_center_offset_x,
-            self.unit.rect.center[1] + self.unit.stat_bar_center_offset_y,
+            self.unit.rect.center[1]
+            + self.unit.stat_bar_center_offset_y
+            + self.y_offset,
         )
 
         # print(f"Unit: {self.unit.name} HP: {self.unit.health / self.unit.max_health = } Width: {self.width} Rect: {self.rect} Image: {self.image} Ratio: {self.ratio}")
-
-        self.sprites.update()
 
     def draw(self, screen):
         pygame.draw.rect(screen, self.border_color, self.rect, 5)
@@ -450,11 +444,35 @@ class Statbar(pygame.sprite.Sprite):
 
 
 class InfoGUI:
-    def __init__(self, unit: object, bars: list):
+    def __init__(self, unit: object, bars: list, sprite_group: pygame.sprite.Group):
         self.unit = unit
         self.bar_offset = 20
+        self.sprites = sprite_group
+
         self.bars = pygame.sprite.Group()
         self.text_sprites = pygame.sprite.Group()
 
         for i, color in enumerate(bars):
+            self.bars.add(Statbar(self.unit, "grey27", i * self.bar_offset, True))
             self.bars.add(Statbar(self.unit, color, i * self.bar_offset))
+
+        # PROBLEM: THIS DOES NOT FOLLOW ANY OBJECTS
+        # SOLUTION: MAKE NEW TEXT SPRITE?
+        self.player_text = TextSprite(
+            "test",
+            25,
+            "Impact",
+            "white",
+            self.unit.rect.center[0] - 290,
+            self.unit.rect.center[1] - 105,
+        )
+
+        self.text_sprites.add(self.player_text)
+
+        self.sprites.add([self.bars, self.text_sprites])
+
+    def update(self):
+        pass
+
+    def draw(self, screen):
+        pass

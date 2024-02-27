@@ -44,5 +44,6 @@ class SoundEffects():
         self.potion_sfx.set_volume(0.4)
 
         self.oom_sfx = pygame.mixer.Sound(f"{Path('resources/audio/game_effects/error.wav')}")
+        self.oom_sfx.set_volume(0.5)
 
         self.death_sfx = pygame.mixer.Sound(f"{Path('resources/audio/character_effects/warzone_armour_crack.wav')}")

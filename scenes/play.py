@@ -67,9 +67,11 @@ class Play(Scene):
         self.text_dict = self.create_dict(self.text_sprites)
 
         for sprite in self.game.all_units.sprites():
-            stat_bar = ui_functions.Statbar(sprite)
-            self.stat_guis.add(stat_bar)
-            self.ui_sprites.add(stat_bar)
+            # stat_bar = ui_functions.Statbar(sprite)
+            # self.stat_guis.add(stat_bar)
+            ui_functions.InfoGUI(
+                sprite, ["green", "yellow", "deepskyblue1"], self.stat_guis
+            )
 
     # def create_health_gui(self, x, y, width = 120, height = 60):
 
@@ -132,6 +134,7 @@ class Play(Scene):
             next_scene.start_scene()
 
         self.ui_sprites.update()
+        self.stat_guis.update()
         self.game.all_units.update()
 
         self.game.reset_keys()
@@ -147,7 +150,7 @@ class Play(Scene):
         # Rendering order (last to render = on top)
         self.game.all_units.draw(screen)
         self.ui_sprites.draw(screen)
+        self.stat_guis.draw(screen)
 
-        # for group in self.manual_groups:
-        #     group.update()
+        # for group in self.custom_groups:
         #     group.draw(screen)
