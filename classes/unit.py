@@ -116,7 +116,6 @@ class Unit(pygame.sprite.Sprite):
         # if target.parry_stacks:
         #     damage = target.parry_stacks.pop(0)
         #     self.health -= damage
-
         self.moves = {"Basic Attack": self.basic_attack}
 
     def load_sounds(self):
