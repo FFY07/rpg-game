@@ -3,7 +3,7 @@ import pygame
 from scenes.scene import Scene
 from scenes.target import ChooseTarget
 
-import resources.audio as audio
+import resources.fonts as fonts
 
 # NOT WRITTEN YET; SKIPPING STRAIGHT TO TARGET
 
@@ -21,6 +21,8 @@ class ChooseAttack(Scene):
         self.button_x, self.button_y = self.selected_unit.rect.midright
         self.button_x += self.x_offset
         self.button_y += self.y_offset
+        self.button_width = 150
+        self.button_height = 50
 
         self.movelist = list(self.selected_unit.moves.keys())
         self.generate_buttons(
@@ -28,8 +30,8 @@ class ChooseAttack(Scene):
             30,
             None,
             "white",
-            150,
-            50,
+            self.button_width,
+            self.button_height,
             "grey20",
             (self.button_x, self.button_y),
             (0, 50),
@@ -47,9 +49,9 @@ class ChooseAttack(Scene):
         for sprite in self.sprites.sprites():
             sprite.selected = False
 
-            # Experimental method since some dumbass (me) designed the "Button" as a function that glues two separate sprite objects together
-            if sprite.name == self.button_dict[self.pointer].name:
-                sprite.selected = True
+            # # Experimental method since some dumbass designed the "Button" as a function that glues two separate sprite objects together
+            # if sprite.name == self.button_dict[self.pointer].name:
+            #     sprite.selected = True
 
         self.selected_move = self.movelist[self.pointer]
 
