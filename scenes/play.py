@@ -32,15 +32,15 @@ class Play(Scene):
 
         # testing coordinates
         self.player_positions = [
-            (self.xc - 500, self.yc + 150),
-            (self.xc - 375, self.yc),
             (self.xc - 250, self.yc - 150),
+            (self.xc - 375, self.yc),
+            (self.xc - 500, self.yc + 150),
         ]
 
         self.enemy_positions = [
-            (self.xc + 500, self.yc + 150),
-            (self.xc + 375, self.yc),
             (self.xc + 250, self.yc - 150),
+            (self.xc + 375, self.yc),
+            (self.xc + 500, self.yc + 150),
         ]
         cf.set_positions(self.player_positions, self.game.players)
         cf.set_positions(self.enemy_positions, self.game.enemies)
@@ -121,10 +121,10 @@ class Play(Scene):
             next_scene = Options(self.game)
             next_scene.start_scene()
 
-        if actions["up"]:
+        if actions["down"]:
             self.pointer += 1
 
-        if actions["down"]:
+        if actions["up"]:
             self.pointer -= 1
 
         if actions["enter"]:

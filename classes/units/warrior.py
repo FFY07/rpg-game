@@ -44,7 +44,6 @@ class Warrior(Unit):
         # Add moves to moves dictionary
         self.moves["Life Steal (15)"] = self.lifesteal
         self.moves["Execute (30)"] = self.execute
-        self.moves["Burn (15)"] = self.burn
 
     def level_stats(self):
         self.health += self.max_health / 10
@@ -87,18 +86,5 @@ class Warrior(Unit):
                     pygame.mixer.find_channel().play(self.default_attack_sfx)
 
                 print(f"Executed {target.name}")
-
-                return True
-
-    def burn(self, target: object, target_team: list):
-        if self.is_target_hostile(target):
-            mana_cost = 15
-            if self.mana >= mana_cost:
-                self.mana -= mana_cost
-                target.burn_stacks.append([3, self.intelligence])
-
-                damage, crit = self.calc_damage(target, "magic", 0.1)
-                self.melee(target)
-                self.update_stats(target, damage, crit, "magma", 2)
 
                 return True

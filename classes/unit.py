@@ -112,8 +112,8 @@ class Unit(pygame.sprite.Sprite):
         self.bonus_magic_resist_stacks = []
 
         # Counter-based effects
-        self.curse_stacks = int
-        self.parry_stacks = []
+        # self.curse_stacks = int
+        # self.parry_stacks = []
 
         # def parry(self, number):
         #     for i in range(3):
@@ -202,17 +202,8 @@ class Unit(pygame.sprite.Sprite):
         if self.alive:
 
             # Forget it, let's just hardcode
-            # self.bonus_strength = stat_tick(self.bonus_strength_stacks)
-            # def stat_tick(stacks_list):
-            #     bonus = 0
-            #     for effect in stacks_list:
-            #         effect[0] -= 1
-            #         bonus += effect[1]
-
-            #         if not effect[0]:
-
             if self.burn_stacks:
-                self.game.sprites.add(ui_functions.HitImage("magma", self, 1))
+                self.game.sprites.add(ui_functions.HitImage("magma", self, 1, 128, 128))
                 # Example burn: [5, 10] = tick 5 turns, 10 damage each time
                 for i, burn in enumerate(self.burn_stacks):
                     if not burn[0] < 0:

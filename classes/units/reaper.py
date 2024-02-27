@@ -2,7 +2,7 @@ import pygame, random
 
 from classes.unit import Unit
 
-import resources.audio as audio
+from gui import ui_functions
 
 # Range of values
 STRENGTH = (25, 25)
@@ -43,7 +43,7 @@ class Reaper(Unit):
         self.moves["Soul Attack (10)"] = self.soulattack
         # self.moves["Sacrifice (50)"] = self.sacrifice
         self.moves["Harvest (99)"] = self.harvest
-
+        self.moves["Blood Ritual (25)"] = self.blood_ritual
 
     def level_stats(self):
         self.health += self.max_health / 10
@@ -53,21 +53,35 @@ class Reaper(Unit):
         self.magic_resist += 2
 
     def soulattack(self, target, target_team):
-        if self.is_target_hostile(target) :
+        if self.is_target_hostile(target):
             health_cost = 10
-        
+
             if self.health >= health_cost:
                 self.health -= health_cost
 
-                self.strength = STRENGTH[0] * (1 -(self.health/self.max_health))
+                self.strength = STRENGTH[0] * (1 - (self.health / self.max_health))
                 damage, crit = self.calc_damage(target, "physical", 2)
 
-            
                 self.melee(target)
                 self.update_stats(target, damage, crit, "hlood2", 1)
-        
+
         return True
 
+    def blood_ritual(self, target: object, target_team: list):
+        """Sacrifices half of current health to boost strength for 3 turns"""
+        if not self.is_target_hostile(target):
+            mana_cost = 25
+            if self.mana >= mana_cost:
+                self.mana -= mana_cost
+
+                self.health = self.health / 2
+
+                # Effectively 2 times strength for 3 turns
+                target.bonus_strength_stacks.append([3, self.strength * 1])
+
+                self.game.sprites.add(ui_functions.HitImage("blood2", self, 2))
+
+                return True
 
     # def sacrifice(self, target, target_team):
     #     mana_cost = 50
@@ -133,8 +147,7 @@ class Reaper(Unit):
                     damage, crit = self.calc_damage(t, "physical", 999)
                     self.update_stats(t, damage, crit, "atk", 2)
 
-                if self.game.sound:(
-                        pygame.mixer.find_channel().play(self.default_attack_sfx)
-                    )
+                if self.game.sound:
+                    (pygame.mixer.find_channel().play(self.default_attack_sfx))
 
                 return True

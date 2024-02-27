@@ -41,6 +41,7 @@ class Bandit(Unit):
 
         self.moves["Mana Theft (10)"] = self.manatheft
         self.moves["Stat Theft (20)"] = self.statstealing
+        self.moves["Molotov (15)"] = self.molotov
         # self.moves["Underwear Theft (10)"] = self.stealunderwear
 
     def level_stats(self):
@@ -97,6 +98,19 @@ class Bandit(Unit):
                     f"You steal {math.floor(target.strength * stealratio)} damage from {target.name}!"
                 )
                 print(f"[DEBUG] DAMAGE: {self.strength}")
+                return True
+
+    def molotov(self, target: object, target_team: list):
+        if self.is_target_hostile(target):
+            mana_cost = 15
+            if self.mana >= mana_cost:
+                self.mana -= mana_cost
+                target.burn_stacks.append([3, self.intelligence])
+
+                damage, crit = self.calc_damage(target, "magic", 0.1)
+                self.melee(target)
+                self.update_stats(target, damage, crit, "magma", 2)
+
                 return True
 
     # def stealunderwear(self, target: object, target_team: list):

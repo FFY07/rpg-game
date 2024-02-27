@@ -44,8 +44,9 @@ class Tank(Unit):
         self.cannon_shells = 0
 
         # Add moves to moves dictionary
-        self.moves["Cannon (30)"] = self.cannon
-        self.moves["Machine Gun (15)"] = self.machine_gun
+        self.moves["Cannon (40)"] = self.cannon
+        self.moves["Machine Gun (25)"] = self.machine_gun
+        self.moves["Flamethrower (60)"] = self.flamethrower
 
     def level_stats(self):
         self.health += self.max_health / 10
@@ -56,7 +57,7 @@ class Tank(Unit):
 
     def cannon(self, target: object, target_team: list):
         if self.is_target_hostile(target):
-            mana_cost = 30
+            mana_cost = 40
 
             if self.mana >= mana_cost:
                 if not self.cannon_shells:
@@ -89,7 +90,7 @@ class Tank(Unit):
 
     def machine_gun(self, target: object, target_team: list):
         if self.is_target_hostile(target):
-            mana_cost = 15
+            mana_cost = 25
 
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
@@ -114,3 +115,17 @@ class Tank(Unit):
             else:
                 # Attack fail
                 return False
+
+    def flamethrower(self, target: object, target_team: list):
+        """Blasts a large amount of fire and burns all enemies for 3 turns"""
+        if self.is_target_hostile(target):
+            mana_cost = 60
+
+            if self.mana >= mana_cost:
+                self.mana -= mana_cost
+                for t in target_team:
+                    damage, crit = self.calc_damage(t, "magic", 1.5)
+                    self.update_stats(t, damage, crit, "magma", 2, 192, 192)
+                    t.burn_stacks.append([3, self.intelligence])
+
+                return True
