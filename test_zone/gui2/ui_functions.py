@@ -246,7 +246,7 @@ class DamageText(pygame.sprite.Sprite):
         # If no color is set, use our own default colors
         if not color:
             if self.crit:
-                self.color = "orangered"
+                self.color = "yellow"
             else:
                 self.color = "white"
 

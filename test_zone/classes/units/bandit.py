@@ -55,11 +55,11 @@ class Bandit(Unit):
             mana_cost = 10
             if self.mana > mana_cost:
                 self.mana -= mana_cost
-                damage = self.calc_damage(target, "physical", 0.1)
+                damage, crit = self.calc_damage(target, "physical", 0.1)
                 damagemana = 20
 
                 self.melee(target)
-                self.update_stats(target, damage, "manasteal", 2)
+                self.update_stats(target, damage, crit, "manasteal", 2)
 
                 target.health -= damage
                 target.mana -= damagemana
@@ -80,11 +80,11 @@ class Bandit(Unit):
             mana_cost = 20
             if self.mana > mana_cost:
                 self.mana -= mana_cost
-                damage = self.calc_damage(target, "physical", 0.05)
+                damage, crit = self.calc_damage(target, "physical", 0.05)
                 stealratio = 0.05
 
                 self.melee(target)
-                self.update_stats(target, damage, "statsteal", 2)
+                self.update_stats(target, damage, crit, "statsteal", 2)
 
                 target.health -= damage
                 self.strength += max(10, math.floor(target.strength * stealratio))
@@ -104,11 +104,11 @@ class Bandit(Unit):
             mana_cost = 10
             if self.mana > mana_cost:
                 self.mana -= mana_cost
-                damage = self.calc_damage(target, "physical", 999)
+                damage, crit = self.calc_damage(target, "physical", 999)
 
                 if self.strength >= 15:
                     self.melee(target)
-                    self.update_stats(target, damage, "atk", 2)
+                    self.update_stats(target, damage, crit, "atk", 2)
                     self.strength -= 5
                     target.health -= damage
 

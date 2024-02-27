@@ -74,10 +74,10 @@ class Tank(Unit):
                         pygame.mixer.Sound.play(self.game.audio_handler.tank_183mm)
                     self.cannon_shells = 0
 
-                    damage = self.calc_damage(target, "magic", 5)
+                    damage, crit = self.calc_damage(target, "magic", 5)
 
                     self.melee(target)
-                    self.update_stats(target, damage, "tank_cannon", 2)
+                    self.update_stats(target, damage, crit, "tank_cannon", 2)
 
                 return True
             else:
@@ -98,8 +98,8 @@ class Tank(Unit):
                     target_list = target_team
 
                 for t in target_list:
-                    damage = self.calc_damage(t, "magic", 1.5)
-                    self.update_stats(t, damage, "tank_mg", 2)
+                    damage, crit = self.calc_damage(t, "magic", 1.5)
+                    self.update_stats(t, damage, crit, "tank_mg", 2)
 
                 if self.game.sound:
                     pygame.mixer.Sound.play(self.game.audio_handler.tank_machine_gun)

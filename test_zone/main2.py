@@ -8,7 +8,10 @@ from scenes.menu import MainMenu
 clock = pygame.time.Clock()
 clock.tick(60)
 
-# meaningless 
+pygame.mixer.set_num_channels(16)
+
+
+# meaningless
 # We'll use a state stack system instead of each scene having its own individual loops
 class Game:
     def __init__(self):
@@ -129,8 +132,9 @@ class Game:
                         # Add the text to the text buffer string
                         self.text_buffer += event.unicode
 
-                # if self.sound:
-                #     pygame.mixer.Sound.play(self.audio_handler.click_sfx)
+                # Still will crash
+                if self.sound:
+                    pygame.mixer.find_channel().play(self.audio_handler.click_sfx)
 
             if event.type == pygame.KEYUP:
 

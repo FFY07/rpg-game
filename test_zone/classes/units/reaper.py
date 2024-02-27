@@ -74,10 +74,10 @@ class Reaper(Unit):
                     if self.mana >= mana_cost:
                         self.mana -= mana_cost
 
-                        damage = self.calc_damage(target, "physical", 999)
+                        damage, crit = self.calc_damage(target, "physical", 999)
 
                         self.melee(target)
-                        self.update_stats(target, damage, "reaper_sacrifice", 1)
+                        self.update_stats(target, damage, crit, "reaper_sacrifice", 1)
                         self.health -= damage
                         self.change_state("hurt")
 
@@ -100,8 +100,9 @@ class Reaper(Unit):
                         self.defence += self.defence + target.defence
 
                         damage = 999
+                        crit = False
                         self.melee(target)
-                        self.update_stats(target, damage, "statsteal", 1)
+                        self.update_stats(target, damage, crit, "statsteal", 1)
 
                         print(
                             f"{self.name} sacrifice {target.name} to increase it owns stat ! "

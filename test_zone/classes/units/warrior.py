@@ -57,10 +57,10 @@ class Warrior(Unit):
             mana_cost = 15
             if self.mana > mana_cost:
                 self.mana -= mana_cost
-                damage = self.calc_damage(target, "physical", 2)
+                damage, crit = self.calc_damage(target, "physical", 2)
 
                 self.melee(target)
-                self.update_stats(target, damage, "blood2", 2)
+                self.update_stats(target, damage, crit, "blood2", 2)
                 self.lifesteal = 0.7
                 self.health += damage * self.lifesteal
                 if self.game.sound:
@@ -77,10 +77,10 @@ class Warrior(Unit):
             mana_cost = 30
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
-                damage = self.calc_damage(target, "physical", 3)
+                damage, crit = self.calc_damage(target, "physical", 3)
 
                 self.melee(target)
-                self.update_stats(target, damage, "blood3", 2)
+                self.update_stats(target, damage, crit, "blood3", 2)
 
                 if self.game.sound:
                     pygame.mixer.Sound.play(self.default_attack_sfx)

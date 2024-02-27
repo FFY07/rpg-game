@@ -263,7 +263,12 @@ class Unit(pygame.sprite.Sprite):
         target.change_state("hurt")
 
     def update_stats(
-        self, target: object, damage: int, damage_effect_name="atk", effect_speed=2
+        self,
+        target: object,
+        damage: int,
+        crit=False,
+        damage_effect_name="atk",
+        effect_speed=2,
     ):
         """Update animations, damage text, exp, coins, etc."""
 
@@ -278,7 +283,7 @@ class Unit(pygame.sprite.Sprite):
         self.game.sprites.add(
             ui_functions.HitImage(damage_effect_name, target, effect_speed)
         )
-        self.game.sprites.add(ui_functions.DamageText(target, int(damage)))
+        self.game.sprites.add(ui_functions.DamageText(target, int(damage), crit))
 
     def update_healstats(
         self, target: object, heal: int, damage_effect_name="healing", effect_speed=2
@@ -310,8 +315,10 @@ class Unit(pygame.sprite.Sprite):
         # Check for crit
         if self.crit_chance >= random.randint(0, 100):
             damage = base_damage * self.crit_mult
+            crit = True
         else:
             damage = base_damage
+            crit = False
 
         # Check target resistances
         if damage_type == "physical":
@@ -323,16 +330,16 @@ class Unit(pygame.sprite.Sprite):
         if final_damage < 0:
             final_damage = 0
 
-        return final_damage
+        return final_damage, crit
 
     def basic_attack(self, target: object, target_team: list):
         """Basic physical attack that also restores a bit of mana"""
         if self.is_target_hostile(target):
-            damage = self.calc_damage(target, "physical", 1)
+            damage, crit = self.calc_damage(target, "physical", 1)
 
             # Melee is optional and only for direct attacks
             self.melee(target)
-            self.update_stats(target, damage, "atk", 2)
+            self.update_stats(target, damage, crit, "atk", 2)
 
             # Add mana when attacking
             if self.mana < self.max_mana:
