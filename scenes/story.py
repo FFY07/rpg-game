@@ -30,7 +30,7 @@ class Story(Scene):
         self.position = scr.SCREEN_HEIGHT - 100
 
         self.load_section(["Aventure to PSB Academy", "Stupid story sorry"], header, 50)
-        self.position += 150
+        self.position += 100
         self.load_section(
             [
                 "Inside PSB Academy, something wasn't right.",
@@ -39,9 +39,9 @@ class Story(Scene):
                 "Not doing their assignment",
                 "Using Chatgpt to do all the quiz",
                 "You noticed it and decided to stop it with friend",
-                "as all of you went through the keep seeing all the bad stuff",
-                "happening because of the students being idiot.",
-                "PLease kill them",
+                # "as all of you went through the keep seeing all the bad stuff",
+                # "happening because of the students being idiot.",
+                # "PLease kill them",
             ],
             body,
             75,

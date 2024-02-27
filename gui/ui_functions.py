@@ -390,13 +390,23 @@ class RectGUI(pygame.sprite.Sprite):
 
 
 class Statbar(pygame.sprite.Sprite):
-    def __init__(self, unit: object, color="green", y_offset=0, static=False):
+    def __init__(
+        self,
+        unit: object,
+        color="green",
+        stat="health",
+        y_offset=0,
+        static=False,
+    ):
         super().__init__()
         self.sprites = pygame.sprite.Group()
         self.unit = unit
         self.width = 100
         self.max_width = self.width
         self.static = static
+
+        # min and max attribute range of unit
+        self.stat = stat
 
         self.y_offset = y_offset
         self.unit.stat_bar_center_offset_x = -(self.width // 2)
@@ -410,7 +420,7 @@ class Statbar(pygame.sprite.Sprite):
         self.image.set_alpha(255)
         self.rect = self.image.get_rect()
 
-        self.rect.center = (
+        self.rect.midleft = (
             self.unit.rect.center[0] + self.unit.stat_bar_center_offset_x,
             self.unit.rect.center[1]
             + self.unit.stat_bar_center_offset_y
@@ -420,11 +430,12 @@ class Statbar(pygame.sprite.Sprite):
     # This one should update outside the play.py
     def update(self):
         if not self.static:
-            self.ratio = self.unit.health / self.unit.max_health
+            self.ratio = self.unit.check_ratio(self.stat)
             self.width = max(
                 0, int(self.max_width * self.ratio)
             )  # omg use max must be ai write one omgggg jk
             self.image = pygame.transform.scale(self.image, (self.width, self.height))
+
         self.rect = self.image.get_rect()
         self.rect.midleft = (
             self.unit.rect.center[0] + self.unit.stat_bar_center_offset_x,
@@ -440,21 +451,32 @@ class Statbar(pygame.sprite.Sprite):
         self.sprites.draw(screen)
 
 
-["green", "deepskyblue1", "grey27", "pink"]
-
-
 class InfoGUI:
-    def __init__(self, unit: object, bars: list, sprite_group: pygame.sprite.Group):
+    """This is basically a function that creates character information GUIs"""
+
+    def __init__(self, unit: object, trackers: dict, sprite_group: pygame.sprite.Group):
         self.unit = unit
         self.bar_offset = 20
         self.sprites = sprite_group
+        self.trackers = trackers
+
+        # Trackers dict example: {"green": [unit.health, unit.max_health]}
 
         self.bars = pygame.sprite.Group()
         self.text_sprites = pygame.sprite.Group()
 
-        for i, color in enumerate(bars):
-            self.bars.add(Statbar(self.unit, "grey27", i * self.bar_offset, True))
-            self.bars.add(Statbar(self.unit, color, i * self.bar_offset))
+        # Enumerating that dictionary that already contains a list would be too complicated
+        for i, item in enumerate(self.trackers.items()):
+            self.bars.add(
+                Statbar(
+                    self.unit,
+                    "grey27",
+                    item[1],
+                    i * self.bar_offset,
+                    True,
+                )
+            )
+            self.bars.add(Statbar(self.unit, item[0], item[1], i * self.bar_offset))
 
         # PROBLEM: THIS DOES NOT FOLLOW ANY OBJECTS
         # SOLUTION: MAKE NEW TEXT SPRITE?

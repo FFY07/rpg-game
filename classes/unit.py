@@ -359,3 +359,12 @@ class Unit(pygame.sprite.Sprite):
 
             # Note: the game will check if the attack returns True, else the attack will not proceed (e.g. prevent attacking with not enough mana)
             return True
+
+    def check_ratio(self, stat: str) -> float:
+        match stat:
+            case "health":
+                return self.health / self.max_health
+            case "mana":
+                return self.mana / self.max_mana
+            case "exp":
+                return self.exp / self.level_exp_dict[self.level]

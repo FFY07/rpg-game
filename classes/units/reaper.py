@@ -51,7 +51,7 @@ class Reaper(Unit):
         self.magic_resist += 2
 
     def healing(self, target, target_team):
-        if not self.is_target_hostile(target):
+        if not self.is_target_hostile(target) and target.health != target.max_health:
             mana_cost = 10
             healing = 30
             if self.mana >= mana_cost:

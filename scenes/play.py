@@ -67,17 +67,17 @@ class Play(Scene):
         self.text_dict = self.create_dict(self.text_sprites)
 
         for sprite in self.game.all_units.sprites():
+            trackers = {
+                "green": "health",
+                "deepskyblue1": "mana",
+            }
             # stat_bar = ui_functions.Statbar(sprite)
             # self.stat_guis.add(stat_bar)
             ui_functions.InfoGUI(
-                sprite, ["green", "yellow", "deepskyblue1"], self.stat_guis
+                sprite,
+                trackers,
+                self.stat_guis,
             )
-
-    # def create_health_gui(self, x, y, width = 120, height = 60):
-
-    # gui = ui_functions.Healthbar(x, y , width, height, "green")
-
-    # self.ui_sprites.add(gui)
 
     def update(self, actions):
         self.update_alive_dict()
