@@ -115,6 +115,7 @@ class CreateCharSelect(Scene):
         list(self.button_sprites.sprites())[self.pointer].selected = True
 
         self.class_name.text = cf.unit_list[self.character_pointer]
+        self.class_des.text = cf.unit_des_list[self.character_pointer]
 
         self.chosen_character = (
             self.chosen_name,
