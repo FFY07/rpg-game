@@ -6,9 +6,9 @@ import resources2.audio as audio
 import gui2.ui_functions as ui_functions
 
 # Range of values
-STRENGTH = (2, 2)
-INTELLIGENCE = (17, 17)
-DEFENCE = (60, 60)
+STRENGTH = (10, 10)
+INTELLIGENCE = (15, 15)
+DEFENCE = (80, 80)
 MAGIC_RESIST = (30, 30)
 
 

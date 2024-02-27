@@ -1,0 +1,46 @@
+This is for me eazy see all the stats
+
+
+Reaper Stats
+ [ a character that have high attack , high magie resist, but with low int (which ghost got brain)]
+hp -100
+atk -16
+int -5
+def -20
+mr -40
+
+Tank Stats
+[a character that have high defence, and with a normal stat]
+
+hp -100
+atk -10
+int- 15
+def - 60
+mr -30
+
+Warrior Stats
+[a character that have a general balance stat]
+hp -100
+atk- 12
+int- 10
+def - 45
+mr - 40
+
+
+Bandit Stats
+[a character that have high INT but with a low atk point]
+hp -100
+atk - 8
+int - 20
+def - 40
+mr - 50
+
+
+Princess stat
+[ typical Support, with a high INT and average dmg, however, it have a bad def and int point]
+
+hp - 100
+atk - 11
+int - 20
+def - 10
+mr - 5

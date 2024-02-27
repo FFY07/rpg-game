@@ -4,10 +4,10 @@ from classes.unit import Unit
 import gui2.ui_functions as ui_functions
 
 # Range of values
-STRENGTH = (10, 10)
-INTELLIGENCE = (3, 3)
-DEFENCE = (60, 60)
-MAGIC_RESIST = (40, 40)
+STRENGTH = (8, 8)
+INTELLIGENCE = (20, 20)
+DEFENCE = (40, 40)
+MAGIC_RESIST = (50, 50)
 
 
 class Bandit(Unit):

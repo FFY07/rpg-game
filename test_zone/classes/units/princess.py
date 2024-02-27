@@ -6,10 +6,10 @@ import resources2.audio as audio
 
 
 #Range value
-STRENGTH = (12, 12)
+STRENGTH = (11, 11)
 INTELLIGENCE = (25, 25)
-DEFENCE = (30, 30)
-MAGIC_RESIST = (35, 35)
+DEFENCE = (10, 10)
+MAGIC_RESIST = (5, 5)
 
 class Princess(Unit):
     def __init__(self, name, team, id_no=0, game=None):

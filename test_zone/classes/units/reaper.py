@@ -5,7 +5,7 @@ from classes.unit import Unit
 import resources2.audio as audio
 
 # Range of values
-STRENGTH = (15, 15)
+STRENGTH = (16, 16)
 INTELLIGENCE = (5, 5)
 DEFENCE = (20, 20)
 MAGIC_RESIST = (40, 40)
