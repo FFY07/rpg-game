@@ -53,7 +53,7 @@ class Princess(Unit):
         self.magic_resist += 2
 
     def healing(self, target, target_team):
-        if not self.is_target_hostile(target):
+        if not self.is_target_hostile(target) and target.health != target.max_health:
             mana_cost = 10
             healing = 100
             if self.mana >= mana_cost:
@@ -68,7 +68,7 @@ class Princess(Unit):
                 return True
 
     def regenmana(self, target, target_team):
-        if not self.is_target_hostile(target):
+        if not self.is_target_hostile(target) and target.mana != target.max_mana:
             mana_cost = 20
             regen = 40
             if self.mana >= mana_cost:
