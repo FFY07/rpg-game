@@ -196,7 +196,8 @@ class Unit(pygame.sprite.Sprite):
 
         if target_state == "death":
             self.game.sprites.add(self.death_effect)
-            pygame.mixer.find_channel().play(self.game.audio_handler.death_sfx)
+            if self.game.sound:
+                pygame.mixer.find_channel().play(self.game.audio_handler.death_sfx)
 
     def activate(self, active_pos):
         """Move character to the active position"""
@@ -304,8 +305,7 @@ class Unit(pygame.sprite.Sprite):
         )
         self.game.sprites.add(ui_functions.DamageText(target, int(heal)))
 
-
-    #obvious what this do if u know healthstats
+    # obvious what this do if u know healthstats
     def update_manastats(
         self, target: object, regen: int, damage_effect_name="healing", effect_speed=2
     ):
@@ -319,8 +319,6 @@ class Unit(pygame.sprite.Sprite):
             ui_functions.HitImage(damage_effect_name, target, effect_speed)
         )
         self.game.sprites.add(ui_functions.DamageText(target, int(regen)))
-
-
 
     def calc_damage(
         self, target: object, damage_type="Physical", multiplier=1.0
