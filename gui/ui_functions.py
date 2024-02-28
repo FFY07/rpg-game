@@ -398,31 +398,22 @@ class RectGUI(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
 
-        self.player_text = TextSprite(
-            f"Player {name + 1} ",
-            25,
-            "Impact",
-            "white",
-            self.rect.center[0] - 290,
-            self.rect.center[1] - 105,
-        )
-
-        self.name_text = TextSprite(
-            "Name: ",
-            25,
-            None,
-            "white",
-            self.rect.center[0] - 190,
-            self.rect.center[1] - 105,
-        )
-
-        # self.name_button = "button object"
         self.selected_name = TextSprite(
             "Type here",
             30,
             None,
             "white",
-            self.rect.center[0] - 50,
+            self.rect.center[0] - 80,
+            self.rect.center[1] - 105,
+            f"T{self.name}",
+        )
+
+        self.selected_class = TextSprite(
+            "",
+            30,
+            None,
+            "white",
+            self.rect.center[0] - 15,
             self.rect.center[1] - 105,
             f"T{self.name}",
         )
@@ -439,7 +430,8 @@ class RectGUI(pygame.sprite.Sprite):
         self.class_button = "another button here"
 
         # Don't forget to put the buttons into the sprites below
-        self.sprites.add([self.player_text, self.name_text, self.selected_name])
+        self.sprites.add([self.selected_name])
+        self.sprites.add([self.selected_class])
 
     def update(self):
         self.image = pygame.transform.scale(self.image, (self.width, self.height))

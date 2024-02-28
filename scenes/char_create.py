@@ -43,12 +43,12 @@ class CreateChar(Scene):
 
         self.sprites.add(
             ui_functions.TextSprite(
-                "CREATE YOUR CHARACTER",
-                50,
+                "CHOOSE YOUR CHARACTER",
+                40,
                 "Impact",
                 "white",
                 True,
-                50,
+                40,
                 name="SELECTED",
             )
         )
@@ -56,10 +56,10 @@ class CreateChar(Scene):
         self.sprites.add(
             ui_functions.TextSprite(
                 "VS",
-                120,
-                fonts.squealer,
+                160,
+                fonts.squealer_embossed,
                 "white",
-                600 ,
+                self.xc - 15 ,
                 420,
                 name="SELECTED",
             )
@@ -69,14 +69,14 @@ class CreateChar(Scene):
         self.start_button = self.create_button(
             "START GAME",
             50,
-            None,
+            fonts.squealer,
             "white",
             300,
             60,
             "white",
             "start",
-            1060,
-            self.yc + 280,
+            self.xc - 15,
+            self.yc + 200,
         )
 
         self.text_dict = self.create_dict(self.text_sprites)
@@ -96,11 +96,13 @@ class CreateChar(Scene):
         # for i, color in zip(range(amount), color_list):
         for i in range(amount):
             gui = ui_functions.RectGUI(
-                300, 100 + i * offset, 192, 192, "black", i, "grey27", self.game
+                self.xc -520, 100 + i * offset, 192, 192, "black", i, "grey27", self.game
             )
 
             self.sprites.add(gui)
             gui.selected_name.text = self.player_dict[i][0]
+            gui.selected_class.text = self.player_dict[i][1]
+
             gui.image = cf.marketing_images[self.player_dict[i][1]]
             self.menu_dict[i] = gui
 
@@ -117,7 +119,7 @@ class CreateChar(Scene):
         # for i, color in zip(range(amount), color_list):
         for i in range(amount):
             gui = ui_functions.EnemyRect(
-                700, 100 + i * offset, 192, 192, "black", i, "grey27", self.game
+                self.xc + 300, 100 + i * offset, 192, 192, "black", i, "grey27", self.game
             )
 
             self.sprites.add(gui)
@@ -143,6 +145,7 @@ class CreateChar(Scene):
             # This selects the selected_name.text from our rectgui using our self.pointer as the index
             # Then slots it into the 0 index of our player dict which is the name (name, class) tuple
             self.menu_dict[self.pointer].selected_name.text = self.player_dict[self.pointer][0]
+            self.menu_dict[self.pointer].selected_class.text = self.player_dict[self.pointer][1]
             self.menu_dict[self.pointer].image = cf.marketing_images[self.player_dict[self.pointer][1]]
             # fmt: on
             self.menu_dict[self.pointer].selected = True
