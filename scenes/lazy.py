@@ -1,20 +1,27 @@
 import pygame
-
-
+from pathlib import Path
 import gui.ui_functions as ui_functions
 from scenes.scene import Scene
 
 import resources.images as images
-from resources import fonts
+from resources import audio
+from classes.units.toothless import Toothless
 
 class Lazy(Scene):
     def __init__(self, game: object):
+       
         super().__init__(game)
         # self.background = pygame.Surface(0, 0)
         self.background = images.char_select_menu
+        self.sprites = pygame.sprite.Group()
         self.lazysprites = pygame.sprite.Group()
 
-        self.lazysprites.add(
+        pygame.mixer.music.load(audio.easter)
+        pygame.mixer.music.play(-1, 0, 500)
+
+        self.lazysprites.add(Toothless(self.xc, self.yc))
+
+        self.sprites.add(
             ui_functions.TextSprite(
                 "ERROR 403 :( ",
                 40,
@@ -25,7 +32,7 @@ class Lazy(Scene):
                 name="SELECTED",
             )
         )
-        self.lazysprites.add(
+        self.sprites.add(
             ui_functions.TextSprite(
                 "Sorry, Desmond is lazy to do this feature",
                 40,
@@ -37,7 +44,7 @@ class Lazy(Scene):
             )
         )
 
-        self.lazysprites.add(
+        self.sprites.add(
             ui_functions.TextSprite(
                 "and he most likely not going to do this",
                 40,
@@ -57,14 +64,18 @@ class Lazy(Scene):
 
         if actions["escape"]:
             self.exit_scene()
+            pygame.mixer.music.load(audio.battle_alt)
+            pygame.mixer.music.play(-1, 0, 1000)
 
         if actions["space"]:
             self.exit_scene()
+            pygame.mixer.music.load(audio.battle_alt)
+            pygame.mixer.music.play(-1, 0, 1000)
 
 
 
         self.game.reset_keys()
-        self.lazysprites.update()
+        self.sprites.update()
 
     def render(self, screen):
         screen.blit(
@@ -73,7 +84,11 @@ class Lazy(Scene):
             ),
             (0, 0),
         )
-        self.lazysprites.draw(screen)
 
-        for sprite in self.lazysprites.sprites():
+        self.sprites.draw(screen)
+
+        for sprite in self.sprites.sprites():
             sprite.draw(screen)
+        
+        self.lazysprites.draw(screen)
+        self.lazysprites.update(0.25)
