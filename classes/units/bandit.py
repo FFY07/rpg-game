@@ -40,8 +40,6 @@ class Bandit(Unit):
 
         self.moves["Water Sword(15)"] = self.swordwater
         self.moves["Fire Sword(30)"] = self.swordfire
-        self.moves["Molotov (15)"] = self.molotov
-        # self.moves["Underwear Theft (10)"] = self.stealunderwear
 
     def level_stats(self):
         self.health += self.max_health / 10
@@ -83,7 +81,7 @@ class Bandit(Unit):
             if self.mana > mana_cost:
                 self.mana -= mana_cost
 
-                target.burn_stacks.append([3, self.intelligence * 0.25])
+                target.burn_stacks.append([3, self.intelligence * 0.5])
 
                 damage, crit = self.calc_damage(target, "physical", 2.5)
 
@@ -95,42 +93,4 @@ class Bandit(Unit):
 
                 return True
 
-    def molotov(self, target: object, target_team: list):
-        if self.is_target_hostile(target):
-            mana_cost = 15
-            if self.mana >= mana_cost:
-                self.mana -= mana_cost
-                target.burn_stacks.append([3, self.intelligence])
 
-                damage, crit = self.calc_damage(target, "magic", 0.1)
-                self.melee(target)
-                self.update_stats(target, damage, crit, "magma", 2)
-
-                return True
-
-    # def stealunderwear(self, target: object, target_team: list):
-    #     if self.is_target_hostile(target):
-    #         mana_cost = 10
-    #         if self.mana > mana_cost:
-    #             self.mana -= mana_cost
-    #             damage, crit = self.calc_damage(target, "physical", 999)
-
-    #             if self.strength >= 15:
-    #                 self.melee(target)
-    #                 self.update_stats(target, damage, crit, "atk", 2)
-    #                 self.strength -= 5
-    #                 target.health -= damage
-
-    #                 if self.game.sound:
-    #                     pygame.mixer.Sound.play(self.default_attack_sfx)
-
-    #                 print(
-    #                     f"You steal underwear from {target.name}!, {target.name} fell ashame rather to died"
-    #                 )
-
-    #             else:
-    #                 self.strength += 1
-    #                 print("You dont have enought strength to steal underwear")
-    #                 print(f"{self.strength}/15 ")
-
-    #             return True
