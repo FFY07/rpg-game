@@ -67,8 +67,8 @@ class Warrior(Unit):
                 for t in target_team:
                     t.bonus_strength_stacks.append([5, self.strength / 2])
                     t.bonus_intelligence_stacks.append([5, self.intelligence / 2])
-                    t.bonus_defence_stacks.append([5, self.defence / 2])
-                    t.bonus_magic_resist_stacks.append([5, self.magic_resist / 2])
+                    # t.bonus_defence_stacks.append([5, self.defence / 2])
+                    # t.bonus_magic_resist_stacks.append([5, self.magic_resist / 2])
 
                     self.game.sprites.add(ui_functions.HitImage("stat_buff", t, 2))
 

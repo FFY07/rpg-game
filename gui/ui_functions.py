@@ -334,13 +334,23 @@ class EnemyRect(pygame.sprite.Sprite):
             30,
             None,
             "white",
-            self.rect.center[0] - 25,
+            self.rect.center[0] - 80,
             self.rect.center[1] - 105,
             f"T{self.name}",
         )
 
+        self.enemy_class = TextSprite(
+            "",
+            30,
+            None,
+            "white",
+            self.rect.center[0] - 15,
+            self.rect.center[1] - 105,
+            f"T{self.name}",
+        )
 
         self.sprites.add(self.enemy_name)
+        self.sprites.add(self.enemy_class)
 
     def update(self):
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
