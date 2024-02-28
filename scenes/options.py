@@ -174,5 +174,6 @@ def save_game(game=object, file_name="save.json"):
 
 
 def load_game(game: object, file_name="save.json"):
-    loaded_save = json.load(file_name)
-    print(loaded_save)
+    with open(file_name, "r") as save_file:
+        loaded_save = json.load(save_file)
+        print(loaded_save)
