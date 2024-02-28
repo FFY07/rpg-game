@@ -49,10 +49,10 @@ class ChooseTarget(Scene):
 
         self.selected_unit = self.target_team[self.pointer]
 
-        if actions["up"]:
+        if actions["down"]:
             self.pointer += 1
 
-        if actions["down"]:
+        if actions["up"]:
             self.pointer -= 1
 
         if actions["left"]:
