@@ -38,6 +38,8 @@ class CreateChar(Scene):
 
         # Create our menu guis (amount, offset)
         self.create_guis(3, 213)
+        self.create_enemyguis(3, 213)
+
 
         self.sprites.add(
             ui_functions.TextSprite(
@@ -96,6 +98,19 @@ class CreateChar(Scene):
             classes = random.choice(list(cf.unit_dict.items()))
             enemy = (name, classes[0])
             self.enemy_list.append(enemy)
+
+    def create_enemyguis(self, amount, offset):
+        """Create some amount of GUIs"""
+        # color_list = ["grey27", "grey27", "grey27"]
+        # for i, color in zip(range(amount), color_list):
+        for i in range(amount):
+            gui = ui_functions.EnemyRect(
+                700, 100 + i * offset, 192, 192, "black", i, "grey27", self.game
+            )
+
+            self.sprites.add(gui)
+            gui.enemy_name.text = self.enemy_list[i][0]
+            gui.image = cf.marketing_images[self.enemy_list[i][1]]
 
     def update(self, actions):
         for sprite in self.sprites.sprites():
