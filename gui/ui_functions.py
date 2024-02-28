@@ -293,7 +293,63 @@ class DamageText(pygame.sprite.Sprite):
         if self.lifetime <= 0:
             self.kill()
 
+class EnemyRect(pygame.sprite.Sprite):
+    def __init__(
+        self,
+        x=57,
+        y=100,
+        width=700,
+        height=143,
+        color="white",
+        name=0,
+        border_color="grey",
+        game=None,
+    ):
+        super().__init__()
+        self.sprites = pygame.sprite.Group()
+        self.game = game
 
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+
+        self.selected = False
+
+        self.name = name
+        self.color = color
+        self.border_color = border_color
+        self.default_border_color = self.border_color
+        self.default_color = self.color
+        self.selected_button = 0
+
+        self.image = pygame.Surface((self.width, self.height))
+        self.image.fill(self.color)
+        self.image.set_alpha(255)
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (self.x, self.y)
+
+        self.enemy_name = TextSprite(
+            "",
+            30,
+            None,
+            "white",
+            self.rect.center[0] - 50,
+            self.rect.center[1] - 105,
+            f"T{self.name}",
+        )
+
+
+        self.sprites.add(self.enemy_name)
+
+    def update(self):
+        self.image = pygame.transform.scale(self.image, (self.width, self.height))
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.border_color, self.rect, 5)
+        self.sprites.draw(screen)
+
+        
 class RectGUI(pygame.sprite.Sprite):
     def __init__(
         self,
