@@ -111,7 +111,7 @@ class CreateChar(Scene):
             self.sprites.add(gui)
             gui.enemy_name.text = self.enemy_list[i][0]
             gui.image = cf.marketing_images[self.enemy_list[i][1]]
-
+            gui.image = pygame.transform.flip(gui.image, True, False)
     def update(self, actions):
         for sprite in self.sprites.sprites():
             if not sprite.name == "SELECTED":
