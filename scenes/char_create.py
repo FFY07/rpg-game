@@ -11,6 +11,7 @@ from scenes.char_create_select import CreateCharSelect
 
 import resources.images as images
 from resources import fonts
+
 # input1_rect = pygame.Rect(80, 280, 170, 32)
 
 
@@ -21,6 +22,7 @@ class CreateChar(Scene):
         self.background = images.char_select_menu
         self.sprites = pygame.sprite.Group()
 
+        self.ready = False
         self.menu_dict = {}
         self.pointer = 0
 
@@ -40,7 +42,6 @@ class CreateChar(Scene):
         self.create_guis(3, 213)
         self.create_enemyguis(3, 213)
 
-
         self.sprites.add(
             ui_functions.TextSprite(
                 "CHOOSE YOUR CHARACTER",
@@ -59,7 +60,7 @@ class CreateChar(Scene):
                 160,
                 fonts.squealer_embossed,
                 "white",
-                self.xc - 15 ,
+                self.xc - 15,
                 420,
                 name="SELECTED",
             )
@@ -83,12 +84,12 @@ class CreateChar(Scene):
         self.button_dict = self.create_dict(self.button_sprites)
 
         # Get rid of the key we automatically generated
-        self.text_dict.pop(0)
-        self.button_dict.pop(0)
+        # self.text_dict.pop(0)
+        # self.button_dict.pop(0)
 
-        # Set the button background and text index to be right after the last item in our list of menu guis (this is the start game button)
-        self.button_dict[len(self.menu_dict)] = self.start_button[0]
-        self.text_dict[len(self.menu_dict)] = self.start_button[1]
+        # # Set the button background and text index to be right after the last item in our list of menu guis (this is the start game button)
+        # self.button_dict[len(self.menu_dict)] = self.start_button[0]
+        # self.text_dict[len(self.menu_dict)] = self.start_button[1]
 
     def create_guis(self, amount, offset):
         """Create some amount of GUIs"""
@@ -96,7 +97,14 @@ class CreateChar(Scene):
         # for i, color in zip(range(amount), color_list):
         for i in range(amount):
             gui = ui_functions.RectGUI(
-                self.xc -520, 100 + i * offset, 192, 192, "black", i, "grey27", self.game
+                self.xc - 520,
+                100 + i * offset,
+                192,
+                192,
+                "black",
+                i,
+                "grey27",
+                self.game,
             )
 
             self.sprites.add(gui)
@@ -119,61 +127,65 @@ class CreateChar(Scene):
         # for i, color in zip(range(amount), color_list):
         for i in range(amount):
             gui = ui_functions.EnemyRect(
-                self.xc + 300, 100 + i * offset, 192, 192, "black", i, "grey27", self.game
+                self.xc + 300,
+                100 + i * offset,
+                192,
+                192,
+                "black",
+                i,
+                "grey27",
+                self.game,
             )
 
             self.sprites.add(gui)
             gui.enemy_name.text = self.enemy_list[i][0]
             gui.enemy_class.text = self.enemy_list[i][1]
 
-
             gui.image = cf.marketing_images[self.enemy_list[i][1]]
             gui.image = pygame.transform.flip(gui.image, True, False)
 
-    
     def update(self, actions):
         for sprite in self.sprites.sprites():
             if not sprite.name == "SELECTED":
                 sprite.selected = False
 
-        # haha hardcode + 1
-        self.pointer = self.pointer % (len(self.menu_dict) + 1)
+        self.pointer = self.pointer % (len(self.menu_dict))
 
-        # Since they're separate dictionaries this will switch after len(self.menu_dict)
-        try:
-            # fmt: off
-            # This selects the selected_name.text from our rectgui using our self.pointer as the index
-            # Then slots it into the 0 index of our player dict which is the name (name, class) tuple
-            self.menu_dict[self.pointer].selected_name.text = self.player_dict[self.pointer][0]
-            self.menu_dict[self.pointer].selected_class.text = self.player_dict[self.pointer][1]
-            self.menu_dict[self.pointer].image = cf.marketing_images[self.player_dict[self.pointer][1]]
-            # fmt: on
+        # fmt: off
+        # This selects the selected_name.text from our rectgui using our self.pointer as the index
+        # Then slots it into the 0 index of our player dict which is the name (name, class) tuple
+        self.menu_dict[self.pointer].selected_name.text = self.player_dict[self.pointer][0]
+        self.menu_dict[self.pointer].selected_class.text = self.player_dict[self.pointer][1]
+        self.menu_dict[self.pointer].image = cf.marketing_images[self.player_dict[self.pointer][1]]
+        # fmt: on
+        if not self.ready:
             self.menu_dict[self.pointer].selected = True
-        except:
-            pass
 
-        try:
-            self.button_dict[self.pointer].selected = True
-            self.text_dict[self.pointer].selected = True
-        except:
-            pass
+            if self.pointer == 0:
+                if actions["enter"]:
+                    next_scene = CreateCharSelect(self.game, self.pointer)
+                    next_scene.start_scene()
 
-        if self.pointer == 0:
-            if actions["enter"]:
-                next_scene = CreateCharSelect(self.game, self.pointer)
-                next_scene.start_scene()
+            if self.pointer == 1:
+                if actions["enter"]:
+                    next_scene = CreateCharSelect(self.game, self.pointer)
+                    next_scene.start_scene()
 
-        if self.pointer == 1:
-            if actions["enter"]:
-                next_scene = CreateCharSelect(self.game, self.pointer)
-                next_scene.start_scene()
+            if self.pointer == 2:
+                if actions["enter"]:
+                    next_scene = CreateCharSelect(self.game, self.pointer)
+                    next_scene.start_scene()
 
-        if self.pointer == 2:
-            if actions["enter"]:
-                next_scene = CreateCharSelect(self.game, self.pointer)
-                next_scene.start_scene()
+            if actions["up"]:
+                self.pointer -= 1
 
-        if self.pointer == 3:
+            if actions["down"]:
+                self.pointer += 1
+
+        if self.ready:
+            self.button_dict[0].selected = True
+            self.text_dict[0].selected = True
+
             if actions["enter"]:
 
                 # Create the characters
@@ -194,15 +206,11 @@ class CreateChar(Scene):
             next_scene = Story(self.game)
             next_scene.start_scene()
 
-        # if actions["enter"]:
-        #     next_scene = Play(self.game)
-        #     next_scene.start_scene()
+        if actions["right"]:
+            self.ready = True
 
-        if actions["up"]:
-            self.pointer -= 1
-
-        if actions["down"]:
-            self.pointer += 1
+        if actions["left"]:
+            self.ready = False
 
         self.game.reset_keys()
         self.sprites.update()
