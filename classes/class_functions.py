@@ -63,22 +63,22 @@ def create_unit(name, unit_class, team, game, standalone=False):
     match unit_class:
 
         case "Reaper":
-            unit = reaper.Reaper(name, team, game.current_id, game)
+            unit = reaper.Reaper(name, team, game)
 
         case "Warrior":
-            unit = warrior.Warrior(name, team, game.current_id, game)
+            unit = warrior.Warrior(name, team, game)
 
         case "Bandit":
-            unit = bandit.Bandit(name, team, game.current_id, game)
+            unit = bandit.Bandit(name, team, game)
 
         case "Tank":
-            unit = tank.Tank(name, team, game.current_id, game)
+            unit = tank.Tank(name, team, game)
 
         case "Princess":
-            unit = princess.Princess(name, team, game.current_id, game)
+            unit = princess.Princess(name, team, game)
 
         case "Necromancer":
-            unit = necromancer.Necromancer(name, team, game.current_id, game)
+            unit = necromancer.Necromancer(name, team, game)
 
         case _:
             raise Exception(
@@ -86,7 +86,7 @@ def create_unit(name, unit_class, team, game, standalone=False):
             )
 
     # Increment the current game id by 1
-    game.current_id += 1
+    # game.current_id += 1
 
     # Add the unit to the correct sprite group
 
@@ -119,7 +119,6 @@ def set_positions(position_list, sprite_group, anchor="center"):
         # Assigns a coordinate position to the unit
         try:
             coordinates = position_list.pop(0)
-
             # assign the coordinates to the unit
             match anchor:
                 case "center":
@@ -150,4 +149,5 @@ def set_positions(position_list, sprite_group, anchor="center"):
             )
             print(f"No available positions left! Randomising to {unit.rect.center}!")
 
+        # After setting our coordinates, remember the unit's starting position
         unit.prev_pos = unit.rect.center

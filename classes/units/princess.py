@@ -13,15 +13,14 @@ MAGIC_RESIST = (5, 5)
 
 
 class Princess(Unit):
-    def __init__(self, name, team, id_no=0, game=None):
-        super().__init__(name, team, id_no)
+    def __init__(self, name, team, game=None):
+        super().__init__(name, team)
         self.game = game
 
         self.unit_class = "Princess"
 
         self.name = name
         self.team = team
-        self.id = id_no
 
         self.strength = random.randint(*STRENGTH)
         self.intelligence = random.randint(*INTELLIGENCE)
@@ -70,7 +69,11 @@ class Princess(Unit):
                 return True
 
     def regenmana(self, target, target_team):
-        if not self.is_target_hostile(target) and target.mana != target.max_mana and target.max_mana != 0.1:
+        if (
+            not self.is_target_hostile(target)
+            and target.mana != target.max_mana
+            and target.max_mana != 0.1
+        ):
             mana_cost = 20
             regen = 40
             if self.mana >= mana_cost:

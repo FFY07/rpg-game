@@ -12,8 +12,8 @@ MAGIC_RESIST = (40, 40)
 
 
 class Warrior(Unit):
-    def __init__(self, name, team, id_no=0, game=None):
-        super().__init__(name, team, id_no)
+    def __init__(self, name, team, game=None):
+        super().__init__(name, team)
         self.game = game
 
         self.unit_class = "Warrior"
@@ -21,7 +21,6 @@ class Warrior(Unit):
 
         self.name = name
         self.team = team
-        self.id = id_no
 
         self.strength = random.randint(*STRENGTH)
         self.intelligence = random.randint(*INTELLIGENCE)

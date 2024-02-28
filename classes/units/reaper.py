@@ -12,15 +12,14 @@ MAGIC_RESIST = (40, 40)
 
 
 class Reaper(Unit):
-    def __init__(self, name, team, id_no=0, game=None):
-        super().__init__(name, team, id_no)
+    def __init__(self, name, team, game=None):
+        super().__init__(name, team)
         self.game = game
 
         self.unit_class = "Reaper"
 
         self.name = name
         self.team = team
-        self.id = id_no
 
         self.mana = 0
         self.max_mana = 0.1

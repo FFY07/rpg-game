@@ -66,18 +66,7 @@ class Play(Scene):
         self.button_dict = self.create_dict(self.button_sprites)
         self.text_dict = self.create_dict(self.text_sprites)
 
-        for sprite in self.game.all_units.sprites():
-            trackers = {
-                "green": "health",
-                "deepskyblue1": "mana",
-            }
-            # stat_bar = ui_functions.Statbar(sprite)
-            # self.stat_guis.add(stat_bar)
-            ui_functions.InfoGUI(
-                sprite,
-                trackers,
-                self.stat_guis,
-            )
+        ui_functions.create_info_guis(self.game)
 
     def update(self, actions):
         self.update_alive_dict()
@@ -137,7 +126,7 @@ class Play(Scene):
             next_scene.start_scene()
 
         self.ui_sprites.update()
-        self.stat_guis.update()
+        self.game.stat_guis.update()
         self.game.all_units.update()
 
         self.game.reset_keys()
@@ -153,7 +142,7 @@ class Play(Scene):
         # Rendering order (last to render = on top)
         self.game.all_units.draw(screen)
         self.ui_sprites.draw(screen)
-        self.stat_guis.draw(screen)
+        self.game.stat_guis.draw(screen)
 
         # for group in self.custom_groups:
         #     group.draw(screen)
