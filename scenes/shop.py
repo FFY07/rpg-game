@@ -1,7 +1,7 @@
 import pygame
 
 from scenes.scene import Scene
-
+from scenes.lazy import Lazy
 # NOT WRITTEN YET
 
 # MAX PLAYERS IS STILL 3, SO WE HAVE TO SELL A CHARACTER TO BUY A NEW ONE
@@ -77,7 +77,8 @@ class Shop(Scene):
                     sprite.selected = True
 
             if actions["enter"]:
-                print("Opening shop (haven't code yet D:)")
+                next_scene = Lazy(self.game)
+                next_scene.start_scene()
 
         if actions["escape"] or actions["enter"]:
             self.sprites.empty()
