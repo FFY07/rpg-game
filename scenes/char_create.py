@@ -82,7 +82,7 @@ class CreateChar(Scene):
         # for i, color in zip(range(amount), color_list):
         for i in range(amount):
             gui = ui_functions.RectGUI(
-                300, 100 + i * offset, 172, 172, "black", i, "grey27", self.game
+                300, 100 + i * offset, 192, 192, "black", i, "grey27", self.game
             )
 
             self.sprites.add(gui)

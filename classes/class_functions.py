@@ -16,7 +16,7 @@ unit_dict = {
     "Warrior": "Generally balance character, able to buff teammate and deal damage",
     "Reaper": "Use HP insteal of Mana, Play risk to get high reward",
     "Bandit": "just a NPC",
-    "Tank": "It's a tank. What more do you want?",
+    "Tank": "It's a tank.",
     "Princess": "Able to heal and regen Mana for teammate, It have very low DEF and Magic DEF",
     "Necromancer": "Powerful magic class with high intelligence and magic resistance",
 }
