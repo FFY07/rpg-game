@@ -37,9 +37,9 @@ class Credits(Scene):
         self.load_section(["GAME WRITTEN BY"], desc, 75)
 
         self.load_section(["Desmond Foo Fong Yoong"], name, 50)
-        self.load_section(["4048 lines"], note, 100)
+        self.load_section(["36,332 edits"], note, 100)
         self.load_section(["Haarith Bin Naguri Ibrahim"], name, 50)
-        self.load_section(["56 lines"], note, 200)
+        self.load_section(["94 edits"], note, 200)
 
         self.load_section(["MUSIC DESIGN"], desc, 75)
         self.load_section(["Desmond Foo Fong Yoong"], name, 100)
@@ -79,12 +79,10 @@ class Credits(Scene):
         self.load_section(["ASSETS"], desc, 75)
         self.load_section(
             [
-                "itch.io",
                 "artofjokinen (deviantart)",
-                "Honkai Impact 3rd",
-                "World of Tanks",
-                "Slay The Spire",
-                "League of Legends",
+                "Honkai Impact 3rd, World of Tanks",
+                "Slay The Spire, League of Legends",
+                "Solo Leveling",
             ],
             name,
             75,
