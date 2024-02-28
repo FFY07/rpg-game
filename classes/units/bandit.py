@@ -39,8 +39,8 @@ class Bandit(Unit):
         self.rect = self.image.get_rect()
         self.rect.center = self.position
 
-        self.moves["Mana Theft (10)"] = self.manatheft
-        self.moves["Stat Theft (20)"] = self.statstealing
+        self.moves["Water Sword(15)"] = self.swordwater
+        self.moves["Fire Sword(30)"] = self.swordfire
         self.moves["Molotov (15)"] = self.molotov
         # self.moves["Underwear Theft (10)"] = self.stealunderwear
 
@@ -51,53 +51,49 @@ class Bandit(Unit):
         self.defence += 5
         self.magic_resist += 2
 
-    def manatheft(self, target: object, target_team: list):
-        if self.is_target_hostile(target):
-            mana_cost = 10
+    def swordwater(self, target: object, target_team: list):
+        if self.is_target_hostile(target) :
+            mana_cost = 15
             if self.mana > mana_cost:
                 self.mana -= mana_cost
-                damage, crit = self.calc_damage(target, "physical", 0.1)
-                damagemana = 20
+                damage, crit = self.calc_damage(target, "magic", 1.2)
+                damagemana = 25
 
                 self.melee(target)
                 self.update_stats(target, damage, crit, "manasteal", 2)
 
                 target.health -= damage
-                target.mana -= damagemana
-                self.mana += damagemana
-                if self.mana > self.max_mana:
-                    self.mana = self.max_mana
+
+                if target.max_mana != 0.1:
+                    target.mana -= (damagemana)
+                    target.mana = max(0, target.mana)
+                    self.mana += damagemana
+                    if self.mana > self.max_mana:
+                        self.mana = self.max_mana
+
 
                 if self.game.sound:
                     pygame.mixer.Sound.play(self.default_attack_sfx)
                     self.game.sprites.add(ui_functions.HitImage("tank_charge", self, 2))
 
-                print(f"You steal 20 mana from {target.name}!")
-
                 return True
 
-    def statstealing(self, target: object, target_team: list):
+    def swordfire(self, target: object, target_team: list):
         if self.is_target_hostile(target):
-            mana_cost = 20
+            mana_cost = 30
             if self.mana > mana_cost:
                 self.mana -= mana_cost
-                damage, crit = self.calc_damage(target, "physical", 0.05)
-                stealratio = 0.05
+
+                target.burn_stacks.append([3, self.intelligence * 0.25])
+
+                damage, crit = self.calc_damage(target, "physical", 2.5)
 
                 self.melee(target)
                 self.update_stats(target, damage, crit, "statsteal", 2)
 
-                target.health -= damage
-                self.strength += max(10, math.floor(target.strength * stealratio))
-                target.strength -= max(5, math.floor(target.strength * stealratio))
-
                 if self.game.sound:
                     pygame.mixer.Sound.play(self.default_attack_sfx)
 
-                print(
-                    f"You steal {math.floor(target.strength * stealratio)} damage from {target.name}!"
-                )
-                print(f"[DEBUG] DAMAGE: {self.strength}")
                 return True
 
     def molotov(self, target: object, target_team: list):
