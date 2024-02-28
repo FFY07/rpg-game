@@ -43,9 +43,7 @@ class Necromancer(Unit):
         self.cannon_shells = 0
 
         # Add moves to moves dictionary
-        self.moves["Cannon (40)"] = self.cannon
         self.moves["Doom (80)"] = self.doom
-        self.moves["Flamethrower (60)"] = self.flamethrower
 
     def level_stats(self):
         self.health += self.max_health / 10
@@ -55,83 +53,18 @@ class Necromancer(Unit):
         self.magic_resist += 8
 
     def doom(self, target: object, target_team: list):
+        """Summons powerful dark energy on all enemies and reduces their damage resistances for 5 turns"""
         if self.is_target_hostile(target):
             mana_cost = 80
-
-    def cannon(self, target: object, target_team: list):
-        if self.is_target_hostile(target):
-            mana_cost = 40
-
-            if self.mana >= mana_cost:
-                if not self.cannon_shells:
-                    self.cannon_shells += 1
-                    if self.game.sound:
-                        pygame.mixer.find_channel().play(
-                            self.game.audio_handler.tank_load_shell
-                        )
-                    self.game.sprites.add(ui_functions.HitImage("tank_charge", self, 2))
-                    self.change_state("defend")
-
-                # If we have cannon shells, proceed to fire
-                else:
-                    self.mana -= mana_cost
-                    if self.game.sound:
-                        pygame.mixer.find_channel().play(
-                            self.game.audio_handler.tank_183mm
-                        )
-                    self.cannon_shells = 0
-
-                    damage, crit = self.calc_damage(target, "magic", 5)
-
-                    self.melee(target)
-                    self.update_stats(target, damage, crit, "tank_cannon", 2)
-
-                return True
-            else:
-                # Attack fail
-                return False
-
-    def machine_gun(self, target: object, target_team: list):
-        if self.is_target_hostile(target):
-            mana_cost = 25
-
-            if self.mana >= mana_cost:
-                self.mana -= mana_cost
-                try:
-                    # Selects 2 targets from the target team
-                    target_list = random.sample(target_team, 2)
-                except:
-                    # in case there's only 1 target left
-                    target_list = target_team
-
-                for t in target_list:
-                    damage, crit = self.calc_damage(t, "magic", 1.5)
-                    self.update_stats(t, damage, crit, "tank_mg", 2)
-
-                if self.game.sound:
-                    pygame.mixer.find_channel().play(
-                        self.game.audio_handler.tank_machine_gun
-                    )
-
-                return True
-
-            else:
-                # Attack fail
-                return False
-
-    def flamethrower(self, target: object, target_team: list):
-        """Blasts a large amount of fire and burns all enemies for 3 turns"""
-        if self.is_target_hostile(target):
-            mana_cost = 60
-
-            if self.mana >= mana_cost:
+            if self.mana > mana_cost:
                 self.mana -= mana_cost
                 for t in target_team:
-                    damage, crit = self.calc_damage(t, "magic", 1.5)
-                    self.update_stats(t, damage, crit, "magma", 2)
-                    t.burn_stacks.append([3, self.intelligence])
-
-                # Halves defence for 2 turns
-                self.bonus_defence_stacks.append([2, -self.defence / 2])
-
+                    damage, crit = self.calc_damage(t, "magic", 2.5)
+                    self.update_stats(t, damage, crit, "necro_doom", 2)
+                    t.bonus_defence_stacks.append(
+                        [5, -(self.intelligence + self.bonus_intelligence)]
+                    )
+                    t.bonus_magic_resist_stacks.append(
+                        [5, -(self.intelligence + self.bonus_intelligence)]
+                    )
                 return True
