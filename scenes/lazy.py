@@ -1,5 +1,5 @@
 import pygame
-from pathlib import Path
+
 import gui.ui_functions as ui_functions
 from scenes.scene import Scene
 
@@ -19,7 +19,7 @@ class Lazy(Scene):
         pygame.mixer.music.load(audio.easter)
         pygame.mixer.music.play(-1, 0, 500)
 
-        self.lazysprites.add(Toothless(self.xc, self.yc))
+        self.lazysprites.add(Toothless(self.xc, self.yc + 200))
 
         self.sprites.add(
             ui_functions.TextSprite(
@@ -28,7 +28,7 @@ class Lazy(Scene):
                 "Impact",
                 "white",
                 True,
-                self.yc + 110,
+                self.yc - 260,
                 name="SELECTED",
             )
         )
@@ -62,20 +62,21 @@ class Lazy(Scene):
         # if actions["enter"]:
         #     self.exit_scene()
 
-        if actions["escape"]:
+        if actions["escape"] or actions["space"] :
+            for sprite in self.sprites:
+                sprite.kill()
+            for sprite in self.lazysprites:
+                sprite.kill()
+
             self.exit_scene()
             pygame.mixer.music.load(audio.battle_alt)
             pygame.mixer.music.play(-1, 0, 1000)
-
-        if actions["space"]:
-            self.exit_scene()
-            pygame.mixer.music.load(audio.battle_alt)
-            pygame.mixer.music.play(-1, 0, 1000)
-
 
 
         self.game.reset_keys()
         self.sprites.update()
+        
+        self.lazysprites.update(0.25)
 
     def render(self, screen):
         screen.blit(
@@ -86,9 +87,4 @@ class Lazy(Scene):
         )
 
         self.sprites.draw(screen)
-
-        for sprite in self.sprites.sprites():
-            sprite.draw(screen)
-        
         self.lazysprites.draw(screen)
-        self.lazysprites.update(0.25)
