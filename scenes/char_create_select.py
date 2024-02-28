@@ -36,7 +36,7 @@ class CreateCharSelect(Scene):
         self.class_name = ui_functions.TextSprite(
             list(cf.unit_dict.keys())[self.character_pointer],
             40,
-            None,
+            fonts.spartan_mb_semibold,
             "white",
             True,
             100,
@@ -45,10 +45,10 @@ class CreateCharSelect(Scene):
 
         self.class_des = ui_functions.TextSprite(
             list(cf.unit_dict.values())[self.character_pointer],
-            35,
-            None,
+            25,
+            fonts.spartan_mb_semibold,
             "white",
-            True,
+            self.xc,
             170,
             "SELECTED",
         )
@@ -56,7 +56,7 @@ class CreateCharSelect(Scene):
         self.stat_des = ui_functions.TextSprite(
             list(cf.stat_dict.values())[self.character_pointer],
             30,
-            None,
+            fonts.spartan_mb_semibold,
             "goldenrod2",
             True,
             240,
@@ -79,7 +79,7 @@ class CreateCharSelect(Scene):
         self.name_field = self.create_button(
             "Enter Name",
             50,
-            None,
+            fonts.spartan_mb_semibold,
             "white",
             400,
             60,
@@ -122,6 +122,7 @@ class CreateCharSelect(Scene):
 
         self.pointer = self.pointer % len(self.button_sprites)
         list(self.button_sprites.sprites())[self.pointer].selected = True
+        list(self.text_sprites.sprites())[self.pointer].selected = True
 
         self.class_name.text = list(cf.unit_dict.keys())[self.character_pointer]
         self.class_des.text = list(cf.unit_dict.values())[self.character_pointer]

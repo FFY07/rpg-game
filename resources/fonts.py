@@ -9,3 +9,5 @@ squealer = f"{Path('resources/fonts/Squealer/Squealer.otf')}"
 pixeloid_mono = f"{Path('resources/fonts/Pixeloid/PixeloidMono.ttf')}"
 pixeloid_sans = f"{Path('resources/fonts/Pixeloid/PixeloidSans.ttf')}"
 pixeloid_bold = f"{Path('resources/fonts/Pixeloid/PixeloidSans-Bold.ttf')}"
+
+spartan_mb_semibold = f"{Path('resources/fonts/spartan-mb/SpartanMB-SemiBold.otf')}"
