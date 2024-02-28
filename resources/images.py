@@ -35,5 +35,5 @@ warrior_marketing = pygame.image.load(f"{Path('resources/images/units/Warrior/wa
 reaper_marketing = pygame.image.load(f"{Path('resources/images/units/Reaper/reaper_marketing.jpg')}").convert()
 bandit_marketing = pygame.image.load(f"{Path('resources/images/units/Bandit/banditborder.jpg')}").convert()
 tank_marketing = pygame.image.load(f"{Path('resources/images/units/Tank/tank_marketing.jpg')}").convert()
-princess_marketing = pygame.image.load(f"{Path('resources/images/units/Princess/prinsborder.jpg')}").convert()
+princess_marketing = pygame.image.load(f"{Path('resources/images/units/Princess/prinsborder.jpeg')}").convert()
 necromancer_marketing = pygame.image.load(f"{Path('resources/images/units/Necromancer/necromancer_marketing.jpg')}").convert()
