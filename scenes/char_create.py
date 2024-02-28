@@ -10,7 +10,7 @@ from scenes.story import Story
 from scenes.char_create_select import CreateCharSelect
 
 import resources.images as images
-
+from resources import fonts
 # input1_rect = pygame.Rect(80, 280, 170, 32)
 
 
@@ -49,6 +49,18 @@ class CreateChar(Scene):
                 "white",
                 True,
                 50,
+                name="SELECTED",
+            )
+        )
+
+        self.sprites.add(
+            ui_functions.TextSprite(
+                "VS",
+                120,
+                fonts.squealer,
+                "white",
+                600 ,
+                420,
                 name="SELECTED",
             )
         )
@@ -110,8 +122,13 @@ class CreateChar(Scene):
 
             self.sprites.add(gui)
             gui.enemy_name.text = self.enemy_list[i][0]
+            gui.enemy_class.text = self.enemy_list[i][1]
+
+
             gui.image = cf.marketing_images[self.enemy_list[i][1]]
             gui.image = pygame.transform.flip(gui.image, True, False)
+
+    
     def update(self, actions):
         for sprite in self.sprites.sprites():
             if not sprite.name == "SELECTED":

@@ -10,8 +10,8 @@ menubackground_img = pygame.image.load(f"{Path('resources/images/backgrounds/men
 options_background = pygame.image.load(f"{Path('resources/images/backgrounds/option.jpg')}").convert()
 credits_background = pygame.image.load(f"{Path('resources/images/backgrounds/artofjoniken_forge2.jpg')}").convert()
 story_background = pygame.image.load(f"{Path('resources/images/backgrounds/story.jpg')}").convert()
-char_select_menu = pygame.image.load(f"{Path('resources/images/backgrounds/artofjokinen_siege.jpg')}").convert()
-char_select_background = pygame.image.load(f"{Path('resources/images/backgrounds/artofjokinen_castle.jpg')}").convert()
+char_select_menu = pygame.image.load(f"{Path('resources/images/backgrounds/charselect.jpg')}").convert()
+char_select_background = pygame.image.load(f"{Path('resources/images/backgrounds/charselect.jpg')}").convert()
 
 #background image
 background_img = pygame.image.load(f"{Path('resources/images/backgrounds/throne.png')}").convert()
