@@ -7,7 +7,7 @@ import gui.ui_functions as ui_functions
 
 # Range of values
 STRENGTH = (10, 10)
-INTELLIGENCE = (15, 15)
+INTELLIGENCE = (20, 20)
 DEFENCE = (80, 80)
 MAGIC_RESIST = (30, 30)
 
@@ -46,16 +46,17 @@ class Tank(Unit):
         # Add moves to moves dictionary
         self.moves["Cannon (40)"] = self.cannon
         self.moves["Machine Gun (25)"] = self.machine_gun
-        self.moves["Flamethrower (60)"] = self.flamethrower
+        self.moves["Flamethrower (70)"] = self.flamethrower
 
     def level_stats(self):
         self.health += self.max_health / 10
         self.strength += 2
         self.intelligence += 10
-        self.defence += 5
+        self.defence += 6
         self.magic_resist += 2
 
     def cannon(self, target: object, target_team: list):
+        """Loads a powerful cannon shell and fires it at a single target if loaded"""
         if self.is_target_hostile(target):
             mana_cost = 40
 
@@ -78,7 +79,7 @@ class Tank(Unit):
                         )
                     self.cannon_shells = 0
 
-                    damage, crit = self.calc_damage(target, "magic", 5)
+                    damage, crit = self.calc_damage(target, "magic", 4)
 
                     self.melee(target)
                     self.update_stats(target, damage, crit, "tank_cannon", 2)
@@ -102,7 +103,7 @@ class Tank(Unit):
                     target_list = target_team
 
                 for t in target_list:
-                    damage, crit = self.calc_damage(t, "magic", 1.5)
+                    damage, crit = self.calc_damage(t, "magic", 0.9)
                     self.update_stats(t, damage, crit, "tank_mg", 2)
 
                 if self.game.sound:
@@ -119,14 +120,14 @@ class Tank(Unit):
     def flamethrower(self, target: object, target_team: list):
         """Blasts a large amount of fire and burns all enemies for 3 turns"""
         if self.is_target_hostile(target):
-            mana_cost = 60
+            mana_cost = 70
 
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
                 for t in target_team:
                     damage, crit = self.calc_damage(t, "magic", 1.5)
                     self.update_stats(t, damage, crit, "magma", 2)
-                    t.burn_stacks.append([3, self.intelligence])
+                    t.burn_stacks.append([3, self.intelligence * 0.75])
 
                 # Halves defence for 2 turns
                 self.bonus_defence_stacks.append([2, -self.defence / 2])

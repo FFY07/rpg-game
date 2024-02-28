@@ -197,6 +197,9 @@ class Unit(pygame.sprite.Sprite):
                     print(f"{self.name} has levelled up to {self.level}!")
 
     def tick_effects(self):
+
+        # NOTE ON POTENTIAL BUG: Have not tested with negative bonus values on stats resulting in overall negative stat
+
         damage = 0
         if self.alive:
 

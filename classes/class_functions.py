@@ -7,10 +7,19 @@ from classes.units.warrior import Warrior
 from classes.units.bandit import Bandit
 from classes.units.tank import Tank
 from classes.units.princess import Princess
+from classes.units.necromancer import Necromancer
+
 import resources.images as images
 
 # IMPORTANT: UPDATE THIS WHEN ADDING A NEW CLASS
-unit_dict = {"Warrior": "a", "Reaper": "b", "Bandit": "c", "Tank": "d", "Princess": "e"}
+unit_dict = {
+    "Warrior": "a",
+    "Reaper": "b",
+    "Bandit": "c",
+    "Tank": "d",
+    "Princess": "e",
+    "Necromancer": "f",
+}
 
 marketing_images = {
     "Warrior": images.warrior_marketing,
@@ -18,6 +27,7 @@ marketing_images = {
     "Bandit": images.bandit_marketing,
     "Tank": images.tank_marketing,
     "Princess": images.background_img,
+    "Necromancer": images.necromancer_marketing,
 }
 
 
@@ -56,6 +66,9 @@ def create_unit(name, unit_class, team, game, standalone=False):
 
         case "Princess":
             unit = Princess(name, team, game.current_id, game)
+
+        case "Necromancer":
+            unit = Necromancer(name, team, game.current_id, game)
 
         case _:
             raise Exception(
