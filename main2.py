@@ -36,7 +36,6 @@ class Game:
 
         # Holds the currently typed text in a buffer so we can assign it to a variable before clearing the buffer
         self.text_buffer = ""
-
         self.text_ready = False
 
         self.screen_width = scr.SCREEN_WIDTH
@@ -45,6 +44,8 @@ class Game:
         self.canvas = pygame.Surface((self.screen_width, self.screen_height))
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         self.stack = []
+        self.event_log = ["WELCOME\n"]
+        self.rounds = 1
 
         # gives every sprite an id
         self.sprites = pygame.sprite.Group()
@@ -77,13 +78,21 @@ class Game:
             self.render()
 
             # print(len(self.stack))  # DEBUG
-            # print(self.stack[-1]) # DEBUG
+            # print(self.stack[-1])  # DEBUG
             # print(len(self.sprites)) # DEBUG
+
+            # print(self.event_log[-1])
+
+    def save_log(self):
+        with open("gamelog.txt", "w") as f:
+            for line in self.event_log:
+                f.write(f"{line}\n")
 
     def event_handler(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running, self.playing = False, False
+                self.save_log()
 
             if event.type == pygame.KEYDOWN:
                 if not self.typing:

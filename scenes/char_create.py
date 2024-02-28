@@ -196,6 +196,8 @@ class CreateChar(Scene):
                 next_scene = Story(self.game)
                 next_scene.start_scene()
 
+                self.game.event_log.append("\nSTARTING GAME\n")
+
         # self.selected_name_dict[self.pointer] = self.game.text_buffer
         self.text_buffer = ""
 

@@ -90,6 +90,7 @@ class Options(Scene):
         if self.pointer == 2:
             if actions["enter"]:
                 save_game(self.game)
+                # save gamelog
                 self.sprites.empty()
                 self.exit_scene()
 

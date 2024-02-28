@@ -4,7 +4,6 @@ from scenes.scene import Scene
 from scenes.inventory import Inventory
 
 from scenes.attack import ChooseAttack
-from scenes.target import ChooseTarget
 
 import resources.audio as audio
 
@@ -71,7 +70,7 @@ class Action(Scene):
 
         if self.pointer == 2:
             if actions["enter"]:
-                print("Opening shop (haven't code yet D:)")
+                print("no shop yet")
 
         if actions["escape"] or actions["enter"]:
             self.sprites.empty()
