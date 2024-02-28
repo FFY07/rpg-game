@@ -1,4 +1,4 @@
-import pygame
+import pygame, json
 
 from scenes.scene import Scene
 import resources.images
@@ -19,7 +19,7 @@ class Options(Scene):
         self.background = resources.images.options_background
         self.sprites = pygame.sprite.Group()
         self.pointer = 0
-        self.button_list = ["Music", "Sound", "Save", "Back", "New Game"]
+        self.button_list = ["Music", "Sound", "Save", "Load", "Back", "New Game"]
 
         self.generate_buttons(
             self.button_list,
@@ -86,31 +86,19 @@ class Options(Scene):
 
         if self.pointer == 2:
             if actions["enter"]:
-                for sprite in self.game.all_units.sprites():
-                    with open("save.txt", "w") as savefile:
-                        pass
-                        # self.health
-                        # self.mana
+                save_game(self.game)
 
-                        # self.crit_chance
-                        # self.crit_mult
-
-                        # self.level
-                        # self.exp
-                        # self.coins
-
-                        # self.unit_class
-                        # self.team
-
-                        # self.inventory
+        if self.pointer == 3:
+            if actions["enter"]:
+                load_game(self.game)
 
         # Back to previous scene
-        if self.pointer == 3:
+        if self.pointer == 4:
             if actions["enter"]:
                 self.exit_scene()
 
         # Back to main menu
-        if self.pointer == 4:
+        if self.pointer == 5:
             if actions["enter"]:
                 self.sprites.empty()
                 pygame.mixer.music.load(self.game.intro_music_path)
@@ -143,3 +131,48 @@ class Options(Scene):
         )
 
         self.sprites.draw(screen)
+
+
+def save_game(game=object, file_name="save.json"):
+    """Saves all units to a json file"""
+    save_dict = {}
+
+    # If there are sprites at all
+    if len(game.all_units.sprites()):
+
+        for i, sprite in enumerate(game.all_units.sprites()):
+            save_dict[i] = {}
+            save_dict[i]["name"] = sprite.name
+            save_dict[i]["health"] = sprite.health
+
+            save_dict[i]["crit_chance"] = sprite.crit_chance
+            save_dict[i]["crit_mult"] = sprite.crit_mult
+
+            save_dict[i]["level"] = sprite.level
+            save_dict[i]["exp"] = sprite.exp
+            save_dict[i]["coins"] = sprite.coins
+
+            save_dict[i]["unit_class"] = sprite.unit_class
+            save_dict[i]["team"] = sprite.team
+
+            save_dict[i]["inventory"] = sprite.inventory
+
+            save_dict[i]["burn_stacks"] = sprite.burn_stacks
+            save_dict[i]["health_regen_stacks"] = sprite.health_regen_stacks
+            save_dict[i]["mana_regen_stacks"] = sprite.mana_regen_stacks
+
+            save_dict[i]["bonus_strength_stacks"] = sprite.bonus_strength_stacks
+            save_dict[i]["bonus_intelligence_stacks"] = sprite.bonus_intelligence_stacks
+            save_dict[i]["bonus_defence_stacks"] = sprite.bonus_defence_stacks
+            save_dict[i]["bonus_magic_resist_stacks"] = sprite.bonus_magic_resist_stacks
+
+            with open(file_name, "w") as save_file:
+                json.dump(save_dict, save_file)
+
+    else:
+        print("Nothing to save!")
+
+
+def load_game(game: object, file_name="save.json"):
+    loaded_save = json.load(file_name)
+    print(loaded_save)

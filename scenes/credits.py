@@ -5,11 +5,13 @@ from scenes.scene import Scene
 import gui.screen as scr
 import resources.images as images
 import resources.audio as audio
+import resources.fonts as fonts
 
 title = [55, "hightowertext", "red2"]
 desc = [45, "hightowertext", "orangered"]
 name = [35, "Palatino Linotype", "grey95"]
-note = [40, "hightowertext", "red"]
+note = [40, "hightowertext", "orangered2"]
+note_alt = [35, "hightowertext", "grey60"]
 
 
 class Credits(Scene):
@@ -34,14 +36,14 @@ class Credits(Scene):
         )
         self.position += 150
 
-        self.load_section(["GAME WRITTEN BY"], desc, 75)
+        self.load_section(["GITHUB CONTRIBUTORS"], desc, 75)
 
         self.load_section(["Desmond Foo Fong Yoong"], name, 50)
         self.load_section(["36,332 edits"], note, 100)
         self.load_section(["Haarith Bin Naguri Ibrahim"], name, 50)
         self.load_section(["94 edits"], note, 200)
 
-        self.load_section(["MUSIC DESIGN"], desc, 75)
+        self.load_section(["SOUND DESIGN"], desc, 75)
         self.load_section(["Desmond Foo Fong Yoong"], name, 100)
 
         self.load_section(["VISUAL DESIGN"], desc, 75)
@@ -100,7 +102,7 @@ class Credits(Scene):
             self.position += offset
 
     def update(self, actions):
-        if actions["escape"] or actions["enter"]:
+        if actions["space"]:
             self.game.fps = 60
             self.game.volume = 0.6
 
