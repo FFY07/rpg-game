@@ -13,13 +13,23 @@ import resources.images as images
 
 # IMPORTANT: UPDATE THIS WHEN ADDING A NEW CLASS
 unit_dict = {
-    "Warrior": "a",
-    "Reaper": "b",
-    "Bandit": "c",
-    "Tank": "d",
-    "Princess": "e",
-    "Necromancer": "f",
+    "Warrior": "Generally balance character, able to buff teammate and deal damage",
+    "Reaper": "Use HP insteal of Mana, Play risk to get high reward",
+    "Bandit": "just a NPC",
+    "Tank": "It's a tank. What more do you want?",
+    "Princess": "Able to heal and regen Mana for teammate, It have very low DEF and Magic DEF",
+    "Necromancer": "Powerful magic class with high intelligence and magic resistance",
 }
+
+stat_dict = {
+    "Warrior": "STRENGTH : 12       INTELLIGIENCE : 10           DEFENCE : 45         MAGIC RESIST : 40",
+    "Reaper": "STRENGTH : 25       INTELLIGIENCE : 5           DEFENCE : 20         MAGIC RESIST : 40",
+    "Bandit": "STRENGTH : 8       INTELLIGIENCE : 20           DEFENCE : 40         MAGIC RESIST : 50",
+    "Tank": "STRENGTH : 10       INTELLIGIENCE : 15           DEFENCE : 80         MAGIC RESIST : 30",
+    "Princess": "STRENGTH : 11       INTELLIGIENCE : 25           DEFENCE : 10         MAGIC RESIST : 5",
+    "Necromancer": "Put the stuff here",
+}
+
 
 marketing_images = {
     "Warrior": images.warrior_marketing,
