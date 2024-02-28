@@ -10,7 +10,7 @@ from scenes.story import Story
 from scenes.char_create_select import CreateCharSelect
 
 import resources.images as images
-
+from resources import fonts
 # input1_rect = pygame.Rect(80, 280, 170, 32)
 
 
@@ -56,8 +56,8 @@ class CreateChar(Scene):
         self.sprites.add(
             ui_functions.TextSprite(
                 "VS",
-                80,
-                "Impact",
+                120,
+                fonts.squealer,
                 "white",
                 600 ,
                 420,
