@@ -28,7 +28,7 @@ class Game:
             "enter": False,
             "escape": False,
         }
-        self.fps = 60
+        self.fps = 30
         self.clock = pygame.time.Clock()
 
         # Checks if user is trying to type instead of send commands
@@ -58,7 +58,7 @@ class Game:
 
         self.start()
         self.music = True
-        self.sound = False
+        self.sound = True
         self.volume = 0.6
 
         self.intro_music_path = audio.menu
