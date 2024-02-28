@@ -42,6 +42,8 @@ class Necromancer(Unit):
         self.cannon_shells = 0
 
         # Add moves to moves dictionary
+        self.moves["Weaken (30)"] = self.weaken
+        self.moves["Infect (20% HP)"] = self.infect
         self.moves["Doom (80)"] = self.doom
 
     def level_stats(self):
@@ -51,14 +53,41 @@ class Necromancer(Unit):
         self.defence += 3
         self.magic_resist += 8
 
+    def weaken(self, target: object, target_team: list):
+        """Weaken enemy physical attacks and recover health"""
+        mana_cost = 30
+        if self.is_target_hostile(target):
+            if self.mana >= mana_cost:
+                self.mana -= mana_cost
+
+                damage, crit = self.calc_damage(target, "magic", 1.25)
+                self.update_stats(target, damage, crit, "necro_doom", 1)
+                target.bonus_strength_stacks.append([3, target.strength * 0.4])
+
+                return True
+
+    def infect(self, target: object, target_team: list):
+        """Sacrifice health to restore mana"""
+        health_cost = self.max_health * 0.2
+        if self.health > health_cost:
+            self.health -= health_cost
+
+            # Mana recovery scales with intelligence
+            self.mana += health_cost * 1 + (
+                ((self.intelligence + self.bonus_intelligence)) // 100
+            )
+
+            self.change_state("hurt")
+            return True
+
     def doom(self, target: object, target_team: list):
         """Summons powerful dark energy on all enemies and reduces their damage resistances for 5 turns"""
         if self.is_target_hostile(target):
             mana_cost = 80
-            if self.mana > mana_cost:
+            if self.mana >= mana_cost:
                 self.mana -= mana_cost
                 for t in target_team:
-                    damage, crit = self.calc_damage(t, "magic", 2.5)
+                    damage, crit = self.calc_damage(t, "magic", 1.75)
                     self.update_stats(t, damage, crit, "necro_doom", 2)
                     t.bonus_defence_stacks.append(
                         [5, -(self.intelligence + self.bonus_intelligence)]

@@ -102,7 +102,7 @@ class Tank(Unit):
                     target_list = target_team
 
                 for t in target_list:
-                    damage, crit = self.calc_damage(t, "magic", 0.9)
+                    damage, crit = self.calc_damage(t, "magic", 1.1)
                     self.update_stats(t, damage, crit, "tank_mg", 2)
 
                 if self.game.sound:
@@ -124,9 +124,9 @@ class Tank(Unit):
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
                 for t in target_team:
-                    damage, crit = self.calc_damage(t, "magic", 1.5)
+                    damage, crit = self.calc_damage(t, "magic", 0.8)
                     self.update_stats(t, damage, crit, "magma", 2)
-                    t.burn_stacks.append([3, self.intelligence * 0.75])
+                    t.burn_stacks.append([3, self.intelligence * 0.4])
 
                 # Halves defence for 2 turns
                 self.bonus_defence_stacks.append([2, -self.defence / 2])
