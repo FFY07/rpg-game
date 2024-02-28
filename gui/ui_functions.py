@@ -240,7 +240,7 @@ class DamageText(pygame.sprite.Sprite):
         self.damage_amount = str(damage)
         self.target = target
         self.crit = crit
-        self.text_font = fonts.pixeloid_bold
+        self.text_font = "impact"
         self.size = 50
 
         # If no color is set, use our own default colors
@@ -580,14 +580,14 @@ class InfoGUI:
                     self.unit.stat_bar_center_offset_x,
                     self.unit.stat_bar_center_offset_y + (self.bar_offset * 2),
                 ),
-                14,
-                "yellow",
-                fonts.pixeloid_bold,
+                25,
+                "gold1",
+                "newsgoth bt"
             )
         )
 
         # Unit name
-        self.text_sprites.add(TrackingText(self.unit.name, self.unit, "", (-40, -120)))
+        self.text_sprites.add(TrackingText(self.unit.name, self.unit, "", (-40, -120), 30, "firebrick1", '"newsgoth bt"'))
 
         self.sprites.add([self.bars, self.text_sprites])
 
