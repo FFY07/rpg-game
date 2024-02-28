@@ -45,3 +45,6 @@ The game currently supports the following keys:<br>
 ## Tips
 * Use items wisely! Try and buff your characters before attacking.
 * Try to target enemies with the highest attack stat first.
+
+## Additional Credits
+https://sangoro.itch.io/vfx-starter-pack
