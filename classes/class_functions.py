@@ -2,12 +2,12 @@ import random
 
 import gui.screen as scr
 
-from classes.units.reaper import Reaper
-from classes.units.warrior import Warrior
-from classes.units.bandit import Bandit
-from classes.units.tank import Tank
-from classes.units.princess import Princess
-from classes.units.necromancer import Necromancer
+from classes.units import reaper
+from classes.units import warrior
+from classes.units import bandit
+from classes.units import tank
+from classes.units import princess
+from classes.units import necromancer
 
 import resources.images as images
 
@@ -22,12 +22,12 @@ unit_dict = {
 }
 
 stat_dict = {
-    "Warrior": "STRENGTH : 12       INTELLIGIENCE : 10           DEFENCE : 45         MAGIC RESIST : 40",
-    "Reaper": "STRENGTH : 25       INTELLIGIENCE : 5           DEFENCE : 20         MAGIC RESIST : 40",
-    "Bandit": "STRENGTH : 8       INTELLIGIENCE : 20           DEFENCE : 40         MAGIC RESIST : 50",
-    "Tank": "STRENGTH : 10       INTELLIGIENCE : 15           DEFENCE : 80         MAGIC RESIST : 30",
-    "Princess": "STRENGTH : 11       INTELLIGIENCE : 25           DEFENCE : 10         MAGIC RESIST : 5",
-    "Necromancer": "Put the stuff here",
+    "Warrior": f"STR: {warrior.STRENGTH[0]:<5} INT: {warrior.INTELLIGENCE[0]:<5} DEF: {warrior.DEFENCE[0]:<5} MR: {warrior.MAGIC_RESIST[0]:<5}",
+    "Reaper": f"STR: {reaper.STRENGTH[0]:<5} INT: {reaper.INTELLIGENCE[0]:<5} DEF: {reaper.DEFENCE[0]:<5} MR: {reaper.MAGIC_RESIST[0]:<5}",
+    "Bandit": f"STR: {bandit.STRENGTH[0]:<5} INT: {bandit.INTELLIGENCE[0]:<5} DEF: {bandit.DEFENCE[0]:<5} MR: {bandit.MAGIC_RESIST[0]:<5}",
+    "Tank": f"STR: {tank.STRENGTH[0]:<5} INT: {tank.INTELLIGENCE[0]:<5} DEF: {tank.DEFENCE[0]:<5} MR: {tank.MAGIC_RESIST[0]:<5}",
+    "Princess": f"STR: {princess.STRENGTH[0]:<5} INT: {princess.INTELLIGENCE[0]:<5} DEF: {princess.DEFENCE[0]:<5} MR: {princess.MAGIC_RESIST[0]:<5}",
+    "Necromancer": f"STR: {necromancer.STRENGTH[0]:<5} INT: {necromancer.INTELLIGENCE[0]:<5} DEF: {necromancer.DEFENCE[0]:<5} MR: {necromancer.MAGIC_RESIST[0]:<5}",
 }
 
 
@@ -63,22 +63,22 @@ def create_unit(name, unit_class, team, game, standalone=False):
     match unit_class:
 
         case "Reaper":
-            unit = Reaper(name, team, game.current_id, game)
+            unit = reaper.Reaper(name, team, game.current_id, game)
 
         case "Warrior":
-            unit = Warrior(name, team, game.current_id, game)
+            unit = warrior.Warrior(name, team, game.current_id, game)
 
         case "Bandit":
-            unit = Bandit(name, team, game.current_id, game)
+            unit = bandit.Bandit(name, team, game.current_id, game)
 
         case "Tank":
-            unit = Tank(name, team, game.current_id, game)
+            unit = tank.Tank(name, team, game.current_id, game)
 
         case "Princess":
-            unit = Princess(name, team, game.current_id, game)
+            unit = princess.Princess(name, team, game.current_id, game)
 
         case "Necromancer":
-            unit = Necromancer(name, team, game.current_id, game)
+            unit = necromancer.Necromancer(name, team, game.current_id, game)
 
         case _:
             raise Exception(
