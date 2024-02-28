@@ -334,7 +334,7 @@ class EnemyRect(pygame.sprite.Sprite):
             30,
             None,
             "white",
-            self.rect.center[0] - 50,
+            self.rect.center[0] - 25,
             self.rect.center[1] - 105,
             f"T{self.name}",
         )
@@ -345,11 +345,12 @@ class EnemyRect(pygame.sprite.Sprite):
     def update(self):
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
 
+        self.sprites.update()
     def draw(self, screen):
         pygame.draw.rect(screen, self.border_color, self.rect, 5)
         self.sprites.draw(screen)
 
-        
+
 class RectGUI(pygame.sprite.Sprite):
     def __init__(
         self,
