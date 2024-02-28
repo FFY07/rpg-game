@@ -45,7 +45,7 @@ class CreateCharSelect(Scene):
 
         self.class_des = ui_functions.TextSprite(
             list(cf.unit_dict.values())[self.character_pointer],
-            40,
+            35,
             None,
             "white",
             True,
@@ -53,8 +53,19 @@ class CreateCharSelect(Scene):
             "SELECTED",
         )
 
+        self.stat_des = ui_functions.TextSprite(
+            list(cf.stat_dict.values())[self.character_pointer],
+            30,
+            None,
+            "goldenrod2",
+            True,
+            240,
+            "SELECTED",
+        )
+
         self.sprites.add(self.class_name)
         self.sprites.add(self.class_des)
+        self.sprites.add(self.stat_des)
         # Add our display units
         for unit in cf.unit_dict.keys():
             self.display_units.add(
@@ -114,10 +125,15 @@ class CreateCharSelect(Scene):
 
         self.class_name.text = list(cf.unit_dict.keys())[self.character_pointer]
         self.class_des.text = list(cf.unit_dict.values())[self.character_pointer]
+        self.stat_des.text = list(cf.stat_dict.values())[self.character_pointer]
 
         self.chosen_character = (
             self.chosen_name,
             list(cf.unit_dict.keys())[self.character_pointer],
+        )
+        self.chosen_character = (
+            self.chosen_name,
+            list(cf.stat_dict.keys())[self.character_pointer],
         )
 
         # If the selected character reaches the center x position, stop all units in place

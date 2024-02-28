@@ -16,6 +16,13 @@ unit_dict = {"Warrior": "Generally balance character, able to buff teammate and 
              "Tank": "Using INT point to Deal Damage and able to attack Multiple enemy ", 
              "Princess": "Able to heal and regen Mana for teammate, It have very low DEF and Magic DEF"}
 
+stat_dict = {"Warrior": "STRENGTH : 12       INTELLIGIENCE : 10           DEFENCE : 45         MAGIC RESIST : 40",
+             "Reaper": "STRENGTH : 25       INTELLIGIENCE : 5           DEFENCE : 20         MAGIC RESIST : 40" ,
+             "Bandit": "STRENGTH : 8       INTELLIGIENCE : 20           DEFENCE : 40         MAGIC RESIST : 50" ,
+             "Tank": "STRENGTH : 10       INTELLIGIENCE : 15           DEFENCE : 80         MAGIC RESIST : 30" , 
+             "Princess": "STRENGTH : 11       INTELLIGIENCE : 25           DEFENCE : 10         MAGIC RESIST : 5" }
+
+
 marketing_images = {
     "Warrior": images.warrior_marketing,
     "Reaper": images.reaper_marketing,
