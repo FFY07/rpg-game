@@ -59,6 +59,11 @@ class Warrior(Unit):
             if self.mana > mana_cost:
                 self.mana -= mana_cost
 
+                if self.game.sound:
+                    pygame.mixer.find_channel().play(
+                        self.game.audio_handler.warrior_rally
+                    )
+
                 for t in target_team:
                     t.bonus_strength_stacks.append([5, self.strength / 2])
                     t.bonus_intelligence_stacks.append([5, self.intelligence / 2])
@@ -68,26 +73,6 @@ class Warrior(Unit):
                     self.game.sprites.add(ui_functions.HitImage("stat_buff", t, 2))
 
                 return True
-
-    # def lifesteal(self, target: object, target_team: list):
-    #     if self.is_target_hostile(target):
-    #         mana_cost = 15
-    #         if self.mana > mana_cost:
-    #             self.mana -= mana_cost
-    #             damage, crit = self.calc_damage(target, "physical", 2)
-
-    #             self.melee(target)
-    #             self.update_stats(target, damage, crit, "blood2", 2)
-    #             self.lifesteal = 0.7
-    #             self.health += damage * self.lifesteal
-    #             if self.game.sound:
-    #                 pygame.mixer.find_channel().play(self.default_attack_sfx)
-
-    #             print(
-    #                 f"You attack {target.name} for {damage} and steal {damage * self.lifesteal} health!"
-    #             )
-
-    #             return True
 
     def execute(self, target: object, target_team: list):
         if self.is_target_hostile(target):

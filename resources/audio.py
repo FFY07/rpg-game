@@ -31,6 +31,8 @@ class SoundEffects():
 
         self.warrior_basic = pygame.mixer.Sound(f"{Path('resources/audio/character_effects/Warrior/heavy_slash.wav')}")
         self.warrior_basic.set_volume(1)
+        
+        self.warrior_rally = pygame.mixer.Sound(f"{Path('resources/audio/character_effects/Warrior/Valhalla.wav')}")
 
         self.tank_basic = pygame.mixer.Sound(f"{Path('resources/audio/character_effects/Tank/wot_37mm.wav')}")
         self.tank_machine_gun = pygame.mixer.Sound(f"{Path('resources/audio/character_effects/Tank/wot_autocannon.wav')}")

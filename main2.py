@@ -28,7 +28,7 @@ class Game:
             "enter": False,
             "escape": False,
         }
-        self.fps = 30
+        self.fps = 60
         self.clock = pygame.time.Clock()
 
         # Checks if user is trying to type instead of send commands
