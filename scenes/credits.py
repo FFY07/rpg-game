@@ -21,9 +21,8 @@ class Credits(Scene):
         self.sprites = pygame.sprite.Group()
 
         # pygame.mixer.music.load(audio.credits_bgm)
-        pygame.mixer.music.load(audio.easter)
-        self.game.volume = 0.4
-        pygame.mixer.music.play(-1, 44, 3000)
+        pygame.mixer.music.load(audio.credits_bgm)
+        pygame.mixer.music.play(-1, 0, 500)
 
         # Can't go below integer so use fps to tune the speed (higher fps = faster)
         self.game.fps = 60
@@ -79,13 +78,12 @@ class Credits(Scene):
             75,
         )
         self.position += 100
-        self.load_section(["ASSETS"], desc, 75)
+        self.load_section(["SPECIAL THANKS"], desc, 75)
         self.load_section(
             [
-                "artofjokinen (deviantart)",
-                "Honkai Impact 3rd, World of Tanks",
-                "Slay The Spire, League of Legends",
-                "Solo Leveling",
+                "World of Tanks",
+                "Slay The Spire",
+                "League of Legends",
             ],
             name,
             75,
@@ -105,14 +103,13 @@ class Credits(Scene):
     def update(self, actions):
         if actions["space"]:
             self.game.fps = 60
-            self.game.volume = 0.6
 
             for sprite in self.game.all_units:
                 sprite.kill()
 
             pygame.mixer.music.load(self.game.intro_music_path)
             pygame.mixer.music.set_volume(self.game.volume)
-            pygame.mixer.music.play(-1)
+            pygame.mixer.music.play(-1, 0, 500)
 
             while len(self.game.stack) > 1:
                 self.exit_scene()
@@ -123,14 +120,13 @@ class Credits(Scene):
         # Go back once credits are finished
         if len(self.sprites) == 0:
             self.game.fps = 60
-            self.game.volume = 0.6
 
             for sprite in self.game.all_units:
                 sprite.kill()
 
             pygame.mixer.music.load(self.game.intro_music_path)
             pygame.mixer.music.set_volume(self.game.volume)
-            pygame.mixer.music.play(-1)
+            pygame.mixer.music.play(-1, 0, 500)
 
             while len(self.game.stack) > 1:
                 self.exit_scene()
