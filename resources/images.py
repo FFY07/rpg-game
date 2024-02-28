@@ -31,7 +31,7 @@ enemy_target = pygame.image.load(f"{Path('resources/images/ui_elements/enemy_tar
 enemy_target = pygame.transform.scale(enemy_target, (192, 192))
 
 # Marketing images
-warrior_marketing = pygame.image.load(f"{Path('resources/images/units/Warrior/warriorborder.jpg')}").convert()
+warrior_marketing = pygame.image.load(f"{Path('resources/images/units/Warrior/warrior_marketing.jpg')}").convert()
 reaper_marketing = pygame.image.load(f"{Path('resources/images/units/Reaper/reaper_marketing.jpg')}").convert()
 bandit_marketing = pygame.image.load(f"{Path('resources/images/units/Bandit/banditborder.jpg')}").convert()
 tank_marketing = pygame.image.load(f"{Path('resources/images/units/Tank/tank_marketing.jpg')}").convert()

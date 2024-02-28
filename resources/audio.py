@@ -13,7 +13,7 @@ battle_alt = f"{Path('resources/audio/bgm/sts_mind_bloom.wav')}"
 
 menu = f"{Path('resources/audio/bgm/sts_main.wav')}"
 
-credits_bgm = f"{Path('resources/audio/bgm/Phantom.wav')}"
+credits_bgm = f"{Path('resources/audio/bgm/sts_credits.wav')}"
 
 # Stupid section
 easter = f"{Path('resources/audio/bgm/driftveil-city-theme-pokémon-black-&-white-(toothless-dancing)-made-with-Voicemod.mp3')}"
