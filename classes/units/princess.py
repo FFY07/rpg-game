@@ -70,7 +70,7 @@ class Princess(Unit):
                 return True
 
     def regenmana(self, target, target_team):
-        if not self.is_target_hostile(target) and target.mana != target.max_mana:
+        if not self.is_target_hostile(target) and target.mana != target.max_mana and target.max_mana != 0.1:
             mana_cost = 20
             regen = 40
             if self.mana >= mana_cost:

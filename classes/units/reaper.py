@@ -23,7 +23,7 @@ class Reaper(Unit):
         self.id = id_no
 
         self.mana = 0
-        self.max_mana = 1
+        self.max_mana = 0.1
         self.strength = random.randint(*STRENGTH)
         self.intelligence = random.randint(*INTELLIGENCE)
         self.defence = random.randint(*DEFENCE)
@@ -45,7 +45,7 @@ class Reaper(Unit):
         self.moves["Harvest Soul (-10HP)"] = self.harvestsoul
         self.moves["Sacrifice (-40% Current HP)"] = self.sacrifice
         self.moves["Dead Scythe (-25HP)"] = self.deadscythe
-        self.moves["Blood Ritual (50% current HP)"] = self.blood_ritual
+        self.moves["Blood Ritual (-50% Current HP)"] = self.blood_ritual
 
     def level_stats(self):
         self.health += self.max_health / 10

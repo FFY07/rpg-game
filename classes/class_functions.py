@@ -10,7 +10,11 @@ from classes.units.princess import Princess
 import resources.images as images
 
 # IMPORTANT: UPDATE THIS WHEN ADDING A NEW CLASS
-unit_dict = {"Warrior": "a", "Reaper": "b", "Bandit": "c", "Tank": "d", "Princess": "e"}
+unit_dict = {"Warrior": "Generally balance character, able to buff teammate and deal damage", 
+             "Reaper": "Use HP insteal of Mana, Play risk to get high reward", 
+             "Bandit": "just a NPC", 
+             "Tank": "Using INT point to Deal Damage and able to attack Multiple enemy ", 
+             "Princess": "Able to heal and regen Mana for teammate, It have very low DEF and Magic DEF"}
 
 marketing_images = {
     "Warrior": images.warrior_marketing,
