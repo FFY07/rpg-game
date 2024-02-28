@@ -15,7 +15,7 @@ import resources.images as images
 unit_dict = {
     "Warrior": "Generally balance character, able to buff teammate and deal damage",
     "Reaper": "Use HP cast skill insteal of Mana, ATK change based on current HP ",
-    "Bandit": "just a NPC",
+    "Bandit": "High INT, Able to use Sword with different effect",
     "Tank": "Tank",
     "Princess": "Able to heal and regen Mana for teammate, but get more damage by other",
     "Necromancer": "Powerful mage with high intelligence and magic resistance",

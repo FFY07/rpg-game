@@ -81,7 +81,7 @@ class Bandit(Unit):
             if self.mana > mana_cost:
                 self.mana -= mana_cost
 
-                target.burn_stacks.append([3, self.intelligence * 0.25])
+                target.burn_stacks.append([3, self.intelligence * 0.5])
 
                 damage, crit = self.calc_damage(target, "physical", 2.5)
 
