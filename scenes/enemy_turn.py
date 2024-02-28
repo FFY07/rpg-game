@@ -96,10 +96,9 @@ class EnemyTurn(Scene):
 
         self.current_time = pygame.time.get_ticks()
         self.sprites.update()
-        self.game.all_units.update()
 
-        # This could go badly
-        self.anchor.stat_guis.update()
+        self.game.all_units.update()
+        self.game.stat_guis.update()
 
     def render(self, screen):
         self.anchor.render(screen)

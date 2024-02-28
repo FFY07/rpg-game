@@ -5,6 +5,8 @@ import resources.images
 from gui import ui_functions
 import resources.audio as audio
 
+import classes.class_functions as cf
+
 BUTTON_TEXT_SIZE = 30
 BUTTON_FONT = "freesansbold"
 BUTTON_FONT_COLOR = "white"
@@ -84,13 +86,19 @@ class Options(Scene):
                 else:
                     self.game.sound = True
 
+        # Save game
         if self.pointer == 2:
             if actions["enter"]:
                 save_game(self.game)
+                self.sprites.empty()
+                self.exit_scene()
 
+        # Load game
         if self.pointer == 3:
             if actions["enter"]:
                 load_game(self.game)
+                self.sprites.empty()
+                self.exit_scene()
 
         # Back to previous scene
         if self.pointer == 4:
@@ -143,6 +151,7 @@ def save_game(game=object, file_name="save.json"):
         for i, sprite in enumerate(game.all_units.sprites()):
             save_dict[i] = {}
             save_dict[i]["name"] = sprite.name
+            save_dict[i]["mana"] = sprite.mana
             save_dict[i]["health"] = sprite.health
 
             save_dict[i]["crit_chance"] = sprite.crit_chance
@@ -168,12 +177,60 @@ def save_game(game=object, file_name="save.json"):
 
             with open(file_name, "w") as save_file:
                 json.dump(save_dict, save_file)
-
+        print(f'Game successfully saved to "{file_name}"!')
     else:
         print("Nothing to save!")
 
 
 def load_game(game: object, file_name="save.json"):
-    with open(file_name, "r") as save_file:
-        loaded_save = json.load(save_file)
-        print(loaded_save)
+    holding_player_pos_list = []
+    holding_enemy_pos_list = []
+    for sprite in game.all_units.sprites():
+        if sprite.team == "player":
+            holding_player_pos_list.append(sprite.position)
+
+        elif sprite.team == "enemy":
+            holding_enemy_pos_list.append(sprite.position)
+
+    try:
+        with open(file_name, "r") as save_file:
+            loaded_units = json.load(save_file)
+
+            # If save file exists, kill everyone
+            for sprite in game.all_units.sprites():
+                sprite.kill()
+
+            for sprite in game.stat_guis.sprites():
+                sprite.kill()
+
+            for _, v in loaded_units.items():
+                unit = cf.create_unit(v["name"], v["unit_class"], v["team"], game)
+                unit.health = v["health"]
+                unit.mana = v["mana"]
+                unit.crit_chance = v["crit_chance"]
+                unit.crit_mult = v["crit_mult"]
+                unit.level = v["level"]
+                unit.exp = v["exp"]
+                unit.coins = v["coins"]
+                unit.inventory = v["inventory"]
+
+                unit.burn_stacks = v["burn_stacks"]
+                unit.health_regen_stacks = v["health_regen_stacks"]
+                unit.mana_regen_stacks = v["mana_regen_stacks"]
+
+                unit.bonus_strength_stacks = v["bonus_strength_stacks"]
+                unit.bonus_intelligence_stacks = v["bonus_intelligence_stacks"]
+                unit.bonus_defence_stacks = v["bonus_defence_stacks"]
+                unit.bonus_magic_resist_stacks = v["bonus_magic_resist_stacks"]
+
+        # Set positions
+        cf.set_positions(holding_player_pos_list, game.players)
+        cf.set_positions(holding_enemy_pos_list, game.enemies)
+
+        # Re create all the info GUIS
+        ui_functions.create_info_guis(game)
+
+        print(f'Successfully loaded characters from "{file_name}".')
+
+    except FileNotFoundError:
+        print("No save detected!")

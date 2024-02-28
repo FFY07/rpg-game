@@ -51,6 +51,7 @@ class Game:
         self.all_units = pygame.sprite.Group()
         self.players = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
+        self.stat_guis = pygame.sprite.Group()
 
         self.max_enemies = 3
 

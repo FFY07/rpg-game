@@ -84,8 +84,7 @@ class ChooseAttack(Scene):
         self.sprites.update()
 
         self.game.all_units.update()
-
-        self.anchor.stat_guis.update()
+        self.game.stat_guis.update()
 
     def render(self, screen):
         self.anchor.render(screen)

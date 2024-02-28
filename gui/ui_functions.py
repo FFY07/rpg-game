@@ -293,6 +293,7 @@ class DamageText(pygame.sprite.Sprite):
         if self.lifetime <= 0:
             self.kill()
 
+
 class EnemyRect(pygame.sprite.Sprite):
     def __init__(
         self,
@@ -356,6 +357,7 @@ class EnemyRect(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
 
         self.sprites.update()
+
     def draw(self, screen):
         pygame.draw.rect(screen, self.border_color, self.rect, 5)
         self.sprites.draw(screen)
@@ -604,6 +606,19 @@ class InfoGUI:
 
     def draw(self, screen):
         pass
+
+
+def create_info_guis(game):
+    for sprite in game.all_units:
+        trackers = {
+            "green": "health",
+            "deepskyblue1": "mana",
+        }
+        InfoGUI(
+            sprite,
+            trackers,
+            game.stat_guis,
+        )
 
 
 class TrackingText(pygame.sprite.Sprite):

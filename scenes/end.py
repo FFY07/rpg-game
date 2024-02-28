@@ -35,6 +35,7 @@ class GameOver(Scene):
         self.game.reset_keys()
         self.sprites.update()
         self.game.all_units.update()
+        self.game.stat_guis.update()
 
     def render(self, screen):
         self.sprites.draw(screen)

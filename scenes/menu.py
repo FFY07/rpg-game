@@ -44,6 +44,13 @@ class MainMenu(Scene):
         self.sprites.add(self.title_text)
 
     def update(self, actions):
+        # There should not be any stat guis or sprites here
+        for sprite in self.game.all_units.sprites():
+            sprite.kill()
+
+        for sprite in self.game.stat_guis.sprites():
+            sprite.kill()
+
         # Reset all selected
         for sprite in self.sprites.sprites():
             sprite.selected = False

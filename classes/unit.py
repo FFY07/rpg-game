@@ -57,7 +57,6 @@ class Unit(pygame.sprite.Sprite):
 
         self.selected = False
         self.direction = "right"
-        self.id = id_no
 
         self.name = name
         self.size_scale = 2

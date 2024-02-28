@@ -92,8 +92,7 @@ class Inventory(Scene):
         self.sprites.update()
 
         self.game.all_units.update()
-
-        self.anchor.stat_guis.update()
+        self.game.stat_guis.update()
 
         # for item in self.selected_unit.inventory.items():
         #     print(item)
