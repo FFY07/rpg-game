@@ -123,7 +123,7 @@ class Reaper(Unit):
                 target_list = target_team
 
                 for t in target_list:
-                    damage, crit = self.calc_damage(t, "physical", 0.7)
+                    damage, crit = self.calc_damage(t, "physical", 1)
                     self.update_stats(t, damage, crit, "atk", 2)
 
                 return True

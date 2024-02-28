@@ -20,7 +20,8 @@ class Credits(Scene):
         self.background = images.credits_background
         self.sprites = pygame.sprite.Group()
 
-        pygame.mixer.music.load(audio.credits_bgm)
+        # pygame.mixer.music.load(audio.credits_bgm)
+        pygame.mixer.music.load(audio.easter)
         self.game.volume = 0.4
         pygame.mixer.music.play(-1, 44, 3000)
 

@@ -3,3 +3,6 @@ __pycache__/
 
 #ignore the gamelog
 gamelog.txt
+
+#ignore the save
+save.json

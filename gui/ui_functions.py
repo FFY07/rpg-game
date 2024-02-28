@@ -240,7 +240,7 @@ class DamageText(pygame.sprite.Sprite):
         self.damage_amount = str(damage)
         self.target = target
         self.crit = crit
-        self.text_font = fonts.pixeloid_bold
+        self.text_font = "impact"
         self.size = 50
 
         # If no color is set, use our own default colors
@@ -400,31 +400,22 @@ class RectGUI(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
 
-        self.player_text = TextSprite(
-            f"Player {name + 1} ",
-            25,
-            "Impact",
-            "white",
-            self.rect.center[0] - 290,
-            self.rect.center[1] - 105,
-        )
-
-        self.name_text = TextSprite(
-            "Name: ",
-            25,
-            None,
-            "white",
-            self.rect.center[0] - 190,
-            self.rect.center[1] - 105,
-        )
-
-        # self.name_button = "button object"
         self.selected_name = TextSprite(
             "Type here",
             30,
             None,
             "white",
-            self.rect.center[0] - 50,
+            self.rect.center[0] - 80,
+            self.rect.center[1] - 105,
+            f"T{self.name}",
+        )
+
+        self.selected_class = TextSprite(
+            "",
+            30,
+            None,
+            "white",
+            self.rect.center[0] - 15,
             self.rect.center[1] - 105,
             f"T{self.name}",
         )
@@ -441,7 +432,8 @@ class RectGUI(pygame.sprite.Sprite):
         self.class_button = "another button here"
 
         # Don't forget to put the buttons into the sprites below
-        self.sprites.add([self.player_text, self.name_text, self.selected_name])
+        self.sprites.add([self.selected_name])
+        self.sprites.add([self.selected_class])
 
     def update(self):
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
@@ -590,14 +582,14 @@ class InfoGUI:
                     self.unit.stat_bar_center_offset_x,
                     self.unit.stat_bar_center_offset_y + (self.bar_offset * 2),
                 ),
-                14,
-                "yellow",
-                fonts.pixeloid_bold,
+                25,
+                "gold1",
+                "newsgoth bt"
             )
         )
 
         # Unit name
-        self.text_sprites.add(TrackingText(self.unit.name, self.unit, "", (-40, -120)))
+        self.text_sprites.add(TrackingText(self.unit.name, self.unit, "", (-40, -120), 30, "firebrick1", '"newsgoth bt"'))
 
         self.sprites.add([self.bars, self.text_sprites])
 

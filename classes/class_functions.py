@@ -14,10 +14,10 @@ import resources.images as images
 # IMPORTANT: UPDATE THIS WHEN ADDING A NEW CLASS
 unit_dict = {
     "Warrior": "Generally balance character, able to buff teammate and deal damage",
-    "Reaper": "Use HP insteal of Mana, Play risk to get high reward",
+    "Reaper": "Use HP cast skill insteal of Mana, ATK change based on current HP ",
     "Bandit": "just a NPC",
     "Tank": "Tank",
-    "Princess": "Able to heal and regen Mana for teammate, It have very low DEF and Magic DEF",
+    "Princess": "Able to heal and regen Mana for teammate, but get more damage by other",
     "Necromancer": "Powerful mage with high intelligence and magic resistance",
 }
 
