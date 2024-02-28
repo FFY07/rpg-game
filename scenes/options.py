@@ -178,8 +178,10 @@ def save_game(game=object, file_name="save.json"):
 
             with open(file_name, "w") as save_file:
                 json.dump(save_dict, save_file)
+        game.event_log.append(f'Game successfully saved to "{file_name}"!')
         print(f'Game successfully saved to "{file_name}"!')
     else:
+        game.event_log.append("Nothing to save!")
         print("Nothing to save!")
 
 
@@ -231,7 +233,9 @@ def load_game(game: object, file_name="save.json"):
         # Re create all the info GUIS
         ui_functions.create_info_guis(game)
 
-        print(f'Successfully loaded characters from "{file_name}".')
+        print(f'Successfully loaded save from "{file_name}".')
+        game.event_log.append(f'Successfully loaded save from "{file_name}"!')
 
     except FileNotFoundError:
         print("No save detected!")
+        game.event_log.append("No save detected!")
