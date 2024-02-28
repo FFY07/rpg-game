@@ -28,7 +28,7 @@ marketing_images = {
     "Reaper": images.reaper_marketing,
     "Bandit": images.bandit_marketing,
     "Tank": images.tank_marketing,
-    "Princess": images.background_img,
+    "Princess": images.princess_marketing,
 }
 
 
