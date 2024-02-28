@@ -2,6 +2,7 @@ import pygame
 
 from scenes.scene import Scene
 from scenes.inventory import Inventory
+from scenes.lazy import Lazy
 
 from scenes.attack import ChooseAttack
 from scenes.target import ChooseTarget
@@ -71,7 +72,9 @@ class Action(Scene):
 
         if self.pointer == 2:
             if actions["enter"]:
-                print("Opening shop (haven't code yet D:)")
+                next_scene = Lazy(self.game)
+                next_scene.start_scene()
+                self.game.reset_keys()
 
         if actions["escape"] or actions["enter"]:
             self.sprites.empty()
