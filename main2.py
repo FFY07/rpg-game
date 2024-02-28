@@ -37,7 +37,6 @@ class Game:
         # Holds the currently typed text in a buffer so we can assign it to a variable before clearing the buffer
         self.text_buffer = ""
 
-        # Readies the text buffer for output
         self.text_ready = False
 
         self.screen_width = scr.SCREEN_WIDTH
