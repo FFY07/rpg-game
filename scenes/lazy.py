@@ -62,20 +62,21 @@ class Lazy(Scene):
         # if actions["enter"]:
         #     self.exit_scene()
 
-        if actions["escape"]:
+        if actions["escape"] or actions["space"] :
+            for sprite in self.sprites:
+                sprite.kill()
+            for sprite in self.lazysprites:
+                sprite.kill()
+
             self.exit_scene()
             pygame.mixer.music.load(audio.battle_alt)
             pygame.mixer.music.play(-1, 0, 1000)
-
-        if actions["space"]:
-            self.exit_scene()
-            pygame.mixer.music.load(audio.battle_alt)
-            pygame.mixer.music.play(-1, 0, 1000)
-
 
 
         self.game.reset_keys()
         self.sprites.update()
+        
+        self.lazysprites.update(0.25)
 
     def render(self, screen):
         screen.blit(
@@ -86,9 +87,4 @@ class Lazy(Scene):
         )
 
         self.sprites.draw(screen)
-
-        for sprite in self.sprites.sprites():
-            sprite.draw(screen)
-        
         self.lazysprites.draw(screen)
-        self.lazysprites.update(0.25)
