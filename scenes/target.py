@@ -71,6 +71,9 @@ class ChooseTarget(Scene):
                 next_scene.start_scene()
 
             else:
+                self.game.event_log.append(
+                    f"[{self.selected_unit.name}] Not enough mana/invalid target!"
+                )
                 print("not enough mana/invalid target!")
                 if self.game.sound:
                     pygame.mixer.find_channel().play(self.game.audio_handler.oom_sfx)

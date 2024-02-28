@@ -63,6 +63,11 @@ class Necromancer(Unit):
                 damage, crit = self.calc_damage(target, "magic", 1.25)
                 self.update_stats(target, damage, crit, "necro_doom", 1)
                 target.bonus_strength_stacks.append([3, target.strength * 0.4])
+                self.game.event_log.append(
+                    f"{self.name} attacks {target.name} with weaken for {damage} damage!"
+                )
+                if crit:
+                    self.game.event_log.append("It was a crit!")
 
                 return True
 
@@ -73,11 +78,16 @@ class Necromancer(Unit):
             self.health -= health_cost
 
             # Mana recovery scales with intelligence
-            self.mana += health_cost * 1 + (
+            mana_recovery = health_cost * 1 + (
                 ((self.intelligence + self.bonus_intelligence)) // 100
             )
+            self.mana += mana_recovery
 
             self.change_state("hurt")
+            self.game.event_log.append(
+                f"{self.name} sacrificed {health_cost} health for {mana_recovery} mana!"
+            )
+
             return True
 
     def doom(self, target: object, target_team: list):
@@ -95,4 +105,8 @@ class Necromancer(Unit):
                     t.bonus_magic_resist_stacks.append(
                         [5, -(self.intelligence + self.bonus_intelligence)]
                     )
+
+                self.game.event_log.append(
+                    f"{self.name} casts doom upon all enemies for ~{damage} damage and lowers their resistances!"
+                )
                 return True
