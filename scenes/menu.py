@@ -105,9 +105,8 @@ class MainMenu(Scene):
                     sprite.selected = True
 
             if actions["enter"]:
-
-                # Plop the next scene onto the stack
                 self.game.running, self.game.playing = False, False
+                self.game.save_log()
 
         if actions["down"]:
             self.pointer += 1
@@ -117,6 +116,7 @@ class MainMenu(Scene):
 
         if actions["escape"]:
             self.game.running, self.game.playing = False, False
+            self.game.save_log()
 
         self.game.reset_keys()
         self.sprites.update()

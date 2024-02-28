@@ -55,7 +55,7 @@ class Tank(Unit):
         self.magic_resist += 2
 
     def cannon(self, target: object, target_team: list):
-        """Loads a powerful cannon shell and fires it at a single target if loaded"""
+        """Loads a powerful tank shell and fires it at a single target if loaded"""
         if self.is_target_hostile(target):
             mana_cost = 40
 
@@ -68,6 +68,7 @@ class Tank(Unit):
                         )
                     self.game.sprites.add(ui_functions.HitImage("tank_charge", self, 2))
                     self.change_state("defend")
+                    self.game.event_log.append(f"{self.name} has loaded a shell!")
 
                 # If we have cannon shells, proceed to fire
                 else:
@@ -82,6 +83,11 @@ class Tank(Unit):
 
                     self.melee(target)
                     self.update_stats(target, damage, crit, "tank_cannon", 2)
+                    self.game.event_log.append(
+                        f"{self.name} fires a shell at {target.name} for {damage} damage!"
+                    )
+                    if crit:
+                        self.game.event_log.append("It was a crit!")
 
                 return True
             else:
@@ -104,6 +110,11 @@ class Tank(Unit):
                 for t in target_list:
                     damage, crit = self.calc_damage(t, "magic", 1.1)
                     self.update_stats(t, damage, crit, "tank_mg", 2)
+                    self.game.event_log.append(
+                        f"{self.name} hits {t.name} with a machine gun for {damage} damage!"
+                    )
+                    if crit:
+                        self.game.event_log.append("It was a crit!")
 
                 if self.game.sound:
                     pygame.mixer.find_channel().play(
@@ -128,7 +139,14 @@ class Tank(Unit):
                     self.update_stats(t, damage, crit, "magma", 2)
                     t.burn_stacks.append([3, self.intelligence * 0.4])
 
+                self.game.event_log.append(
+                    f"{self.name} has burned all enemies for {damage} damage!"
+                )
+                if crit:
+                    self.game.event_log.append("It was a crit!")
+
                 # Halves defence for 2 turns
                 self.bonus_defence_stacks.append([2, -self.defence / 2])
+                self.game.event_log.append(f"{self.name}'s defence has been reduced!")
 
                 return True

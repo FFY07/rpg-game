@@ -5,7 +5,6 @@ from scenes.inventory import Inventory
 from scenes.lazy import Lazy
 
 from scenes.attack import ChooseAttack
-from scenes.target import ChooseTarget
 
 import resources.audio as audio
 

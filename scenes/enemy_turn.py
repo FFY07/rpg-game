@@ -91,6 +91,9 @@ class EnemyTurn(Scene):
             for sprite in self.game.all_units:
                 sprite.tick_effects()
 
+            self.game.rounds += 1
+            self.game.event_log.append(f"\nROUND {self.game.rounds}...\n")
+
             while self.game.stack[-1] != self.anchor:
                 self.exit_scene()
 

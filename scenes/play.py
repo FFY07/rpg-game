@@ -88,12 +88,14 @@ class Play(Scene):
             victor = "enemy"
             next_scene = GameOver(self.game, victor)
             next_scene.start_scene()
+            self.game.event_log.append(f"{victor.capitalize()} TEAM HAS WON!\n")
             return
 
         if not self.alive_enemy_dict:
             victor = "player"
             next_scene = GameOver(self.game, victor)
             next_scene.start_scene()
+            self.game.event_log.append(f"{victor.capitalize()} TEAM HAS WON!\n")
             return
 
         for sprite in self.game.all_units.sprites():

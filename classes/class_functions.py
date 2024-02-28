@@ -101,6 +101,10 @@ def create_unit(name, unit_class, team, game, standalone=False):
         # Add all of the units to the main units sprite group as well
         game.all_units.add(unit)
 
+    game.event_log.append(
+        f"{unit.name} [{unit.unit_class}] has been created for the {unit.team} team!"
+    )
+
     # If unit is a standalone unit, we'll want to store it somewhere
     return unit
 

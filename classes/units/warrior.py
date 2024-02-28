@@ -65,11 +65,11 @@ class Warrior(Unit):
 
                 for t in target_team:
                     t.bonus_strength_stacks.append([5, self.strength / 2])
-                    t.bonus_intelligence_stacks.append([5, self.intelligence / 2])
-                    # t.bonus_defence_stacks.append([5, self.defence / 2])
-                    # t.bonus_magic_resist_stacks.append([5, self.magic_resist / 2])
-
                     self.game.sprites.add(ui_functions.HitImage("stat_buff", t, 2))
+
+                self.game.event_log.append(
+                    f"{self.name} rallies all teammates, increasing their strength!"
+                )
 
                 return True
 
@@ -87,5 +87,6 @@ class Warrior(Unit):
                     pygame.mixer.find_channel().play(self.default_attack_sfx)
 
                 print(f"Executed {target.name}")
+                self.game.event_log.append(f"{self.name} execute")
 
                 return True

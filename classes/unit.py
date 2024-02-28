@@ -171,6 +171,7 @@ class Unit(pygame.sprite.Sprite):
                 self.health = 0
                 self.alive = False
                 self.change_state("death")
+                self.game.event_log.append(f"\n{self.name} HAS DIED! \n")
 
             if self.health > self.max_health:
                 self.health = self.max_health
@@ -193,7 +194,9 @@ class Unit(pygame.sprite.Sprite):
                     self.level_stats()
 
                     # We can spawn particles or something here as well
-                    print(f"{self.name} has levelled up to {self.level}!")
+                    self.game.event_log.append(
+                        f"{self.name} has levelled up to {self.level}!"
+                    )
 
     def tick_effects(self):
 
@@ -210,10 +213,16 @@ class Unit(pygame.sprite.Sprite):
                     if not burn[0] < 0:
                         burn[0] -= 1
                     damage += burn[1]
+                    self.game.event_log.append(
+                        f"{self.name} has lost {damage} health due to burn!"
+                    )
 
                     # If there are no more ticks left on the burn, remove it from the list
                     if not burn[0]:
                         self.burn_stacks.pop(i)
+                        self.game.event_log.append(
+                            f"{self.name} has recovered from a burn!"
+                        )
 
             # negative negative = positive
             if self.health_regen_stacks:
@@ -221,18 +230,28 @@ class Unit(pygame.sprite.Sprite):
                     if not regen[0] < 0:
                         regen[0] -= 1
                     damage -= regen[1]
-
+                    self.game.event_log.append(
+                        f"{self.name} has regenerated {abs(damage)} health!"  # abs else negative
+                    )
                     if not regen[0]:
                         self.health_regen_stacks.pop(i)
+                        self.game.event_log.append(
+                            f"A health regeneration stack has worn off for {self.name}"
+                        )
 
             if self.mana_regen_stacks:
                 for i, regen in enumerate(self.mana_regen_stacks):
                     if not regen[0] < 0:
                         regen[0] -= 1
                     self.mana += regen[1]
-
+                    self.game.event_log.append(
+                        f"{self.name} has regenerated {regen[1]} mana!"
+                    )
                     if not regen[0]:
                         self.mana_regen_stacks.pop(i)
+                        self.game.event_log.append(
+                            f"A mana regeneration stack has worn off for {self.name}"
+                        )
 
             # reset bonus_strength before calculating how much we get
             self.bonus_strength = 0
@@ -241,9 +260,14 @@ class Unit(pygame.sprite.Sprite):
                     if not effect[0] < 0:
                         effect[0] -= 1
                     self.bonus_strength += effect[1]
-
+                    self.game.event_log.append(
+                        f"{self.name} has {self.bonus_strength} bonus strength!"
+                    )
                     if not effect[0]:
                         self.bonus_strength_stacks.pop(i)
+                        self.game.event_log.append(
+                            f"{self.name}'s damage is back to normal..."
+                        )
 
             self.bonus_intelligence = 0
             if self.bonus_intelligence_stacks:
@@ -251,9 +275,14 @@ class Unit(pygame.sprite.Sprite):
                     if not effect[0] < 0:
                         effect[0] -= 1
                     self.bonus_intelligence += effect[1]
-
+                    self.game.event_log.append(
+                        f"{self.name} has {self.bonus_intelligence} bonus intelligence!"
+                    )
                     if not effect[0]:
                         self.bonus_intelligence_stacks.pop(i)
+                        self.game.event_log.append(
+                            f"{self.name}'s intelligence is back to normal..."
+                        )
 
             self.bonus_defence = 0
             if self.bonus_defence_stacks:
@@ -261,9 +290,14 @@ class Unit(pygame.sprite.Sprite):
                     if not effect[0] < 0:
                         effect[0] -= 1
                     self.bonus_defence += effect[1]
-
+                    self.game.event_log.append(
+                        f"{self.name} has {self.bonus_defence} bonus defence!"
+                    )
                     if not effect[0]:
                         self.bonus_defence_stacks.pop(i)
+                        self.game.event_log.append(
+                            f"{self.name}'s defence is back to normal..."
+                        )
 
             self.bonus_magic_resist = 0
             if self.bonus_magic_resist_stacks:
@@ -271,9 +305,15 @@ class Unit(pygame.sprite.Sprite):
                     if not effect[0] < 0:
                         effect[0] -= 1
                     self.bonus_magic_resist += effect[1]
+                    self.game.event_log.append(
+                        f"{self.name} has {self.bonus_magic_resist} bonus magic resist!"
+                    )
 
                     if not effect[0]:
                         self.bonus_magic_resist_stacks.pop(i)
+                        self.game.event_log.append(
+                            f"{self.name}'s magic resistance is back to normal..."
+                        )
 
             if damage > 0:
                 self.health -= damage
@@ -316,17 +356,26 @@ class Unit(pygame.sprite.Sprite):
                     if self.health > self.max_health:
                         self.health = self.max_health
 
+                    self.game.event_log.append(
+                        f"{self.name} consumed a health potion! {self.inventory[item]} left."
+                    )
                     print("Recovered health!")
 
                 case "Mana Potion":
                     self.mana += 50
 
+                    self.game.event_log.append(
+                        f"{self.name} consumed a mana potion! {self.inventory[item]} left."
+                    )
                     print("Recovered mana!")
 
                 case "Strength Shard":
                     self.prev_strength = self.strength
                     self.strength = int(self.strength * 999)
 
+                    self.game.event_log.append(
+                        f"{self.name} used a strength shard! {self.inventory[item]} left."
+                    )
                     print(
                         f"Increased strength from {self.prev_strength} to {self.strength}!"
                     )
@@ -334,6 +383,9 @@ class Unit(pygame.sprite.Sprite):
                 case "Defence Shard":
                     self.defence = int(self.defence * 1.1)
 
+                    self.game.event_log.append(
+                        f"{self.name} used a defence shard! {self.inventory[item]} left."
+                    )
                     print("Increased defence!")
         else:
             print(f"No {item} left!")
@@ -469,12 +521,12 @@ class Unit(pygame.sprite.Sprite):
             if self.game.sound:
                 pygame.mixer.find_channel().play(self.default_attack_sfx)
 
-            # temporary
-            print(
-                f"[DEBUG] Target {target.name} HP: {target.health}/{target.max_health}"
+            self.game.event_log.append(
+                f"{self.name} basic attacks {target.name} for {damage} physical damage!"
             )
-            print(f"[DEBUG] {self.name} MANA: {self.mana}/{self.max_mana}")
-            print(f"[DEBUG] {self.name} EXP: {self.exp} COINS: {self.coins}")
+
+            if crit:
+                self.game.event_log.append("It was a crit!")
 
             # Note: the game will check if the attack returns True, else the attack will not proceed (e.g. prevent attacking with not enough mana)
             return True

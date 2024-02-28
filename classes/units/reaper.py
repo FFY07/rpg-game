@@ -127,7 +127,7 @@ class Reaper(Unit):
                 for t in target_list:
                     damage, crit = self.calc_damage(t, "physical", 1)
                     self.update_stats(t, damage, crit, "atk", 2)
-                
+
                 if self.game.sound:
                     pygame.mixer.find_channel().play(self.default_attack_sfx)
 
@@ -142,5 +142,8 @@ class Reaper(Unit):
             target.bonus_strength_stacks.append([3, self.strength * 1])
 
             self.game.sprites.add(ui_functions.HitImage("blood2", self, 2))
+            self.game.event_log.append(
+                f"{self.name} exchanges half its health for a strength buff!"
+            )
 
             return True
