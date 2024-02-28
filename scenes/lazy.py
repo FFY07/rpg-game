@@ -1,5 +1,5 @@
 import pygame
-from pathlib import Path
+
 import gui.ui_functions as ui_functions
 from scenes.scene import Scene
 
@@ -19,7 +19,7 @@ class Lazy(Scene):
         pygame.mixer.music.load(audio.easter)
         pygame.mixer.music.play(-1, 0, 500)
 
-        self.lazysprites.add(Toothless(self.xc, self.yc))
+        self.lazysprites.add(Toothless(self.xc, self.yc + 200))
 
         self.sprites.add(
             ui_functions.TextSprite(
@@ -28,7 +28,7 @@ class Lazy(Scene):
                 "Impact",
                 "white",
                 True,
-                self.yc + 110,
+                self.yc - 260,
                 name="SELECTED",
             )
         )

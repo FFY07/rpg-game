@@ -41,6 +41,5 @@ class Toothless(pygame.sprite.Sprite):
             self.current_sprite += speed
             if int(self.current_sprite) >= len(self.animations):
                 self.current_sprite = 0
-                self.attack_animation = False
-
+                
             self.image = self.animations[int(self.current_sprite)]
