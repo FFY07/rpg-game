@@ -8,9 +8,11 @@ class GameLog(Scene):
     def __init__(self, game):
 
         super().__init__(game)
-        
+
         self.gamelog = images.gamelog_background
         self.sprites = pygame.sprite.Group()
+
+        self.position = self.yc - 200
 
         self.sprites.add(
             ui_functions.TextSprite(
@@ -23,7 +25,19 @@ class GameLog(Scene):
                 name="SELECTED",
             )
         )
-    
+
+        for i , line in enumerate(self.game.event_log):
+            self.load_section(f"{self.game.event_log[-i]}", 35)
+
+            print(self.sprites)
+
+    def load_section(self, text_list, offset):
+        for text in text_list:
+            self.sprites.add(
+                ui_functions.TextSprite(
+                    text, 20, None, self.position, False,
+                )
+            )
 
     def update(self, actions):
 
