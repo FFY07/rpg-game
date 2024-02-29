@@ -126,7 +126,7 @@ class Reaper(Unit):
                     damage, crit = self.calc_damage(t, "physical", 0.7)
                     self.update_stats(t, damage, crit, "atk", 2)
 
-                self.play_sound(self.game.audio_handler.sword__sfx)
+                self.play_sound(self.game.audio_handler.sword_sfx)
 
                 return True
 

@@ -113,6 +113,7 @@ class Game:
                 f.write(f"{line}\n")
 
     def event_handler(self):
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running, self.playing = False, False
