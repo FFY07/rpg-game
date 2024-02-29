@@ -54,7 +54,7 @@ class Necromancer(Unit):
         self.magic_resist += 8
 
     def siphon(self, target: object, target_team: list):
-        """Weaken enemy physical attacks and recover health"""
+        """Weakens the enemy and recovers health"""
         mana_cost = 25
         if self.is_target_hostile(target):
             if self.mana >= mana_cost:
@@ -64,7 +64,8 @@ class Necromancer(Unit):
 
                 self.melee(target)
                 self.update_stats(target, damage, crit, "unit/necromancer/siphon", 60)
-                target.bonus_strength_stacks.append([3, target.strength * 0.4])
+                target.bonus_strength_stacks.append([3, target.strength * 0.3])
+                target.bonus_intelligence_stacks.append[3, target.intelligence * 0.3]
                 self.game.event_log.append(
                     f"{self.name} attacks {target.name} with weaken for {int(damage)} damage!"
                 )
