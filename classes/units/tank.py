@@ -5,8 +5,8 @@ from classes.unit import Unit
 import gui.ui_functions as ui_functions
 
 # Range of values
-STRENGTH = (10, 10)
-INTELLIGENCE = (20, 20)
+STRENGTH = (8, 8)
+INTELLIGENCE = (22, 22)
 DEFENCE = (100, 100)
 MAGIC_RESIST = (80, 80)
 
@@ -50,7 +50,7 @@ class Tank(Unit):
         self.health += self.max_health / 10
         self.strength += 2
         self.intelligence += 10
-        self.defence += 6
+        self.defence += 8
         self.magic_resist += 2
 
     def cannon(self, target: object, target_team: list):

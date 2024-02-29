@@ -42,26 +42,26 @@ class Necromancer(Unit):
         self.cannon_shells = 0
 
         # Add moves to moves dictionary
-        self.moves["Weaken (30)"] = self.weaken
+        self.moves["Siphon (25)"] = self.siphon
         self.moves["Infect (20% HP)"] = self.infect
         self.moves["Doom (80)"] = self.doom
 
     def level_stats(self):
         self.health += self.max_health / 10
         self.strength += 2
-        self.intelligence += 8
+        self.intelligence += 10
         self.defence += 3
         self.magic_resist += 8
 
-    def weaken(self, target: object, target_team: list):
+    def siphon(self, target: object, target_team: list):
         """Weaken enemy physical attacks and recover health"""
-        mana_cost = 30
+        mana_cost = 25
         if self.is_target_hostile(target):
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
 
                 damage, crit = self.calc_damage(target, "magic", 1.25)
-                self.update_stats(target, damage, crit, "unit/necromancer/doom", 1)
+                self.update_stats(target, damage, crit, "unit/necromancer/siphon", 1)
                 target.bonus_strength_stacks.append([3, target.strength * 0.4])
                 self.game.event_log.append(
                     f"{self.name} attacks {target.name} with weaken for {int(damage)} damage!"
