@@ -62,7 +62,7 @@ class Warrior(Unit):
 
                 for t in target_team:
                     t.bonus_strength_stacks.append([5, self.strength / 2])
-                    self.game.sprites.add(ui_functions.HitImage("stat_buff", t, 2))
+                    self.game.sprites.add(ui_functions.HitImage("buffs/rally", t, 2))
 
                 self.game.event_log.append(
                     f"{self.name} rallies all teammates, increasing their strength!"
