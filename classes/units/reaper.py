@@ -41,9 +41,8 @@ class Reaper(Unit):
         self.rect = self.image.get_rect()
         self.rect.center = self.position
 
-        self.moves["Harvest Soul (-10HP)"] = self.harvestsoul
-        self.moves["Sacrifice (-40% Current HP)"] = self.sacrifice
-        self.moves["Dead Scythe (-25HP)"] = self.deadscythe
+        self.moves["Decay (-10HP)"] = self.decay
+        self.moves["Dead Scythe (-25HP)"] = self.tidesofsoul
         self.moves["Blood Ritual (-50% Current HP)"] = self.blood_ritual
 
     def level_stats(self):
@@ -76,17 +75,18 @@ class Reaper(Unit):
 
             return True
 
-    def harvestsoul(self, target, target_team):
+    def decay(self, target, target_team):
         if self.is_target_hostile(target):
-            health_cost = 10
+            health_check = 10
 
-            if self.health > health_cost:
-                self.health -= health_cost
-
+            if self.health > health_check:
+                self.health -= health_check
                 self.strength = max(
-                    5, STRENGTH[0] * (1 - (self.health / self.max_health))
+                    10, STRENGTH[0] * (1 - (self.health / self.max_health))
                 )
-                damage, crit = self.calc_damage(target, "physical", 1)
+
+                damage, crit = self.calc_damage(target, "physical", 0.9)
+                self.health += min(35,(max(10,damage)))  #atleast heal 10 and max 35
 
                 self.melee(target)
                 self.update_stats(target, damage, crit, "unit/reaper/soul", 3)
@@ -95,27 +95,11 @@ class Reaper(Unit):
 
             return True
 
-    def sacrifice(self, target, target_team):
-        if self.is_target_hostile(target):
-            health_deduct = self.health * 0.4
-            health_cost = health_deduct
 
-            if self.health > health_cost:
-                self.health -= health_cost
-
-                damage = min(30, health_deduct)
-
-                self.melee(target)
-                self.update_stats(target, damage, False, "soul", 3)
-
-                self.play_sound(self.game.audio_handler.sword_sfx)
-
-            return True
-
-    def deadscythe(self, target: object, target_team: list):
+    def tidesofsoul(self, target: object, target_team: list):
         if self.is_target_hostile(target):
             health_cost = 25
-            self.strength = max(5, STRENGTH[0] * (1 - (self.health / self.max_health)))
+            self.strength = max(10, STRENGTH[0] * (1 - (self.health / self.max_health)))
 
             if self.health > health_cost:
                 self.health -= health_cost
@@ -123,7 +107,7 @@ class Reaper(Unit):
                 target_list = target_team
 
                 for t in target_list:
-                    damage, crit = self.calc_damage(t, "physical", 0.7)
+                    damage, crit = self.calc_damage(t, "physical", 0.9)
                     self.update_stats(t, damage, crit, "misc/physical/slash2", 50)
 
                 self.play_sound(self.game.audio_handler.sword_sfx)
