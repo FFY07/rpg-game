@@ -43,7 +43,7 @@ class Warrior(Unit):
         # Add moves to moves dictionary
         # self.moves["Life Steal (15)"] = self.lifesteal
         self.moves["Rally (25)"] = self.rally
-        self.moves["Execute (30)"] = self.execute
+        self.moves["Execute (40)"] = self.execute
 
     def level_stats(self):
         self.health += self.max_health / 10
@@ -74,7 +74,7 @@ class Warrior(Unit):
 
     def execute(self, target: object, target_team: list):
         if self.is_target_hostile(target):
-            mana_cost = 20
+            mana_cost = 40
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
                 damage, crit = self.calc_damage(
@@ -86,7 +86,10 @@ class Warrior(Unit):
 
                 self.play_sound(self.game.audio_handler.warrior_basic)
 
-                print(f"Executed {target.name}")
-                self.game.event_log.append(f"{self.name} execute")
+                self.game.event_log.append(
+                    f"{self.name} uses execute on {target.name} for {int(damage)} damage!"
+                )
+                if crit:
+                    self.game.event_log.append("It was a crit!")
 
                 return True

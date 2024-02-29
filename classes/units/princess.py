@@ -1,6 +1,7 @@
 import pygame, random
 
 from classes.unit import Unit
+
 """
 
 
@@ -65,12 +66,12 @@ class Princess(Unit):
                 self.mana -= mana_cost
 
                 heal = healing
-                
+
                 self.melee(target)
                 self.update_healstats(target, heal, "healing", 1)
                 self.change_state("defend")
-                print(f"{self.name} heal {target.name} 30 hp ! ")
-                print(f"[DEBUG]:{target.health}/{target.max_health} ")
+                # print(f"{self.name} heal {target.name} 30 hp ! ")
+                # print(f"[DEBUG]:{target.health}/{target.max_health} ")
                 return True
 
     def regenmana(self, target, target_team):
