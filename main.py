@@ -72,7 +72,7 @@ class Game:
 
         self.start()
         self.music = True
-        self.sound = True
+        self.sound = False
         self.volume = 0.6
 
         self.audio_handler = audio.SoundEffects()

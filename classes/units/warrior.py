@@ -80,7 +80,7 @@ class Warrior(Unit):
                 self.melee(target)
                 self.update_stats(target, damage, crit, "blood3", 2)
 
-                self.play_sound(self.default_attack_sfx)
+                self.play_sound(self.game.audio_handler.warrior_basic)
 
                 print(f"Executed {target.name}")
                 self.game.event_log.append(f"{self.name} execute")
