@@ -5,8 +5,8 @@ from classes.unit import Unit
 # Range value
 STRENGTH = (11, 11)
 INTELLIGENCE = (25, 25)
-DEFENCE = (10, 10)
-MAGIC_RESIST = (5, 5)
+DEFENCE = (32, 32)
+MAGIC_RESIST = (30, 30)
 
 
 class Princess(Unit):
@@ -48,7 +48,7 @@ class Princess(Unit):
         self.strength += 2
         self.intelligence += 10
         self.defence += 5
-        self.magic_resist += 2
+        self.magic_resist += 1.3
 
     def healing(self, target, target_team):
         if not self.is_target_hostile(target) and target.health != target.max_health:

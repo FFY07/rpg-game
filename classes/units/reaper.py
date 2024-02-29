@@ -5,10 +5,10 @@ from classes.unit import Unit
 from gui import ui_functions
 
 # Range of values
-STRENGTH = (25, 25)
-INTELLIGENCE = (5, 5)
-DEFENCE = (20, 20)
-MAGIC_RESIST = (40, 40)
+STRENGTH = (50, 50)
+INTELLIGENCE = (11, 11)
+DEFENCE = (120, 120)
+MAGIC_RESIST = (120, 120)
 
 
 class Reaper(Unit):
@@ -60,7 +60,7 @@ class Reaper(Unit):
         )  # atleast deal 5 dmg
 
         if self.is_target_hostile(target):
-            damage, crit = self.calc_damage(target, "physical", 1)
+            damage, crit = self.calc_damage(target, "physical", 0.6)
 
             # Melee is optional and only for direct attacks
             self.melee(target)
@@ -86,7 +86,7 @@ class Reaper(Unit):
                 self.strength = max(
                     5, STRENGTH[0] * (1 - (self.health / self.max_health))
                 )
-                damage, crit = self.calc_damage(target, "physical", 2)
+                damage, crit = self.calc_damage(target, "physical", 1)
 
                 self.melee(target)
                 self.update_stats(target, damage, crit, "soul", 3)
@@ -123,7 +123,7 @@ class Reaper(Unit):
                 target_list = target_team
 
                 for t in target_list:
-                    damage, crit = self.calc_damage(t, "physical", 1)
+                    damage, crit = self.calc_damage(t, "physical", 0.7)
                     self.update_stats(t, damage, crit, "atk", 2)
 
                 self.play_sound(self.game_audio_andler.sword__sfx)
@@ -136,7 +136,7 @@ class Reaper(Unit):
             self.health = self.health / 2
 
             # Effectively 2 times strength for 3 turns
-            target.bonus_strength_stacks.append([3, self.strength * 1])
+            target.bonus_strength_stacks.append([3, self.strength * 0.7])
 
             self.game.sprites.add(ui_functions.HitImage("blood2", self, 2))
             self.game.event_log.append(

@@ -7,8 +7,8 @@ import gui.ui_functions as ui_functions
 # Range of values
 STRENGTH = (5, 5)
 INTELLIGENCE = (20, 20)
-DEFENCE = (40, 40)
-MAGIC_RESIST = (80, 80)
+DEFENCE = (65, 65)
+MAGIC_RESIST = (85, 85)
 
 
 class Necromancer(Unit):
