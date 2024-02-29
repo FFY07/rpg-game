@@ -69,6 +69,12 @@ class Necromancer(Unit):
                 if crit:
                     self.game.event_log.append("It was a crit!")
 
+                health_recovery = (self.max_health - self.health) * 0.5 + (
+                    (self.intelligence + self.bonus_intelligence) / 100
+                )
+                print(health_recovery)
+                self.health += health_recovery
+
                 return True
 
     def infect(self, target: object, target_team: list):
@@ -79,7 +85,7 @@ class Necromancer(Unit):
 
             # Mana recovery scales with intelligence
             mana_recovery = health_cost * 1 + (
-                ((self.intelligence + self.bonus_intelligence)) // 100
+                ((self.intelligence + self.bonus_intelligence)) / 100
             )
             self.mana += mana_recovery
 
