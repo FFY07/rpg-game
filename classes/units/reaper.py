@@ -42,9 +42,8 @@ class Reaper(Unit):
         self.rect.center = self.position
 
         self.moves["Decay (-10HP)"] = self.decay
-        self.moves["Dead Scythe (-25HP)"] = self.tidesofsoul
-        self.moves["Blood Ritual (-50% Current HP)"] = self.blood_ritual
-
+        self.moves["Dead Scythe (-25HP)"] = self.deadscythe
+        self.moves["Hell descent (-40HP)"] = self.helldecent
     def level_stats(self):
         self.health += self.max_health / 10
         self.strength += 2
@@ -86,17 +85,21 @@ class Reaper(Unit):
                 )
 
                 damage, crit = self.calc_damage(target, "physical", 0.9)
-                self.health += min(35,(max(10,damage)))  #atleast heal 10 and max 35
+                regen = min(35,(max(10,damage)))
+                self.health += regen  #atleast heal 10 and max 35
 
                 self.melee(target)
                 self.update_stats(target, damage, crit, "unit/reaper/soul", 3)
 
                 self.play_sound(self.game.audio_handler.sword_sfx)
+            self.game.event_log.append(
+                f"{self.name} decay {target} for {damage} and recover {regen}"
+            )
 
             return True
 
 
-    def tidesofsoul(self, target: object, target_team: list):
+    def deadscythe(self, target: object, target_team: list):
         if self.is_target_hostile(target):
             health_cost = 25
             self.strength = max(10, STRENGTH[0] * (1 - (self.health / self.max_health)))
@@ -111,20 +114,34 @@ class Reaper(Unit):
                     self.update_stats(t, damage, crit, "misc/physical/slash2", 50)
 
                 self.play_sound(self.game.audio_handler.sword_sfx)
-
+                self.game.event_log.append(
+                    f"{self.name} slash every AI in enemy team for {damage}"
+                )
                 return True
 
-    def blood_ritual(self, target: object, target_team: list):
+    def helldecent(self, target: object, target_team: list):
         """Sacrifices half of current health to boost strength for 3 turns"""
+
         if not self.is_target_hostile(target):
-            self.health = self.health / 2
+            health_cost = 40
+            if self.health > health_cost:
+                self.health -= health_cost
+
+                
+            #clear all buff
+            self.burn_stacks.clear()
+            self.bonus_strength_stacks.clear()
 
             # Effectively 2 times strength for 3 turns
-            target.bonus_strength_stacks.append([3, self.strength * 0.7])
+            self.bonus_strength_stacks.append([3, self.strength * 0.7])
+            self.health_regen_stacks.append({3, 20})
+
 
             self.game.sprites.add(ui_functions.HitImage("misc/blood/blood2", self, 2))
             self.game.event_log.append(
-                f"{self.name} exchanges half its health for a strength buff!"
+                f"{self.name} sacrifice 40hp to Hell"
             )
-
+            self.game.event_log.append(
+                f"Hell cleanses {self.name} and gave extra attack and hp recovery"
+            )
             return True
