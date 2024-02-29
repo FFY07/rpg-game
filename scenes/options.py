@@ -186,6 +186,7 @@ def save_game(game=object, file_name="save.json"):
 
 
 def load_game(game: object, file_name="save.json"):
+    """Replaces all current units with our saved characters and loads their manually-selected attributes"""
     holding_player_pos_list = []
     holding_enemy_pos_list = []
     for sprite in game.all_units.sprites():

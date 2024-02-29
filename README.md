@@ -47,5 +47,5 @@ The game currently supports the following keys:<br>
 * Try to target enemies with the highest attack stat first.
 
 ## Additional Credits
-https://sangoro.itch.io/vfx-starter-pack
+https://sangoro.itch.io/vfx-starter-pack\n
 https://www.deviantart.com/artofjokinen
