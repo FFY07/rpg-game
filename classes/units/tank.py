@@ -80,7 +80,7 @@ class Tank(Unit):
                     self.melee(target)
                     self.update_stats(target, damage, crit, "unit/tank/cannon", 2)
                     self.game.event_log.append(
-                        f"{self.name} fires a shell at {target.name} for {damage} damage!"
+                        f"{self.name} fires a shell at {target.name} for {int(damage)} damage!"
                     )
                     if crit:
                         self.game.event_log.append("It was a crit!")
@@ -107,7 +107,7 @@ class Tank(Unit):
                     damage, crit = self.calc_damage(t, "magic", 1.1)
                     self.update_stats(t, damage, crit, "unit/tank/mg", 2)
                     self.game.event_log.append(
-                        f"{self.name} hits {t.name} with a machine gun for {damage} damage!"
+                        f"{self.name} hits {t.name} with a machine gun for {int(damage)} damage!"
                     )
                     if crit:
                         self.game.event_log.append("It was a crit!")
@@ -133,7 +133,7 @@ class Tank(Unit):
                     t.burn_stacks.append([3, self.intelligence * 0.4])
 
                 self.game.event_log.append(
-                    f"{self.name} has burned all enemies for {damage} damage!"
+                    f"{self.name} has burned all enemies for {int(damage)} damage!"
                 )
                 if crit:
                     self.game.event_log.append("It was a crit!")

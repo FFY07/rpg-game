@@ -6,7 +6,7 @@ from gui import ui_functions
 
 # Range of values
 STRENGTH = (50, 50)
-INTELLIGENCE = (11, 11)
+INTELLIGENCE = (10, 10)
 DEFENCE = (120, 120)
 MAGIC_RESIST = (120, 120)
 
@@ -93,7 +93,7 @@ class Reaper(Unit):
 
                 self.play_sound(self.game.audio_handler.sword_sfx)
             self.game.event_log.append(
-                f"{self.name} decay {target} for {damage} and recover {regen}"
+                f"{self.name} decay {target.name} for {int(damage)} and recover {regen}"
             )
 
             return True
@@ -115,14 +115,14 @@ class Reaper(Unit):
 
                 self.play_sound(self.game.audio_handler.sword_sfx)
                 self.game.event_log.append(
-                    f"{self.name} slash every AI in enemy team for {damage}"
+                    f"{self.name} slash every AI in enemy team for {int(damage)}"
                 )
                 return True
 
     def helldecent(self, target: object, target_team: list):
         """Sacrifices half of current health to boost strength for 3 turns"""
 
-        if not self.is_target_hostile(target):
+        if self.is_target_hostile(target):
             health_cost = 40
             if self.health > health_cost:
                 self.health -= health_cost
@@ -134,7 +134,7 @@ class Reaper(Unit):
 
             # Effectively 2 times strength for 3 turns
             self.bonus_strength_stacks.append([3, self.strength * 0.7])
-            self.health_regen_stacks.append({3, 20})
+            self.health_regen_stacks.append([4, 14 ])
 
 
             self.game.sprites.add(ui_functions.HitImage("misc/blood/blood2", self, 2))
