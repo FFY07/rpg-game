@@ -4,7 +4,6 @@ import gui.ui_functions as ui_functions
 from scenes.scene import Scene
 import gui.screen as scr
 import resources.images as images
-import resources.audio as audio
 
 from scenes.play import Play
 

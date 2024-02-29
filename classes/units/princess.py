@@ -2,9 +2,6 @@ import pygame, random
 
 from classes.unit import Unit
 
-import resources.audio as audio
-
-
 # Range value
 STRENGTH = (11, 11)
 INTELLIGENCE = (25, 25)

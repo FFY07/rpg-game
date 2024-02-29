@@ -6,8 +6,6 @@ from scenes.lazy import Lazy
 
 from scenes.attack import ChooseAttack
 
-import resources.audio as audio
-
 
 class Action(Scene):
     def __init__(

@@ -72,8 +72,7 @@ class Reaper(Unit):
                 if self.health > self.max_health:
                     self.health = self.max_health
 
-            if self.game.sound:
-                pygame.mixer.find_channel().play(self.default_attack_sfx)
+            self.play_sound(self.default_attack_sfx)
 
             return True
 
@@ -92,8 +91,7 @@ class Reaper(Unit):
                 self.melee(target)
                 self.update_stats(target, damage, crit, "soul", 3)
 
-                if self.game.sound:
-                    pygame.mixer.find_channel().play(self.default_attack_sfx)
+                self.play_sound(self.default_attack_sfx)
 
             return True
 
@@ -110,8 +108,8 @@ class Reaper(Unit):
                 self.melee(target)
                 self.update_stats(target, damage, False, "soul", 3)
 
-            if self.game.sound:
-                pygame.mixer.find_channel().play(self.default_attack_sfx)
+                self.play_sound(self.default_attack_sfx)
+
             return True
 
     def deadscythe(self, target: object, target_team: list):
@@ -128,8 +126,7 @@ class Reaper(Unit):
                     damage, crit = self.calc_damage(t, "physical", 1)
                     self.update_stats(t, damage, crit, "atk", 2)
 
-                if self.game.sound:
-                    pygame.mixer.find_channel().play(self.default_attack_sfx)
+                self.play_sound(self.default_attack_sfx)
 
                 return True
 

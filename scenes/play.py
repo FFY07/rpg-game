@@ -8,7 +8,6 @@ from scenes.end import GameOver
 
 from gui import ui_functions
 import resources.images as images
-import resources.audio as audio
 
 from classes import class_functions as cf
 
@@ -18,7 +17,7 @@ from scenes.options import Options
 class Play(Scene):
     def __init__(self, game):
         super().__init__(game)
-        pygame.mixer.music.load(audio.battle_alt)
+        pygame.mixer.music.load(self.game.audio_handler.battle_bgm_path)
         pygame.mixer.music.play(-1, 0, 1000)
 
         self.stat_guis = pygame.sprite.Group()
@@ -122,7 +121,7 @@ class Play(Scene):
 
             # Create an anchor as well using self because we will be referencing this scene in the other menu scenes
             next_scene = Action(self.game, self.selected_unit, self)
-            
+
             for sprite in self.ui_sprites:
                 sprite.selected = False
             next_scene.start_scene()

@@ -4,7 +4,7 @@ import gui.ui_functions as ui_functions
 from scenes.scene import Scene
 import gui.screen as scr
 import resources.images as images
-import resources.audio as audio
+
 import resources.fonts as fonts
 
 title = [55, "hightowertext", "red2"]
@@ -23,7 +23,7 @@ class Credits(Scene):
         self.game.event_log.append("\nCredits started!\n")
 
         # pygame.mixer.music.load(audio.credits_bgm)
-        pygame.mixer.music.load(audio.credits_bgm)
+        pygame.mixer.music.load(self.game.audio_handler.credits_bgm_path)
         pygame.mixer.music.play(-1, 0, 500)
 
         # Can't go below integer so use fps to tune the speed (higher fps = faster)

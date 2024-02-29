@@ -5,7 +5,7 @@ import gui.ui_functions as ui_functions
 import classes.class_functions as cf
 
 from scenes.scene import Scene
-from scenes.play import Play
+
 from scenes.story import Story
 from scenes.char_create_select import CreateCharSelect
 

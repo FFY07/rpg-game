@@ -6,7 +6,6 @@ from scenes.enemy_turn import EnemyTurn
 from gui import ui_functions
 
 import resources.images as images
-import resources.audio as audio
 
 
 class ChooseTarget(Scene):
@@ -76,7 +75,7 @@ class ChooseTarget(Scene):
                 )
                 print("not enough mana/invalid target!")
                 if self.game.sound:
-                    pygame.mixer.find_channel().play(self.game.audio_handler.oom_sfx)
+                    self.game.misc_channel.play(self.game.audio_handler.oom_sfx)
                 self.sprites.empty()
                 while self.game.stack[-1] != self.anchor:
                     self.exit_scene()

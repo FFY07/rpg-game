@@ -3,7 +3,6 @@ import random
 import pygame
 
 import gui.screen as scr
-import resources.audio as audio
 
 import gui.ui_functions as ui_functions
 
@@ -124,7 +123,7 @@ class Unit(pygame.sprite.Sprite):
         self.moves = {"Basic Attack": self.basic_attack}
 
     def load_sounds(self):
-        """Hardcode the sounds"""
+        """Loads the sounds into variables... wonder if this causes crashing"""
         match self.unit_class:
             case "Tank":
                 self.default_attack_sfx = self.game.audio_handler.tank_basic
@@ -333,8 +332,7 @@ class Unit(pygame.sprite.Sprite):
 
         if target_state == "death":
             self.game.sprites.add(self.death_effect)
-            if self.game.sound:
-                pygame.mixer.find_channel().play(self.game.audio_handler.death_sfx)
+            self.play_sound(self.game.audio_handler.death_sfx)
 
     def activate(self, active_pos):
         """Move character to the active position"""
@@ -344,11 +342,23 @@ class Unit(pygame.sprite.Sprite):
     def deactivate(self):
         self.rect.center = self.prev_pos
 
+    def play_sound(self, sound_object: pygame.mixer.Sound):
+        """Plays sound if sound is enabled; separates player and enemy sounds into separate channels"""
+        if self.game.sound:
+            if self.team == "player":
+                self.game.player_channel.play(sound_object)
+            elif self.team == "enemy":
+                self.game.enemy_channel.play(sound_object)
+
+                # It should never reach this point, and this may cause crashes
+            else:
+                pygame.mixer.Sound.play(sound_object)
+
     def consume_item(self, item):
         """Probably shouldn't be coding all the item effects here :D I love deadlines"""
         if self.inventory[item] > 0:
             self.inventory[item] -= 1
-            pygame.mixer.Sound.play(self.game.audio_handler.potion_sfx)
+            self.play_sound(self.game.audio_handler.potion_sfx)
 
             match item:
                 case "Health Potion":
@@ -518,8 +528,7 @@ class Unit(pygame.sprite.Sprite):
                 if self.mana > self.max_mana:
                     self.mana = self.max_mana
 
-            if self.game.sound:
-                pygame.mixer.find_channel().play(self.default_attack_sfx)
+            self.play_sound(self.default_attack_sfx)
 
             self.game.event_log.append(
                 f"{self.name} basic attacks {target.name} for {damage} physical damage!"

@@ -4,19 +4,19 @@ import gui.ui_functions as ui_functions
 from scenes.scene import Scene
 
 import resources.images as images
-from resources import audio
 from classes.units.toothless import Toothless
+
 
 class Lazy(Scene):
     def __init__(self, game: object):
-       
+
         super().__init__(game)
         # self.background = pygame.Surface(0, 0)
         self.background = images.char_select_menu
         self.sprites = pygame.sprite.Group()
         self.lazysprites = pygame.sprite.Group()
 
-        pygame.mixer.music.load(audio.easter)
+        pygame.mixer.music.load(self.game.audio_handler.easter_bgm_path)
         pygame.mixer.music.play(-1, 0, 500)
 
         self.lazysprites.add(Toothless(self.xc, self.yc + 200))
@@ -39,7 +39,7 @@ class Lazy(Scene):
                 "Impact",
                 "white",
                 True,
-                self.yc + 200 ,
+                self.yc + 200,
                 name="SELECTED",
             )
         )
@@ -56,26 +56,24 @@ class Lazy(Scene):
             )
         )
 
-
     def update(self, actions):
 
         # if actions["enter"]:
         #     self.exit_scene()
 
-        if actions["escape"] or actions["space"] :
+        if actions["escape"] or actions["space"]:
             for sprite in self.sprites:
                 sprite.kill()
             for sprite in self.lazysprites:
                 sprite.kill()
 
             self.exit_scene()
-            pygame.mixer.music.load(audio.battle_alt)
+            pygame.mixer.music.load(self.game.audio_handler.battle_bgm_path)
             pygame.mixer.music.play(-1, 0, 1000)
-
 
         self.game.reset_keys()
         self.sprites.update()
-        
+
         self.lazysprites.update(0.25)
 
     def render(self, screen):

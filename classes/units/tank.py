@@ -2,7 +2,6 @@ import random, pygame
 
 from classes.unit import Unit
 
-import resources.audio as audio
 import gui.ui_functions as ui_functions
 
 # Range of values
@@ -62,10 +61,8 @@ class Tank(Unit):
             if self.mana >= mana_cost:
                 if not self.cannon_shells:
                     self.cannon_shells += 1
-                    if self.game.sound:
-                        pygame.mixer.find_channel().play(
-                            self.game.audio_handler.tank_load_shell
-                        )
+                    self.play_sound(self.game.audio_handler.tank_load_shell)
+
                     self.game.sprites.add(ui_functions.HitImage("tank_charge", self, 2))
                     self.change_state("defend")
                     self.game.event_log.append(f"{self.name} has loaded a shell!")
@@ -73,10 +70,7 @@ class Tank(Unit):
                 # If we have cannon shells, proceed to fire
                 else:
                     self.mana -= mana_cost
-                    if self.game.sound:
-                        pygame.mixer.find_channel().play(
-                            self.game.audio_handler.tank_183mm
-                        )
+                    self.play_sound(self.game.audio_handler.tank_183mm)
                     self.cannon_shells = 0
 
                     damage, crit = self.calc_damage(target, "magic", 4)
@@ -116,10 +110,7 @@ class Tank(Unit):
                     if crit:
                         self.game.event_log.append("It was a crit!")
 
-                if self.game.sound:
-                    pygame.mixer.find_channel().play(
-                        self.game.audio_handler.tank_machine_gun
-                    )
+                self.play_sound(self.game.audio_handler.tank_machine_gun)
 
                 return True
 

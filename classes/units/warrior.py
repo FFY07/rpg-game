@@ -58,10 +58,7 @@ class Warrior(Unit):
             if self.mana > mana_cost:
                 self.mana -= mana_cost
 
-                if self.game.sound:
-                    pygame.mixer.find_channel().play(
-                        self.game.audio_handler.warrior_rally
-                    )
+                self.play_sound(self.game.audio_handler.warrior_rally)
 
                 for t in target_team:
                     t.bonus_strength_stacks.append([5, self.strength / 2])
@@ -83,8 +80,7 @@ class Warrior(Unit):
                 self.melee(target)
                 self.update_stats(target, damage, crit, "blood3", 2)
 
-                if self.game.sound:
-                    pygame.mixer.find_channel().play(self.default_attack_sfx)
+                self.play_sound(self.default_attack_sfx)
 
                 print(f"Executed {target.name}")
                 self.game.event_log.append(f"{self.name} execute")

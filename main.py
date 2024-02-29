@@ -1,4 +1,4 @@
-import pygame
+import pygame, random
 
 import gui.screen as scr
 import resources.audio as audio
@@ -8,11 +8,21 @@ from scenes.menu import MainMenu
 clock = pygame.time.Clock()
 clock.tick(60)
 
-# useless attempt to fix crashing
-pygame.mixer.set_num_channels(16)
+# If we reserve more channels than our num_channels, mixer will crash
+pygame.mixer.set_num_channels(8)  # default 8
+
+# Do not use too many channels or it will still crash
+pygame.mixer.set_reserved(4)
+
+# Not reserving and then using dedicated channels will cause game crashes
+# You have no idea how many days I've spent troubleshooting this audio crash issue because there's NO solutions online
+# I had to read SO MANY DOCS
+# ...
+# NEVERMIND IT STILL CRASHES
+# Seems like too many sounds playing at once in general will cause crashes
+# The only thing this whole charade is doing is limiting the number of sounds playing at once
 
 
-# meaningless
 # We'll use a state stack system instead of each scene having its own individual loops
 class Game:
     def __init__(self):
@@ -60,11 +70,21 @@ class Game:
 
         self.start()
         self.music = True
-        self.sound = False
+        self.sound = True
         self.volume = 0.6
 
-        self.intro_music_path = audio.menu
         self.audio_handler = audio.SoundEffects()
+
+        # Limit sounds to one channel to prevent freezing; give it two channels here so it sounds smoother
+        self.click_channel = pygame.mixer.Channel(0)
+
+        # Give everything a custom channel; how many channels we can assign is limited by how many channels we've reserved
+        self.player_channel = pygame.mixer.Channel(1)
+        self.enemy_channel = pygame.mixer.Channel(2)
+
+        self.misc_channel = pygame.mixer.Channel(3)
+
+        self.intro_music_path = self.audio_handler.menu_bgm_path
 
         pygame.mixer.music.load(self.intro_music_path)
         if self.music:
@@ -142,9 +162,13 @@ class Game:
                         # Add the text to the text buffer string
                         self.text_buffer += event.unicode
 
-                # # Still will crash
-                # if self.sound:
-                #     pygame.mixer.find_channel().play(self.audio_handler.click_sfx)
+                # Randomly select between either of the available channels since this is a spam clicky thing
+                if self.sound:
+                    self.click_channel.play(self.audio_handler.click_sfx)
+                    # if random.randrange(2):
+                    #     self.click_channel_1.play(self.audio_handler.click_sfx)
+                    # else:
+                    #     self.click_channel_2.play(self.audio_handler.click_sfx)
 
             if event.type == pygame.KEYUP:
 

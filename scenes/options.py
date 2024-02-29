@@ -3,7 +3,6 @@ import pygame, json
 from scenes.scene import Scene
 import resources.images
 from gui import ui_functions
-import resources.audio as audio
 
 import classes.class_functions as cf
 
