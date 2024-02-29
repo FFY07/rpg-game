@@ -92,7 +92,9 @@ class Princess(Unit):
         if (
             not self.is_target_hostile(target)
             and (target.mana != target.max_mana
-            or target.max_mana == 0.1)
+            or 
+            (target.health != target.max_health and target.max_mana == 0.1) #check if target use HP attack and HP full or not)
+            )
         ):
             mana_cost = self.max_mana * 0.25
             regen = self.intelligence * 1.4
