@@ -365,7 +365,11 @@ class Unit(pygame.sprite.Sprite):
 
             match item:
                 case "Health Potion":
-                    self.health -= 500  # test
+                    if self.unit_class == 'Necromancer': 
+                        self.health -= self.max_health * 0.1
+                    else:
+                        self.health += self.max_health * 0.5  # test
+
                     if self.health > self.max_health:
                         self.health = self.max_health
 
@@ -375,7 +379,10 @@ class Unit(pygame.sprite.Sprite):
                     print("Recovered health!")
 
                 case "Mana Potion":
-                    self.mana += 50
+                    if self.unit_class == 'reaper': 
+                        self.health += self.max_health * 0.1
+                    else:
+                        self.mana += 50
 
                     self.game.event_log.append(
                         f"{self.name} consumed a mana potion! {self.inventory[item]} left."
@@ -384,7 +391,7 @@ class Unit(pygame.sprite.Sprite):
 
                 case "Strength Shard":
                     self.prev_strength = self.strength
-                    self.strength = int(self.strength * 999)
+                    self.strength = int(self.strength * 0.1)
 
                     self.game.event_log.append(
                         f"{self.name} used a strength shard! {self.inventory[item]} left."
