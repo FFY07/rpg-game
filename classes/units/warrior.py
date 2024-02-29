@@ -33,7 +33,7 @@ class Warrior(Unit):
             self.direction = "left"
 
         self.load_animations()
-        self.load_sounds()
+        # self.load_sounds()
         # Loads the first idle frame so the proper rect size can be generated
         # Make sure all images are the same size
         self.image = self.animations["idle"][0]
