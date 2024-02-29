@@ -2,6 +2,9 @@ import pygame, random
 
 from classes.unit import Unit
 
+
+from gui import ui_functions
+
 """
 
 
@@ -45,11 +48,11 @@ class Princess(Unit):
         self.rect = self.image.get_rect()
         self.rect.center = self.position
         # self.rect.center[1] = self.rect.center[1] - 20
-        self.moves["Healing (10)"] = self.healing
+        self.moves["Heal (20%HP, (10))"] = self.healing
 
-        self.moves["Mana Regen (20)"] = self.regenmana
+        self.moves["Cleanse (25)"] = self.cleanse
 
-        self.moves["Regen (15)"] = self.regen
+        self.moves["Wish (70)"] = self.wish
 
     def level_stats(self):
         self.health += self.max_health / 10
@@ -59,47 +62,88 @@ class Princess(Unit):
         self.magic_resist += 1.3
 
     def healing(self, target, target_team):
-        if not self.is_target_hostile(target) and target.health != target.max_health:
+        if not self.is_target_hostile(target) and target.health != target.max_health and target != self:
+            healratio = self.max_health * 0.2
             mana_cost = 10
-            healing = 100
+            heal = self.intelligence 
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
+                self.health -= healratio
 
-                heal = healing
+                if target.health <=  0.3:
+                    heal = heal * 1.25
+
+                target.health += heal
+                self.game.sprites.add(
+                        ui_functions.HitImage("unit/princess/holy",target , 25)
+                    )
 
                 self.melee(target)
                 self.update_healstats(target, heal, "healing", 1)
                 self.change_state("defend")
-                # print(f"{self.name} heal {target.name} 30 hp ! ")
-                # print(f"[DEBUG]:{target.health}/{target.max_health} ")
+                
+                self.game.event_log.append(
+                f"{self.name} heal {target.name} for {int(heal)}"
+            )
+
                 return True
 
-    def regenmana(self, target, target_team):
+    def cleanse(self, target, target_team):
         if (
             not self.is_target_hostile(target)
-            and target.mana != target.max_mana
-            and target.max_mana != 0.1
+            and (target.mana != target.max_mana
+            or target.max_mana == 0.1)
         ):
-            mana_cost = 20
-            regen = 40
+            mana_cost = self.max_mana * 0.25
+            regen = self.intelligence * 1.4
+
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
 
+                target.burn_stacks.clear()
+
+                if target.max_mana == 0.1:  # for reaper , add health instead
+                    target.health += regen
+                if target == self:
+                    self.mana += regen * 1.7  # for self, add more mana
+                else:
+                    target.mana += regen
+
+                self.game.sprites.add(
+                        ui_functions.HitImage("unit/princess/healing", target , 15)
+                    )
+
                 self.melee(target)
-                self.update_manastats(target, regen, "healing", 1)
+                if target.max_mana == 0.1:
+                    self.update_healstats(target, regen, "healing", 1)
+                else:
+                    self.update_manastats(target, regen, "healing", 1)
                 self.change_state("defend")
 
+                if target.max_mana == 0.1:
+                    self.game.event_log.append(
+                    f"{self.name} cleanse and heal {target.name} for {int(regen)}"
+                )
+                else:
+                    self.game.event_log.append(
+                f"{self.name} cleanse and regen {int(regen)} mana for{target.name}"
+                )   
                 return True
 
-    def regen(self, target: object, target_team: list):
+    def wish(self, target: object, target_team: list):
         if not self.is_target_hostile(target):
-            mana_cost = 15
+            mana_cost = 70
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
-                target.health_regen_stacks.append([3, self.intelligence])
+                heal = 0
+                for t in target_team:
+                    t.health_regen_stacks.append([4, self.intelligence / 2.5 ])
+                    t.update_healstats(target, heal, "healing", 1)
+                    self.game.sprites.add(
+                        ui_functions.HitImage("unit/princess/holy", t, 25)
+                    )
 
-                damage, crit = self.calc_damage(target, "magic", 0.1)
-                self.melee(target)
-                self.update_stats(target, damage, crit, "unit/princess/healing", 2)
+                t.change_state('defend')
+
 
                 return True

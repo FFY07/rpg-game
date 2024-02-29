@@ -7,8 +7,8 @@ from gui import ui_functions
 # Range of values
 STRENGTH = (50, 50)
 INTELLIGENCE = (10, 10)
-DEFENCE = (120, 120)
-MAGIC_RESIST = (120, 120)
+DEFENCE = (80, 80)
+MAGIC_RESIST = (80, 80)
 
 
 class Reaper(Unit):
@@ -138,6 +138,6 @@ class Reaper(Unit):
             self.game.sprites.add(ui_functions.HitImage("misc/blood/blood2", self, 2))
             self.game.event_log.append(f"{self.name} sacrifice 40hp to Hell")
             self.game.event_log.append(
-                f"Hell cleanses {self.name} and gave extra attack and hp recovery"
+                f"Hell cleanse {self.name} and gave extra attack and hp recovery"
             )
             return True
