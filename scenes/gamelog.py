@@ -29,7 +29,8 @@ class GameLog(Scene):
 
         self.load_section(["Event Report"], title, 50)
 
-        self.load_section(self.log_list, log_entry, 22)
+        # Don't ask about the reverse reverse deadline is in 3 hours brain can't think anymore
+        self.load_section(reversed(self.log_list), log_entry, 22)
 
     def load_section(self, text_list, section_type, offset):
         for text in text_list:

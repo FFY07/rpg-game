@@ -44,7 +44,7 @@ class Necromancer(Unit):
         # Add moves to moves dictionary
         self.moves["Siphon (25)"] = self.siphon
         self.moves["Infect (20% HP)"] = self.infect
-        self.moves["Doom (80)"] = self.doom
+        self.moves["Doom (70)"] = self.doom
 
     def level_stats(self):
         self.health += self.max_health / 10
@@ -61,7 +61,9 @@ class Necromancer(Unit):
                 self.mana -= mana_cost
 
                 damage, crit = self.calc_damage(target, "magic", 1.25)
-                self.update_stats(target, damage, crit, "unit/necromancer/siphon", 1)
+
+                self.melee(target)
+                self.update_stats(target, damage, crit, "unit/necromancer/siphon", 60)
                 target.bonus_strength_stacks.append([3, target.strength * 0.4])
                 self.game.event_log.append(
                     f"{self.name} attacks {target.name} with weaken for {int(damage)} damage!"
@@ -69,7 +71,8 @@ class Necromancer(Unit):
                 if crit:
                     self.game.event_log.append("It was a crit!")
 
-                health_recovery = (self.max_health - self.health) * 0.5 + (
+                # Higher the ratio the higher the heal
+                health_recovery = (self.max_health - self.health) * 0.6 + (
                     (self.intelligence + self.bonus_intelligence) / 100
                 )
                 print(health_recovery)
@@ -99,12 +102,12 @@ class Necromancer(Unit):
     def doom(self, target: object, target_team: list):
         """Summons powerful dark energy on all enemies and reduces their damage resistances for 5 turns"""
         if self.is_target_hostile(target):
-            mana_cost = 80
+            mana_cost = 70
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
                 for t in target_team:
                     damage, crit = self.calc_damage(t, "magic", 1.75)
-                    self.update_stats(t, damage, crit, "unit/necromancer/doom", 2)
+                    self.update_stats(t, damage, crit, "unit/necromancer/doom", 20)
                     t.bonus_defence_stacks.append(
                         [5, -(self.intelligence + self.bonus_intelligence)]
                     )
