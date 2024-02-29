@@ -10,7 +10,7 @@ from pathlib import Path
 menubackground_img = pygame.image.load(f"{Path('resources/images/backgrounds/menubackground.png')}").convert()
 
 options_background = pygame.image.load(f"{Path('resources/images/backgrounds/option.jpg')}").convert()
-credits_background = pygame.image.load(f"{Path('resources/images/backgrounds/artofjoniken_forge2.jpg')}").convert()
+credits_background = pygame.image.load(f"{Path('resources/images/backgrounds/credit.jpg')}").convert()
 story_background = pygame.image.load(f"{Path('resources/images/backgrounds/story.jpg')}").convert()
 char_select_menu = pygame.image.load(f"{Path('resources/images/backgrounds/charselect.jpg')}").convert()
 char_select_background = pygame.image.load(f"{Path('resources/images/backgrounds/charselect.jpg')}").convert()

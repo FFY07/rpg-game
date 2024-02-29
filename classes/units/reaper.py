@@ -97,7 +97,7 @@ class Reaper(Unit):
                 f"{self.name} decay {target.name} for {int(damage)} and recover {regen}"
             )
 
-            return True
+                return True
 
     def deadscythe(self, target: object, target_team: list):
         if self.is_target_hostile(target):

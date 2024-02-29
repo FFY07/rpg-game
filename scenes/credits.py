@@ -5,6 +5,7 @@ from scenes.scene import Scene
 import gui.screen as scr
 import resources.images as images
 
+from classes.units.toothless import Toothless
 import resources.fonts as fonts
 
 title = [55, "hightowertext", "red2"]
@@ -19,9 +20,13 @@ class Credits(Scene):
         super().__init__(game)
         self.background = images.credits_background
         self.sprites = pygame.sprite.Group()
+        self.lazysprites = pygame.sprite.Group()
+
 
         self.game.event_log.append("\nCredits started!\n")
-
+        
+        self.lazysprites.add(Toothless(self.xc - 450, self.yc + 400))
+        self.lazysprites.add(Toothless(self.xc + 450, self.yc + 400))
         # pygame.mixer.music.load(audio.credits_bgm)
         pygame.mixer.music.load(self.game.audio_handler.credits_bgm_path)
         pygame.mixer.music.play(-1, 0, 500)
@@ -45,27 +50,27 @@ class Credits(Scene):
         self.load_section(["Haarith Bin Naguri Ibrahim"], name, 50)
         self.load_section(["94 edits"], note, 200)
 
-        self.load_section(["SOUND DESIGN"], desc, 75)
-        self.load_section(["Desmond Foo Fong Yoong"], name, 100)
+        # # self.load_section(["SOUND DESIGN"], desc, 75)
+        # # self.load_section(["Desmond Foo Fong Yoong"], name, 100)
 
-        self.load_section(["VISUAL DESIGN"], desc, 75)
-        self.load_section(["Desmond Foo Fong Yoong"], name, 100)
+        # # self.load_section(["VISUAL DESIGN"], desc, 75)
+        # # self.load_section(["Desmond Foo Fong Yoong"], name, 100)
 
-        self.load_section(["GAMEPLAY"], desc, 75)
-        self.load_section(
-            [
-                "Desmond Foo Fong Yoong",
-                # "Haarith Bin Naguri Ibrahim?" — Don't feel like putting because he MIA after first 2 weeks
-            ],
-            name,
-            75,
-        )
-        self.position += 25
+        # # self.load_section(["GAMEPLAY"], desc, 75)
+        # # self.load_section(
+        # #     [
+        # #         "Desmond Foo Fong Yoong",
+        # #         # "Haarith Bin Naguri Ibrahim?" — Don't feel like putting because he MIA after first 2 weeks
+        # #     ],
+        # #     name,
+        # #     75,
+        # # )
+        # self.position += 25
 
-        self.load_section(["PROJECT COORDINATOR"], desc, 75)
-        self.load_section(["Desmond Foo Fong Yoong"], name, 100)
+        # self.load_section(["PROJECT COORDINATOR"], desc, 75)
+        # self.load_section(["Desmond Foo Fong Yoong"], name, 100)
 
-        self.position += 100
+        # self.position += 100
         self.load_section(["GROUP A1 MEMBERS"], desc, 75)
         self.load_section(
             [
@@ -133,6 +138,8 @@ class Credits(Scene):
             while len(self.game.stack) > 1:
                 self.exit_scene()
 
+        self.lazysprites.update(0.25)
+
     def render(self, screen):
         screen.blit(
             pygame.transform.scale(
@@ -140,4 +147,6 @@ class Credits(Scene):
             ),
             (0, 0),
         )
+
         self.sprites.draw(screen)
+        self.lazysprites.draw(screen)

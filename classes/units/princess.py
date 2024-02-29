@@ -66,7 +66,7 @@ class Princess(Unit):
             healratio = self.max_health * 0.2
             mana_cost = 10
             heal = self.intelligence 
-            if self.mana >= mana_cost:
+            if self.mana >= mana_cost and self.health > healratio:
                 self.mana -= mana_cost
                 self.health -= healratio
 
