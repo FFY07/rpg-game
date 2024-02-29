@@ -43,7 +43,8 @@ class Reaper(Unit):
 
         self.moves["Decay (-10HP)"] = self.decay
         self.moves["Dead Scythe (-25HP)"] = self.deadscythe
-        self.moves["Hell descent (-40HP)"] = self.helldecent
+        self.moves["Hell descent (-40HP)"] = self.helldescent
+
     def level_stats(self):
         self.health += self.max_health / 10
         self.strength += 2
@@ -85,8 +86,8 @@ class Reaper(Unit):
                 )
 
                 damage, crit = self.calc_damage(target, "physical", 0.9)
-                regen = min(35,(max(10,damage)))
-                self.health += regen  #atleast heal 10 and max 35
+                regen = min(35, (max(10, damage)))
+                self.health += regen  # atleast heal 10 and max 35
 
                 self.melee(target)
                 self.update_stats(target, damage, crit, "unit/reaper/soul", 3)
@@ -97,7 +98,6 @@ class Reaper(Unit):
             )
 
             return True
-
 
     def deadscythe(self, target: object, target_team: list):
         if self.is_target_hostile(target):
@@ -119,7 +119,7 @@ class Reaper(Unit):
                 )
                 return True
 
-    def helldecent(self, target: object, target_team: list):
+    def helldescent(self, target: object, target_team: list):
         """Sacrifices half of current health to boost strength for 3 turns"""
 
         if self.is_target_hostile(target):
@@ -127,20 +127,16 @@ class Reaper(Unit):
             if self.health > health_cost:
                 self.health -= health_cost
 
-                
-            #clear all buff
+            # clear all buff
             self.burn_stacks.clear()
             self.bonus_strength_stacks.clear()
 
             # Effectively 2 times strength for 3 turns
             self.bonus_strength_stacks.append([3, self.strength * 0.7])
-            self.health_regen_stacks.append([4, 14 ])
-
+            self.health_regen_stacks.append([4, 14])
 
             self.game.sprites.add(ui_functions.HitImage("misc/blood/blood2", self, 2))
-            self.game.event_log.append(
-                f"{self.name} sacrifice 40hp to Hell"
-            )
+            self.game.event_log.append(f"{self.name} sacrifice 40hp to Hell")
             self.game.event_log.append(
                 f"Hell cleanses {self.name} and gave extra attack and hp recovery"
             )

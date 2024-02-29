@@ -20,15 +20,9 @@ class GameOver(Scene):
 
     def update(self, actions):
         if actions["escape"] or actions["enter"]:
-            # for sprite in self.game.all_units:
-            #     sprite.kill()
-            # pygame.mixer.music.load(self.game.intro_music_path)
-            # pygame.mixer.music.set_volume(self.game.volume)
-            # pygame.mixer.music.play(-1)
 
-            # while len(self.game.stack) > 1:
-            #     self.exit_scene()
-
+            # If this isn't set, the game will keep counting rounds
+            self.game.rounds = 1
             next_scene = Credits(self.game)
             next_scene.start_scene()
 

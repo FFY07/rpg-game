@@ -202,10 +202,6 @@ class Game:
                     self.actions["escape"] = False
 
     def update(self):
-
-        # If this isn't called, number of rounds will still continue even if the previous game has ended
-        self.rounds = 1
-
         self.clock.tick(self.fps)
         self.stack[-1].update(self.actions)
         self.sprites.update()

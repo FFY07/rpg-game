@@ -113,6 +113,7 @@ class Options(Scene):
                 pygame.mixer.music.set_volume(self.game.volume)
                 pygame.mixer.music.play(-1)
 
+                self.game.rounds = 1
                 while len(self.game.stack) > 1:
                     self.exit_scene()
 
