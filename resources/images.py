@@ -4,6 +4,8 @@ from pathlib import Path
 # This part is for my Black formatter extension don't worry about it
 # fmt: off
 
+
+# convert_aplha for transparent background
 #menu background
 menubackground_img = pygame.image.load(f"{Path('resources/images/backgrounds/menubackground.png')}").convert()
 
@@ -12,6 +14,7 @@ credits_background = pygame.image.load(f"{Path('resources/images/backgrounds/art
 story_background = pygame.image.load(f"{Path('resources/images/backgrounds/story.jpg')}").convert()
 char_select_menu = pygame.image.load(f"{Path('resources/images/backgrounds/charselect.jpg')}").convert()
 char_select_background = pygame.image.load(f"{Path('resources/images/backgrounds/charselect.jpg')}").convert()
+gamelog_background = pygame.image.load(f"{Path('resources/images/backgrounds/parchment.png')}").convert_alpha()
 
 #background image
 background_img = pygame.image.load(f"{Path('resources/images/backgrounds/throne.png')}").convert()

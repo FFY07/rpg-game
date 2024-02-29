@@ -5,7 +5,7 @@ import gui.screen as scr
 from scenes.scene import Scene
 from scenes.action import Action
 from scenes.end import GameOver
-
+from scenes.gamelog import GameLog
 from gui import ui_functions
 import resources.images as images
 
@@ -106,6 +106,10 @@ class Play(Scene):
         self.pointer = self.pointer % len(self.alive_player_dict)
 
         self.selected_unit = list(self.alive_player_dict.values())[self.pointer]
+
+        if actions['space']:
+            next_scene = GameLog(self.game)
+            next_scene.start_scene()
 
         if actions["escape"]:
             next_scene = Options(self.game)
