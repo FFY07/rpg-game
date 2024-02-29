@@ -56,7 +56,7 @@ class Game:
         self.canvas = pygame.Surface((self.screen_width, self.screen_height))
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         self.stack = []
-        self.event_log = ["WELCOME\n"]
+        self.event_log = ["INITIALISING GAME\n"]
         self.rounds = 1
 
         # gives every sprite an id
@@ -113,7 +113,7 @@ class Game:
                 f.write(f"{line}\n")
 
     def event_handler(self):
-        
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running, self.playing = False, False
@@ -202,6 +202,10 @@ class Game:
                     self.actions["escape"] = False
 
     def update(self):
+
+        # If this isn't called, number of rounds will still continue even if the previous game has ended
+        self.rounds = 1
+
         self.clock.tick(self.fps)
         self.stack[-1].update(self.actions)
         self.sprites.update()

@@ -80,7 +80,7 @@ class Necromancer(Unit):
     def infect(self, target: object, target_team: list):
         """Sacrifice health to restore mana"""
         health_cost = self.max_health * 0.2
-        if self.health > health_cost:
+        if self.health > health_cost and self.mana != self.max_mana:
             self.health -= health_cost
 
             # Mana recovery scales with intelligence
