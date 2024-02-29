@@ -61,7 +61,7 @@ class Necromancer(Unit):
                 self.mana -= mana_cost
 
                 damage, crit = self.calc_damage(target, "magic", 1.25)
-                self.update_stats(target, damage, crit, "necro_doom", 1)
+                self.update_stats(target, damage, crit, "unit/necromancer/doom", 1)
                 target.bonus_strength_stacks.append([3, target.strength * 0.4])
                 self.game.event_log.append(
                     f"{self.name} attacks {target.name} with weaken for {damage} damage!"
@@ -98,7 +98,7 @@ class Necromancer(Unit):
                 self.mana -= mana_cost
                 for t in target_team:
                     damage, crit = self.calc_damage(t, "magic", 1.75)
-                    self.update_stats(t, damage, crit, "necro_doom", 2)
+                    self.update_stats(t, damage, crit, "unit/necromancer/doom", 2)
                     t.bonus_defence_stacks.append(
                         [5, -(self.intelligence + self.bonus_intelligence)]
                     )

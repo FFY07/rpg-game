@@ -64,7 +64,7 @@ class Reaper(Unit):
 
             # Melee is optional and only for direct attacks
             self.melee(target)
-            self.update_stats(target, damage, crit, "atk", 2)
+            self.update_stats(target, damage, crit, "misc/physical/slash1", 50)
 
             # Add mana when attacking
             if self.health < self.max_health:
@@ -89,7 +89,7 @@ class Reaper(Unit):
                 damage, crit = self.calc_damage(target, "physical", 1)
 
                 self.melee(target)
-                self.update_stats(target, damage, crit, "soul", 3)
+                self.update_stats(target, damage, crit, "unit/reaper/soul", 3)
 
                 self.play_sound(self.game.audio_handler.sword_sfx)
 
@@ -124,7 +124,7 @@ class Reaper(Unit):
 
                 for t in target_list:
                     damage, crit = self.calc_damage(t, "physical", 0.7)
-                    self.update_stats(t, damage, crit, "atk", 2)
+                    self.update_stats(t, damage, crit, "misc/physical/slash2", 50)
 
                 self.play_sound(self.game.audio_handler.sword_sfx)
 
@@ -138,7 +138,7 @@ class Reaper(Unit):
             # Effectively 2 times strength for 3 turns
             target.bonus_strength_stacks.append([3, self.strength * 0.7])
 
-            self.game.sprites.add(ui_functions.HitImage("blood2", self, 2))
+            self.game.sprites.add(ui_functions.HitImage("misc/blood/blood2", self, 2))
             self.game.event_log.append(
                 f"{self.name} exchanges half its health for a strength buff!"
             )

@@ -63,7 +63,9 @@ class Tank(Unit):
                     self.cannon_shells += 1
                     self.play_sound(self.game.audio_handler.tank_load_shell)
 
-                    self.game.sprites.add(ui_functions.HitImage("tank_charge", self, 2))
+                    self.game.sprites.add(
+                        ui_functions.HitImage("unit/tank/charge", self, 2)
+                    )
                     self.change_state("defend")
                     self.game.event_log.append(f"{self.name} has loaded a shell!")
 
@@ -76,7 +78,7 @@ class Tank(Unit):
                     damage, crit = self.calc_damage(target, "magic", 4)
 
                     self.melee(target)
-                    self.update_stats(target, damage, crit, "tank_cannon", 2)
+                    self.update_stats(target, damage, crit, "unit/tank/cannon", 2)
                     self.game.event_log.append(
                         f"{self.name} fires a shell at {target.name} for {damage} damage!"
                     )
@@ -103,7 +105,7 @@ class Tank(Unit):
 
                 for t in target_list:
                     damage, crit = self.calc_damage(t, "magic", 1.1)
-                    self.update_stats(t, damage, crit, "tank_mg", 2)
+                    self.update_stats(t, damage, crit, "unit/tank/mg", 2)
                     self.game.event_log.append(
                         f"{self.name} hits {t.name} with a machine gun for {damage} damage!"
                     )
@@ -127,7 +129,7 @@ class Tank(Unit):
                 self.mana -= mana_cost
                 for t in target_team:
                     damage, crit = self.calc_damage(t, "magic", 0.8)
-                    self.update_stats(t, damage, crit, "magma", 2)
+                    self.update_stats(t, damage, crit, "misc/magic/magma", 2)
                     t.burn_stacks.append([3, self.intelligence * 0.4])
 
                 self.game.event_log.append(
