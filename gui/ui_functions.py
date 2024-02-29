@@ -582,7 +582,7 @@ class InfoGUI:
                     self.unit.stat_bar_center_offset_x,
                     self.unit.stat_bar_center_offset_y + (self.bar_offset * 2),
                 ),
-                25,
+                16,
                 "gold1",
                 "newsgoth bt"
             )
@@ -605,6 +605,7 @@ def create_info_guis(game):
         trackers = {
             "green": "health",
             "deepskyblue1": "mana",
+            "gold1" : "exp"
         }
         InfoGUI(
             sprite,
