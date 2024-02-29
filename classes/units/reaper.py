@@ -81,18 +81,18 @@ class Reaper(Unit):
             if self.health > health_check:
                 self.health -= health_check
                 self.strength = max(
-                    10, STRENGTH[0] * (1 - (self.health / self.max_health))
+                    target.health * 0.1 , STRENGTH[0] * (1 - (self.health / self.max_health))
                 )
 
                 damage, crit = self.calc_damage(target, "physical", 0.9)
-                regen = min(35,(max(10,damage)))
+                regen = min(self.health * 0.35 ,(max(self.health * 0.1 ,damage)))
                 self.health += regen  #atleast heal 10 and max 35
 
                 self.melee(target)
                 self.update_stats(target, damage, crit, "unit/reaper/soul", 3)
 
                 self.play_sound(self.game.audio_handler.sword_sfx)
-            self.game.event_log.append(
+                self.game.event_log.append(
                 f"{self.name} decay {target.name} for {int(damage)} and recover {regen}"
             )
 
@@ -102,7 +102,7 @@ class Reaper(Unit):
     def deadscythe(self, target: object, target_team: list):
         if self.is_target_hostile(target):
             health_cost = 25
-            self.strength = max(10, STRENGTH[0] * (1 - (self.health / self.max_health)))
+            self.strength = max(target.health * 0.1, STRENGTH[0] * (1 - (self.health / self.max_health)))
 
             if self.health > health_cost:
                 self.health -= health_cost
@@ -122,12 +122,11 @@ class Reaper(Unit):
     def helldecent(self, target: object, target_team: list):
         """Sacrifices half of current health to boost strength for 3 turns"""
 
-        if self.is_target_hostile(target):
-            health_cost = 40
-            if self.health > health_cost:
-                self.health -= health_cost
+        health_cost = 40
+        if self.health > health_cost:
+            self.health -= health_cost
 
-                
+            
             #clear all buff
             self.burn_stacks.clear()
             self.bonus_strength_stacks.clear()
