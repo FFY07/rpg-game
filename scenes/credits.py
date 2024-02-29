@@ -41,7 +41,7 @@ class Credits(Scene):
         self.load_section(["GITHUB CONTRIBUTORS"], desc, 75)
 
         self.load_section(["Desmond Foo Fong Yoong"], name, 50)
-        self.load_section(["36,332 edits"], note, 100)
+        self.load_section(["38,812 edits"], note, 100)
         self.load_section(["Haarith Bin Naguri Ibrahim"], name, 50)
         self.load_section(["94 edits"], note, 200)
 
