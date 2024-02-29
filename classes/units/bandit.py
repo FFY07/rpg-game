@@ -72,7 +72,10 @@ class Bandit(Unit):
                     self.game.sprites.add(
                         ui_functions.HitImage("unit/tank/charge", self, 2)
                     )
-
+                self.game.event_log.append(
+                f"{self.name} attack {target.name} for {int(damage)} and recover {damagemana}"
+            )
+            
                 return True
 
     def swordfire(self, target: object, target_team: list):
@@ -91,4 +94,9 @@ class Bandit(Unit):
                 if self.game.sound:
                     pygame.mixer.Sound.play(self.game.audio_handler.sword_sfx)
 
+                self.game.event_log.append(
+                f"{self.name} attack {target.name} for {int(damage)} and apply burn for 3 round"
+            )
+
                 return True
+    
