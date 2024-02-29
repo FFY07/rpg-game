@@ -33,7 +33,7 @@ class Necromancer(Unit):
 
         self.load_animations()
 
-        self.load_sounds()
+        # self.load_sounds()
 
         self.image = self.animations["idle"][0]
         self.rect = self.image.get_rect()

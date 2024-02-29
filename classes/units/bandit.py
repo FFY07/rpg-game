@@ -31,8 +31,7 @@ class Bandit(Unit):
             self.direction = "left"
 
         self.load_animations()
-
-        self.load_sounds()
+        # self.load_sounds()
 
         self.image = self.animations["idle"][0]
         self.rect = self.image.get_rect()
@@ -49,7 +48,7 @@ class Bandit(Unit):
         self.magic_resist += 2
 
     def swordwater(self, target: object, target_team: list):
-        if self.is_target_hostile(target) :
+        if self.is_target_hostile(target):
             mana_cost = 15
             if self.mana > mana_cost:
                 self.mana -= mana_cost
@@ -62,15 +61,14 @@ class Bandit(Unit):
                 target.health -= damage
 
                 if target.max_mana != 0.1:
-                    target.mana -= (damagemana)
+                    target.mana -= damagemana
                     target.mana = max(0, target.mana)
                     self.mana += damagemana
                     if self.mana > self.max_mana:
                         self.mana = self.max_mana
 
-
                 if self.game.sound:
-                    pygame.mixer.Sound.play(self.default_attack_sfx)
+                    pygame.mixer.Sound.play(self.game.audio_handler.sword_sfx)
                     self.game.sprites.add(ui_functions.HitImage("tank_charge", self, 2))
 
                 return True
@@ -89,8 +87,6 @@ class Bandit(Unit):
                 self.update_stats(target, damage, crit, "statsteal", 2)
 
                 if self.game.sound:
-                    pygame.mixer.Sound.play(self.default_attack_sfx)
+                    pygame.mixer.Sound.play(self.game.audio_handler.sword_sfx)
 
                 return True
-
-

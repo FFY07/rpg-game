@@ -35,7 +35,7 @@ class Reaper(Unit):
 
         self.load_animations()
 
-        self.load_sounds()
+        # self.load_sounds()
 
         self.image = self.animations["idle"][0]
         self.rect = self.image.get_rect()
@@ -72,7 +72,7 @@ class Reaper(Unit):
                 if self.health > self.max_health:
                     self.health = self.max_health
 
-            self.play_sound(self.default_attack_sfx)
+            self.play_sound(self.game.audio_handler.reaper_basic)
 
             return True
 

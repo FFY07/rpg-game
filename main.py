@@ -12,15 +12,17 @@ clock.tick(60)
 pygame.mixer.set_num_channels(8)  # default 8
 
 # Do not use too many channels or it will still crash
-pygame.mixer.set_reserved(4)
+pygame.mixer.set_reserved(2)
 
 # Not reserving and then using dedicated channels will cause game crashes
 # You have no idea how many days I've spent troubleshooting this audio crash issue because there's NO solutions online
 # I had to read SO MANY DOCS
+
 # ...
 # NEVERMIND IT STILL CRASHES
 # Seems like too many sounds playing at once in general will cause crashes
 # The only thing this whole charade is doing is limiting the number of sounds playing at once
+# Going to put everything on one channel to see if it fixes it
 
 
 # We'll use a state stack system instead of each scene having its own individual loops
@@ -76,13 +78,15 @@ class Game:
         self.audio_handler = audio.SoundEffects()
 
         # Limit sounds to one channel to prevent freezing; give it two channels here so it sounds smoother
-        self.click_channel = pygame.mixer.Channel(0)
+        # self.click_channel = pygame.mixer.Channel(0)
 
-        # Give everything a custom channel; how many channels we can assign is limited by how many channels we've reserved
-        self.player_channel = pygame.mixer.Channel(1)
-        self.enemy_channel = pygame.mixer.Channel(2)
+        # # Give everything a custom channel; how many channels we can assign is limited by how many channels we've reserved
+        # self.player_channel = pygame.mixer.Channel(1)
+        # self.enemy_channel = pygame.mixer.Channel(2)
 
-        self.misc_channel = pygame.mixer.Channel(3)
+        # self.misc_channel = pygame.mixer.Channel(3)
+
+        self.main_channel = pygame.mixer.Channel(0)
 
         self.intro_music_path = self.audio_handler.menu_bgm_path
 
@@ -164,7 +168,7 @@ class Game:
 
                 # Randomly select between either of the available channels since this is a spam clicky thing
                 if self.sound:
-                    self.click_channel.play(self.audio_handler.click_sfx)
+                    self.main_channel.play(self.audio_handler.click_sfx)
                     # if random.randrange(2):
                     #     self.click_channel_1.play(self.audio_handler.click_sfx)
                     # else:
