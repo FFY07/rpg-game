@@ -74,10 +74,12 @@ class Warrior(Unit):
 
     def execute(self, target: object, target_team: list):
         if self.is_target_hostile(target):
-            mana_cost = 30
+            mana_cost = 20
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
-                damage, crit = self.calc_damage(target, "physical", 3)
+                damage, crit = self.calc_damage(
+                    target, "physical", (1 * (target.max_health / target.health) / 1.2)
+                )  # Lower health enemies take more damage
 
                 self.melee(target)
                 self.update_stats(target, damage, crit, "misc/physical/slash3", 50)
