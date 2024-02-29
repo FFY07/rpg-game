@@ -8,7 +8,7 @@ import resources.images as images
 from classes.units.toothless import Toothless
 import resources.fonts as fonts
 
-title = [55, "hightowertext", "red2"]
+title = [55, "hightowertext", "white"]
 desc = [45, "hightowertext", "orangered"]
 name = [35, "Palatino Linotype", "grey95"]
 note = [40, "hightowertext", "orangered2"]
