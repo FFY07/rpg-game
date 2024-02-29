@@ -64,7 +64,7 @@ class Necromancer(Unit):
                 self.update_stats(target, damage, crit, "unit/necromancer/doom", 1)
                 target.bonus_strength_stacks.append([3, target.strength * 0.4])
                 self.game.event_log.append(
-                    f"{self.name} attacks {target.name} with weaken for {damage} damage!"
+                    f"{self.name} attacks {target.name} with weaken for {int(damage)} damage!"
                 )
                 if crit:
                     self.game.event_log.append("It was a crit!")
@@ -91,7 +91,7 @@ class Necromancer(Unit):
 
             self.change_state("hurt")
             self.game.event_log.append(
-                f"{self.name} sacrificed {health_cost} health for {mana_recovery} mana!"
+                f"{self.name} sacrificed {int(health_cost)} health for {int(mana_recovery)} mana!"
             )
 
             return True
@@ -113,6 +113,6 @@ class Necromancer(Unit):
                     )
 
                 self.game.event_log.append(
-                    f"{self.name} casts doom upon all enemies for ~{damage} damage and lowers their resistances!"
+                    f"{self.name} casts doom upon all enemies for ~{int(damage)} damage and lowers their resistances!"
                 )
                 return True

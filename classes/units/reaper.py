@@ -43,7 +43,8 @@ class Reaper(Unit):
 
         self.moves["Decay (-10HP)"] = self.decay
         self.moves["Dead Scythe (-25HP)"] = self.deadscythe
-        self.moves["Hell descent (-40HP)"] = self.helldecent
+        self.moves["Hell descent (-40HP)"] = self.helldescent
+
     def level_stats(self):
         self.health += self.max_health / 10
         self.strength += 2
@@ -76,16 +77,16 @@ class Reaper(Unit):
 
     def decay(self, target, target_team):
         if self.is_target_hostile(target):
-            health_check = 10
+            health_cost = self.max_health * 0.1
 
-            if self.health > health_check:
-                self.health -= health_check
+            if self.health > health_cost:
+                self.health -= health_cost
                 self.strength = max(
                     target.health * 0.1 , STRENGTH[0] * (1 - (self.health / self.max_health))
                 )
 
                 damage, crit = self.calc_damage(target, "physical", 0.9)
-                regen = min(self.health * 0.35 ,(max(self.health * 0.1 ,damage)))
+                regen = min(self.max_health * 0.35 ,(max(self.max_health * 0.1 ,damage)))
                 self.health += regen  #atleast heal 10 and max 35
 
                 self.melee(target)
@@ -98,10 +99,9 @@ class Reaper(Unit):
 
             return True
 
-
     def deadscythe(self, target: object, target_team: list):
         if self.is_target_hostile(target):
-            health_cost = 25
+            health_cost = self.max_health * 0.25
             self.strength = max(target.health * 0.1, STRENGTH[0] * (1 - (self.health / self.max_health)))
 
             if self.health > health_cost:
@@ -119,10 +119,10 @@ class Reaper(Unit):
                 )
                 return True
 
-    def helldecent(self, target: object, target_team: list):
+    def helldescent(self, target: object, target_team: list):
         """Sacrifices half of current health to boost strength for 3 turns"""
 
-        health_cost = 40
+        health_cost = self.max_health * 0.4
         if self.health > health_cost:
             self.health -= health_cost
 
@@ -133,13 +133,10 @@ class Reaper(Unit):
 
             # Effectively 2 times strength for 3 turns
             self.bonus_strength_stacks.append([3, self.strength * 0.7])
-            self.health_regen_stacks.append([4, 14 ])
-
+            self.health_regen_stacks.append([4, self.max_health * 0.14])
 
             self.game.sprites.add(ui_functions.HitImage("misc/blood/blood2", self, 2))
-            self.game.event_log.append(
-                f"{self.name} sacrifice 40hp to Hell"
-            )
+            self.game.event_log.append(f"{self.name} sacrifice 40hp to Hell")
             self.game.event_log.append(
                 f"Hell cleanses {self.name} and gave extra attack and hp recovery"
             )

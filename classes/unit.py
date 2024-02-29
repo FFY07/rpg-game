@@ -551,7 +551,7 @@ class Unit(pygame.sprite.Sprite):
 
             self.play_sound(self.game.audio_handler.sword_sfx)
             self.game.event_log.append(
-                f"{self.name} basic attacks {target.name} for {damage} physical damage!"
+                f"{self.name} basic attacks {target.name} for {int(damage)} physical damage!"
             )
 
             if crit:
