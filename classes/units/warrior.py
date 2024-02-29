@@ -5,8 +5,8 @@ from classes.unit import Unit
 from gui import ui_functions
 
 # Range of values
-STRENGTH = (12, 12)
-INTELLIGENCE = (10, 10)
+STRENGTH = (16, 16)
+INTELLIGENCE = (8, 8)
 DEFENCE = (90, 90)
 MAGIC_RESIST = (75, 75)
 
@@ -41,19 +41,48 @@ class Warrior(Unit):
         self.rect.center = self.position
 
         # Add moves to moves dictionary
-        # self.moves["Life Steal (15)"] = self.lifesteal
-        self.moves["Rally (25)"] = self.rally
-        self.moves["Execute (40)"] = self.execute
+        self.moves["Hasagi (15)"] = self.hasagi
+        self.moves["Inspire (35)"] = self.inspire
+        self.moves["Execute (45)"] = self.execute
 
     def level_stats(self):
         self.health += self.max_health / 10
-        self.strength += 2
-        self.intelligence += 10
-        self.defence += 5
-        self.magic_resist += 2
+        self.strength += 10
+        self.intelligence += 4
+        self.defence += 8
+        self.magic_resist += 8
 
-    def rally(self, target: object, target_team: list):
-        mana_cost = 25
+    def hasagi(self, target: object, target_team: list):
+        """Randomly slashes 1-2 enemies"""
+        if self.is_target_hostile(target):
+            mana_cost = 15
+
+            if self.mana >= mana_cost:
+                self.mana -= mana_cost
+                enemies = random.randint(1, 2)
+                try:
+                    # Selects 2 targets from the target team
+                    target_list = random.sample(target_team, enemies)
+                except:
+                    # in case there's only 1 target left
+                    target_list = target_team
+
+                for t in target_list:
+                    damage, crit = self.calc_damage(t, "physical", 1.6)
+                    self.update_stats(t, damage, crit, "misc/physical/slash2", 2)
+                    self.game.event_log.append(
+                        f"{self.name} slashes {t.name} for {int(damage)} damage!"
+                    )
+                    if crit:
+                        self.game.event_log.append("It was a crit!")
+
+                self.play_sound(self.game.audio_handler.warrior_basic)
+
+                return True
+
+    def inspire(self, target: object, target_team: list):
+        """Temporarily boosts ally strength and intelligence"""
+        mana_cost = 35
         if not self.is_target_hostile(target):
             if self.mana > mana_cost:
                 self.mana -= mana_cost
@@ -61,9 +90,12 @@ class Warrior(Unit):
                 self.play_sound(self.game.audio_handler.warrior_rally)
 
                 for t in target_team:
-                    t.bonus_strength_stacks.append([5, self.strength / 2])
+                    t.bonus_strength_stacks.append(
+                        [5, target.strength * 0.2]
+                    )  # 20% increase
+                    t.bonus_intelligence_stacks.append([5, target.intelligence * 0.2])
                     self.game.sprites.add(
-                        ui_functions.HitImage("unit/warrior/rally", t, 2)
+                        ui_functions.HitImage("unit/warrior/inspire", t, 40)
                     )
 
                 self.game.event_log.append(
@@ -73,8 +105,9 @@ class Warrior(Unit):
                 return True
 
     def execute(self, target: object, target_team: list):
+        """Deals increased damage to low-health enemies"""
         if self.is_target_hostile(target):
-            mana_cost = 40
+            mana_cost = 45
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
                 damage, crit = self.calc_damage(
