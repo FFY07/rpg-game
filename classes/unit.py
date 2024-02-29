@@ -78,7 +78,7 @@ class Unit(pygame.sprite.Sprite):
         self.stat_bar_center_offset_x = 0
         self.stat_bar_center_offset_y = -100
 
-        self.death_effect = ui_functions.HitImage("blood1", self, 100)
+        self.death_effect = ui_functions.HitImage("effect/misc/blood/blood1", self, 100)
 
         self.inventory = {
             "Health Potion": 2,
@@ -207,7 +207,9 @@ class Unit(pygame.sprite.Sprite):
 
             # Forget it, let's just hardcode
             if self.burn_stacks:
-                self.game.sprites.add(ui_functions.HitImage("magma", self, 1, 128, 128))
+                self.game.sprites.add(
+                    ui_functions.HitImage("effect/misc/magic/magma", self, 1, 128, 128)
+                )
                 # Example burn: [5, 10] = tick 5 turns, 10 damage each time
                 for i, burn in enumerate(self.burn_stacks):
                     if not burn[0] < 0:
@@ -521,7 +523,7 @@ class Unit(pygame.sprite.Sprite):
 
             # Melee is optional and only for direct attacks
             self.melee(target)
-            self.update_stats(target, damage, crit, "atk", 2)
+            self.update_stats(target, damage, crit, "misc/physical/spark", 2)
 
             # Add mana when attacking
             if self.mana < self.max_mana:

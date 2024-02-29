@@ -91,6 +91,6 @@ class Princess(Unit):
 
                 damage, crit = self.calc_damage(target, "magic", 0.1)
                 self.melee(target)
-                self.update_stats(target, damage, crit, "healing", 2)
+                self.update_stats(target, damage, crit, "unit/princess/healing", 2)
 
                 return True

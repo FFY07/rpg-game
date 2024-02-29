@@ -62,7 +62,9 @@ class Warrior(Unit):
 
                 for t in target_team:
                     t.bonus_strength_stacks.append([5, self.strength / 2])
-                    self.game.sprites.add(ui_functions.HitImage("buffs/rally", t, 2))
+                    self.game.sprites.add(
+                        ui_functions.HitImage("unit/warrior/rally", t, 2)
+                    )
 
                 self.game.event_log.append(
                     f"{self.name} rallies all teammates, increasing their strength!"
@@ -78,7 +80,7 @@ class Warrior(Unit):
                 damage, crit = self.calc_damage(target, "physical", 3)
 
                 self.melee(target)
-                self.update_stats(target, damage, crit, "blood3", 2)
+                self.update_stats(target, damage, crit, "misc/physical/slash3", 50)
 
                 self.play_sound(self.game.audio_handler.warrior_basic)
 

@@ -56,7 +56,7 @@ class Bandit(Unit):
                 damagemana = 25
 
                 self.melee(target)
-                self.update_stats(target, damage, crit, "manasteal", 2)
+                self.update_stats(target, damage, crit, "unit/bandit/manasteal", 2)
 
                 target.health -= damage
 
@@ -69,7 +69,9 @@ class Bandit(Unit):
 
                 if self.game.sound:
                     pygame.mixer.Sound.play(self.game.audio_handler.sword_sfx)
-                    self.game.sprites.add(ui_functions.HitImage("tank_charge", self, 2))
+                    self.game.sprites.add(
+                        ui_functions.HitImage("unit/tank/charge", self, 2)
+                    )
 
                 return True
 
@@ -84,7 +86,7 @@ class Bandit(Unit):
                 damage, crit = self.calc_damage(target, "physical", 2.5)
 
                 self.melee(target)
-                self.update_stats(target, damage, crit, "statsteal", 2)
+                self.update_stats(target, damage, crit, "unit/bandit/statsteal", 2)
 
                 if self.game.sound:
                     pygame.mixer.Sound.play(self.game.audio_handler.sword_sfx)
