@@ -589,7 +589,7 @@ class InfoGUI:
         )
 
         # Unit name
-        self.text_sprites.add(TrackingText(self.unit.name, self.unit, "", (-40, -120), 30, "firebrick1", '"newsgoth bt"'))
+        self.text_sprites.add(TrackingText(self.unit.name, self.unit, "", (-40, -120), 30, "white", '"newsgoth bt"'))
 
         self.sprites.add([self.bars, self.text_sprites])
 
