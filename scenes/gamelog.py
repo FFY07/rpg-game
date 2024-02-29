@@ -32,13 +32,13 @@ class GameLog(Scene):
             print(self.sprites)
 
     def load_section(self, text_list, offset):
-        for text in text_list:
-            self.sprites.add(
-                ui_functions.TextSprite(
-                    text, 20, None, self.position, False,
-                )
+        self.sprites.add(
+            ui_functions.TextSprite(
+                text_list, 20, None, True, self.yc - 210
             )
-
+            )
+        
+        self.position += offset
     def update(self, actions):
 
         # if actions["enter"]:
