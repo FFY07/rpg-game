@@ -7,8 +7,8 @@ from gui import ui_functions
 # Range of values
 STRENGTH = (12, 12)
 INTELLIGENCE = (10, 10)
-DEFENCE = (45, 45)
-MAGIC_RESIST = (40, 40)
+DEFENCE = (90, 90)
+MAGIC_RESIST = (75, 75)
 
 
 class Warrior(Unit):

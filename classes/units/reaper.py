@@ -7,8 +7,8 @@ from gui import ui_functions
 # Range of values
 STRENGTH = (25, 25)
 INTELLIGENCE = (5, 5)
-DEFENCE = (20, 20)
-MAGIC_RESIST = (40, 40)
+DEFENCE = (120, 120)
+MAGIC_RESIST = (120, 120)
 
 
 class Reaper(Unit):

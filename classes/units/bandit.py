@@ -6,8 +6,8 @@ import gui.ui_functions as ui_functions
 # Range of values
 STRENGTH = (8, 8)
 INTELLIGENCE = (20, 20)
-DEFENCE = (40, 40)
-MAGIC_RESIST = (50, 50)
+DEFENCE = (80, 80)
+MAGIC_RESIST = (100, 100)
 
 
 class Bandit(Unit):

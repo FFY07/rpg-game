@@ -7,8 +7,8 @@ import gui.ui_functions as ui_functions
 # Range of values
 STRENGTH = (10, 10)
 INTELLIGENCE = (20, 20)
-DEFENCE = (80, 80)
-MAGIC_RESIST = (30, 30)
+DEFENCE = (100, 100)
+MAGIC_RESIST = (80, 80)
 
 
 class Tank(Unit):
