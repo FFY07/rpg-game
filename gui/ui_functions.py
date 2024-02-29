@@ -582,14 +582,14 @@ class InfoGUI:
                     self.unit.stat_bar_center_offset_x,
                     self.unit.stat_bar_center_offset_y + (self.bar_offset * 2),
                 ),
-                25,
+                16,
                 "gold1",
                 "newsgoth bt"
             )
         )
 
         # Unit name
-        self.text_sprites.add(TrackingText(self.unit.name, self.unit, "", (-40, -120), 30, "firebrick1", '"newsgoth bt"'))
+        self.text_sprites.add(TrackingText(self.unit.name, self.unit, "", (-40, -120), 30, "white", '"newsgoth bt"'))
 
         self.sprites.add([self.bars, self.text_sprites])
 
@@ -605,6 +605,7 @@ def create_info_guis(game):
         trackers = {
             "green": "health",
             "deepskyblue1": "mana",
+            "gold1" : "exp"
         }
         InfoGUI(
             sprite,
