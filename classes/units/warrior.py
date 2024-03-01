@@ -42,6 +42,8 @@ class Warrior(Unit):
 
         # Add moves to moves dictionary
         self.moves["Hasagi (15)"] = self.hasagi
+        self.move_desc["Hasagi"] = "Hasagi."
+
         self.moves["Inspire (35)"] = self.inspire
         self.moves["Execute (45)"] = self.execute
 

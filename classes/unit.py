@@ -23,7 +23,6 @@ class Unit(pygame.sprite.Sprite):
         self.max_mana = MAX_MANA
         self.mana = self.max_mana
 
-        self.movedes = {}
         # 20% default is quite high, want to change?
         self.crit_chance = 20
         self.crit_mult = 1.5
@@ -122,6 +121,9 @@ class Unit(pygame.sprite.Sprite):
         #     damage = target.parry_stacks.pop(0)
         #     self.health -= damage
         self.moves = {"Basic Attack": self.basic_attack}
+        self.move_desc = {
+            "Basic Attack": "Basic attack for attacking attacked with attacker attack"
+        }
 
     # UPDATE: YES THIS WILL CRASH THE GAME RANDOMLY
     # def load_sounds(self):
