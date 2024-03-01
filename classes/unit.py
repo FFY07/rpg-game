@@ -120,12 +120,16 @@ class Unit(pygame.sprite.Sprite):
         # if target.parry_stacks:
         #     damage = target.parry_stacks.pop(0)
         #     self.health -= damage
+
+        # THIS DOES NOT NEED TO BE 2 SEPARATE DICTIONARIES E.G.
+        # self.moves = {"Basic Attack": [self.basic_attack, "Basic attack for attacking"]}
+        # BUT WE HAD TO RUSH THE DESC IN LIKE 30 MINS SO WHATEVER
+
         self.moves = {"Basic Attack": self.basic_attack}
         self.move_desc = {
             "Basic Attack": "Basic attack for attacking attacked with attacker attack"
         }
 
-    # UPDATE: YES THIS WILL CRASH THE GAME RANDOMLY
     # def load_sounds(self):
     #     """Loads the sounds into variables... wonder if this causes crashing"""
     #     match self.unit_class:
