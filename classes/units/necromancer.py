@@ -65,7 +65,7 @@ class Necromancer(Unit):
                 self.melee(target)
                 self.update_stats(target, damage, crit, "unit/necromancer/siphon", 60)
                 target.bonus_strength_stacks.append([3, target.strength * 0.3])
-                target.bonus_intelligence_stacks.append[3, target.intelligence * 0.3]
+                target.bonus_intelligence_stacks.append([3, target.intelligence * 0.3])
                 self.game.event_log.append(
                     f"{self.name} attacks {target.name} with weaken for {int(damage)} damage!"
                 )
