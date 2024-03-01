@@ -38,7 +38,10 @@ class Bandit(Unit):
         self.rect.center = self.position
 
         self.moves["Water Sword(15)"] = self.swordwater
+        self.move_desc["Water Sword (15 MANA)"] = "Enchance sword with water element, Attack and steal MANA from enemy"
+
         self.moves["Fire Sword(30)"] = self.swordfire
+        self.move_desc["Fire Sword (30 MANA)"] = "Enchance sword with fire element, Attack and apply burn to enemy for 3 turns"
 
     def level_stats(self):
         self.health += self.max_health / 10

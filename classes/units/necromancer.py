@@ -42,9 +42,16 @@ class Necromancer(Unit):
         self.cannon_shells = 0
 
         # Add moves to moves dictionary
+        self.move_desc["Passive"] = "Drink HP potions will deduct HP instead of regen"
+
         self.moves["Siphon (25)"] = self.siphon
+        self.move_desc["Siphon (25 MANA)"] = "Weakens the enemy and recovers health"
+
         self.moves["Infect (20% HP)"] = self.infect
+        self.move_desc["Infect (20% HP)"] = "Sacrifice health to restore mana"
+
         self.moves["Doom (70)"] = self.doom
+        self.move_desc["Doom (70 MANA)"] = "Summons powerful dark energy on all enemies and reduces their damage resistances for 5 turns"
 
     def level_stats(self):
         self.health += self.max_health / 10

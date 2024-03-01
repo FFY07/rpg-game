@@ -48,11 +48,15 @@ class Princess(Unit):
         self.rect = self.image.get_rect()
         self.rect.center = self.position
         # self.rect.center[1] = self.rect.center[1] - 20
+
         self.moves["Heal (20%HP, (10))"] = self.healing
+        self.move_desc["Heal (20% HP and 10 MANA)"] = "Heal allies, if allies HP less than 30%, Heal 25% more"
 
         self.moves["Cleanse (25)"] = self.cleanse
+        self.move_desc["Cleanse (25 MANA)"] = "Remove allies debuff, Regen allies MANA"
 
         self.moves["Wish (70)"] = self.wish
+        self.move_desc["Wish (70 MANA)"] = "Buff all allies (include self) with regeneration buff for 4 turns"
 
     def level_stats(self):
         self.health += self.max_health / 10

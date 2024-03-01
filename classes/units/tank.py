@@ -42,9 +42,17 @@ class Tank(Unit):
         self.cannon_shells = 0
 
         # Add moves to moves dictionary
+
         self.moves["Cannon (40)"] = self.cannon
+        self.move_desc["Cannon (40 MANA)"] = "Loads a powerful tank shell and fires it at a single target if loaded"
+
         self.moves["Machine Gun (25)"] = self.machine_gun
+        self.move_desc["Machine Gun (25 MANA)"] = "Randomly shoot 1-2 enemies"
+
+
         self.moves["Flamethrower (70)"] = self.flamethrower
+        self.move_desc["Flamethrower (70 MANA)"] = "Blasts a large amount of fire and burns all enemies for 3 turns"
+
 
     def level_stats(self):
         self.health += self.max_health / 10
