@@ -3,7 +3,7 @@ import pygame, random
 import gui.screen as scr
 import resources.audio as audio
 
-from scenes.menu import MainMenu
+from scenes.menu import MainMenu  
 
 clock = pygame.time.Clock()
 clock.tick(60)

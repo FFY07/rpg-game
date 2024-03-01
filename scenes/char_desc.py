@@ -7,7 +7,7 @@ import resources.images as images
 import resources.fonts as fonts
 
 desc_format = [20, "hightowertext", "grey27"]
-name_format = [25, fonts.eagle_lake, "grey10"]
+name_format = [40,  "hightowertext", "grey10"]
 
 
 class CharDesc(Scene):
@@ -18,7 +18,7 @@ class CharDesc(Scene):
         self.sprites = pygame.sprite.Group()
 
         # starting position
-        self.position = 150
+        self.position = 250
 
         self.selected_unit = selected_unit
 
@@ -52,8 +52,8 @@ class CharDesc(Scene):
         self.prev.render(screen)
 
         screen.blit(
-            pygame.transform.scale(self.background, (500, 650)),
-            (self.xc - 250, self.yc - 300),
+            pygame.transform.scale(self.background, (1000, 600)),
+            (self.xc - 500, self.yc - 250),
         )
 
         self.sprites.draw(screen)
