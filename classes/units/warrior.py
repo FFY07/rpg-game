@@ -42,11 +42,14 @@ class Warrior(Unit):
 
         # Add moves to moves dictionary
         self.moves["Hasagi (15)"] = self.hasagi
-        self.move_desc["Hasagi"] = "Hasagi."
+        self.move_desc["Hasagi (15 Mana)"] = "Randomly slashes 1-2 enemies"
 
         self.moves["Inspire (35)"] = self.inspire
-        self.moves["Execute (45)"] = self.execute
+        self.move_desc['Inspire (35 Mana)'] = "Temporarily boosts ally strength and intelligence"
 
+        self.moves["Execute (45)"] = self.execute
+        self.move_desc['Execute (45 Mana)'] = "Deals increased damage to low-health enemies"
+        
     def level_stats(self):
         self.health += self.max_health / 10
         self.strength += 10

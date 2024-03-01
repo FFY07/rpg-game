@@ -41,9 +41,16 @@ class Reaper(Unit):
         self.rect = self.image.get_rect()
         self.rect.center = self.position
 
+        self.move_desc["Passive"] = "The lower the HP, the higher the ATK, Use HP instead of MANA"
+
         self.moves["Decay (-10HP)"] = self.decay
+        self.move_desc["Decay (10 HP)"] = "Decay Enemy and drain their soul to recover HP"
+
         self.moves["Dead Scythe (-25HP)"] = self.deadscythe
+        self.move_desc["Dead Scythe (25 HP)"] = "Slash all enemies with scythe"
+
         self.moves["Hell descent (-40HP)"] = self.helldescent
+        self.move_desc["Hell descent (40HP)"] = "Sacrifices HP to Hell and get Regenation and ATK boost"
 
     def level_stats(self):
         self.health += self.max_health / 10
