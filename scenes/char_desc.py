@@ -6,8 +6,8 @@ from scenes.scene import Scene
 import resources.images as images
 import resources.fonts as fonts
 
-desc_format = [20, "hightowertext", "black"]
-name_format = [40,  "hightowertext", "Blue"]
+desc_format = [30, None, "black"]
+name_format = [40,  "Impact", "Black"]
 
 
 class CharDesc(Scene):
@@ -18,13 +18,13 @@ class CharDesc(Scene):
         self.sprites = pygame.sprite.Group()
 
         # starting position
-        self.position = 250
+        self.position = 190
 
         self.selected_unit = selected_unit
 
         for name, desc in self.selected_unit.move_desc.items():
-            self.load_section([name], name_format, 25)
-            self.load_section([desc], desc_format, 50)
+            self.load_section([name], name_format, 45)
+            self.load_section([desc], desc_format, 60)
 
     def load_section(self, text_list, section_type, offset):
         for text in text_list:
