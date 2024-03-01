@@ -6,8 +6,8 @@ from scenes.scene import Scene
 import resources.images as images
 import resources.fonts as fonts
 
-desc_format = [20, "hightowertext", "grey27"]
-name_format = [40,  "hightowertext", "grey10"]
+desc_format = [20, "hightowertext", "black"]
+name_format = [40,  "hightowertext", "Blue"]
 
 
 class CharDesc(Scene):
