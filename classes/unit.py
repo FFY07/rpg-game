@@ -392,7 +392,7 @@ class Unit(pygame.sprite.Sprite):
 
                 case "Strength Shard":
                     self.prev_strength = self.strength
-                    self.strength = int(self.strength * 0.1)
+                    self.strength = int(self.strength * 999)
 
                     self.game.event_log.append(
                         f"{self.name} used a strength shard! {self.inventory[item]} left."
