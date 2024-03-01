@@ -42,6 +42,7 @@ class Tank(Unit):
         self.cannon_shells = 0
 
         # Add moves to moves dictionary
+        self.move_desc["Passive"] = "You say you wanted a Tanker right?"
 
         self.moves["Cannon (40)"] = self.cannon
         self.move_desc["Cannon (40 MANA)"] = "Loads a powerful tank shell and fires it at a single target if loaded"

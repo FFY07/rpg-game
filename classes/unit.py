@@ -126,9 +126,7 @@ class Unit(pygame.sprite.Sprite):
         # BUT WE HAD TO RUSH THE DESC IN LIKE 30 MINS SO WHATEVER
 
         self.moves = {"Basic Attack": self.basic_attack}
-        self.move_desc = {
-            "Basic Attack": "Basic attack for attacking attacked with attacker attack"
-        }
+        self.move_desc = {}
 
     # def load_sounds(self):
     #     """Loads the sounds into variables... wonder if this causes crashing"""

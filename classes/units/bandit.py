@@ -37,6 +37,8 @@ class Bandit(Unit):
         self.rect = self.image.get_rect()
         self.rect.center = self.position
 
+        self.move_desc["Passive"] = "IDK write what Anyhow la"
+
         self.moves["Water Sword(15)"] = self.swordwater
         self.move_desc["Water Sword (15 MANA)"] = "Enchance sword with water element, Attack and steal MANA from enemy"
 

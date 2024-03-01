@@ -51,7 +51,7 @@ class Necromancer(Unit):
         self.move_desc["Infect (20% HP)"] = "Sacrifice health to restore mana"
 
         self.moves["Doom (70)"] = self.doom
-        self.move_desc["Doom (70 MANA)"] = "Summons dark energy on all enemies and reduces their damage resistances for 5 turns"
+        self.move_desc["Doom (70 MANA)"] = "Summons dark energy on all enemies, reduces their DMG resistances for 5 turns"
 
     def level_stats(self):
         self.health += self.max_health / 10

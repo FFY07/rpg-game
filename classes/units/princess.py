@@ -49,6 +49,8 @@ class Princess(Unit):
         self.rect.center = self.position
         # self.rect.center[1] = self.rect.center[1] - 20
 
+        self.move_desc["Passive"] = "Heal more HP if allies HP low"
+
         self.moves["Heal (20%HP, (10))"] = self.healing
         self.move_desc["Heal (20% HP and 10 MANA)"] = "Heal allies, if allies HP less than 30%, Heal 25% more"
 

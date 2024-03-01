@@ -41,6 +41,8 @@ class Warrior(Unit):
         self.rect.center = self.position
 
         # Add moves to moves dictionary
+        self.move_desc["Passive"] = "ITS NOT YASUO"
+
         self.moves["Hasagi (15)"] = self.hasagi
         self.move_desc["Hasagi (15 Mana)"] = "Randomly slashes 1-2 enemies"
 
@@ -49,7 +51,7 @@ class Warrior(Unit):
 
         self.moves["Execute (45)"] = self.execute
         self.move_desc['Execute (45 Mana)'] = "Deals increased damage to low-health enemies"
-        
+
     def level_stats(self):
         self.health += self.max_health / 10
         self.strength += 10
