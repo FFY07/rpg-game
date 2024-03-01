@@ -4,6 +4,7 @@ import gui.ui_functions as ui_functions
 import classes.class_functions as cf
 
 from scenes.scene import Scene
+from scenes.chardes import CharDes  
 import resources.images as images
 import resources.fonts as fonts
 
@@ -182,6 +183,9 @@ class CreateCharSelect(Scene):
         if actions["escape"]:
             self.exit_scene()
 
+        if actions["space"]:
+            next_scene = CharDes(self.game, self.chosen_character)
+            next_scene.start_scene()
         self.display_units.update()
         self.sprites.update()
         self.game.reset_keys()

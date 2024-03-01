@@ -23,6 +23,7 @@ class Unit(pygame.sprite.Sprite):
         self.max_mana = MAX_MANA
         self.mana = self.max_mana
 
+        self.movedes = {}
         # 20% default is quite high, want to change?
         self.crit_chance = 20
         self.crit_mult = 1.5
