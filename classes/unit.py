@@ -121,9 +121,9 @@ class Unit(pygame.sprite.Sprite):
         #     damage = target.parry_stacks.pop(0)
         #     self.health -= damage
 
-        # THIS DOES NOT NEED TO BE 2 SEPARATE DICTIONARIES E.G.
+        # This does not need to be separate dictionaries
         # self.moves = {"Basic Attack": [self.basic_attack, "Basic attack for attacking"]}
-        # BUT WE HAD TO RUSH THE DESC IN LIKE 30 MINS SO WHATEVER
+        # But separating them enables additional information such as class passive abilities
 
         self.moves = {"Basic Attack": self.basic_attack}
         self.move_desc = {}
