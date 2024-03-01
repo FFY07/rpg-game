@@ -22,9 +22,8 @@ class Credits(Scene):
         self.sprites = pygame.sprite.Group()
         self.lazysprites = pygame.sprite.Group()
 
-
         self.game.event_log.append("\nCredits started!\n")
-        
+
         self.lazysprites.add(Toothless(self.xc - 450, self.yc + 400))
         self.lazysprites.add(Toothless(self.xc + 450, self.yc + 400))
         # pygame.mixer.music.load(audio.credits_bgm)
@@ -50,21 +49,20 @@ class Credits(Scene):
         self.load_section(["Haarith Bin Naguri Ibrahim"], name, 50)
         self.load_section(["94 edits"], note, 200)
 
-        # # self.load_section(["SOUND DESIGN"], desc, 75)
-        # # self.load_section(["Desmond Foo Fong Yoong"], name, 100)
+        # self.load_section(["SOUND DESIGN"], desc, 75)
+        # self.load_section(["Desmond Foo Fong Yoong"], name, 100)
 
-        # # self.load_section(["VISUAL DESIGN"], desc, 75)
-        # # self.load_section(["Desmond Foo Fong Yoong"], name, 100)
+        # self.load_section(["VISUAL DESIGN"], desc, 75)
+        # self.load_section(["Desmond Foo Fong Yoong"], name, 100)
 
-        # # self.load_section(["GAMEPLAY"], desc, 75)
-        # # self.load_section(
-        # #     [
-        # #         "Desmond Foo Fong Yoong",
-        # #         # "Haarith Bin Naguri Ibrahim?" — Don't feel like putting because he MIA after first 2 weeks
-        # #     ],
-        # #     name,
-        # #     75,
-        # # )
+        # self.load_section(["GAMEPLAY"], desc, 75)
+        # self.load_section(
+        #     [
+        #         "Desmond Foo Fong Yoong",
+        #     ],
+        #     name,
+        #     75,
+        # )
         # self.position += 25
 
         # self.load_section(["PROJECT COORDINATOR"], desc, 75)

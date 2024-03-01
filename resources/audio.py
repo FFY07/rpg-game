@@ -3,6 +3,8 @@ from pathlib import Path
 from pygame import mixer
 
 # mixer.init()
+
+# In case other people are using black formatter
 # fmt: off
 
 # Create a class so it doesn't load every time the sound is played and crash the game
