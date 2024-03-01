@@ -186,7 +186,7 @@ class CreateChar(Scene):
             self.button_dict[0].selected = True
             self.text_dict[0].selected = True
 
-            if actions["enter"]:
+            if actions["enter"] or actions["space"]:
 
                 # Create the characters
                 cf.create_team(list(self.player_dict.values()), "player", self.game)
@@ -203,10 +203,6 @@ class CreateChar(Scene):
 
         if actions["escape"]:
             self.exit_scene()
-
-        if actions["space"]:
-            next_scene = Story(self.game)
-            next_scene.start_scene()
 
         if actions["right"]:
             self.ready = True
