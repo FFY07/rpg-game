@@ -59,7 +59,7 @@ class TextSprite(pygame.sprite.Sprite):
         except:
             self.font = pygame.font.SysFont(text_font, size)
 
-        self.image = self.font.render(self.text, True, self.color)
+        self.image = self.font.render(self.text, True, self.color).convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.center = (self.x, self.y)
 
@@ -116,7 +116,7 @@ class Button(pygame.sprite.Sprite):
         self.selected = False
         self.toggled = False
 
-        self.image = pygame.Surface((self.width, self.height))
+        self.image = pygame.Surface((self.width, self.height)).convert_alpha()
         self.image.fill(self.color)
         self.image.set_alpha(self.alpha)
         self.rect = self.image.get_rect()
@@ -152,7 +152,7 @@ class TargetImage(pygame.sprite.Sprite):
         self.x_offset = x_offset
         self.y_offset = y_offset
 
-        self.image = image
+        self.image = image.convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.center = (
             self.target_x + self.x_offset,
@@ -262,7 +262,9 @@ class DamageText(pygame.sprite.Sprite):
         except:
             self.font = pygame.font.SysFont(self.text_font, self.size)
 
-        self.image = self.font.render(self.damage_amount, True, self.color)
+        self.image = self.font.render(
+            self.damage_amount, True, self.color
+        ).convert_alpha()
 
         self.rect = self.image.get_rect()
         self.rect.center = self.target.rect.center
@@ -584,12 +586,16 @@ class InfoGUI:
                 ),
                 16,
                 "gold1",
-                "newsgoth bt"
+                "newsgoth bt",
             )
         )
 
         # Unit name
-        self.text_sprites.add(TrackingText(self.unit.name, self.unit, "", (-40, -120), 30, "white", '"newsgoth bt"'))
+        self.text_sprites.add(
+            TrackingText(
+                self.unit.name, self.unit, "", (-40, -120), 30, "white", '"newsgoth bt"'
+            )
+        )
 
         self.sprites.add([self.bars, self.text_sprites])
 
@@ -602,11 +608,7 @@ class InfoGUI:
 
 def create_info_guis(game):
     for sprite in game.all_units:
-        trackers = {
-            "green": "health",
-            "deepskyblue1": "mana",
-            "gold1" : "exp"
-        }
+        trackers = {"green": "health", "deepskyblue1": "mana", "gold1": "exp"}
         InfoGUI(
             sprite,
             trackers,
