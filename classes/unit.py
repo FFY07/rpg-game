@@ -208,7 +208,7 @@ class Unit(pygame.sprite.Sprite):
             # Forget it, let's just hardcode
             if self.burn_stacks:
                 self.game.sprites.add(
-                    ui_functions.HitImage("effect/misc/magic/magma", self, 1, 128, 128)
+                    ui_functions.HitImage("misc/magic/magma", self, 1, 128, 128)
                 )
                 # Example burn: [5, 10] = tick 5 turns, 10 damage each time
                 for i, burn in enumerate(self.burn_stacks):
@@ -365,7 +365,7 @@ class Unit(pygame.sprite.Sprite):
 
             match item:
                 case "Health Potion":
-                    if self.unit_class == 'Necromancer': 
+                    if self.unit_class == "Necromancer":
                         self.health -= self.max_health * 0.1
                     else:
                         self.health += self.max_health * 0.5  # test
@@ -379,7 +379,7 @@ class Unit(pygame.sprite.Sprite):
                     print("Recovered health!")
 
                 case "Mana Potion":
-                    if self.unit_class == 'reaper': 
+                    if self.unit_class == "reaper":
                         self.health += self.max_health * 0.1
                     else:
                         self.mana += 50
