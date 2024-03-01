@@ -235,28 +235,28 @@ class Unit(pygame.sprite.Sprite):
                     if not regen[0] < 0:
                         regen[0] -= 1
                     damage -= regen[1]
-                    self.game.event_log.append(
-                        f"{self.name} has regenerated {abs(damage)} health!"  # abs else negative
-                    )
+                    # self.game.event_log.append(
+                    #     f"{self.name} has regenerated {abs(damage)} health!"  # abs else negative
+                    # )
                     if not regen[0]:
                         self.health_regen_stacks.pop(i)
-                        self.game.event_log.append(
-                            f"A health regeneration stack has worn off for {self.name}"
-                        )
+                        # self.game.event_log.append(
+                        #     f"A health regeneration stack has worn off for {self.name}"
+                        # )
 
             if self.mana_regen_stacks:
                 for i, regen in enumerate(self.mana_regen_stacks):
                     if not regen[0] < 0:
                         regen[0] -= 1
                     self.mana += regen[1]
-                    self.game.event_log.append(
-                        f"{self.name} has regenerated {regen[1]} mana!"
-                    )
+                    # self.game.event_log.append(
+                    #     f"{self.name} has regenerated {regen[1]} mana!"
+                    # )
                     if not regen[0]:
                         self.mana_regen_stacks.pop(i)
-                        self.game.event_log.append(
-                            f"A mana regeneration stack has worn off for {self.name}"
-                        )
+                        # self.game.event_log.append(
+                        #     f"A mana regeneration stack has worn off for {self.name}"
+                        # )
 
             # reset bonus_strength before calculating how much we get
             self.bonus_strength = 0
@@ -265,14 +265,14 @@ class Unit(pygame.sprite.Sprite):
                     if not effect[0] < 0:
                         effect[0] -= 1
                     self.bonus_strength += effect[1]
-                    self.game.event_log.append(
-                        f"{self.name} has {self.bonus_strength} bonus strength!"
-                    )
+                    # self.game.event_log.append(
+                    #     f"{self.name} has {self.bonus_strength} bonus strength!"
+                    # )
                     if not effect[0]:
                         self.bonus_strength_stacks.pop(i)
-                        self.game.event_log.append(
-                            f"{self.name}'s damage is back to normal..."
-                        )
+                        # self.game.event_log.append(
+                        #     f"{self.name}'s damage is back to normal..."
+                        # )
 
             self.bonus_intelligence = 0
             if self.bonus_intelligence_stacks:
@@ -280,14 +280,14 @@ class Unit(pygame.sprite.Sprite):
                     if not effect[0] < 0:
                         effect[0] -= 1
                     self.bonus_intelligence += effect[1]
-                    self.game.event_log.append(
-                        f"{self.name} has {self.bonus_intelligence} bonus intelligence!"
-                    )
+                    # self.game.event_log.append(
+                    #     f"{self.name} has {self.bonus_intelligence} bonus intelligence!"
+                    # )
                     if not effect[0]:
                         self.bonus_intelligence_stacks.pop(i)
-                        self.game.event_log.append(
-                            f"{self.name}'s intelligence is back to normal..."
-                        )
+                        # self.game.event_log.append(
+                        #     f"{self.name}'s intelligence is back to normal..."
+                        # )
 
             self.bonus_defence = 0
             if self.bonus_defence_stacks:
@@ -295,14 +295,14 @@ class Unit(pygame.sprite.Sprite):
                     if not effect[0] < 0:
                         effect[0] -= 1
                     self.bonus_defence += effect[1]
-                    self.game.event_log.append(
-                        f"{self.name} has {self.bonus_defence} bonus defence!"
-                    )
+                    # self.game.event_log.append(
+                    #     f"{self.name} has {self.bonus_defence} bonus defence!"
+                    # )
                     if not effect[0]:
                         self.bonus_defence_stacks.pop(i)
-                        self.game.event_log.append(
-                            f"{self.name}'s defence is back to normal..."
-                        )
+                        # self.game.event_log.append(
+                        #     f"{self.name}'s defence is back to normal..."
+                        # )
 
             self.bonus_magic_resist = 0
             if self.bonus_magic_resist_stacks:
@@ -310,15 +310,15 @@ class Unit(pygame.sprite.Sprite):
                     if not effect[0] < 0:
                         effect[0] -= 1
                     self.bonus_magic_resist += effect[1]
-                    self.game.event_log.append(
-                        f"{self.name} has {self.bonus_magic_resist} bonus magic resist!"
-                    )
+                    # self.game.event_log.append(
+                    #     f"{self.name} has {self.bonus_magic_resist} bonus magic resist!"
+                    # )
 
                     if not effect[0]:
                         self.bonus_magic_resist_stacks.pop(i)
-                        self.game.event_log.append(
-                            f"{self.name}'s magic resistance is back to normal..."
-                        )
+                        # self.game.event_log.append(
+                        #     f"{self.name}'s magic resistance is back to normal..."
+                        # )
 
             if damage > 0:
                 self.health -= damage
