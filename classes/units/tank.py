@@ -9,7 +9,7 @@ STRENGTH = (8, 8)
 INTELLIGENCE = (22, 22)
 DEFENCE = (100, 100)
 MAGIC_RESIST = (80, 80)
-
+race = "?"
 
 class Tank(Unit):
     def __init__(self, name, team, game=None):
@@ -17,6 +17,7 @@ class Tank(Unit):
         self.game = game
 
         self.unit_class = "Tank"
+        self.race = race
 
         self.name = name
         self.team = team

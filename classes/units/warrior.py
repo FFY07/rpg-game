@@ -9,7 +9,7 @@ STRENGTH = (16, 16)
 INTELLIGENCE = (8, 8)
 DEFENCE = (90, 90)
 MAGIC_RESIST = (75, 75)
-
+race = "Human"
 
 class Warrior(Unit):
     def __init__(self, name, team, game=None):
@@ -17,6 +17,7 @@ class Warrior(Unit):
         self.game = game
 
         self.unit_class = "Warrior"
+        self.race = race
         self.anim_speed = 50
 
         self.name = name

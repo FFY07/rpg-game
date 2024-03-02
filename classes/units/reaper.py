@@ -9,7 +9,7 @@ STRENGTH = (50, 50)
 INTELLIGENCE = (10, 10)
 DEFENCE = (80, 80)
 MAGIC_RESIST = (80, 80)
-
+race = "Undead"
 
 class Reaper(Unit):
     def __init__(self, name, team, game=None):
@@ -17,6 +17,7 @@ class Reaper(Unit):
         self.game = game
 
         self.unit_class = "Reaper"
+        self.race = race
 
         self.name = name
         self.team = team

@@ -22,7 +22,7 @@ class Unit(pygame.sprite.Sprite):
         self.health = self.max_health
         self.max_mana = MAX_MANA
         self.mana = self.max_mana
-
+        
         # 20% default is quite high, want to change?
         self.crit_chance = 20
         self.crit_mult = 1.5
@@ -54,6 +54,9 @@ class Unit(pygame.sprite.Sprite):
 
         self.coins = COINS
 
+        #check for Race
+        self.race = "Unknown"
+        
         self.selected = False
         self.direction = "right"
 
@@ -61,6 +64,7 @@ class Unit(pygame.sprite.Sprite):
         self.size_scale = 2
         self.unit_class = "Knight"
         self.alive = True
+
 
         # Starting position
         self.position = (scr.SCREEN_WIDTH // 2, scr.SCREEN_HEIGHT // 2)

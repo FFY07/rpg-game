@@ -43,6 +43,17 @@ class CreateCharSelect(Scene):
             True,
             100,
             "SELECTED",
+        )   
+
+        self.race_name = ui_functions.TextSprite(
+            # f"Race: {list(cf.unitrace_dict.values())[self.character_pointer]}",
+            f"Race: {list(cf.unitrace_dict.values())[self.character_pointer]}",
+            20,
+            fonts.spartan_mb_semibold,
+            "forestgreen",
+            True,
+            140,
+            "SELECTED",
         )
 
         self.class_des = ui_functions.TextSprite(
@@ -74,10 +85,13 @@ class CreateCharSelect(Scene):
             self.yc + 130,
             "SELECTED",
         )
+
         self.sprites.add(self.class_name)
+        self.sprites.add(self.race_name)
         self.sprites.add(self.class_des)
         self.sprites.add(self.stat_des)
         self.sprites.add(self.spacedes)
+
         # Add our display units
         for unit in cf.unit_dict.keys():
             self.display_units.add(
@@ -137,6 +151,7 @@ class CreateCharSelect(Scene):
         list(self.text_sprites.sprites())[self.pointer].selected = True
 
         self.class_name.text = list(cf.unit_dict.keys())[self.character_pointer]
+        self.race_name.text = f"Race: {list(cf.unitrace_dict.values())[self.character_pointer]}"
         self.class_des.text = list(cf.unit_dict.values())[self.character_pointer]
         self.stat_des.text = list(cf.stat_dict.values())[self.character_pointer]
 
@@ -198,6 +213,7 @@ class CreateCharSelect(Scene):
             next_scene = CharDesc(
                 self.game, self.display_units_list[self.character_pointer]
             )
+
             next_scene.start_scene()
         self.display_units.update()
         self.sprites.update()

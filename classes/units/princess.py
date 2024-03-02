@@ -5,20 +5,13 @@ from classes.unit import Unit
 
 from gui import ui_functions
 
-"""
 
-
-
-
-
-
-"""
 # Range value
 STRENGTH = (11, 11)
 INTELLIGENCE = (25, 25)
 DEFENCE = (32, 32)
 MAGIC_RESIST = (30, 30)
-
+race = "Human"
 
 class Princess(Unit):
     def __init__(self, name, team, game=None):
@@ -26,6 +19,7 @@ class Princess(Unit):
         self.game = game
 
         self.unit_class = "Princess"
+        self.race = race
 
         self.name = name
         self.team = team

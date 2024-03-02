@@ -8,7 +8,7 @@ STRENGTH = (8, 8)
 INTELLIGENCE = (20, 20)
 DEFENCE = (80, 80)
 MAGIC_RESIST = (100, 100)
-
+race = "Human"
 
 class Bandit(Unit):
     def __init__(self, name, team, game=None):
@@ -16,6 +16,7 @@ class Bandit(Unit):
         self.game = game
 
         self.unit_class = "Bandit"
+        self.race = race
 
         self.name = name
         self.team = team

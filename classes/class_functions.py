@@ -21,6 +21,15 @@ unit_dict = {
     "Necromancer": "Powerful mage with high intelligence and magic resistance",
 }
 
+unitrace_dict = {
+    "Warrior": f"{warrior.race}",
+    "Reaper": f"{reaper.race}",
+    "Bandit": f"{bandit.race}",
+    "Tank": f"{tank.race}",
+    "Princess": f"{princess.race}",
+    "Necromancer": f"{necromancer.race}",
+}
+
 stat_dict = {
     "Warrior": f"STR: {warrior.STRENGTH[0]:<5} INT: {warrior.INTELLIGENCE[0]:<5} DEF: {warrior.DEFENCE[0]:<5} MR: {warrior.MAGIC_RESIST[0]:<5}",
     "Reaper": f"STR: {reaper.STRENGTH[0]:<5} INT: {reaper.INTELLIGENCE[0]:<5} DEF: {reaper.DEFENCE[0]:<5} MR: {reaper.MAGIC_RESIST[0]:<5}",

@@ -9,7 +9,7 @@ STRENGTH = (5, 5)
 INTELLIGENCE = (20, 20)
 DEFENCE = (65, 65)
 MAGIC_RESIST = (85, 85)
-
+race = "Undead"
 
 class Necromancer(Unit):
     def __init__(self, name, team, game=None):
@@ -17,6 +17,7 @@ class Necromancer(Unit):
         self.game = game
 
         self.unit_class = "Necromancer"
+        self.race = race
 
         self.name = name
         self.team = team
