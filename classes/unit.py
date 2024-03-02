@@ -236,6 +236,9 @@ class Unit(pygame.sprite.Sprite):
                 for i, regen in enumerate(self.health_regen_stacks):
                     if not regen[0] < 0:
                         regen[0] -= 1
+
+                    if self.burn_stacks:
+                        damage -= regen[1] * 0.6
                     damage -= regen[1]
                     # self.game.event_log.append(
                     #     f"{self.name} has regenerated {abs(damage)} health!"  # abs else negative

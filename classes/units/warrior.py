@@ -91,7 +91,7 @@ class Warrior(Unit):
         """Temporarily boosts ally strength and intelligence"""
         mana_cost = 35
         if not self.is_target_hostile(target):
-            if self.mana > mana_cost:
+            if self.mana >= mana_cost:
                 self.mana -= mana_cost
 
                 self.play_sound(self.game.audio_handler.warrior_rally)

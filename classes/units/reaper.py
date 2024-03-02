@@ -50,7 +50,7 @@ class Reaper(Unit):
         self.move_desc["Dead Scythe (25 HP)"] = "Slash all enemies with scythe"
 
         self.moves["Hell descent (-40HP)"] = self.helldescent
-        self.move_desc["Hell descent (40HP)"] = "Sacrifices HP to Hell and get Regenation and ATK boost"
+        self.move_desc["Hell descent (40HP)"] = "Sacrifices HP to Hell and get Regenation for 3 turns and ATK boost for 1 turns"
 
     def level_stats(self):
         self.health += self.max_health / 10
@@ -139,8 +139,8 @@ class Reaper(Unit):
             self.bonus_strength_stacks.clear()
 
             # Effectively 2 times strength for 3 turns
-            self.bonus_strength_stacks.append([3, self.strength * 0.7])
-            self.health_regen_stacks.append([4, self.max_health * 0.14])
+            self.bonus_strength_stacks.append([1, self.strength * 0.7])
+            self.health_regen_stacks.append([4, self.max_health * 0.12])
 
             self.game.sprites.add(ui_functions.HitImage("misc/blood/blood2", self, 2))
             self.game.event_log.append(f"{self.name} sacrifice 40hp to Hell")

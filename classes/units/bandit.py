@@ -55,7 +55,7 @@ class Bandit(Unit):
     def swordwater(self, target: object, target_team: list):
         if self.is_target_hostile(target):
             mana_cost = 15
-            if self.mana > mana_cost:
+            if self.mana >= mana_cost:
                 self.mana -= mana_cost
                 damage, crit = self.calc_damage(target, "magic", 1.2)
                 damagemana = 25
@@ -86,7 +86,7 @@ class Bandit(Unit):
     def swordfire(self, target: object, target_team: list):
         if self.is_target_hostile(target):
             mana_cost = 30
-            if self.mana > mana_cost:
+            if self.mana >= mana_cost:
                 self.mana -= mana_cost
 
                 target.burn_stacks.append([3, self.intelligence * 0.5])
