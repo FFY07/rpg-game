@@ -8,6 +8,7 @@ from classes.units import bandit
 from classes.units import tank
 from classes.units import princess
 from classes.units import necromancer
+from classes.units import paladin
 
 import resources.images as images
 
@@ -19,6 +20,7 @@ unit_dict = {
     "Tank": "Tank",
     "Princess": "Able to heal and regen Mana for teammate, but get more damage by other",
     "Necromancer": "Powerful mage with high intelligence and magic resistance",
+    "Paladin": "Holy Knight that can heal and deal more damage to Undead"
 }
 
 unitrace_dict = {
@@ -28,6 +30,7 @@ unitrace_dict = {
     "Tank": f"{tank.race}",
     "Princess": f"{princess.race}",
     "Necromancer": f"{necromancer.race}",
+    "Paladin" : f"{paladin.race}"
 }
 
 stat_dict = {
@@ -37,6 +40,7 @@ stat_dict = {
     "Tank": f"STR: {tank.STRENGTH[0]:<5} INT: {tank.INTELLIGENCE[0]:<5} DEF: {tank.DEFENCE[0]:<5} MR: {tank.MAGIC_RESIST[0]:<5}",
     "Princess": f"STR: {princess.STRENGTH[0]:<5} INT: {princess.INTELLIGENCE[0]:<5} DEF: {princess.DEFENCE[0]:<5} MR: {princess.MAGIC_RESIST[0]:<5}",
     "Necromancer": f"STR: {necromancer.STRENGTH[0]:<5} INT: {necromancer.INTELLIGENCE[0]:<5} DEF: {necromancer.DEFENCE[0]:<5} MR: {necromancer.MAGIC_RESIST[0]:<5}",
+    "Paladin": f"STR: {paladin.STRENGTH[0]:<5} INT: {paladin.INTELLIGENCE[0]:<5} DEF: {paladin.DEFENCE[0]:<5} MR: {paladin.MAGIC_RESIST[0]:<5}"
 }
 
 
@@ -46,7 +50,7 @@ marketing_images = {
     "Bandit": images.bandit_marketing,
     "Tank": images.tank_marketing,
     "Princess": images.princess_marketing,
-    "Necromancer": images.necromancer_marketing,
+    "Paladin": images.paladin_marketing,
 }
 
 
@@ -88,6 +92,9 @@ def create_unit(name, unit_class, team, game, standalone=False):
 
         case "Necromancer":
             unit = necromancer.Necromancer(name, team, game)
+        
+        case "Paladin":
+            unit = paladin.Paladin(name, team, game)
 
         case _:
             raise Exception(
