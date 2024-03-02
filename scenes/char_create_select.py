@@ -65,9 +65,19 @@ class CreateCharSelect(Scene):
             "SELECTED",
         )
 
+        self.spacedes = ui_functions.TextSprite(
+            "Press Space to view Character Skill",
+            25,
+            fonts.spartan_mb_semibold,
+            "azure4",
+            True,
+            self.yc + 130,
+            "SELECTED",
+        )
         self.sprites.add(self.class_name)
         self.sprites.add(self.class_des)
         self.sprites.add(self.stat_des)
+        self.sprites.add(self.spacedes)
         # Add our display units
         for unit in cf.unit_dict.keys():
             self.display_units.add(
