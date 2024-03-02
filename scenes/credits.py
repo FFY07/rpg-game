@@ -42,48 +42,11 @@ class Credits(Scene):
         )
         self.position += 150
 
-        self.load_section(["GITHUB CONTRIBUTORS"], desc, 75)
+        self.load_section(["GAME MADE BY"], desc, 75)
 
-        self.load_section(["Desmond Foo Fong Yoong"], name, 50)
-        self.load_section(["38,812 edits"], note, 100)
-        self.load_section(["Haarith Bin Naguri Ibrahim"], name, 50)
-        self.load_section(["94 edits"], note, 200)
+        self.load_section(["Desmond Foo Fong Yoong"], name, 150)
 
-        # self.load_section(["SOUND DESIGN"], desc, 75)
-        # self.load_section(["Desmond Foo Fong Yoong"], name, 100)
-
-        # self.load_section(["VISUAL DESIGN"], desc, 75)
-        # self.load_section(["Desmond Foo Fong Yoong"], name, 100)
-
-        # self.load_section(["GAMEPLAY"], desc, 75)
-        # self.load_section(
-        #     [
-        #         "Desmond Foo Fong Yoong",
-        #     ],
-        #     name,
-        #     75,
-        # )
-        # self.position += 25
-
-        # self.load_section(["PROJECT COORDINATOR"], desc, 75)
-        # self.load_section(["Desmond Foo Fong Yoong"], name, 100)
-
-        # self.position += 100
-        self.load_section(["GROUP A1 MEMBERS"], desc, 75)
-        self.load_section(
-            [
-                "Desmond Foo Fong Yoong",
-                "Haarith Bin Naguri Ibrahim",
-                "Haohong Luo",
-                "Yi Soon Pong",
-                "Xu Xiang (Ye Xuxiang) Yap",
-                "Qiao Er Kang",
-            ],
-            name,
-            75,
-        )
-        self.position += 100
-        self.load_section(["SPECIAL THANKS"], desc, 75)
+        self.load_section(["ASSETS FROM OTHER GAMES"], desc, 75)
         self.load_section(
             [
                 "World of Tanks",
