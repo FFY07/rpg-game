@@ -139,7 +139,7 @@ class Princess(Unit):
                 self.mana -= mana_cost
                 heal = 0
                 for t in target_team:
-                    t.health_regen_stacks.append([4, self.intelligence / 2.5 ])
+                    t.health_regen_stacks.append([5 , self.intelligence / 1.667 ]) # heal 15
                     t.update_healstats(target, heal, "healing", 1)
                     self.game.sprites.add(
                         ui_functions.HitImage("unit/princess/holy", t, 25)

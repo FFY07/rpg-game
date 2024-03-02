@@ -38,13 +38,16 @@ class Paladin(Unit):
         self.rect = self.image.get_rect()
         self.rect.center = self.position
 
-        self.move_desc["Passive"] = "Deal more DMG to Undead"
+        self.move_desc["Passive "] = "Deal more DMG , Skill (Effect/ Duration) will change when target is Undead "
 
-        self.moves["Heal (20%HP, (10))"] = self.healing
-        self.move_desc["Heal (20% HP and 10 MANA)"] = "Heal allies, if allies HP less than 30%, Heal 25% more"
+        self.moves["Sacrifice (20%HP, (10))"] = self.sacrifice
+        self.move_desc["Sacrifice (20% HP and 10 MANA)"] = "Heal allies, if allies are undead, Heal less 25% "
 
         self.moves["Gospel (30)"] = self.gospel
-        self.move_desc["Gospe; (30 MANA)"] = "__"
+        self.move_desc["Gospel (30 MANA)"] = "Increase team damge 15% and regen 10 HP for 3 turn"
+
+        self.moves["Smite (40)"] = self.smite
+        self.move_desc["Smite (40 MANA)"] = "Summon a lighting to deal damage and burn target"
 
 
     def level_stats(self):
@@ -54,7 +57,7 @@ class Paladin(Unit):
         self.defence += 5
         self.magic_resist += 2
 
-    def healing(self, target, target_team):
+    def sacrifice(self, target, target_team):
         if not self.is_target_hostile(target) and target.health != target.max_health and target != self:
             healratio = self.max_health * 0.2
             mana_cost = 10
@@ -63,8 +66,8 @@ class Paladin(Unit):
                 self.mana -= mana_cost
                 self.health -= healratio
 
-                if target.health <=  0.3:
-                    heal = heal * 1.25
+                if target.race == "Undead":
+                    heal = heal * 0.75
 
                 target.health += heal
                 self.game.sprites.add(
@@ -82,20 +85,52 @@ class Paladin(Unit):
                 return True
             
     def gospel (self, target, target_team):
-        " increase team damge, and deal damage to enemy"
-        if self.is_target_hostile(target):
-            mana_cost = 30
+        " increase team damge 15% and regen 10 HP for 3 turn"
+        mana_cost = 30
+        if not self.is_target_hostile(target):
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
 
 
                 for t in target_team:
-                    damage, crit = self.calc_damage(t, "physical", 0.9)
-                    self.update_stats(t, damage, crit, "misc/physical/slash2", 50)
-
-        
-                self.play_sound(self.game.audio_handler.sword_sfx)
-                self.game.event_log.append(
-                        f"{self.name} buff allies and deal {int(damage)}"
+                    t.bonus_strength_stacks.append(
+                        [3, target.strength * 0.15]
+                    )  # 20% increase
+                    t.bonus_intelligence_stacks.append([3, target.intelligence * 0.15])
+                    t.health_regen_stacks.append([4, self.intelligence / 1.8 ])  #heal 10
+                    self.game.sprites.add(
+                        ui_functions.HitImage("unit/princess/holy", t, 40)
                     )
+
+                self.game.event_log.append(
+                    f"{self.name} use gospel, Everyone increase 15% damage and regen {int(self.intelligence / 1.8)} "
+                )
+
+                return True
+            
+    def smite (self,target, target_team):
+        "summon a lighting to deal damage and burn target"
+        if self.is_target_hostile(target):
+            mana_cost = 40
+            if self.mana >= mana_cost:
+                self.mana -= mana_cost
+                if target.race == "Undead":
+                    damage, crit = self.calc_damage(
+                    target, "physical",  2
+                )
+                else:
+                    damage, crit = self.calc_damage(
+                        target, "physical",  1.4
+                    )
+
+                if target.race == "Undead":
+                    target.burn_stacks.append([3, self.intelligence * 0.75])
+
+                else:
+                    target.burn_stacks.append([3, self.intelligence * 0.5])
+
+                self.melee(target)
+                self.update_stats(target, damage, crit, "mnit/princess/holy", 50)
+
+
                 return True

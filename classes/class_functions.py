@@ -50,6 +50,7 @@ marketing_images = {
     "Bandit": images.bandit_marketing,
     "Tank": images.tank_marketing,
     "Princess": images.princess_marketing,
+    "Necromancer": images.necromancer_marketing,
     "Paladin": images.paladin_marketing,
 }
 
