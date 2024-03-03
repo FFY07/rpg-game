@@ -66,7 +66,7 @@ class Necromancer(Unit):
 
     def siphon(self, target: object, target_team: list):
         """Weakens the enemy and recovers health"""
-        mana_cost = 25
+        mana_cost = 20
         if self.is_target_hostile(target):
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
@@ -83,12 +83,15 @@ class Necromancer(Unit):
                 if crit:
                     self.game.event_log.append("It was a crit!")
 
+                self.play_sound(self.game.audio_handler.necromancer_weaken)
+
                 # Higher the ratio the higher the heal
                 health_recovery = (self.max_health - self.health) * 0.6 + (
                     (self.intelligence + self.bonus_intelligence) / 100
                 )
-                print(health_recovery)
+
                 self.health += health_recovery
+                self.health_regen_stacks.append([2, health_recovery / 2])
 
                 return True
 
@@ -103,6 +106,8 @@ class Necromancer(Unit):
                 ((self.intelligence + self.bonus_intelligence)) / 100
             )
             self.mana += mana_recovery
+
+            self.play_sound(self.game.audio_handler.necromancer_infect)
 
             self.change_state("hurt")
             self.game.event_log.append(

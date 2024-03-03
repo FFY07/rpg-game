@@ -143,6 +143,9 @@ class Unit(pygame.sprite.Sprite):
             case "Reaper":
                 self.default_attack_sfx = self.game.audio_handler.reaper_basic
 
+            case "Necromancer":
+                self.default_attack_sfx = self.game.audio_handler.necromancer_basic
+
             case _:
                 self.default_attack_sfx = self.game.audio_handler.sword_sfx
 
