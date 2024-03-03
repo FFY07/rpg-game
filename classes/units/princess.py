@@ -79,6 +79,8 @@ class Princess(Unit):
                 self.mana -= mana_cost
                 self.health -= healratio
 
+
+                self.play_sound(self.game.audio_handler.heal_sfx)
                 if target.health <= 0.3:
                     heal = heal * 1.25
 
@@ -110,6 +112,7 @@ class Princess(Unit):
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
 
+                self.play_sound(self.game.audio_handler.heal_sfx)
                 target.burn_stacks.clear()
 
                 if target.max_mana == 0.1:  # for reaper , add health instead
@@ -146,6 +149,8 @@ class Princess(Unit):
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
                 heal = 0
+
+                self.play_sound(self.game.audio_handler.heal_sfx)
                 for t in target_team:
                     t.health_regen_stacks.append(
                         [5, self.intelligence / 1.667]

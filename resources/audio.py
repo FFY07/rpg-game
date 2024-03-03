@@ -27,6 +27,7 @@ class SoundEffects():
         self.sword_sfx = mixer.Sound(f"{Path('resources/audio/character_effects/unsheath_sword-6113.wav')}")
 
         self.reaper_basic = mixer.Sound(f"{Path('resources/audio/character_effects/Reaper/double_unsheath2.wav')}")
+        self.reaper_blood = mixer.Sound(f"{Path('resources/audio/character_effects/Reaper/breeze-of-blood-122253.mp3')}")
 
         self.warrior_basic = mixer.Sound(f"{Path('resources/audio/character_effects/Warrior/heavy_slash.wav')}")
         self.warrior_basic.set_volume(1)
@@ -40,6 +41,8 @@ class SoundEffects():
         
         self.necromancer_doom = mixer.Sound(f"{Path('resources/audio/character_effects/Necromancer/doom.wav')}")
 
+        self.heal_sfx = mixer.Sound(f"{Path('resources/audio/character_effects/02_Heal_02.wav')}")
+        self.heal_sfx.set_volume(0.4)
         self.magic_sfx = mixer.Sound(f"{Path('resources/audio/character_effects/1168-za-warudo-sound-effect.wav')}")
         self.magic_sfx.set_volume(0.4)
 

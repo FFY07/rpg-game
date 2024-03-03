@@ -75,13 +75,13 @@ class Reaper(Unit):
         )  # atleast deal 5 dmg
 
         if self.is_target_hostile(target):
-            damage, crit = self.calc_damage(target, "physical", 0.6)
+            damage, crit = self.calc_damage(target, "physical", 1)
 
             # Melee is optional and only for direct attacks
             self.melee(target)
             self.update_stats(target, damage, crit, "misc/physical/slash1", 50)
 
-            # Add mana when attacking
+            # Add health when attacking
             if self.health < self.max_health:
                 self.health += 5
                 if self.health > self.max_health:
@@ -146,6 +146,8 @@ class Reaper(Unit):
         health_cost = self.max_health * 0.4
         if self.health > health_cost:
             self.health -= health_cost
+
+            self.play_sound(self.game.audio_handler.reaper_blood)
 
             # clear all buff
             self.burn_stacks.clear()
