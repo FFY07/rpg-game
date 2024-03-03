@@ -11,6 +11,7 @@ DEFENCE = (80, 80)
 MAGIC_RESIST = (80, 80)
 race = "Undead"
 
+
 class Reaper(Unit):
     def __init__(self, name, team, game=None):
         super().__init__(name, team)
@@ -36,22 +37,29 @@ class Reaper(Unit):
 
         self.load_animations()
 
-        # self.load_sounds()
+        # Have to load sounds like this else the game will crash due to the game object not being initialised yet
+        self.load_sounds()
 
         self.image = self.animations["idle"][0]
         self.rect = self.image.get_rect()
         self.rect.center = self.position
 
-        self.move_desc["Passive"] = "The lower the HP, the higher the ATK, Use HP instead of MANA"
+        self.move_desc["Passive"] = (
+            "The lower the HP, the higher the ATK, Use HP instead of MANA"
+        )
 
         self.moves["Decay (-10HP)"] = self.decay
-        self.move_desc["Decay (10 HP)"] = "Decay Enemy and drain their soul to recover HP"
+        self.move_desc["Decay (10 HP)"] = (
+            "Decay Enemy and drain their soul to recover HP"
+        )
 
         self.moves["Dead Scythe (-25HP)"] = self.deadscythe
         self.move_desc["Dead Scythe (25 HP)"] = "Slash all enemies with scythe"
 
         self.moves["Hell descent (-40HP)"] = self.helldescent
-        self.move_desc["Hell descent (40HP)"] = "Sacrifices HP to Hell and get Regenation for 3 turns and ATK boost for 1 turns"
+        self.move_desc["Hell descent (40HP)"] = (
+            "Sacrifices HP to Hell and get Regenation for 3 turns and ATK boost for 1 turns"
+        )
 
     def level_stats(self):
         self.health += self.max_health / 10
@@ -90,27 +98,32 @@ class Reaper(Unit):
             if self.health > health_cost:
                 self.health -= health_cost
                 self.strength = max(
-                    target.health * 0.1 , STRENGTH[0] * (1 - (self.health / self.max_health))
+                    target.health * 0.1,
+                    STRENGTH[0] * (1 - (self.health / self.max_health)),
                 )
 
                 damage, crit = self.calc_damage(target, "physical", 0.9)
-                regen = min(self.max_health * 0.35 ,(max(self.max_health * 0.1 ,damage)))
-                self.health += regen  #atleast heal 10 and max 35
+                regen = min(
+                    self.max_health * 0.35, (max(self.max_health * 0.1, damage))
+                )
+                self.health += regen  # atleast heal 10 and max 35
 
                 self.melee(target)
                 self.update_stats(target, damage, crit, "unit/reaper/soul", 3)
 
                 self.play_sound(self.game.audio_handler.sword_sfx)
                 self.game.event_log.append(
-                f"{self.name} decay {target.name} for {int(damage)} and recover {regen}"
-            )
+                    f"{self.name} decay {target.name} for {int(damage)} and recover {regen}"
+                )
 
                 return True
 
     def deadscythe(self, target: object, target_team: list):
         if self.is_target_hostile(target):
             health_cost = self.max_health * 0.25
-            self.strength = max(target.health * 0.1, STRENGTH[0] * (1 - (self.health / self.max_health)))
+            self.strength = max(
+                target.health * 0.1, STRENGTH[0] * (1 - (self.health / self.max_health))
+            )
 
             if self.health > health_cost:
                 self.health -= health_cost
@@ -134,8 +147,7 @@ class Reaper(Unit):
         if self.health > health_cost:
             self.health -= health_cost
 
-            
-            #clear all buff
+            # clear all buff
             self.burn_stacks.clear()
             self.bonus_strength_stacks.clear()
 

@@ -11,6 +11,7 @@ DEFENCE = (100, 100)
 MAGIC_RESIST = (80, 80)
 race = "?"
 
+
 class Tank(Unit):
     def __init__(self, name, team, game=None):
         super().__init__(name, team)
@@ -34,7 +35,7 @@ class Tank(Unit):
 
         self.load_animations()
 
-        # self.load_sounds()
+        self.load_sounds()
 
         self.image = self.animations["idle"][0]
         self.rect = self.image.get_rect()
@@ -46,15 +47,17 @@ class Tank(Unit):
         self.move_desc["Passive"] = "You say you wanted a Tanker right?"
 
         self.moves["Cannon (40)"] = self.cannon
-        self.move_desc["Cannon (40 MANA)"] = "Loads a powerful tank shell and fires it at a single target if loaded"
+        self.move_desc["Cannon (40 MANA)"] = (
+            "Loads a powerful tank shell and fires it at a single target if loaded"
+        )
 
         self.moves["Machine Gun (25)"] = self.machine_gun
         self.move_desc["Machine Gun (25 MANA)"] = "Randomly shoot 1-2 enemies"
 
-
         self.moves["Flamethrower (70)"] = self.flamethrower
-        self.move_desc["Flamethrower (70 MANA)"] = "Blasts a large amount of fire and burns all enemies for 3 turns"
-
+        self.move_desc["Flamethrower (70 MANA)"] = (
+            "Blasts a large amount of fire and burns all enemies for 3 turns"
+        )
 
     def level_stats(self):
         self.health += self.max_health / 10

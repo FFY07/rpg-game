@@ -11,6 +11,7 @@ DEFENCE = (90, 90)
 MAGIC_RESIST = (75, 75)
 race = "Human"
 
+
 class Warrior(Unit):
     def __init__(self, name, team, game=None):
         super().__init__(name, team)
@@ -34,7 +35,8 @@ class Warrior(Unit):
             self.direction = "left"
 
         self.load_animations()
-        # self.load_sounds()
+        self.load_sounds()
+
         # Loads the first idle frame so the proper rect size can be generated
         # Make sure all images are the same size
         self.image = self.animations["idle"][0]
@@ -48,10 +50,14 @@ class Warrior(Unit):
         self.move_desc["Hasagi (15 Mana)"] = "Randomly slashes 1-2 enemies"
 
         self.moves["Inspire (35)"] = self.inspire
-        self.move_desc['Inspire (35 Mana)'] = "Temporarily boosts ally strength and intelligence"
+        self.move_desc["Inspire (35 Mana)"] = (
+            "Temporarily boosts ally strength and intelligence"
+        )
 
         self.moves["Execute (45)"] = self.execute
-        self.move_desc['Execute (45 Mana)'] = "Deals increased damage to low-health enemies"
+        self.move_desc["Execute (45 Mana)"] = (
+            "Deals increased damage to low-health enemies"
+        )
 
     def level_stats(self):
         self.health += self.max_health / 10

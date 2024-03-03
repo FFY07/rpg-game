@@ -131,20 +131,20 @@ class Unit(pygame.sprite.Sprite):
         self.moves = {"Basic Attack": self.basic_attack}
         self.move_desc = {}
 
-    # def load_sounds(self):
-    #     """Loads the sounds into variables... wonder if this causes crashing"""
-    #     match self.unit_class:
-    #         case "Tank":
-    #             self.default_attack_sfx = self.game.audio_handler.tank_basic
+    def load_sounds(self):
+        """Loads the sounds into variables. This is necessary, else the game will crash when trying to load default_attack_sfx before the game object is initialised"""
+        match self.unit_class:
+            case "Tank":
+                self.default_attack_sfx = self.game.audio_handler.tank_basic
 
-    #         case "Warrior":
-    #             self.default_attack_sfx = self.game.audio_handler.warrior_basic
+            case "Warrior":
+                self.default_attack_sfx = self.game.audio_handler.warrior_basic
 
-    #         case "Reaper":
-    #             self.default_attack_sfx = self.game.audio_handler.reaper_basic
+            case "Reaper":
+                self.default_attack_sfx = self.game.audio_handler.reaper_basic
 
-    #         case _:
-    #             self.default_attack_sfx = self.game.audio_handler.sword_sfx
+            case _:
+                self.default_attack_sfx = self.game.audio_handler.sword_sfx
 
     def load_animations(self):
         for state in self.states:
@@ -551,25 +551,7 @@ class Unit(pygame.sprite.Sprite):
                 if self.mana > self.max_mana:
                     self.mana = self.max_mana
 
-            # This part needs to be hardcoded else the game will crash. Pygame mixer does not like passing sound objects
-            # through variables, so I can't use the load sounds method above to assign default sound objects in variables
-            match self.unit_class:
-                case "Warrior":
-                    self.play_sound(self.game.audio_handler.warrior_basic)
-
-                case "Tank":
-                    self.play_sound(self.game.audio_handler.tank_basic)
-
-                case "Reaper":
-                    self.play_sound(self.game.audio_handler.reaper_basic)
-
-                # case "Necromancer":
-                #     self.play_sound(self.game.audio_handler.necromancer_basic)
-
-                case _:
-                    self.play_sound(self.game.audio_handler.sword_sfx)
-
-            self.play_sound(self.game.audio_handler.sword_sfx)
+            self.play_sound(self.default_attack_sfx)
             self.game.event_log.append(
                 f"{self.name} basic attacks {target.name} for {int(damage)} physical damage!"
             )

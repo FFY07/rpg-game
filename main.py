@@ -71,7 +71,7 @@ class Game:
         self.max_players = 3
 
         self.start()
-        self.music = True
+        self.music = False
         self.sound = False
         self.volume = 0.4
 
