@@ -82,7 +82,7 @@ class Warrior(Unit):
                     target_list = target_team
 
                 for t in target_list:
-                    damage, crit = self.calc_damage(t, "physical", 1.6)
+                    damage, crit = self.calc_damage(t, "physical", 1.4)
                     self.update_stats(t, damage, crit, "misc/physical/slash2", 2)
                     self.game.event_log.append(
                         f"{self.name} slashes {t.name} for {int(damage)} damage!"

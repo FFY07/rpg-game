@@ -48,7 +48,7 @@ class Credits(Scene):
 
         self.load_section(["SPECIAL THANKS"], desc, 75)
 
-        self.load_section(["RZ"], name, 150)
+        self.load_section(["rz"], name, 150)
 
         self.load_section(["ASSETS FROM OTHER GAMES"], desc, 75)
         self.load_section(
