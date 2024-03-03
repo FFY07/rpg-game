@@ -10,6 +10,7 @@ DEFENCE = (80, 80)
 MAGIC_RESIST = (90, 90)
 race = "Human"
 
+
 class Paladin(Unit):
     def __init__(self, name, team, game=None):
         super().__init__(name, team)
@@ -32,23 +33,30 @@ class Paladin(Unit):
             self.direction = "left"
 
         self.load_animations()
-        # self.load_sounds()
+        self.load_sounds()
 
         self.image = self.animations["idle"][0]
         self.rect = self.image.get_rect()
         self.rect.center = self.position
 
-        self.move_desc["Passive "] = "Deal more DMG , Skill (Effect/ Duration) will change when target is Undead "
+        self.move_desc["Passive "] = (
+            "Deal more DMG , Skill (Effect/ Duration) will change when target is Undead "
+        )
 
         self.moves["Sacrifice (20%HP, (10))"] = self.sacrifice
-        self.move_desc["Sacrifice (20% HP and 10 MANA)"] = "Heal allies, if allies are undead, Heal less 25% "
+        self.move_desc["Sacrifice (20% HP and 10 MANA)"] = (
+            "Heal allies, if allies are undead, Heal less 25% "
+        )
 
         self.moves["Gospel (30)"] = self.gospel
-        self.move_desc["Gospel (30 MANA)"] = "Increase team damge 15% and regen 10 HP for 3 turn"
+        self.move_desc["Gospel (30 MANA)"] = (
+            "Increase team damge 15% and regen 10 HP for 3 turn"
+        )
 
         self.moves["Smite (40)"] = self.smite
-        self.move_desc["Smite (40 MANA)"] = "Summon a lighting to deal damage and burn target"
-
+        self.move_desc["Smite (40 MANA)"] = (
+            "Summon a lighting to deal damage and burn target"
+        )
 
     def level_stats(self):
         self.health += self.max_health / 10
@@ -58,10 +66,14 @@ class Paladin(Unit):
         self.magic_resist += 2
 
     def sacrifice(self, target, target_team):
-        if not self.is_target_hostile(target) and target.health != target.max_health and target != self:
+        if (
+            not self.is_target_hostile(target)
+            and target.health != target.max_health
+            and target != self
+        ):
             healratio = self.max_health * 0.2
             mana_cost = 10
-            heal = self.intelligence 
+            heal = self.intelligence
             if self.mana >= mana_cost and self.health > healratio:
                 self.mana -= mana_cost
                 self.health -= healratio
@@ -71,33 +83,34 @@ class Paladin(Unit):
 
                 target.health += heal
                 self.game.sprites.add(
-                        ui_functions.HitImage("unit/princess/holy",target , 25)
-                    )
+                    ui_functions.HitImage("unit/princess/holy", target, 25)
+                )
 
                 self.melee(target)
                 self.update_healstats(target, heal, "healing", 1)
                 self.change_state("defend")
-                
+
                 self.game.event_log.append(
-                f"{self.name} heal {target.name} for {int(heal)}"
-            )
+                    f"{self.name} heal {target.name} for {int(heal)}"
+                )
 
                 return True
-            
-    def gospel (self, target, target_team):
-        " increase team damge 15% and regen 10 HP for 3 turn"
+
+    def gospel(self, target, target_team):
+        "increase team damge 15% and regen 10 HP for 3 turn"
         mana_cost = 30
         if not self.is_target_hostile(target):
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
-
 
                 for t in target_team:
                     t.bonus_strength_stacks.append(
                         [3, target.strength * 0.15]
                     )  # 20% increase
                     t.bonus_intelligence_stacks.append([3, target.intelligence * 0.15])
-                    t.health_regen_stacks.append([4, self.intelligence / 1.8 ])  #heal 10
+                    t.health_regen_stacks.append(
+                        [4, self.intelligence / 1.8]
+                    )  # heal 10
                     self.game.sprites.add(
                         ui_functions.HitImage("unit/princess/holy", t, 40)
                     )
@@ -107,21 +120,17 @@ class Paladin(Unit):
                 )
 
                 return True
-            
-    def smite (self,target, target_team):
+
+    def smite(self, target, target_team):
         "summon a lighting to deal damage and burn target"
         if self.is_target_hostile(target):
             mana_cost = 40
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
                 if target.race == "Undead":
-                    damage, crit = self.calc_damage(
-                    target, "physical",  2
-                )
+                    damage, crit = self.calc_damage(target, "physical", 2)
                 else:
-                    damage, crit = self.calc_damage(
-                        target, "physical",  1.4
-                    )
+                    damage, crit = self.calc_damage(target, "physical", 1.4)
 
                 if target.race == "Undead":
                     target.burn_stacks.append([3, self.intelligence * 0.75])
@@ -131,6 +140,5 @@ class Paladin(Unit):
 
                 self.melee(target)
                 self.update_stats(target, damage, crit, "mnit/princess/holy", 50)
-
 
                 return True

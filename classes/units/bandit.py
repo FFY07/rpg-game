@@ -10,6 +10,7 @@ DEFENCE = (80, 80)
 MAGIC_RESIST = (100, 100)
 race = "Human"
 
+
 class Bandit(Unit):
     def __init__(self, name, team, game=None):
         super().__init__(name, team)
@@ -32,7 +33,7 @@ class Bandit(Unit):
             self.direction = "left"
 
         self.load_animations()
-        # self.load_sounds()
+        self.load_sounds()
 
         self.image = self.animations["idle"][0]
         self.rect = self.image.get_rect()
@@ -41,10 +42,14 @@ class Bandit(Unit):
         self.move_desc["Passive"] = "IDK write what Anyhow la"
 
         self.moves["Water Sword(15)"] = self.swordwater
-        self.move_desc["Water Sword (15 MANA)"] = "Enchance sword with water element, Attack and steal MANA from enemy"
+        self.move_desc["Water Sword (15 MANA)"] = (
+            "Enchance sword with water element, Attack and steal MANA from enemy"
+        )
 
         self.moves["Fire Sword(30)"] = self.swordfire
-        self.move_desc["Fire Sword (30 MANA)"] = "Enchance sword with fire element, Attack and apply burn to enemy for 3 turns"
+        self.move_desc["Fire Sword (30 MANA)"] = (
+            "Enchance sword with fire element, Attack and apply burn to enemy for 3 turns"
+        )
 
     def level_stats(self):
         self.health += self.max_health / 10
@@ -79,9 +84,9 @@ class Bandit(Unit):
                         ui_functions.HitImage("unit/tank/charge", self, 2)
                     )
                 self.game.event_log.append(
-                f"{self.name} attack {target.name} for {int(damage)} and recover {damagemana}"
-            )
-            
+                    f"{self.name} attack {target.name} for {int(damage)} and recover {damagemana}"
+                )
+
                 return True
 
     def swordfire(self, target: object, target_team: list):
@@ -101,8 +106,7 @@ class Bandit(Unit):
                     pygame.mixer.Sound.play(self.game.audio_handler.sword_sfx)
 
                 self.game.event_log.append(
-                f"{self.name} attack {target.name} for {int(damage)} and apply burn for 3 round"
-            )
+                    f"{self.name} attack {target.name} for {int(damage)} and apply burn for 3 round"
+                )
 
                 return True
-    

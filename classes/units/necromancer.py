@@ -11,6 +11,7 @@ DEFENCE = (65, 65)
 MAGIC_RESIST = (85, 85)
 race = "Undead"
 
+
 class Necromancer(Unit):
     def __init__(self, name, team, game=None):
         super().__init__(name, team)
@@ -34,7 +35,7 @@ class Necromancer(Unit):
 
         self.load_animations()
 
-        # self.load_sounds()
+        self.load_sounds()
 
         self.image = self.animations["idle"][0]
         self.rect = self.image.get_rect()
@@ -52,7 +53,9 @@ class Necromancer(Unit):
         self.move_desc["Infect (20% HP)"] = "Sacrifice health to restore mana"
 
         self.moves["Doom (70)"] = self.doom
-        self.move_desc["Doom (70 MANA)"] = "Summons dark energy on all enemies, reduces their DMG resistances for 5 turns"
+        self.move_desc["Doom (70 MANA)"] = (
+            "Summons dark energy on all enemies, reduces their DMG resistances for 5 turns"
+        )
 
     def level_stats(self):
         self.health += self.max_health / 10
