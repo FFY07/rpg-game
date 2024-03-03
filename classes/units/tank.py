@@ -68,23 +68,21 @@ class Tank(Unit):
 
     def cannon(self, target: object, target_team: list):
         """Loads a powerful tank shell and fires it at a single target if loaded"""
-        if self.is_target_hostile(target):
-            mana_cost = 40
+        if not self.cannon_shells:
+            self.cannon_shells += 1
+            self.play_sound(self.game.audio_handler.tank_load_shell)
 
-            if not self.cannon_shells:
-                self.cannon_shells += 1
-                self.play_sound(self.game.audio_handler.tank_load_shell)
+            self.game.sprites.add(ui_functions.HitImage("unit/tank/charge", self, 2))
+            self.change_state("defend")
+            self.game.event_log.append(f"{self.name} has loaded a shell!")
 
-                self.game.sprites.add(
-                    ui_functions.HitImage("unit/tank/charge", self, 2)
-                )
-                self.change_state("defend")
-                self.game.event_log.append(f"{self.name} has loaded a shell!")
+            # Load the shell
+            return True
 
-                # Load the shell
-                return True
+        else:
+            if self.is_target_hostile(target):
+                mana_cost = 40
 
-            else:
                 # If we have cannon shells, proceed to fire
                 if self.mana >= mana_cost:
                     self.mana -= mana_cost
