@@ -22,7 +22,7 @@ class Unit(pygame.sprite.Sprite):
         self.health = self.max_health
         self.max_mana = MAX_MANA
         self.mana = self.max_mana
-        
+
         # 20% default is quite high, want to change?
         self.crit_chance = 20
         self.crit_mult = 1.5
@@ -54,9 +54,9 @@ class Unit(pygame.sprite.Sprite):
 
         self.coins = COINS
 
-        #check for Race
+        # check for Race
         self.race = "Unknown"
-        
+
         self.selected = False
         self.direction = "right"
 
@@ -64,7 +64,6 @@ class Unit(pygame.sprite.Sprite):
         self.size_scale = 2
         self.unit_class = "Knight"
         self.alive = True
-
 
         # Starting position
         self.position = (scr.SCREEN_WIDTH // 2, scr.SCREEN_HEIGHT // 2)
@@ -347,7 +346,7 @@ class Unit(pygame.sprite.Sprite):
 
         if target_state == "death":
             self.game.sprites.add(self.death_effect)
-            self.play_sound(self.game.audio_handler.death_sfx)
+            self.game.main_channel.queue(self.game.audio_handler.death_sfx)
 
     def activate(self, active_pos):
         """Move character to the active position"""
@@ -361,8 +360,10 @@ class Unit(pygame.sprite.Sprite):
         """Plays sound if sound is enabled; separates player and enemy sounds into separate channels"""
         if self.game.sound:
             if self.team == "player":
+                self.game.main_channel.stop()
                 self.game.main_channel.play(sound_object)
             elif self.team == "enemy":
+                self.game.main_channel.stop()
                 self.game.main_channel.play(sound_object)
 
                 # It should never reach this point, and this may cause crashes
@@ -373,7 +374,7 @@ class Unit(pygame.sprite.Sprite):
         """Probably shouldn't be coding all the item effects here :D I love deadlines"""
         if self.inventory[item] > 0:
             self.inventory[item] -= 1
-            self.play_sound(self.game.audio_handler.potion_sfx)
+            self.game.main_channel.play(self.game.audio_handler.potion_sfx)
 
             match item:
                 case "Health Potion":

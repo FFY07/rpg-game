@@ -47,4 +47,5 @@ class SoundEffects():
         self.oom_sfx = mixer.Sound(f"{Path('resources/audio/game_effects/error.wav')}")
         self.oom_sfx.set_volume(0.5)
 
-        self.death_sfx = mixer.Sound(f"{Path('resources/audio/character_effects/warzone_armour_crack.wav')}")
+        self.death_sfx = mixer.Sound(f"{Path('resources/audio/character_effects/oof.wav')}")
+        self.death_sfx.set_volume(0.5)

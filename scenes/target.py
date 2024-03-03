@@ -75,7 +75,9 @@ class ChooseTarget(Scene):
                 )
                 print("not enough mana/invalid target!")
                 if self.game.sound:
+                    self.game.main_channel.stop()
                     self.game.main_channel.play(self.game.audio_handler.oom_sfx)
+
                 self.sprites.empty()
                 while self.game.stack[-1] != self.anchor:
                     self.exit_scene()

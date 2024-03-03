@@ -3,7 +3,7 @@ import pygame, random
 import gui.screen as scr
 import resources.audio as audio
 
-from scenes.menu import MainMenu  
+from scenes.menu import MainMenu
 
 clock = pygame.time.Clock()
 clock.tick(60)
@@ -12,7 +12,7 @@ clock.tick(60)
 pygame.mixer.set_num_channels(8)  # default 8
 
 # Do not use too many channels or it will still crash
-pygame.mixer.set_reserved(2)
+pygame.mixer.set_reserved(4)
 
 # Not reserving and then using dedicated channels will cause game crashes
 # You have no idea how many days I've spent troubleshooting this audio crash issue because there's NO solutions online
@@ -77,7 +77,7 @@ class Game:
 
         self.audio_handler = audio.SoundEffects()
 
-        # Limit sounds to one channel to prevent freezing; give it two channels here so it sounds smoother
+        # # Limit sounds to one channel to prevent freezing; give it two channels here so it sounds smoother
         # self.click_channel = pygame.mixer.Channel(0)
 
         # # Give everything a custom channel; how many channels we can assign is limited by how many channels we've reserved
@@ -168,12 +168,20 @@ class Game:
                         self.text_buffer += event.unicode
 
                 # Randomly select between either of the available channels since this is a spam clicky thing
-                if self.sound:
-                    self.main_channel.play(self.audio_handler.click_sfx)
-                    # if random.randrange(2):
-                    #     self.click_channel_1.play(self.audio_handler.click_sfx)
-                    # else:
-                    #     self.click_channel_2.play(self.audio_handler.click_sfx)
+                # if self.sound:
+                #     if (
+                #         not self.main_channel.get_queue()
+                #         and not self.main_channel.get_busy()
+                #     ):
+                #         # self.main_channel.stop()
+
+                #         self.main_channel.queue(self.audio_handler.click_sfx)
+                # if random.randrange(2):
+                #     self.click_channel_1.stop()
+                #     self.click_channel_1.play(self.audio_handler.click_sfx)
+                # else:
+                #     self.click_channel_2.stop()
+                #     self.click_channel_2.play(self.audio_handler.click_sfx)
 
             if event.type == pygame.KEYUP:
 
