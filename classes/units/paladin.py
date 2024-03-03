@@ -65,6 +65,30 @@ class Paladin(Unit):
         self.defence += 5
         self.magic_resist += 2
 
+
+    def basic_attack(self, target: object, target_team: list):
+
+        
+
+        if self.is_target_hostile(target):
+            if target.race == "Undead":
+                damage, crit = self.calc_damage(target, "physical", 1.5)
+            else:
+                damage, crit = self.calc_damage(target, "physical", 1)
+                
+            # Melee is optional and only for direct attacks
+            self.melee(target)
+            self.update_stats(target, damage, crit, "misc/physical/slash1", 50)
+
+            # Add mana when attacking
+            if self.mana < self.max_mana:
+                self.mana += 10
+                if self.mana > self.max_mana:
+                    self.mana = self.max_mana
+
+            self.play_sound(self.default_attack_sfx)
+
+            return True
     def sacrifice(self, target, target_team):
         if (
             not self.is_target_hostile(target)
@@ -77,6 +101,10 @@ class Paladin(Unit):
             if self.mana >= mana_cost and self.health > healratio:
                 self.mana -= mana_cost
                 self.health -= healratio
+
+
+                self.play_sound(self.game.audio_handler.heal_sfx)
+
 
                 if target.race == "Undead":
                     heal = heal * 0.75
@@ -128,12 +156,13 @@ class Paladin(Unit):
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
                 if target.race == "Undead":
-                    damage, crit = self.calc_damage(target, "physical", 2)
+                    damage, crit = self.calc_damage(target, "physical", 2.5)
                 else:
                     damage, crit = self.calc_damage(target, "physical", 1.4)
 
                 if target.race == "Undead":
-                    target.burn_stacks.append([3, self.intelligence * 0.75])
+                    target.burn_stacks.append([3, self.intelligence * 1])
+                    target.health_regen_stacks.clear()
 
                 else:
                     target.burn_stacks.append([3, self.intelligence * 0.5])
