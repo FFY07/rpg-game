@@ -46,7 +46,7 @@ class Necromancer(Unit):
         # Add moves to moves dictionary
         self.move_desc["Passive"] = "Drink HP potions will deduct HP instead of regen"
 
-        self.moves["Siphon (25)"] = self.siphon
+        self.moves["Siphon (20)"] = self.siphon
         self.move_desc["Siphon (25 MANA)"] = "Weakens the enemy and recovers health"
 
         self.moves["Infect (20% HP)"] = self.infect
@@ -86,7 +86,7 @@ class Necromancer(Unit):
                 self.play_sound(self.game.audio_handler.necromancer_weaken)
 
                 # Higher the ratio the higher the heal
-                health_recovery = (self.max_health - self.health) * 0.6 + (
+                health_recovery = (self.max_health - self.health) * 0.55 + (
                     (self.intelligence + self.bonus_intelligence) / 100
                 )
 
@@ -123,7 +123,7 @@ class Necromancer(Unit):
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
                 for t in target_team:
-                    damage, crit = self.calc_damage(t, "magic", 1.75)
+                    damage, crit = self.calc_damage(t, "magic", 1.85)
                     self.update_stats(t, damage, crit, "unit/necromancer/doom", 20)
                     t.bonus_defence_stacks.append(
                         [5, -(self.intelligence + self.bonus_intelligence)]

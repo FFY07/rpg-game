@@ -32,10 +32,10 @@ class CreateChar(Scene):
             2: ("Player3", "Warrior"),
         }
 
-        # CreateCharSelect(self.game, self.pointer)
+        self.player_dict = {}
+        self.generate_player_dict()
 
         self.enemy_list = []
-
         self.create_enemies()
 
         # Create our menu guis (amount, offset)
@@ -114,11 +114,17 @@ class CreateChar(Scene):
             gui.image = cf.marketing_images[self.player_dict[i][1]]
             self.menu_dict[i] = gui
 
+    def generate_player_dict(self, amount=3):
+        for i in range(amount):
+            name = f"Player {i+1}"
+            char_class = random.choice(list(cf.unit_dict.items()))
+            self.player_dict[i] = (name, char_class[0])
+
     def create_enemies(self):
-        for i in range(self.game.max_enemies):
-            name = "AI " + str(random.randint(10, 99))
-            classes = random.choice(list(cf.unit_dict.items()))
-            enemy = (name, classes[0])
+        for _ in range(self.game.max_enemies):
+            name = f"AI {random.randint(10, 99)}"
+            char_class = random.choice(list(cf.unit_dict.items()))
+            enemy = (name, char_class[0])
             self.enemy_list.append(enemy)
 
     def create_enemyguis(self, amount, offset):
