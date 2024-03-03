@@ -1,4 +1,4 @@
-import pygame, random
+import random, math
 
 from classes.unit import Unit
 
@@ -145,7 +145,7 @@ class Reaper(Unit):
 
         health_cost = self.max_health * 0.4
         if self.health > health_cost:
-            self.health -= health_cost
+            self.health -= math.floor(health_cost)
 
             self.play_sound(self.game.audio_handler.reaper_blood)
 

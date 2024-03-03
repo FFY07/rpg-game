@@ -1,8 +1,6 @@
-import random, pygame
+import random, math
 
 from classes.unit import Unit
-
-import gui.ui_functions as ui_functions
 
 # Range of values
 STRENGTH = (5, 5)
@@ -99,7 +97,9 @@ class Necromancer(Unit):
         """Sacrifice health to restore mana"""
         health_cost = self.max_health * 0.2
         if self.health > health_cost and self.mana != self.max_mana:
-            self.health -= health_cost
+
+            # Not doing this results in insta death if remaining hp is 0-1
+            self.health -= math.floor(health_cost)
 
             # Mana recovery scales with intelligence
             mana_recovery = health_cost * 1 + (
