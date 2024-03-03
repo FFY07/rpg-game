@@ -178,7 +178,7 @@ class Unit(pygame.sprite.Sprite):
 
     def update_alive(self):
         if self.alive:
-            if self.health <= 0:
+            if int(self.health) <= 0:
                 self.health = 0
                 self.alive = False
                 self.change_state("death")
