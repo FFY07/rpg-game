@@ -127,6 +127,8 @@ class Necromancer(Unit):
                         [5, -(self.intelligence + self.bonus_intelligence)]
                     )
 
+                self.play_sound(self.game.audio_handler.necromancer_doom)
+
                 self.game.event_log.append(
                     f"{self.name} casts doom upon all enemies for ~{int(damage)} damage and lowers their resistances!"
                 )

@@ -71,19 +71,22 @@ class Tank(Unit):
         if self.is_target_hostile(target):
             mana_cost = 40
 
-            if self.mana >= mana_cost:
-                if not self.cannon_shells:
-                    self.cannon_shells += 1
-                    self.play_sound(self.game.audio_handler.tank_load_shell)
+            if not self.cannon_shells:
+                self.cannon_shells += 1
+                self.play_sound(self.game.audio_handler.tank_load_shell)
 
-                    self.game.sprites.add(
-                        ui_functions.HitImage("unit/tank/charge", self, 2)
-                    )
-                    self.change_state("defend")
-                    self.game.event_log.append(f"{self.name} has loaded a shell!")
+                self.game.sprites.add(
+                    ui_functions.HitImage("unit/tank/charge", self, 2)
+                )
+                self.change_state("defend")
+                self.game.event_log.append(f"{self.name} has loaded a shell!")
 
+                # Load the shell
+                return True
+
+            else:
                 # If we have cannon shells, proceed to fire
-                else:
+                if self.mana >= mana_cost:
                     self.mana -= mana_cost
                     self.play_sound(self.game.audio_handler.tank_183mm)
                     self.cannon_shells = 0
@@ -98,10 +101,11 @@ class Tank(Unit):
                     if crit:
                         self.game.event_log.append("It was a crit!")
 
-                return True
-            else:
-                # Attack fail
-                return False
+                    return True
+
+                else:
+                    # fail because of no mana (optional to return False since it will already return None by default)
+                    return False
 
     def machine_gun(self, target: object, target_team: list):
         if self.is_target_hostile(target):

@@ -31,12 +31,14 @@ class SoundEffects():
         self.warrior_basic = mixer.Sound(f"{Path('resources/audio/character_effects/Warrior/heavy_slash.wav')}")
         self.warrior_basic.set_volume(1)
         
-        self.warrior_rally = mixer.Sound(f"{Path('resources/audio/character_effects/Warrior/Valhalla.wav')}")
+        self.warrior_inspire = mixer.Sound(f"{Path('resources/audio/character_effects/Warrior/inspire.wav')}")
 
         self.tank_basic = mixer.Sound(f"{Path('resources/audio/character_effects/Tank/wot_37mm.wav')}")
         self.tank_machine_gun = mixer.Sound(f"{Path('resources/audio/character_effects/Tank/wot_autocannon.wav')}")
         self.tank_load_shell = mixer.Sound(f"{Path('resources/audio/character_effects/Tank/wot_load_shell.wav')}")
         self.tank_183mm = mixer.Sound(f"{Path('resources/audio/character_effects/Tank/wot_183mm.wav')}")
+        
+        self.necromancer_doom = mixer.Sound(f"{Path('resources/audio/character_effects/Necromancer/doom.wav')}")
 
         self.magic_sfx = mixer.Sound(f"{Path('resources/audio/character_effects/1168-za-warudo-sound-effect.wav')}")
         self.magic_sfx.set_volume(0.4)
