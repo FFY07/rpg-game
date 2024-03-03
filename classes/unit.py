@@ -1,5 +1,5 @@
 from pathlib import Path
-import random
+import random, math
 import pygame
 
 import gui.screen as scr
@@ -178,7 +178,7 @@ class Unit(pygame.sprite.Sprite):
 
     def update_alive(self):
         if self.alive:
-            if int(self.health) <= 0:
+            if math.floor(self.health) <= 0:
                 self.health = 0
                 self.alive = False
                 self.change_state("death")
