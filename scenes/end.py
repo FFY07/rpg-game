@@ -1,7 +1,7 @@
 import pygame
 
 from scenes.scene import Scene
-from scenes.credits import Credits
+
 
 import resources.images as images
 
@@ -22,9 +22,15 @@ class GameOver(Scene):
         if actions["escape"] or actions["enter"]:
 
             # If this isn't set, the game will keep counting rounds
+            self.sprites.empty()
+            pygame.mixer.music.load(self.game.intro_music_path)
+            pygame.mixer.music.set_volume(self.game.volume)
+            pygame.mixer.music.play(-1)
+
             self.game.rounds = 1
-            next_scene = Credits(self.game)
-            next_scene.start_scene()
+            while len(self.game.stack) > 1:
+                self.exit_scene()
+
 
         self.game.reset_keys()
         self.sprites.update()
