@@ -74,7 +74,7 @@ class Marchosias(Unit):
         if self.is_target_hostile(target):
 
             damage, crit = self.calc_damage(target, "magic", 0)
-            target.burn_stacks.append([3, self.intelligence * 0.1])
+            target.burn_stacks.append([3, self.intelligence * 0.25])
                 
             # Melee is optional and only for direct attacks
             self.melee(target)
@@ -130,7 +130,7 @@ class Marchosias(Unit):
             self.health += heal
 
             # burn self for 3 turn 
-            self.burn_stacks.append([3, self.intelligence * 0.25])
+            self.burn_stacks.append([3, self.intelligence * 0.3])
 
             # buff INT for 3 turns
             self.bonus_intelligence_stacks.append([3, self.intelligence * 0.25])

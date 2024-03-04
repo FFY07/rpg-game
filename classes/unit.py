@@ -228,7 +228,7 @@ class Unit(pygame.sprite.Sprite):
                 for i, burn in enumerate(self.burn_stacks):
                     if not burn[0] < 0:
                         burn[0] -= 1 
-                    damage += ( burn[1] - self.magic_resist * 0.05 )
+                    damage += max(1,( burn[1] - self.magic_resist * 0.05 ))
                     self.game.event_log.append(
                         f"{self.name} has lost {damage} health due to burn!"
                     )
