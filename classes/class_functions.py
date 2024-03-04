@@ -37,17 +37,47 @@ unit_race_dict = {
     "Marchosias": f"{marchosias.race}",
 }
 
-stat_dict = {
-    "Warrior": f"STR: {warrior.STRENGTH[0]:<5} INT: {warrior.INTELLIGENCE[0]:<5} DEF: {warrior.DEFENCE[0]:<5} MR: {warrior.MAGIC_RESIST[0]:<5}",
-    "Reaper": f"STR: {reaper.STRENGTH[0]:<5} INT: {reaper.INTELLIGENCE[0]:<5} DEF: {reaper.DEFENCE[0]:<5} MR: {reaper.MAGIC_RESIST[0]:<5}",
-    "Bandit": f"STR: {bandit.STRENGTH[0]:<5} INT: {bandit.INTELLIGENCE[0]:<5} DEF: {bandit.DEFENCE[0]:<5} MR: {bandit.MAGIC_RESIST[0]:<5}",
-    "Tank": f"STR: {tank.STRENGTH[0]:<5} INT: {tank.INTELLIGENCE[0]:<5} DEF: {tank.DEFENCE[0]:<5} MR: {tank.MAGIC_RESIST[0]:<5}",
-    "Princess": f"STR: {princess.STRENGTH[0]:<5} INT: {princess.INTELLIGENCE[0]:<5} DEF: {princess.DEFENCE[0]:<5} MR: {princess.MAGIC_RESIST[0]:<5}",
-    "Necromancer": f"STR: {necromancer.STRENGTH[0]:<5} INT: {necromancer.INTELLIGENCE[0]:<5} DEF: {necromancer.DEFENCE[0]:<5} MR: {necromancer.MAGIC_RESIST[0]:<5}",
-    "Paladin": f"STR: {paladin.STRENGTH[0]:<5} INT: {paladin.INTELLIGENCE[0]:<5} DEF: {paladin.DEFENCE[0]:<5} MR: {paladin.MAGIC_RESIST[0]:<5}",
-    "Marchosias": f"STR: {marchosias.STRENGTH[0]:<5} INT: {marchosias.INTELLIGENCE[0]:<5} DEF: {marchosias.DEFENCE[0]:<5} MR: {marchosias.MAGIC_RESIST[0]:<5}",
+stat_str_dict = {
+    "Warrior": f"STR: {warrior.STRENGTH[0]:<5}",
+    "Reaper": f"STR: {reaper.STRENGTH[0]:<5}",
+    "Bandit": f"STR: {bandit.STRENGTH[0]:<5}",
+    "Tank": f"STR: {tank.STRENGTH[0]:<5}",
+    "Princess": f"STR: {princess.STRENGTH[0]:<5}",
+    "Necromancer": f"STR: {necromancer.STRENGTH[0]:<5}",
+    "Paladin": f"STR: {paladin.STRENGTH[0]:<5}",
+    "Marchosias": f"STR: {marchosias.STRENGTH[0]:<5}",
 }
 
+stat_int_dict = {
+    "Warrior": f"INT: {warrior.INTELLIGENCE[0]:<5}",
+    "Reaper": f"INT: {reaper.INTELLIGENCE[0]:<5}",
+    "Bandit": f"INT: {bandit.INTELLIGENCE[0]:<5}",
+    "Tank": f"INT: {tank.INTELLIGENCE[0]:<5}",
+    "Princess": f"INT: {princess.INTELLIGENCE[0]:<5}",
+    "Necromancer": f"INT: {necromancer.INTELLIGENCE[0]:<5}",
+    "Paladin": f"INT: {paladin.INTELLIGENCE[0]:<5}",
+    "Marchosias": f"INT: {marchosias.INTELLIGENCE[0]:<5}",
+}
+stat_def_dict = {
+    "Warrior": f"DEF: {warrior.DEFENCE[0]:<5}",
+    "Reaper": f"DEF: {reaper.DEFENCE[0]:<5}",
+    "Bandit": f" DEF: {bandit.DEFENCE[0]:<5}",
+    "Tank": f"DEF: {tank.DEFENCE[0]:<5}",
+    "Princess": f"DEF: {princess.DEFENCE[0]:<5}",
+    "Necromancer": f"DEF: {necromancer.DEFENCE[0]:<5}",
+    "Paladin": f"DEF: {paladin.DEFENCE[0]:<5}",
+    "Marchosias": f"DEF: {marchosias.DEFENCE[0]:<5}",
+}
+stat_mr_dict = {
+    "Warrior": f"MR: {warrior.MAGIC_RESIST[0]:<5}",
+    "Reaper": f"MR: {reaper.MAGIC_RESIST[0]:<5}",
+    "Bandit": f"MR: {bandit.MAGIC_RESIST[0]:<5}",
+    "Tank": f"SMR: {tank.MAGIC_RESIST[0]:<5}",
+    "Princess": f"MR: {princess.MAGIC_RESIST[0]:<5}",
+    "Necromancer": f"MR: {necromancer.MAGIC_RESIST[0]:<5}",
+    "Paladin": f"MR: {paladin.MAGIC_RESIST[0]:<5}",
+    "Marchosias": f"MR: {marchosias.MAGIC_RESIST[0]:<5}",
+}
 
 marketing_images = {
     "Warrior": images.warrior_marketing,

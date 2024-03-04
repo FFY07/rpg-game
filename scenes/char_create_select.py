@@ -81,31 +81,61 @@ class CreateCharSelect(Scene):
             "SELECTED",
         )
 
-        self.stat_des = ui_functions.TextSprite(
-            list(cf.stat_dict.values())[self.character_pointer],
+        self.stat_str_des = ui_functions.TextSprite(
+            list(cf.stat_str_dict.values())[self.character_pointer],
             30,
             fonts.spartan_mb_semibold,
-            "goldenrod2",
-            True,
-            240,
+            "brown1",
+            self.xc - 150,
+            self.yc - 180,
             "SELECTED",
         )
 
+        self.stat_int_des = ui_functions.TextSprite(
+            list(cf.stat_int_dict.values())[self.character_pointer],
+            30,
+            fonts.spartan_mb_semibold,
+            "aqua",
+            self.xc - 150,
+            self.yc - 130,
+            "SELECTED",
+        )
+        self.stat_def_des = ui_functions.TextSprite(
+            list(cf.stat_def_dict.values())[self.character_pointer],
+            30,
+            fonts.spartan_mb_semibold,
+            "chartreuse4",
+            self.xc - 150,
+            self.yc - 80,
+            "SELECTED",
+        )
+        self.stat_mr_des = ui_functions.TextSprite(
+            list(cf.stat_mr_dict.values())[self.character_pointer],
+            30,
+            fonts.spartan_mb_semibold,
+            "darkorchid2",
+            self.xc - 150,
+            self.yc - 30,
+            "SELECTED",
+        )
         self.spacedes = ui_functions.TextSprite(
             "Press Space to view Character Skill",
-            25,
+            20,
             fonts.spartan_mb_semibold,
             "azure4",
             True,
-            self.yc + 130,
+            self.yc + 15 ,
             "SELECTED",
         )
 
         self.sprites.add(self.class_name)
         self.sprites.add(self.race_name)
         self.sprites.add(self.class_des)
-        # self.sprites.add(self.stat_des)
-        # self.sprites.add(self.spacedes)
+        self.sprites.add(self.stat_str_des)
+        self.sprites.add(self.stat_int_des)
+        self.sprites.add(self.stat_def_des)
+        self.sprites.add(self.stat_mr_des)
+        self.sprites.add(self.spacedes)
 
         # Add our display units
         for unit in cf.unit_dict.keys():
@@ -170,17 +200,21 @@ class CreateCharSelect(Scene):
             f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}"
         )
         self.class_des.text = list(cf.unit_dict.values())[self.character_pointer]
-        self.stat_des.text = list(cf.stat_dict.values())[self.character_pointer]
-        
+
+        self.stat_str_des.text = list(cf.stat_str_dict.values())[self.character_pointer]
+        self.stat_int_des.text = list(cf.stat_int_dict.values())[self.character_pointer]
+        self.stat_def_des.text = list(cf.stat_def_dict.values())[self.character_pointer]
+        self.stat_mr_des.text = list(cf.stat_mr_dict.values())[self.character_pointer]
+
         self.gui.image = cf.marketing_images[(list(cf.unit_dict.keys())[self.character_pointer])]
         self.chosen_character = (
             self.chosen_name,
             list(cf.unit_dict.keys())[self.character_pointer],
         )
-        self.chosen_character = (
-            self.chosen_name,
-            list(cf.stat_dict.keys())[self.character_pointer],
-        )
+        # self.chosen_character = (
+        #     self.chosen_name,
+        #     list(cf.stat_dict.keys())[self.character_pointer],
+        # )
 
         # If the selected character reaches the center x position, stop all units in place
         if (
