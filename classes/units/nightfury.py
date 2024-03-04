@@ -69,6 +69,9 @@ class NightFury(Unit):
         self.game.event_log.append(f"{self.name} was too lazy to do anything")
         self.play_sound(self.game.audio_handler.nightfury_lazy)
         self.change_state("defend")
+
+        self.exp += self.level_exp_dict[self.level] * 0.01
+
         return True
 
     def plasma(self, target: object, target_team: list):
