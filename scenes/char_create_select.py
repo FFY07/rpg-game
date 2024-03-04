@@ -37,7 +37,7 @@ class CreateCharSelect(Scene):
 
         self.draw_marketing()
         self.draw_text()
-
+        self.draw_icon(3, 100)
 
         # Add our display units
         for unit in cf.unit_dict.keys():
@@ -55,7 +55,7 @@ class CreateCharSelect(Scene):
             fonts.spartan_mb_semibold,
             "white",
             400,
-            60,
+            70,
             "deepskyblue1",
             "name",
             True,
@@ -81,6 +81,7 @@ class CreateCharSelect(Scene):
 
         self.center_position = (self.xc, self.yc)
 
+
     def draw_marketing(self):
         # draw marketing image 
         self.gui = ui_functions.Draw_Picture(
@@ -97,18 +98,35 @@ class CreateCharSelect(Scene):
 
         self.gui.image = cf.marketing_images[(list(cf.unit_dict.keys())[self.character_pointer])]
 
+    def draw_icon(self, amount, offset):
+        for i in range(amount):
+             self.icon_gui = ui_functions.Draw_Picture(
+                self.xc  + 150,
+                self.yc - 350 + offset,
+                64,
+                64,
+                "black",
+                1,
+                "grey27",
+                self.game,
+            )
+        self.sprites.add(self.icon_gui)
+
+        self.icon_gui.image = cf.marketing_images[(list(cf.unit_dict.keys())[self.character_pointer])]
+
+
     def draw_text(self):
         #still hardcore but use function :D
         self.class_name = ui_functions.TextSprite(
             list(cf.unit_dict.keys())[self.character_pointer],
-            40,
-            fonts.spartan_mb_semibold,
+            45,
+            "Impact",
             "white",
             self.xc,
-            100,
+            75,
             "SELECTED",
         )
-
+       
         self.race_name = ui_functions.TextSprite(
             # f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
             f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
@@ -140,36 +158,6 @@ class CreateCharSelect(Scene):
             "SELECTED",
         )
     
-        self.class_name = ui_functions.TextSprite(
-            list(cf.unit_dict.keys())[self.character_pointer],
-            40,
-            fonts.spartan_mb_semibold,
-            "white",
-            self.xc,
-            100,
-            "SELECTED",
-        )
-
-        self.race_name = ui_functions.TextSprite(
-            # f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
-            f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
-            20,
-            fonts.spartan_mb_semibold,
-            "yellow",
-            True,
-            140,
-            "SELECTED",
-        )
-
-        self.class_des = ui_functions.TextSprite(
-            list(cf.unit_dict.values())[self.character_pointer],
-            25,
-            fonts.spartan_mb_semibold,
-            "white",
-            self.xc,
-            self.yc + 50,
-            "SELECTED",
-        )
         self.stat_str_des = ui_functions.TextSprite(
             list(cf.stat_str_dict.values())[self.character_pointer],
             30,
