@@ -131,6 +131,8 @@ class Paladin(Unit):
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
 
+                self.change_state("defend")
+
                 for t in target_team:
                     t.bonus_strength_stacks.append(
                         [3, target.strength * 0.15]

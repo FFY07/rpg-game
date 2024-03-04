@@ -101,6 +101,8 @@ class Warrior(Unit):
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
 
+                self.change_state("defend")
+                
                 self.play_sound(self.game.audio_handler.warrior_inspire)
 
                 for t in target_team:
