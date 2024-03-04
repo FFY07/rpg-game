@@ -19,7 +19,9 @@ class GameOver(Scene):
             self.result = images.defeat_img
 
     def update(self, actions):
-        if actions["escape"] or actions["enter"]:
+
+        # Prevents accidentally skipping by spamming enter
+        if actions["space"]:
 
             # If this isn't set, the game will keep counting rounds
             self.sprites.empty()
@@ -30,7 +32,6 @@ class GameOver(Scene):
             self.game.rounds = 1
             while len(self.game.stack) > 1:
                 self.exit_scene()
-
 
         self.game.reset_keys()
         self.sprites.update()

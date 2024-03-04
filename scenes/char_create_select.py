@@ -43,11 +43,11 @@ class CreateCharSelect(Scene):
             True,
             100,
             "SELECTED",
-        )   
+        )
 
         self.race_name = ui_functions.TextSprite(
-            # f"Race: {list(cf.unitrace_dict.values())[self.character_pointer]}",
-            f"Race: {list(cf.unitrace_dict.values())[self.character_pointer]}",
+            # f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
+            f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
             20,
             fonts.spartan_mb_semibold,
             "forestgreen",
@@ -151,7 +151,9 @@ class CreateCharSelect(Scene):
         list(self.text_sprites.sprites())[self.pointer].selected = True
 
         self.class_name.text = list(cf.unit_dict.keys())[self.character_pointer]
-        self.race_name.text = f"Race: {list(cf.unitrace_dict.values())[self.character_pointer]}"
+        self.race_name.text = (
+            f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}"
+        )
         self.class_des.text = list(cf.unit_dict.values())[self.character_pointer]
         self.stat_des.text = list(cf.stat_dict.values())[self.character_pointer]
 

@@ -4,7 +4,7 @@ import gui.ui_functions as ui_functions
 from scenes.scene import Scene
 
 import resources.images as images
-from classes.units.toothless import Toothless
+from classes.units.toothless_display import Toothless
 
 
 class Lazy(Scene):

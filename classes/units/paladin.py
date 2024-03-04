@@ -8,6 +8,7 @@ STRENGTH = (15, 15)
 INTELLIGENCE = (18, 18)
 DEFENCE = (80, 80)
 MAGIC_RESIST = (90, 90)
+
 race = "Human"
 
 
@@ -65,17 +66,14 @@ class Paladin(Unit):
         self.defence += 5
         self.magic_resist += 2
 
-
     def basic_attack(self, target: object, target_team: list):
-
-        
 
         if self.is_target_hostile(target):
             if target.race == "Undead":
                 damage, crit = self.calc_damage(target, "physical", 1.5)
             else:
                 damage, crit = self.calc_damage(target, "physical", 1)
-                
+
             # Melee is optional and only for direct attacks
             self.melee(target)
             self.update_stats(target, damage, crit, "misc/physical/slash1", 50)
@@ -89,6 +87,7 @@ class Paladin(Unit):
             self.play_sound(self.default_attack_sfx)
 
             return True
+
     def sacrifice(self, target, target_team):
         if (
             not self.is_target_hostile(target)
@@ -102,9 +101,7 @@ class Paladin(Unit):
                 self.mana -= mana_cost
                 self.health -= healratio
 
-
                 self.play_sound(self.game.audio_handler.heal_sfx)
-
 
                 if target.race == "Undead":
                     heal = heal * 0.75
@@ -144,10 +141,9 @@ class Paladin(Unit):
                     self.game.sprites.add(
                         ui_functions.HitImage("unit/princess/holy", t, 40)
                     )
- 
+
                 # steal your warrior sound XD
                 self.play_sound(self.game.audio_handler.warrior_inspire)
-
 
                 self.game.event_log.append(
                     f"{self.name} use gospel, Everyone increase 15% damage and regen {int(self.intelligence / 1.8)} "
@@ -177,10 +173,9 @@ class Paladin(Unit):
                 self.update_stats(target, damage, crit, "mnit/princess/holy", 50)
 
                 self.game.sprites.add(
-                        ui_functions.HitImage("unit/paladin/smite", target, 40)
-                    )
-                
+                    ui_functions.HitImage("unit/paladin/smite", target, 40)
+                )
+
                 self.play_sound(self.game.audio_handler.paladin_smite)
-                
 
                 return True

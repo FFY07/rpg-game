@@ -9,6 +9,7 @@ STRENGTH = (16, 16)
 INTELLIGENCE = (8, 8)
 DEFENCE = (90, 90)
 MAGIC_RESIST = (75, 75)
+
 race = "Demon"
 
 
@@ -102,7 +103,7 @@ class Warrior(Unit):
                 self.mana -= mana_cost
 
                 self.change_state("defend")
-                
+
                 self.play_sound(self.game.audio_handler.warrior_inspire)
 
                 for t in target_team:

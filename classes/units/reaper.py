@@ -150,7 +150,7 @@ class Reaper(Unit):
             self.play_sound(self.game.audio_handler.reaper_blood)
             self.change_state("defend")
             # clear all buff
-            
+
             self.burn_stacks.clear()
             self.bonus_strength_stacks.clear()
 

@@ -2,7 +2,6 @@ import pygame
 
 from pathlib import Path
 
-import resources.images as images
 
 class Toothless(pygame.sprite.Sprite):
     def __init__(self, x, y):
@@ -31,15 +30,14 @@ class Toothless(pygame.sprite.Sprite):
             # )
 
             self.animations.append(image)
-        self.image = self.animations[self.current_sprite] 
+        self.image = self.animations[self.current_sprite]
 
         self.rect = self.image.get_rect()
         self.rect.midbottom = [self.x, self.y]
 
+    def update(self, speed):
+        self.current_sprite += speed
+        if int(self.current_sprite) >= len(self.animations):
+            self.current_sprite = 0
 
-    def update(self,speed):
-            self.current_sprite += speed
-            if int(self.current_sprite) >= len(self.animations):
-                self.current_sprite = 0
-                
-            self.image = self.animations[int(self.current_sprite)]
+        self.image = self.animations[int(self.current_sprite)]

@@ -9,6 +9,7 @@ STRENGTH = (8, 8)
 INTELLIGENCE = (22, 22)
 DEFENCE = (100, 100)
 MAGIC_RESIST = (80, 80)
+
 race = "Machine"
 
 

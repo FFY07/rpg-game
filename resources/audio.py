@@ -49,6 +49,11 @@ class SoundEffects():
 
         self.marchosias_fire = mixer.Sound(f"{Path('resources/audio/character_effects/Marchosias/dragon-breathes-fire-1-191085.mp3')}")
         self.marchosias_fireshort = mixer.Sound(f"{Path('resources/audio/character_effects/Marchosias/fireball-whoosh-2-179126.mp3')}")
+        
+        self.nightfury_plasma = mixer.Sound(f"{Path('resources/audio/character_effects/Nightfury/plasma.wav')}")
+        self.nightfury_divebomb = mixer.Sound(f"{Path('resources/audio/character_effects/Nightfury/divebomb.wav')}")
+        self.nightfury_tackle = mixer.Sound(f"{Path('resources/audio/character_effects/Nightfury/tackle.wav')}")
+        
         self.heal_sfx = mixer.Sound(f"{Path('resources/audio/character_effects/02_Heal_02.wav')}")
         self.heal_sfx.set_volume(0.4)
         self.magic_sfx = mixer.Sound(f"{Path('resources/audio/character_effects/1168-za-warudo-sound-effect.wav')}")

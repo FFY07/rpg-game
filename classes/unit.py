@@ -76,7 +76,7 @@ class Unit(pygame.sprite.Sprite):
         self.state = "idle"
         self.states = ["idle", "attack", "hurt", "defend", "death"]
         self.animations = {}
-        self.anim_speed = 100
+        self.anim_speed = 100  # Lower = faster (delay in ms)
 
         self.stat_bar_center_offset_x = 0
         self.stat_bar_center_offset_y = -100
@@ -382,11 +382,14 @@ class Unit(pygame.sprite.Sprite):
                 case "Health Potion":
                     if self.unit_class == "Necromancer":
                         self.health -= self.max_health * 0.1
+
+                    elif self.unit_class == "Nightfury":
+                        self.health -= self.max_health * 10
                     else:
                         self.health += self.max_health * 0.5  # test
 
-                    if self.health > self.max_health:
-                        self.health = self.max_health
+                    # if self.health > self.max_health:
+                    #     self.health = self.max_health
 
                     self.game.event_log.append(
                         f"{self.name} consumed a health potion! {self.inventory[item]} left."

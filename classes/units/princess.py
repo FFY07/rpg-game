@@ -11,6 +11,7 @@ STRENGTH = (11, 11)
 INTELLIGENCE = (25, 25)
 DEFENCE = (32, 32)
 MAGIC_RESIST = (30, 30)
+
 race = "Human"
 
 
@@ -78,7 +79,6 @@ class Princess(Unit):
             if self.mana >= mana_cost and self.health > healratio:
                 self.mana -= mana_cost
                 self.health -= healratio
-
 
                 self.play_sound(self.game.audio_handler.heal_sfx)
                 if target.health <= 0.3:
@@ -160,13 +160,9 @@ class Princess(Unit):
                         ui_functions.HitImage("unit/princess/holy", t, 25)
                     )
 
-                self.bonus_defence_stacks.append(
-                        [5, self.intelligence]
-                )
+                self.bonus_defence_stacks.append([5, self.intelligence])
 
-                self.bonus_magic_resist_stacks.append(
-                        [5, self.intelligence]
-                )
+                self.bonus_magic_resist_stacks.append([5, self.intelligence])
 
                 t.change_state("defend")
 

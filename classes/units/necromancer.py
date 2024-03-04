@@ -7,6 +7,7 @@ STRENGTH = (5, 5)
 INTELLIGENCE = (20, 20)
 DEFENCE = (65, 65)
 MAGIC_RESIST = (85, 85)
+
 race = "Undead"
 
 
@@ -27,6 +28,7 @@ class Necromancer(Unit):
         self.magic_resist = random.randint(*MAGIC_RESIST)
 
         self.size_scale = 3.5
+        self.anim_speed = 60
 
         if self.team == "enemy":
             self.direction = "left"

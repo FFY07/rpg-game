@@ -5,7 +5,7 @@ from scenes.scene import Scene
 import gui.screen as scr
 import resources.images as images
 
-from classes.units.toothless import Toothless
+from classes.units.toothless_display import Toothless
 import resources.fonts as fonts
 
 title = [55, "hightowertext", "white"]

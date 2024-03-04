@@ -8,6 +8,7 @@ STRENGTH = (8, 8)
 INTELLIGENCE = (20, 20)
 DEFENCE = (80, 80)
 MAGIC_RESIST = (100, 100)
+
 race = "Human"
 
 
