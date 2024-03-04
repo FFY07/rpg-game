@@ -142,6 +142,10 @@ class Paladin(Unit):
                     self.game.sprites.add(
                         ui_functions.HitImage("unit/princess/holy", t, 40)
                     )
+ 
+                # steal your warrior sound XD
+                self.play_sound(self.game.audio_handler.warrior_inspire)
+
 
                 self.game.event_log.append(
                     f"{self.name} use gospel, Everyone increase 15% damage and regen {int(self.intelligence / 1.8)} "
@@ -167,7 +171,14 @@ class Paladin(Unit):
                 else:
                     target.burn_stacks.append([3, self.intelligence * 0.5])
 
-                self.melee(target)
+                self.change_state("defend")
                 self.update_stats(target, damage, crit, "mnit/princess/holy", 50)
+
+                self.game.sprites.add(
+                        ui_functions.HitImage("unit/paladin/smite", target, 40)
+                    )
+                
+                self.play_sound(self.game.audio_handler.paladin_smite)
+                
 
                 return True
