@@ -72,7 +72,7 @@ stat_mr_dict = {
     "Warrior": f"MR: {warrior.MAGIC_RESIST[0]:<5}",
     "Reaper": f"MR: {reaper.MAGIC_RESIST[0]:<5}",
     "Bandit": f"MR: {bandit.MAGIC_RESIST[0]:<5}",
-    "Tank": f"SMR: {tank.MAGIC_RESIST[0]:<5}",
+    "Tank": f"MR: {tank.MAGIC_RESIST[0]:<5}",
     "Princess": f"MR: {princess.MAGIC_RESIST[0]:<5}",
     "Necromancer": f"MR: {necromancer.MAGIC_RESIST[0]:<5}",
     "Paladin": f"MR: {paladin.MAGIC_RESIST[0]:<5}",

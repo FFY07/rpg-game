@@ -35,107 +35,9 @@ class CreateCharSelect(Scene):
             x_offset = 150
             self.position_list.append((self.xc + (x_offset * i), self.yc + 280))
 
-        self.gui = ui_functions.Draw_Picture(
-            self.xc  - 100,
-            self.yc - 200,
-            192,
-            192,
-            "black",
-            1,
-            "grey27",
-            self.game,
-        )
+        self.draw_marketing()
+        self.draw_text()
 
-        self.sprites.add(self.gui)
-
-        self.gui.image = cf.marketing_images[(list(cf.unit_dict.keys())[self.character_pointer])]
-
-        self.class_name = ui_functions.TextSprite(
-            list(cf.unit_dict.keys())[self.character_pointer],
-            40,
-            fonts.spartan_mb_semibold,
-            "white",
-            self.xc,
-            100,
-            "SELECTED",
-        )
-
-        self.race_name = ui_functions.TextSprite(
-            # f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
-            f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
-            20,
-            fonts.spartan_mb_semibold,
-            "yellow",
-            True,
-            140,
-            "SELECTED",
-        )
-
-        self.class_des = ui_functions.TextSprite(
-            list(cf.unit_dict.values())[self.character_pointer],
-            25,
-            fonts.spartan_mb_semibold,
-            "white",
-            self.xc,
-            self.yc + 50,
-            "SELECTED",
-        )
-
-        self.stat_str_des = ui_functions.TextSprite(
-            list(cf.stat_str_dict.values())[self.character_pointer],
-            30,
-            fonts.spartan_mb_semibold,
-            "brown1",
-            self.xc - 150,
-            self.yc - 180,
-            "SELECTED",
-        )
-
-        self.stat_int_des = ui_functions.TextSprite(
-            list(cf.stat_int_dict.values())[self.character_pointer],
-            30,
-            fonts.spartan_mb_semibold,
-            "aqua",
-            self.xc - 150,
-            self.yc - 130,
-            "SELECTED",
-        )
-        self.stat_def_des = ui_functions.TextSprite(
-            list(cf.stat_def_dict.values())[self.character_pointer],
-            30,
-            fonts.spartan_mb_semibold,
-            "chartreuse4",
-            self.xc - 150,
-            self.yc - 80,
-            "SELECTED",
-        )
-        self.stat_mr_des = ui_functions.TextSprite(
-            list(cf.stat_mr_dict.values())[self.character_pointer],
-            30,
-            fonts.spartan_mb_semibold,
-            "darkorchid2",
-            self.xc - 150,
-            self.yc - 30,
-            "SELECTED",
-        )
-        self.spacedes = ui_functions.TextSprite(
-            "Press Space to view Character Skill",
-            20,
-            fonts.spartan_mb_semibold,
-            "azure4",
-            True,
-            self.yc + 15 ,
-            "SELECTED",
-        )
-
-        self.sprites.add(self.class_name)
-        self.sprites.add(self.race_name)
-        self.sprites.add(self.class_des)
-        self.sprites.add(self.stat_str_des)
-        self.sprites.add(self.stat_int_des)
-        self.sprites.add(self.stat_def_des)
-        self.sprites.add(self.stat_mr_des)
-        self.sprites.add(self.spacedes)
 
         # Add our display units
         for unit in cf.unit_dict.keys():
@@ -178,6 +80,143 @@ class CreateCharSelect(Scene):
         cf.set_positions(self.position_list, self.display_units, "center")
 
         self.center_position = (self.xc, self.yc)
+
+    def draw_marketing(self):
+        # draw marketing image 
+        self.gui = ui_functions.Draw_Picture(
+                self.xc  - 100,
+                self.yc - 200,
+                192,
+                192,
+                "black",
+                1,
+                "grey27",
+                self.game,
+            )
+        self.sprites.add(self.gui)
+
+        self.gui.image = cf.marketing_images[(list(cf.unit_dict.keys())[self.character_pointer])]
+
+    def draw_text(self):
+        #still hardcore but use function :D
+        self.class_name = ui_functions.TextSprite(
+            list(cf.unit_dict.keys())[self.character_pointer],
+            40,
+            fonts.spartan_mb_semibold,
+            "white",
+            self.xc,
+            100,
+            "SELECTED",
+        )
+
+        self.race_name = ui_functions.TextSprite(
+            # f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
+            f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
+            20,
+            fonts.spartan_mb_semibold,
+            "yellow",
+            True,
+            140,
+            "SELECTED",
+        )
+
+        self.class_des = ui_functions.TextSprite(
+            list(cf.unit_dict.values())[self.character_pointer],
+            25,
+            fonts.spartan_mb_semibold,
+            "white",
+            self.xc,
+            self.yc + 50,
+            "SELECTED",
+        )
+
+        self.spacedes = ui_functions.TextSprite(
+            "Press Space to view Character Skill",
+            20,
+            fonts.spartan_mb_semibold,
+            "azure4",
+            True,
+            self.yc + 15 ,
+            "SELECTED",
+        )
+    
+        self.class_name = ui_functions.TextSprite(
+            list(cf.unit_dict.keys())[self.character_pointer],
+            40,
+            fonts.spartan_mb_semibold,
+            "white",
+            self.xc,
+            100,
+            "SELECTED",
+        )
+
+        self.race_name = ui_functions.TextSprite(
+            # f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
+            f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
+            20,
+            fonts.spartan_mb_semibold,
+            "yellow",
+            True,
+            140,
+            "SELECTED",
+        )
+
+        self.class_des = ui_functions.TextSprite(
+            list(cf.unit_dict.values())[self.character_pointer],
+            25,
+            fonts.spartan_mb_semibold,
+            "white",
+            self.xc,
+            self.yc + 50,
+            "SELECTED",
+        )
+        self.stat_str_des = ui_functions.TextSprite(
+            list(cf.stat_str_dict.values())[self.character_pointer],
+            30,
+            fonts.spartan_mb_semibold,
+            "brown1",
+            self.xc - 170,
+            self.yc - 180,
+            "SELECTED",
+        )
+
+        self.stat_int_des = ui_functions.TextSprite(
+            list(cf.stat_int_dict.values())[self.character_pointer],
+            30,
+            fonts.spartan_mb_semibold,
+            "aqua",
+            self.xc - 170,
+            self.yc - 130,
+            "SELECTED",
+        )
+        self.stat_def_des = ui_functions.TextSprite(
+            list(cf.stat_def_dict.values())[self.character_pointer],
+            30,
+            fonts.spartan_mb_semibold,
+            "chartreuse4",
+            self.xc - 170,
+            self.yc - 80,
+            "SELECTED",
+        )
+        self.stat_mr_des = ui_functions.TextSprite(
+            list(cf.stat_mr_dict.values())[self.character_pointer],
+            30,
+            fonts.spartan_mb_semibold,
+            "darkorchid2",
+            self.xc - 170,
+            self.yc - 30,
+            "SELECTED",
+        )
+
+        self.sprites.add(self.class_name)
+        self.sprites.add(self.race_name)
+        self.sprites.add(self.class_des)
+        self.sprites.add(self.spacedes)
+
+        self.sprites.add(self.stat_str_des)
+        self.sprites.add(self.stat_int_des)
+        self.sprites.add(self.stat_def_des)
+        self.sprites.add(self.stat_mr_des)
 
     def update(self, actions):
         for sprite in self.sprites:
