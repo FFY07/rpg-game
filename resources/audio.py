@@ -24,6 +24,7 @@ class SoundEffects():
         # Sound effects
         self.click_sfx = mixer.Sound(f"{Path('resources/audio/game_effects/click.wav')}")
 
+        self.openbook_sfx = mixer.Sound(f"{Path('resources/audio/game_effects/openpaper.mp3')}")
         self.sword_sfx = mixer.Sound(f"{Path('resources/audio/character_effects/unsheath_sword-6113.wav')}")
 
         self.reaper_basic = mixer.Sound(f"{Path('resources/audio/character_effects/Reaper/double_unsheath2.wav')}")

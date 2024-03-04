@@ -58,8 +58,8 @@ class Marchosias(Unit):
         )
 
         self.moves["Infernal Cataclysm(50)"] = self.infernalcataclysm
-        self.move_desc["Infernal Rebirth(25 MANA)"] = (
-            "Remove burn, Add 40hp and INT buff but burn 10HP for next 3 turn ."
+        self.move_desc["Infernal Cataclysm(50 MANA)"] = (
+            "Burn all alive unit in the game ."
         )
 
     def level_stats(self):
@@ -103,7 +103,7 @@ class Marchosias(Unit):
 
                 damage, crit = self.calc_damage(target, "magic", 0.4)
 
-                self.update_stats(target, damage, crit, "unit/marchosias/fire", 2)
+                self.update_stats(target, damage, crit, "unit/marchosias/hellfire", 4)
 
                 self.bonus_defence_stacks.append([2, -self.defence / 2])
                 self.game.event_log.append(f"{self.name} use hell fire")
