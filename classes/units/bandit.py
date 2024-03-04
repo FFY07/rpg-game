@@ -79,7 +79,7 @@ class Bandit(Unit):
                         self.mana = self.max_mana
 
                 if self.game.sound:
-                    pygame.mixer.Sound.play(self.game.audio_handler.sword_sfx)
+                    self.play_sound(self.game.audio_handler.sword_sfx)
                     self.game.sprites.add(
                         ui_functions.HitImage("unit/tank/charge", self, 2)
                     )
@@ -103,7 +103,7 @@ class Bandit(Unit):
                 self.update_stats(target, damage, crit, "unit/bandit/statsteal", 2)
 
                 if self.game.sound:
-                    pygame.mixer.Sound.play(self.game.audio_handler.sword_sfx)
+                    self.play_sound(self.game.audio_handler.sword_sfx)
 
                 self.game.event_log.append(
                     f"{self.name} attack {target.name} for {int(damage)} and apply burn for 3 round"

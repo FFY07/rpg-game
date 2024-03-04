@@ -8,9 +8,6 @@ from scenes.menu import MainMenu
 clock = pygame.time.Clock()
 clock.tick(60)
 
-# If we reserve more channels than our num_channels, mixer will crash
-pygame.mixer.set_num_channels(8)  # default 8
-
 # Do not use too many channels or it will still crash
 pygame.mixer.set_reserved(4)
 
@@ -23,6 +20,7 @@ pygame.mixer.set_reserved(4)
 # Seems like too many sounds playing at once in general will cause crashes
 # The only thing this whole charade is doing is limiting the number of sounds playing at once
 # Going to put everything on one channel to see if it fixes it
+
 
 ## the game look ok liao, for now crash very less
 # We'll use a state stack system instead of each scene having its own individual loops
@@ -75,6 +73,7 @@ class Game:
         self.sound = True
         self.volume = 0.4
 
+        # attempt to fix sound crashing bug by preloading all sound objects into a class (did nothing)
         self.audio_handler = audio.SoundEffects()
 
         # # Limit sounds to one channel to prevent freezing; give it two channels here so it sounds smoother

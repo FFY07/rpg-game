@@ -221,8 +221,8 @@ class Unit(pygame.sprite.Sprite):
                 self.game.sprites.add(
                     ui_functions.HitImage("misc/magic/magma", self, 1, 128, 128)
                 )
-                
-                self.play_sound(self.game.audio_handler.firemagic_sfx)
+
+                self.play_sound(self.game.audio_handler.firemagic_sfx, False)
 
                 # Example burn: [5, 10] = tick 5 turns, 10 damage each time
                 for i, burn in enumerate(self.burn_stacks):
@@ -352,7 +352,7 @@ class Unit(pygame.sprite.Sprite):
 
         if target_state == "death":
             self.game.sprites.add(self.death_effect)
-            self.game.main_channel.queue(self.game.audio_handler.death_sfx)
+            self.play_sound(self.game.audio_handler.death_sfx, False)
 
     def activate(self, active_pos):
         """Move character to the active position"""
@@ -362,19 +362,14 @@ class Unit(pygame.sprite.Sprite):
     def deactivate(self):
         self.rect.center = self.prev_pos
 
-    def play_sound(self, sound_object: pygame.mixer.Sound):
-        """Plays sound if sound is enabled; separates player and enemy sounds into separate channels"""
+    def play_sound(self, sound_object: pygame.mixer.Sound, force=True):
+        """Stops the currently-playing sound and plays a new sound"""
         if self.game.sound:
-            if self.team == "player":
+            if force:
                 self.game.main_channel.stop()
                 self.game.main_channel.play(sound_object)
-            elif self.team == "enemy":
-                self.game.main_channel.stop()
-                self.game.main_channel.play(sound_object)
-
-                # It should never reach this point, and this may cause crashes
             else:
-                pygame.mixer.Sound.play(sound_object)
+                self.game.main_channel.queue(sound_object)
 
     def consume_item(self, item):
         """Probably shouldn't be coding all the item effects here :D I love deadlines"""

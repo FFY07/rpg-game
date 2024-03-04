@@ -81,7 +81,7 @@ class Necromancer(Unit):
                 if crit:
                     self.game.event_log.append("It was a crit!")
 
-                self.play_sound(self.game.audio_handler.necromancer_weaken)
+                self.play_sound(self.game.audio_handler.necromancer_siphon)
 
                 # Higher the ratio the higher the heal
                 health_recovery = (self.max_health - self.health) * 0.55 + (

@@ -38,9 +38,10 @@ class SoundEffects():
         self.tank_machine_gun = mixer.Sound(f"{Path('resources/audio/character_effects/Tank/wot_autocannon.wav')}")
         self.tank_load_shell = mixer.Sound(f"{Path('resources/audio/character_effects/Tank/wot_load_shell.wav')}")
         self.tank_183mm = mixer.Sound(f"{Path('resources/audio/character_effects/Tank/wot_183mm.wav')}")
+        self.tank_flamethrower = mixer.Sound(f"{Path('resources/audio/character_effects/Tank/flamethrower.wav')}")
         
         self.necromancer_basic = mixer.Sound(f"{Path('resources/audio/character_effects/Necromancer/staff.wav')}")
-        self.necromancer_weaken = mixer.Sound(f"{Path('resources/audio/character_effects/Necromancer/weaken.wav')}")
+        self.necromancer_siphon = mixer.Sound(f"{Path('resources/audio/character_effects/Necromancer/siphon.wav')}")
         self.necromancer_infect = mixer.Sound(f"{Path('resources/audio/character_effects/Necromancer/infect.wav')}")     
         self.necromancer_doom = mixer.Sound(f"{Path('resources/audio/character_effects/Necromancer/doom.wav')}")
 

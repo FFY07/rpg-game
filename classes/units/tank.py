@@ -56,7 +56,7 @@ class Tank(Unit):
 
         self.moves["Flamethrower (70)"] = self.flamethrower
         self.move_desc["Flamethrower (70 MANA)"] = (
-            "Blasts a large amount of fire and burns all enemies for 3 turns"
+            "Blasts a large amount of fire at all enemies and burns them for 3 turns"
         )
 
     def level_stats(self):
@@ -136,7 +136,7 @@ class Tank(Unit):
                 return False
 
     def flamethrower(self, target: object, target_team: list):
-        """Blasts a large amount of fire and burns all enemies for 3 turns"""
+        """Blasts a large amount of fire at all enemies and burns them for 3 turns"""
         if self.is_target_hostile(target):
             mana_cost = 70
 
@@ -152,6 +152,8 @@ class Tank(Unit):
                 )
                 if crit:
                     self.game.event_log.append("It was a crit!")
+
+                self.play_sound(self.game.audio_handler.tank_flamethrower)
 
                 # Halves defence for 2 turns
                 self.bonus_defence_stacks.append([2, -self.defence / 2])
