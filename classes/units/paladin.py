@@ -139,7 +139,7 @@ class Paladin(Unit):
                     )  # 20% increase
                     t.bonus_intelligence_stacks.append([3, target.intelligence * 0.15])
                     t.health_regen_stacks.append(
-                        [4, self.intelligence / 1.8]
+                        [4, self.intelligence * 0.5556]
                     )  # heal 10
                     self.game.sprites.add(
                         ui_functions.HitImage("unit/princess/holy", t, 40)

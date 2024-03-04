@@ -74,7 +74,7 @@ class Princess(Unit):
         ):
             healratio = self.max_health * 0.2
             mana_cost = 10
-            heal = self.intelligence
+            heal = self.intelligence * 0.8
             if self.mana >= mana_cost and self.health > healratio:
                 self.mana -= mana_cost
                 self.health -= healratio
@@ -153,7 +153,7 @@ class Princess(Unit):
                 self.play_sound(self.game.audio_handler.heal_sfx)
                 for t in target_team:
                     t.health_regen_stacks.append(
-                        [5, self.intelligence / 1.667]
+                        [5, self.intelligence * 0.6]
                     )  # heal 15
                     t.update_healstats(target, heal, "healing", 1)
                     self.game.sprites.add(
