@@ -24,7 +24,7 @@ pygame.mixer.set_reserved(4)
 # The only thing this whole charade is doing is limiting the number of sounds playing at once
 # Going to put everything on one channel to see if it fixes it
 
-
+## the game look ok liao, for now crash very less
 # We'll use a state stack system instead of each scene having its own individual loops
 class Game:
     def __init__(self):

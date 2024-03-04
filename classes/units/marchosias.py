@@ -118,6 +118,7 @@ class Marchosias(Unit):
             self.mana -= mana_cost
 
             self.play_sound(self.game.audio_handler.marchosias_fireshort)
+            self.change_state("defend")
 
             # clear burn and strength (play smart u can remove high stack burn)
             self.burn_stacks.clear()
@@ -132,7 +133,8 @@ class Marchosias(Unit):
             # buff INT for 3 turns
             self.bonus_intelligence_stacks.append([3, self.intelligence * 0.25])
             
-
+            
+            
             self.game.sprites.add(ui_functions.HitImage("misc/blood/blood2", self, 2))
             self.game.event_log.append(f"{self.name} use Rebirth")
             
