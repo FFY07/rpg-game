@@ -51,6 +51,8 @@ class SoundEffects():
         self.marchosias_fire = mixer.Sound(f"{Path('resources/audio/character_effects/Marchosias/dragon-breathes-fire-1-191085.mp3')}")
         self.marchosias_fireshort = mixer.Sound(f"{Path('resources/audio/character_effects/Marchosias/fireball-whoosh-2-179126.mp3')}")
         
+        
+        self.nightfury_lazy = mixer.Sound(f"{Path('resources/audio/character_effects/Nightfury/lazy.wav')}")
         self.nightfury_plasma = mixer.Sound(f"{Path('resources/audio/character_effects/Nightfury/plasma.wav')}")
         self.nightfury_divebomb = mixer.Sound(f"{Path('resources/audio/character_effects/Nightfury/divebomb.wav')}")
         self.nightfury_tackle = mixer.Sound(f"{Path('resources/audio/character_effects/Nightfury/tackle.wav')}")
@@ -67,6 +69,6 @@ class SoundEffects():
         self.oom_sfx.set_volume(0.5)
 
         self.death_sfx = mixer.Sound(f"{Path('resources/audio/character_effects/oof.wav')}")
-        self.death_sfx.set_volume(0.5)
+        self.death_sfx.set_volume(0.4)
 
         self.firemagic_sfx = mixer.Sound(f"{Path('resources/audio/character_effects/fire-magic-6947.mp3')}")

@@ -52,6 +52,7 @@ class NightFury(Unit):
         # Remove the basic attack
         self.moves.pop("Basic Attack")
 
+        self.moves["lazy"] = self.lazy
         self.moves["Plasma (40)"] = self.plasma
         self.moves["Divebomb (75)"] = self.divebomb
         self.moves["Tackle (20)"] = self.tackle
@@ -62,6 +63,13 @@ class NightFury(Unit):
         self.intelligence += 12
         self.defence += 10
         self.magic_resist += 12
+
+    def lazy(self, target: object, target_team: list):
+        """Does literally nothing"""
+        self.game.event_log.append(f"{self.name} was too lazy to do anything")
+        self.play_sound(self.game.audio_handler.nightfury_lazy)
+        self.change_state("defend")
+        return True
 
     def plasma(self, target: object, target_team: list):
         """Scree"""
