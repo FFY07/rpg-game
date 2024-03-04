@@ -52,6 +52,11 @@ class Marchosias(Unit):
             "Blasts fire on enemies and burn for 3 turns"
         )
 
+        self.moves["Infernal Rebirth(25)"] = self.infernalrebirth
+        self.move_desc["Infernal Rebirth(25 MANA)"] = (
+            "Remove burn, Add 40hp and INT buff but burn 10HP for next 3 turn ."
+        )
+
 
     def level_stats(self):
         self.health += self.max_health / 10
@@ -103,5 +108,32 @@ class Marchosias(Unit):
 
                 self.play_sound(self.game.audio_handler.marchosias_fire)
 
-
                 return True
+            
+    def infernalrebirth(self, target: object, target_team: list):
+        """ Increases health by 40 but burns for 10 health per turn for 3 turns, also buffs strength."""
+        mana_cost = 25
+        heal = self.max_health * 0.4
+        if self.mana >= mana_cost:
+            self.mana -= mana_cost
+
+            self.play_sound(self.game.audio_handler.reaper_blood)
+
+            # clear burn and strength (play smart u can remove high stack burn)
+            self.burn_stacks.clear()
+            self.bonus_strength_stacks.clear()
+
+
+            self.health += heal
+
+            # burn self for 3 turn 
+            self.burn_stacks.append([3, self.intelligence * 0.25])
+
+            # buff INT for 3 turns
+            self.bonus_intelligence_stacks.append([3, self.intelligence * 0.25])
+            
+
+            self.game.sprites.add(ui_functions.HitImage("misc/blood/blood2", self, 2))
+            self.game.event_log.append(f"{self.name} use Rebirth")
+            
+            return True
