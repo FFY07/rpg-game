@@ -3,6 +3,7 @@ import pygame, random, math
 from classes.unit import Unit
 import gui.ui_functions as ui_functions
 
+
 # Range of values
 STRENGTH = (0, 0)
 INTELLIGENCE = (40, 40)
@@ -40,9 +41,12 @@ class Marchosias(Unit):
         self.rect.center = self.position
 
         self.move_desc["Passive "] = (
-            " Using INT on every skill( include basic attack) "
+            " DONT PLAY WITH FIRE "
         )
-        
+        self.move_desc["Basic Attack"] = (
+            " Basic Attack deal 0 but apply burn on enemies for 3 turns "
+        )
+
         self.moves["Hell fire(25)"] = self.hellfire
         self.move_desc["Hell fire(25 MANA)"] = (
             "Blasts fire on enemies and burn for 3 turns"
@@ -60,7 +64,8 @@ class Marchosias(Unit):
 
         if self.is_target_hostile(target):
 
-            damage, crit = self.calc_damage(target, "magic", 0.45)
+            damage, crit = self.calc_damage(target, "magic", 0)
+            target.burn_stacks.append([3, self.intelligence * 0.1])
                 
             # Melee is optional and only for direct attacks
             self.melee(target)
@@ -72,7 +77,7 @@ class Marchosias(Unit):
                 if self.mana > self.max_mana:
                     self.mana = self.max_mana
 
-            self.play_sound(self.default_attack_sfx)
+            self.play_sound(self.game.audio_handler.marchosias_fire)
 
             return True
         
@@ -95,5 +100,8 @@ class Marchosias(Unit):
                 # Halves defence for 2 turns
                 self.bonus_defence_stacks.append([2, -self.defence / 2])
                 self.game.event_log.append(f"{self.name} use hell fire")
+
+                self.play_sound(self.game.audio_handler.marchosias_fire)
+
 
                 return True

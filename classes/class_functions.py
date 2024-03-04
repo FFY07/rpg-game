@@ -21,7 +21,7 @@ unit_dict = {
     "Princess": "Able to heal and regen Mana for teammate, but get more damage by other",
     "Necromancer": "Powerful mage with high intelligence and magic resistance",
     "Paladin": "Holy Knight that can heal and deal more damage to Undead",
-    "Marchosias": "A demon from hell"
+    "Marchosias": "A demon who specializes in the use of fire."
 }
 
 unitrace_dict = {

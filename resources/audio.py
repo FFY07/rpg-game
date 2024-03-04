@@ -45,7 +45,9 @@ class SoundEffects():
         self.necromancer_doom = mixer.Sound(f"{Path('resources/audio/character_effects/Necromancer/doom.wav')}")
 
         self.paladin_smite = mixer.Sound(f"{Path('resources/audio/character_effects/Paladin/magic-charge-mana-2-186628.mp3')}")
-        
+
+        self.marchosias_fire = mixer.Sound(f"{Path('resources/audio/character_effects/Marchosias/dragon-breathes-fire-1-191085.mp3')}")
+
         self.heal_sfx = mixer.Sound(f"{Path('resources/audio/character_effects/02_Heal_02.wav')}")
         self.heal_sfx.set_volume(0.4)
         self.magic_sfx = mixer.Sound(f"{Path('resources/audio/character_effects/1168-za-warudo-sound-effect.wav')}")
