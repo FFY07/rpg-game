@@ -47,7 +47,7 @@ class SoundEffects():
         self.paladin_smite = mixer.Sound(f"{Path('resources/audio/character_effects/Paladin/magic-charge-mana-2-186628.mp3')}")
 
         self.marchosias_fire = mixer.Sound(f"{Path('resources/audio/character_effects/Marchosias/dragon-breathes-fire-1-191085.mp3')}")
-
+        self.marchosias_fireshort = mixer.Sound(f"{Path('resources/audio/character_effects/Marchosias/fireball-whoosh-2-179126.mp3')}")
         self.heal_sfx = mixer.Sound(f"{Path('resources/audio/character_effects/02_Heal_02.wav')}")
         self.heal_sfx.set_volume(0.4)
         self.magic_sfx = mixer.Sound(f"{Path('resources/audio/character_effects/1168-za-warudo-sound-effect.wav')}")
@@ -61,3 +61,5 @@ class SoundEffects():
 
         self.death_sfx = mixer.Sound(f"{Path('resources/audio/character_effects/oof.wav')}")
         self.death_sfx.set_volume(0.5)
+
+        self.firemagic_sfx = mixer.Sound(f"{Path('resources/audio/character_effects/fire-magic-6947.mp3')}")

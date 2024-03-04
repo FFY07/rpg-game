@@ -117,7 +117,7 @@ class Marchosias(Unit):
         if self.mana >= mana_cost:
             self.mana -= mana_cost
 
-            self.play_sound(self.game.audio_handler.reaper_blood)
+            self.play_sound(self.game.audio_handler.marchosias_fireshort)
 
             # clear burn and strength (play smart u can remove high stack burn)
             self.burn_stacks.clear()
