@@ -586,14 +586,20 @@ class InfoGUI:
                 ),
                 16,
                 "gold1",
-                "newsgoth bt",
+                fonts.news_gothic_bt,
             )
         )
 
         # Unit name
         self.text_sprites.add(
             TrackingText(
-                self.unit.name, self.unit, "", (-40, -120), 30, "white", '"newsgoth bt"'
+                self.unit.name,
+                self.unit,
+                "",
+                (-40, -120),
+                30,
+                "white",
+                fonts.news_gothic_bt,
             )
         )
 
