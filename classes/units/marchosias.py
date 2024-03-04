@@ -145,7 +145,7 @@ class Marchosias(Unit):
     def infernalcataclysm(self, target: object, target_team: list):
         """ burn whole game."""
 
-        mana_cost = 60
+        mana_cost = 50
        
         if self.mana >= mana_cost:
             self.mana -= mana_cost
@@ -155,10 +155,13 @@ class Marchosias(Unit):
 
             for i in self.game.all_units:
                 i.burn_stacks.append([5, self.intelligence * 0.25])
-                self.game.sprites.add(
-                        ui_functions.HitImage("unit/bandit/statsteal", i, 1)
-                    )
+                # self.game.sprites.add(
+                #         ui_functions.HitImage("unit/bandit/statsteal", i, 1)
+                #     )
                 
+            self.game.sprites.add(
+                 ui_functions.EffectImage("unit/marchosias/fire", 650, 550, 1, 1300, 400)
+            )   
             return True
 
 
