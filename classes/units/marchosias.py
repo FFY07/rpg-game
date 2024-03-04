@@ -57,6 +57,10 @@ class Marchosias(Unit):
             "Remove burn, Add 40hp and INT buff but burn 10HP for next 3 turn ."
         )
 
+        self.moves["Infernal Cataclysm(50)"] = self.infernalcataclysm
+        self.move_desc["Infernal Rebirth(25 MANA)"] = (
+            "Remove burn, Add 40hp and INT buff but burn 10HP for next 3 turn ."
+        )
 
     def level_stats(self):
         self.health += self.max_health / 10
@@ -99,10 +103,8 @@ class Marchosias(Unit):
 
                 damage, crit = self.calc_damage(target, "magic", 0.4)
 
-                # self.melee(target)
                 self.update_stats(target, damage, crit, "unit/marchosias/fire", 2)
 
-                # Halves defence for 2 turns
                 self.bonus_defence_stacks.append([2, -self.defence / 2])
                 self.game.event_log.append(f"{self.name} use hell fire")
 
@@ -139,3 +141,24 @@ class Marchosias(Unit):
             self.game.event_log.append(f"{self.name} use Rebirth")
             
             return True
+
+    def infernalcataclysm(self, target: object, target_team: list):
+        """ burn whole game."""
+
+        mana_cost = 60
+       
+        if self.mana >= mana_cost:
+            self.mana -= mana_cost
+
+            self.play_sound(self.game.audio_handler.marchosias_fireshort)
+            self.change_state("defend")
+
+            for i in self.game.all_units:
+                i.burn_stacks.append([5, self.intelligence * 0.25])
+                self.game.sprites.add(
+                        ui_functions.HitImage("unit/bandit/statsteal", i, 1)
+                    )
+                
+            return True
+
+
