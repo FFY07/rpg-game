@@ -160,6 +160,14 @@ class Princess(Unit):
                         ui_functions.HitImage("unit/princess/holy", t, 25)
                     )
 
+                self.bonus_defence_stacks.append(
+                        [5, self.intelligence]
+                )
+
+                self.bonus_magic_resist_stacks.append(
+                        [5, self.intelligence]
+                )
+
                 t.change_state("defend")
 
                 return True
