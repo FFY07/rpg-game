@@ -85,7 +85,7 @@ class NightFury(Unit):
                 self.play_sound(self.game.audio_handler.nightfury_plasma)
                 self.cannon_shells = 0
 
-                damage, crit = self.calc_damage(target, "magic", 4)
+                damage, crit = self.calc_damage(target, "magic", 3.5)
 
                 self.melee(target)
                 self.update_stats(target, damage, crit, "unit/tank/cannon", 2)
@@ -105,9 +105,9 @@ class NightFury(Unit):
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
                 for t in target_team:
-                    damage, crit = self.calc_damage(t, "magic", 1)
+                    damage, crit = self.calc_damage(t, "magic", 0.8)
                     self.update_stats(t, damage, crit, "unit/necromancer/doom", 2)
-                    t.burn_stacks.append([1, self.intelligence * 0.8])
+                    t.burn_stacks.append([1, self.intelligence * 0.7])
 
                 self.game.event_log.append(
                     f"{self.name} divebombs all enemies with plasma for {int(damage)} damage!"
