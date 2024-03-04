@@ -108,7 +108,6 @@ class Play(Scene):
         self.selected_unit = list(self.alive_player_dict.values())[self.pointer]
 
         if actions['space']:
-            self.play_sound(self.game.audio_handler.openbook_sfx)
             next_scene = GameLog(self.game)
             next_scene.start_scene()
 
