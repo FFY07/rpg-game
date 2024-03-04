@@ -46,10 +46,10 @@ class SoundEffects():
         self.necromancer_infect = mixer.Sound(f"{Path('resources/audio/character_effects/Necromancer/infect.wav')}")     
         self.necromancer_doom = mixer.Sound(f"{Path('resources/audio/character_effects/Necromancer/doom.wav')}")
 
-        self.paladin_smite = mixer.Sound(f"{Path('resources/audio/character_effects/Paladin/magic-charge-mana-2-186628.mp3')}")
+        self.paladin_smite = mixer.Sound(f"{Path('resources/audio/character_effects/Paladin/magic_charge.wav')}")
 
-        self.marchosias_fire = mixer.Sound(f"{Path('resources/audio/character_effects/Marchosias/dragon-breathes-fire-1-191085.mp3')}")
-        self.marchosias_fireshort = mixer.Sound(f"{Path('resources/audio/character_effects/Marchosias/fireball-whoosh-2-179126.mp3')}")
+        self.marchosias_fire = mixer.Sound(f"{Path('resources/audio/character_effects/Marchosias/dragon_breath.wav')}")
+        self.marchosias_fireshort = mixer.Sound(f"{Path('resources/audio/character_effects/Marchosias/fireball.wav')}")
         
         
         self.nightfury_lazy = mixer.Sound(f"{Path('resources/audio/character_effects/Nightfury/lazy.wav')}")
