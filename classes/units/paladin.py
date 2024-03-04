@@ -136,7 +136,7 @@ class Paladin(Unit):
                     )  # 20% increase
                     t.bonus_intelligence_stacks.append([3, target.intelligence * 0.15])
                     t.health_regen_stacks.append(
-                        [4, self.intelligence / 1.8]
+                        [4, self.intelligence * 0.5556]
                     )  # heal 10
                     self.game.sprites.add(
                         ui_functions.HitImage("unit/princess/holy", t, 40)
@@ -157,6 +157,7 @@ class Paladin(Unit):
             mana_cost = 40
             if self.mana >= mana_cost:
                 self.mana -= mana_cost
+
                 if target.race == "Undead":
                     damage, crit = self.calc_damage(target, "physical", 2.5)
                 else:
@@ -169,8 +170,9 @@ class Paladin(Unit):
                 else:
                     target.burn_stacks.append([3, self.intelligence * 0.5])
 
-                self.change_state("defend")
+
                 self.update_stats(target, damage, crit, "mnit/princess/holy", 50)
+                self.change_state("defend")
 
                 self.game.sprites.add(
                     ui_functions.HitImage("unit/paladin/smite", target, 40)

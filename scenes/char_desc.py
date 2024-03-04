@@ -16,7 +16,7 @@ class CharDesc(Scene):
         super().__init__(game)
         self.background = images.gamelog_background
         self.sprites = pygame.sprite.Group()
-
+        
         # starting position
         self.position = 190
 

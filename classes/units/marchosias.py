@@ -41,7 +41,7 @@ class Marchosias(Unit):
         self.rect.center = self.position
 
         self.move_desc["Passive "] = (
-            " DONT PLAY WITH FIRE "
+            " When self get burn, regen 5 mana per stack of burn "
         )
         self.move_desc["Basic Attack"] = (
             " Basic Attack deal 0 but apply burn on enemies for 3 turns "
@@ -58,8 +58,8 @@ class Marchosias(Unit):
         )
 
         self.moves["Infernal Cataclysm(50)"] = self.infernalcataclysm
-        self.move_desc["Infernal Rebirth(25 MANA)"] = (
-            "Remove burn, Add 40hp and INT buff but burn 10HP for next 3 turn ."
+        self.move_desc["Infernal Cataclysm(50 MANA)"] = (
+            "Burn all alive unit in the game ."
         )
 
     def level_stats(self):
@@ -69,12 +69,122 @@ class Marchosias(Unit):
         self.defence += 5
         self.magic_resist += 2
 
+    def tick_effects(self):
+
+        # NOTE ON POTENTIAL BUG: Have not tested with negative bonus values on stats resulting in overall negative stat
+
+        damage = 0
+        if self.alive:
+
+            # Forget it, let's just hardcode
+            if self.burn_stacks:
+                self.game.sprites.add(
+                    ui_functions.HitImage("misc/magic/magma", self, 1, 128, 128)
+                )
+                
+                self.play_sound(self.game.audio_handler.firemagic_sfx, False)
+                
+                # Example burn: [5, 10] = tick 5 turns, 10 damage each time
+                for i, burn in enumerate(self.burn_stacks):
+                    if not burn[0] < 0:
+                        burn[0] -= 1 
+                    damage += max(1,( burn[1] - self.magic_resist * 0.05 ))
+                    self.mana += 5
+                    self.game.event_log.append(
+                        f"{self.name} has lost {damage} health due to burn!"
+                    )
+
+                    # If there are no more ticks left on the burn, remove it from the list
+                    if not burn[0]:
+                        self.burn_stacks.pop(i)
+                        self.game.event_log.append(
+                            f"{self.name} has recovered from a burn!"
+                        )
+
+            # negative negative = positive
+            if self.health_regen_stacks:
+                for i, regen in enumerate(self.health_regen_stacks):
+                    if not regen[0] < 0:
+                        regen[0] -= 1
+
+                    if self.burn_stacks:
+                        damage -= regen[1] * 0.6
+                    damage -= regen[1]
+
+                    if not regen[0]:
+                        self.health_regen_stacks.pop(i)
+                       
+
+            if self.mana_regen_stacks:
+                for i, regen in enumerate(self.mana_regen_stacks):
+                    if not regen[0] < 0:
+                        regen[0] -= 1
+                    self.mana += regen[1]
+                    
+                    if not regen[0]:
+                        self.mana_regen_stacks.pop(i)
+                     
+            self.bonus_strength = 0
+            if self.bonus_strength_stacks:
+                for i, effect in enumerate(self.bonus_strength_stacks):
+                    if not effect[0] < 0:
+                        effect[0] -= 1
+                    self.bonus_strength += effect[1]
+                   
+                    if not effect[0]:
+                        self.bonus_strength_stacks.pop(i)
+                       
+
+            self.bonus_intelligence = 0
+            if self.bonus_intelligence_stacks:
+                for i, effect in enumerate(self.bonus_intelligence_stacks):
+                    if not effect[0] < 0:
+                        effect[0] -= 1
+                    self.bonus_intelligence += effect[1]
+                    
+                    if not effect[0]:
+                        self.bonus_intelligence_stacks.pop(i)
+                       
+
+            self.bonus_defence = 0
+            if self.bonus_defence_stacks:
+                for i, effect in enumerate(self.bonus_defence_stacks):
+                    if not effect[0] < 0:
+                        effect[0] -= 1
+                    self.bonus_defence += effect[1]
+                    
+                    if not effect[0]:
+                        self.bonus_defence_stacks.pop(i)
+                        
+
+            self.bonus_magic_resist = 0
+            if self.bonus_magic_resist_stacks:
+                for i, effect in enumerate(self.bonus_magic_resist_stacks):
+                    if not effect[0] < 0:
+                        effect[0] -= 1
+                    self.bonus_magic_resist += effect[1]
+                    
+                    if not effect[0]:
+                        self.bonus_magic_resist_stacks.pop(i)
+                       
+
+            if damage > 0:
+                self.health -= damage
+                self.game.sprites.add(ui_functions.DamageText(self, int(damage)))
+
+            if damage < 0:
+                self.health -= damage
+
+                self.game.sprites.add(
+                    ui_functions.DamageText(self, abs(int(damage)), False, "green")
+                )
+
     def basic_attack(self, target: object, target_team: list):
 
         if self.is_target_hostile(target):
 
             damage, crit = self.calc_damage(target, "magic", 0)
-            target.burn_stacks.append([3, self.intelligence * 0.1])
+            target.burn_stacks.append([3, self.intelligence * 0.25])
                 
             # Melee is optional and only for direct attacks
             self.melee(target)
@@ -103,7 +213,7 @@ class Marchosias(Unit):
 
                 damage, crit = self.calc_damage(target, "magic", 0.4)
 
-                self.update_stats(target, damage, crit, "unit/marchosias/fire", 2)
+                self.update_stats(target, damage, crit, "unit/marchosias/hellfire", 4)
 
                 self.bonus_defence_stacks.append([2, -self.defence / 2])
                 self.game.event_log.append(f"{self.name} use hell fire")
@@ -130,7 +240,7 @@ class Marchosias(Unit):
             self.health += heal
 
             # burn self for 3 turn 
-            self.burn_stacks.append([3, self.intelligence * 0.25])
+            self.burn_stacks.append([3, self.intelligence * 0.3])
 
             # buff INT for 3 turns
             self.bonus_intelligence_stacks.append([3, self.intelligence * 0.25])
@@ -145,7 +255,7 @@ class Marchosias(Unit):
     def infernalcataclysm(self, target: object, target_team: list):
         """ burn whole game."""
 
-        mana_cost = 60
+        mana_cost = 50
        
         if self.mana >= mana_cost:
             self.mana -= mana_cost
@@ -155,10 +265,13 @@ class Marchosias(Unit):
 
             for i in self.game.all_units:
                 i.burn_stacks.append([5, self.intelligence * 0.25])
-                self.game.sprites.add(
-                        ui_functions.HitImage("unit/bandit/statsteal", i, 1)
-                    )
+                # self.game.sprites.add(
+                #         ui_functions.HitImage("unit/bandit/statsteal", i, 1)
+                #     )
                 
+            self.game.sprites.add(
+                 ui_functions.EffectImage("unit/marchosias/fire", 650, 550, 1, 1300, 400)
+            )   
             return True
 
 

@@ -221,14 +221,14 @@ class Unit(pygame.sprite.Sprite):
                 self.game.sprites.add(
                     ui_functions.HitImage("misc/magic/magma", self, 1, 128, 128)
                 )
-
+                
                 self.play_sound(self.game.audio_handler.firemagic_sfx, False)
-
+                
                 # Example burn: [5, 10] = tick 5 turns, 10 damage each time
                 for i, burn in enumerate(self.burn_stacks):
                     if not burn[0] < 0:
-                        burn[0] -= 1
-                    damage += burn[1]
+                        burn[0] -= 1 
+                    damage += max(1,( burn[1] - self.magic_resist * 0.05 ))
                     self.game.event_log.append(
                         f"{self.name} has lost {damage} health due to burn!"
                     )

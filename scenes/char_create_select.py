@@ -8,7 +8,7 @@ from scenes.char_desc import CharDesc
 
 import resources.images as images
 import resources.fonts as fonts
-
+import resources.audio as audio
 
 class CreateCharSelect(Scene):
     def __init__(self, game: object, menu_id: int):
@@ -212,11 +212,13 @@ class CreateCharSelect(Scene):
             self.exit_scene()
 
         if actions["space"]:
+            
             next_scene = CharDesc(
                 self.game, self.display_units_list[self.character_pointer]
             )
 
             next_scene.start_scene()
+
         self.display_units.update()
         self.sprites.update()
         self.game.reset_keys()
