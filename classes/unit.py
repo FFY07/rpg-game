@@ -369,7 +369,8 @@ class Unit(pygame.sprite.Sprite):
                 self.game.main_channel.stop()
                 self.game.main_channel.play(sound_object)
             else:
-                self.game.main_channel.queue(sound_object)
+                if not self.game.main_channel.get_queue():
+                    self.game.main_channel.queue(sound_object)
 
     def consume_item(self, item):
         """Probably shouldn't be coding all the item effects here :D I love deadlines"""
