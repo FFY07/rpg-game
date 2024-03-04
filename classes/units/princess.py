@@ -68,13 +68,13 @@ class Princess(Unit):
         self.magic_resist += 1.3
 
     def healing(self, target, target_team):
+        mana_cost = 10
         if (
             not self.is_target_hostile(target)
             and target.health != target.max_health
             and target != self
         ):
             healratio = self.max_health * 0.2
-            mana_cost = 10
             heal = self.intelligence * 0.8
             if self.mana >= mana_cost and self.health > healratio:
                 self.mana -= mana_cost
@@ -100,13 +100,13 @@ class Princess(Unit):
                 return True
 
     def cleanse(self, target, target_team):
+        mana_cost = 25
         if not self.is_target_hostile(target) and (
             target.mana != target.max_mana
             or (
                 target.health != target.max_health and target.max_mana == 0.1
             )  # check if target use HP attack and HP full or not)
         ):
-            mana_cost = self.max_mana * 0.25
             regen = self.intelligence * 1.4
 
             if self.mana >= mana_cost:
@@ -142,6 +142,28 @@ class Princess(Unit):
                         f"{self.name} cleanse and regen {int(regen)} mana for{target.name}"
                     )
                 return True
+
+        elif target.race == "Undead":
+            if self.mana >= mana_cost:
+                self.mana -= mana_cost
+
+                damage, crit = self.calc_damage(target, "magic", 1.1)
+
+                self.melee(target)
+                self.update_stats(target, damage, crit, "unit/princess/holy", 60)
+                target.bonus_strength_stacks.append([3, target.strength * 0.2])
+                target.bonus_intelligence_stacks.append([3, target.intelligence * 0.2])
+                self.game.event_log.append(
+                    f"{self.name} weakens {target.name} with cleans and deals {int(damage)} damage!"
+                )
+                if crit:
+                    self.game.event_log.append("It was a crit!")
+
+                self.play_sound(self.game.audio_handler.heal_sfx)
+
+                return True
+        else:
+            return False
 
     def wish(self, target: object, target_team: list):
         if not self.is_target_hostile(target):
