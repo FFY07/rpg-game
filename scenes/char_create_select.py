@@ -1,4 +1,4 @@
-import pygame
+import pygame, random
 
 import gui.ui_functions as ui_functions
 import classes.class_functions as cf
@@ -17,14 +17,14 @@ class CreateCharSelect(Scene):
 
         self.display_units = pygame.sprite.Group()
         self.display_units_list = []
-
-        self.background = images.char_select_background
+        
+        self.background = images.credits_background
 
         # Indiates which menu we're modifying
         self.menu_id = menu_id
 
         # Default setup, note that cf.unit_dict holds the list of classes
-        self.chosen_name = "John Wick"
+        self.chosen_name =  f"Player {random.randint(10, 99)}"
         self.chosen_class = "Knight"
         self.pointer = 0
         self.character_pointer = 0
@@ -33,14 +33,29 @@ class CreateCharSelect(Scene):
         self.position_list = []
         for i, unit in enumerate(list(cf.unit_dict.keys())):
             x_offset = 150
-            self.position_list.append((self.xc + (x_offset * i), self.yc))
+            self.position_list.append((self.xc + (x_offset * i), self.yc + 280))
+
+        self.gui = ui_functions.Draw_Picture(
+            self.xc  - 100,
+            self.yc - 200,
+            192,
+            192,
+            "black",
+            1,
+            "grey27",
+            self.game,
+        )
+
+        self.sprites.add(self.gui)
+
+        self.gui.image = cf.marketing_images[(list(cf.unit_dict.keys())[self.character_pointer])]
 
         self.class_name = ui_functions.TextSprite(
             list(cf.unit_dict.keys())[self.character_pointer],
             40,
             fonts.spartan_mb_semibold,
             "white",
-            True,
+            self.xc,
             100,
             "SELECTED",
         )
@@ -50,7 +65,7 @@ class CreateCharSelect(Scene):
             f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
             20,
             fonts.spartan_mb_semibold,
-            "forestgreen",
+            "yellow",
             True,
             140,
             "SELECTED",
@@ -62,7 +77,7 @@ class CreateCharSelect(Scene):
             fonts.spartan_mb_semibold,
             "white",
             self.xc,
-            170,
+            self.yc + 50,
             "SELECTED",
         )
 
@@ -89,8 +104,8 @@ class CreateCharSelect(Scene):
         self.sprites.add(self.class_name)
         self.sprites.add(self.race_name)
         self.sprites.add(self.class_des)
-        self.sprites.add(self.stat_des)
-        self.sprites.add(self.spacedes)
+        # self.sprites.add(self.stat_des)
+        # self.sprites.add(self.spacedes)
 
         # Add our display units
         for unit in cf.unit_dict.keys():
@@ -112,7 +127,7 @@ class CreateCharSelect(Scene):
             "deepskyblue1",
             "name",
             True,
-            self.yc + 200,
+            self.yc + 120,
             100,
         )
 
@@ -127,7 +142,7 @@ class CreateCharSelect(Scene):
             "deepskyblue1",
             "exit",
             True,
-            self.yc + 300,
+            self.yc + 210,
         )
 
         cf.set_positions(self.position_list, self.display_units, "center")
@@ -156,7 +171,8 @@ class CreateCharSelect(Scene):
         )
         self.class_des.text = list(cf.unit_dict.values())[self.character_pointer]
         self.stat_des.text = list(cf.stat_dict.values())[self.character_pointer]
-
+        
+        self.gui.image = cf.marketing_images[(list(cf.unit_dict.keys())[self.character_pointer])]
         self.chosen_character = (
             self.chosen_name,
             list(cf.unit_dict.keys())[self.character_pointer],
@@ -225,6 +241,7 @@ class CreateCharSelect(Scene):
 
         # print(self.chosen_character)
         # print(self.position_list)
+
 
     def render(self, screen):
         screen.blit(
