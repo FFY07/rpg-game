@@ -37,7 +37,7 @@ class CreateCharSelect(Scene):
 
         self.draw_marketing()
         self.draw_text()
-        self.draw_icon(3, 100)
+        self.draw_skill()
 
         # Add our display units
         for unit in cf.unit_dict.keys():
@@ -98,21 +98,89 @@ class CreateCharSelect(Scene):
 
         self.gui.image = cf.marketing_images[(list(cf.unit_dict.keys())[self.character_pointer])]
 
-    def draw_icon(self, amount, offset):
-        for i in range(amount):
-             self.icon_gui = ui_functions.Draw_Picture(
-                self.xc  + 150,
-                self.yc - 350 + offset,
-                64,
-                64,
-                "black",
-                1,
-                "grey27",
-                self.game,
-            )
-        self.sprites.add(self.icon_gui)
+    def draw_skill(self):
 
-        self.icon_gui.image = cf.marketing_images[(list(cf.unit_dict.keys())[self.character_pointer])]
+        # i need a list, i know fuck i cannot think i hardcode firsst
+        self.icon_gui = ui_functions.Draw_Picture(
+        self.xc  + 250,
+        150,
+        64,
+        64,
+        "black",
+        0,
+        "grey27",
+        self.game,
+    )
+        self.icon_gui2 = ui_functions.Draw_Picture(
+        self.xc  + 250,
+        150 + 75,
+        64,
+        64,
+        "black",
+        1,
+        "grey27",
+        self.game,
+    )
+        self.icon_gui3 = ui_functions.Draw_Picture(
+        self.xc  + 250,
+        150 + 75* 2,
+        64,
+        64,
+        "black",
+        2,
+        "grey27",
+        self.game,
+    )
+        
+        self.skill = ui_functions.TextSprite(
+            # f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
+            "Character Skill" ,
+            30,
+            "Impact",
+            "white",
+            self.xc + 390,
+            120,
+            "SELECTED",
+        )
+
+        self.skill1_name = ui_functions.TextSprite(
+            f"{list(cf.skill1_dict.values())[self.character_pointer]}",
+            25,
+            fonts.spartan_mb_semibold,
+            "white",
+            self.xc + 400,
+            180,
+            "SELECTED",
+        )
+        self.skill2_name = ui_functions.TextSprite(
+            f"{list(cf.skill2_dict.values())[self.character_pointer]}",
+            25,
+            fonts.spartan_mb_semibold,
+            "white",
+            self.xc + 400,
+            180 + 75,
+            "SELECTED",
+        )
+        self.skill3_name = ui_functions.TextSprite(
+            f"{list(cf.skill3_dict.values())[self.character_pointer]}",
+            25,
+            fonts.spartan_mb_semibold,
+            "white",
+            self.xc + 400,
+            180 + 75 * 2,
+            "SELECTED",
+        )
+        self.sprites.add(self.icon_gui)
+        self.sprites.add(self.icon_gui2) 
+        self.sprites.add(self.icon_gui3)
+        self.sprites.add(self.skill)
+        self.sprites.add(self.skill1_name)
+        self.sprites.add(self.skill2_name)
+        self.sprites.add(self.skill3_name)
+        self.icon_gui.image = cf.skill1_images[(list(cf.unit_dict.keys())[self.character_pointer])]
+        self.icon_gui2.image = cf.skill2_images[(list(cf.unit_dict.keys())[self.character_pointer])]
+        self.icon_gui3.image = cf.skill3_images[(list(cf.unit_dict.keys())[self.character_pointer])]
+
 
 
     def draw_text(self):
@@ -232,6 +300,14 @@ class CreateCharSelect(Scene):
         self.stat_int_des.text = list(cf.stat_int_dict.values())[self.character_pointer]
         self.stat_def_des.text = list(cf.stat_def_dict.values())[self.character_pointer]
         self.stat_mr_des.text = list(cf.stat_mr_dict.values())[self.character_pointer]
+
+        self.skill1_name.text = list(cf.skill1_dict.values())[self.character_pointer]
+        self.skill2_name.text = list(cf.skill2_dict.values())[self.character_pointer]
+        self.skill3_name.text = list(cf.skill3_dict.values())[self.character_pointer]
+
+        self.icon_gui.image = cf.skill1_images[(list(cf.unit_dict.keys())[self.character_pointer])]
+        self.icon_gui2.image = cf.skill2_images[(list(cf.unit_dict.keys())[self.character_pointer])]
+        self.icon_gui3.image = cf.skill3_images[(list(cf.unit_dict.keys())[self.character_pointer])]
 
         self.gui.image = cf.marketing_images[(list(cf.unit_dict.keys())[self.character_pointer])]
         self.chosen_character = (

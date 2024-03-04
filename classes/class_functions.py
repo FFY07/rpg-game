@@ -90,6 +90,69 @@ marketing_images = {
     "Marchosias": images.marchosias_marketing,
 }
 
+skill1_images = {
+    "Warrior": images.warrior_skill1,
+    "Reaper": images.reaper_skill1,
+    "Bandit": images.bandit_skill1,
+    "Tank": images.tank_skill1,
+    "Princess": images.princess_skill1,
+    "Necromancer": images.necromancer_skill1,
+    "Paladin": images.paladin_skill1,
+    "Marchosias": images.marchosias_skill1,
+}
+skill2_images = {
+    "Warrior": images.warrior_skill2,
+    "Reaper": images.reaper_skill2,
+    "Bandit": images.bandit_skill2,
+    "Tank": images.tank_skill2,
+    "Princess": images.princess_skill2,
+    "Necromancer": images.necromancer_skill2,
+    "Paladin": images.paladin_skill2,
+    "Marchosias": images.marchosias_skill2,
+}
+skill3_images = {
+    "Warrior": images.warrior_skill3,
+    "Reaper": images.reaper_skill3,
+    "Bandit": images.bandit_skill3,
+    "Tank": images.tank_skill3,
+    "Princess": images.princess_skill3,
+    "Necromancer": images.necromancer_skill3,
+    "Paladin": images.paladin_skill3,
+    "Marchosias": images.marchosias_skill3,
+}
+
+skill1_dict = {
+     "Warrior": "Hasagi",
+    "Reaper": "Decay",
+    "Bandit": "Water Sword",
+    "Tank": "Cannon",
+    "Princess": "Heal",
+    "Necromancer": "Siphon",
+    "Paladin": "Sacrifice",
+    "Marchosias": "Hell fire",
+}
+
+skill2_dict = {
+     "Warrior": "Inspire",
+    "Reaper": "Dead Scythe",
+    "Bandit": "Fire Sword",
+    "Tank": "Machine Gun",
+    "Princess": "Cleanse",
+    "Necromancer": "Infect",
+    "Paladin": "Gospel",
+    "Marchosias": "Infernal Rebirth",
+}
+
+skill3_dict = {
+     "Warrior": "Execute",
+    "Reaper": "Hell descent",
+    "Bandit": "",
+    "Tank": "Flamethrower",
+    "Princess": "Wish",
+    "Necromancer": "Doom",
+    "Paladin": "Smite",
+    "Marchosias": "Infernal Cataclysm",
+}
 
 def create_unit(name, unit_class, team, game, standalone=False):
     """Creates a new unit object and adds it to the sprite groups

@@ -42,3 +42,34 @@ princess_marketing = pygame.image.load(f"{Path('resources/images/units/Princess/
 necromancer_marketing = pygame.image.load(f"{Path('resources/images/units/Necromancer/necromancer_marketing.jpg')}").convert()
 paladin_marketing = pygame.image.load(f"{Path('resources/images/units/Paladin/paladinborder.jpg')}").convert()
 marchosias_marketing = pygame.image.load(f"{Path('resources/images/units/Marchosias/marchosiasborder.jpg')}").convert()
+
+#skill 1 images
+warrior_skill1 = pygame.image.load(f"{Path('resources/images/skill/hasaki.png')}").convert()
+reaper_skill1 = pygame.image.load(f"{Path('resources/images/skill/Decay.png')}").convert()
+bandit_skill1 = pygame.image.load(f"{Path('resources/images/skill/anyhow.png')}").convert()
+tank_skill1 = pygame.image.load(f"{Path('resources/images/skill/cannon.jpg')}").convert()
+princess_skill1 = pygame.image.load(f"{Path('resources/images/skill/heal.jpg')}").convert()
+necromancer_skill1 = pygame.image.load(f"{Path('resources/images/skill/siphon.png')}").convert()
+paladin_skill1 = pygame.image.load(f"{Path('resources/images/skill/Sacrifice.png')}").convert()
+marchosias_skill1 = pygame.image.load(f"{Path('resources/images/skill/hell_fire.png')}").convert()
+
+
+#skill 2 images
+warrior_skill2 = pygame.image.load(f"{Path('resources/images/skill/inspire.png')}").convert()
+reaper_skill2 = pygame.image.load(f"{Path('resources/images/skill/Dead_Scythe.png')}").convert()
+bandit_skill2 = pygame.image.load(f"{Path('resources/images/skill/anyhow.png')}").convert()
+tank_skill2 = pygame.image.load(f"{Path('resources/images/skill/Machine_Gun.png')}").convert()
+princess_skill2 = pygame.image.load(f"{Path('resources/images/skill/regen.png')}").convert()
+necromancer_skill2 = pygame.image.load(f"{Path('resources/images/skill/infect.png')}").convert()
+paladin_skill2 = pygame.image.load(f"{Path('resources/images/skill/gospel.png')}").convert()
+marchosias_skill2 = pygame.image.load(f"{Path('resources/images/skill/Infernal_Rebirth.png')}").convert()
+
+# skill 3 images
+warrior_skill3 = pygame.image.load(f"{Path('resources/images/skill/execute.png')}").convert()
+reaper_skill3 = pygame.image.load(f"{Path('resources/images/skill/Hell_descent.png')}").convert()
+bandit_skill3 = pygame.image.load(f"{Path('resources/images/skill/empty.png')}").convert()
+tank_skill3 = pygame.image.load(f"{Path('resources/images/skill/Flamethrower.png')}").convert()
+princess_skill3 = pygame.image.load(f"{Path('resources/images/skill/wish.png')}").convert()
+necromancer_skill3 = pygame.image.load(f"{Path('resources/images/skill/doom.png')}").convert()
+paladin_skill3 = pygame.image.load(f"{Path('resources/images/skill/smite.jpg')}").convert()
+marchosias_skill3 = pygame.image.load(f"{Path('resources/images/skill/Infernal_Cataclysm.png')}").convert()
