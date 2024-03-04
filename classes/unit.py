@@ -362,7 +362,7 @@ class Unit(pygame.sprite.Sprite):
     def deactivate(self):
         self.rect.center = self.prev_pos
 
-    def play_sound(self, sound_object: pygame.mixer.Sound, force=False):
+    def play_sound(self, sound_object: pygame.mixer.Sound, force=True):
         """Stops the currently-playing sound and plays a new sound"""
         if self.game.sound:
             if force:

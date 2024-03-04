@@ -8,9 +8,6 @@ from scenes.menu import MainMenu
 clock = pygame.time.Clock()
 clock.tick(60)
 
-# Do not use too many channels or it will still crash
-pygame.mixer.set_reserved(4)
-
 # Not reserving and then using dedicated channels will cause game crashes
 # You have no idea how many days I've spent troubleshooting this audio crash issue because there's NO solutions online
 # I had to read SO MANY DOCS
