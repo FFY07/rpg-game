@@ -48,6 +48,7 @@ class Unit(pygame.sprite.Sprite):
             15: 4000,
             16: 5500,
             17: 7200,
+            18: 10_000,
         }
 
         self.exp = 0
@@ -208,6 +209,9 @@ class Unit(pygame.sprite.Sprite):
                     self.game.event_log.append(
                         f"{self.name} has levelled up to {self.level}!"
                     )
+
+            else:
+                self.exp = 0
 
     def tick_effects(self):
 
