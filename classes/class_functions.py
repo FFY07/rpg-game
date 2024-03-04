@@ -9,7 +9,7 @@ from classes.units import tank
 from classes.units import princess
 from classes.units import necromancer
 from classes.units import paladin
-
+from classes.units import marchosias
 import resources.images as images
 
 # IMPORTANT: UPDATE THIS WHEN ADDING A NEW CLASS
@@ -20,7 +20,8 @@ unit_dict = {
     "Tank": "Tank",
     "Princess": "Able to heal and regen Mana for teammate, but get more damage by other",
     "Necromancer": "Powerful mage with high intelligence and magic resistance",
-    "Paladin": "Holy Knight that can heal and deal more damage to Undead"
+    "Paladin": "Holy Knight that can heal and deal more damage to Undead",
+    "Marchosias": "A demon from hell"
 }
 
 unitrace_dict = {
@@ -30,7 +31,9 @@ unitrace_dict = {
     "Tank": f"{tank.race}",
     "Princess": f"{princess.race}",
     "Necromancer": f"{necromancer.race}",
-    "Paladin" : f"{paladin.race}"
+    "Paladin" : f"{paladin.race}",
+    "Marchosias": f"{marchosias.race}"
+
 }
 
 stat_dict = {
@@ -40,7 +43,8 @@ stat_dict = {
     "Tank": f"STR: {tank.STRENGTH[0]:<5} INT: {tank.INTELLIGENCE[0]:<5} DEF: {tank.DEFENCE[0]:<5} MR: {tank.MAGIC_RESIST[0]:<5}",
     "Princess": f"STR: {princess.STRENGTH[0]:<5} INT: {princess.INTELLIGENCE[0]:<5} DEF: {princess.DEFENCE[0]:<5} MR: {princess.MAGIC_RESIST[0]:<5}",
     "Necromancer": f"STR: {necromancer.STRENGTH[0]:<5} INT: {necromancer.INTELLIGENCE[0]:<5} DEF: {necromancer.DEFENCE[0]:<5} MR: {necromancer.MAGIC_RESIST[0]:<5}",
-    "Paladin": f"STR: {paladin.STRENGTH[0]:<5} INT: {paladin.INTELLIGENCE[0]:<5} DEF: {paladin.DEFENCE[0]:<5} MR: {paladin.MAGIC_RESIST[0]:<5}"
+    "Paladin": f"STR: {paladin.STRENGTH[0]:<5} INT: {paladin.INTELLIGENCE[0]:<5} DEF: {paladin.DEFENCE[0]:<5} MR: {paladin.MAGIC_RESIST[0]:<5}",
+    "Marchosias": f"STR: {marchosias.STRENGTH[0]:<5} INT: {marchosias.INTELLIGENCE[0]:<5} DEF: {marchosias.DEFENCE[0]:<5} MR: {marchosias.MAGIC_RESIST[0]:<5}"
 }
 
 
@@ -52,6 +56,7 @@ marketing_images = {
     "Princess": images.princess_marketing,
     "Necromancer": images.necromancer_marketing,
     "Paladin": images.paladin_marketing,
+    "Marchosias": images.marchosias_marketing
 }
 
 
@@ -97,6 +102,8 @@ def create_unit(name, unit_class, team, game, standalone=False):
         case "Paladin":
             unit = paladin.Paladin(name, team, game)
 
+        case "Marchosias":
+            unit = marchosias.Marchosias(name, team, game)
         case _:
             raise Exception(
                 f"An error has occured while creating Unit objects. (Class [{unit_class}] does not exist)"

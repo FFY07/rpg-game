@@ -41,3 +41,4 @@ tank_marketing = pygame.image.load(f"{Path('resources/images/units/Tank/tank_mar
 princess_marketing = pygame.image.load(f"{Path('resources/images/units/Princess/prinsborder.jpeg')}").convert()
 necromancer_marketing = pygame.image.load(f"{Path('resources/images/units/Necromancer/necromancer_marketing.jpg')}").convert()
 paladin_marketing = pygame.image.load(f"{Path('resources/images/units/Paladin/paladinborder.jpg')}").convert()
+marchosias_marketing = pygame.image.load(f"{Path('resources/images/units/Marchosias/marchosiasborder.jpg')}").convert()

@@ -9,7 +9,7 @@ STRENGTH = (16, 16)
 INTELLIGENCE = (8, 8)
 DEFENCE = (90, 90)
 MAGIC_RESIST = (75, 75)
-race = "Human"
+race = "Demon"
 
 
 class Warrior(Unit):
