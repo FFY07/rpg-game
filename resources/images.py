@@ -43,6 +43,17 @@ necromancer_marketing = pygame.image.load(f"{Path('resources/images/units/Necrom
 paladin_marketing = pygame.image.load(f"{Path('resources/images/units/Paladin/paladinborder.jpg')}").convert()
 marchosias_marketing = pygame.image.load(f"{Path('resources/images/units/Marchosias/marchosiasborder.jpg')}").convert()
 
+# passive images
+warrior_passive = pygame.image.load(f"{Path('resources/images/skill/warriorpassive.png')}").convert()
+reaper_passive = pygame.image.load(f"{Path('resources/images/skill/reaperpassive.png')}").convert()
+bandit_passive = pygame.image.load(f"{Path('resources/images/skill/anyhow.png')}").convert()
+tank_passive = pygame.image.load(f"{Path('resources/images/skill/anyhow.png')}").convert()
+princess_passive = pygame.image.load(f"{Path('resources/images/skill/anyhow.png')}").convert()
+necromancer_passive = pygame.image.load(f"{Path('resources/images/skill/anyhow.png')}").convert()
+paladin_passive = pygame.image.load(f"{Path('resources/images/skill/paladinpassive.png')}").convert()
+marchosias_passive = pygame.image.load(f"{Path('resources/images/skill/marchosiaspassive.png')}").convert()
+
+
 #skill 1 images
 warrior_skill1 = pygame.image.load(f"{Path('resources/images/skill/hasaki.png')}").convert()
 reaper_skill1 = pygame.image.load(f"{Path('resources/images/skill/Decay.png')}").convert()

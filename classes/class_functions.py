@@ -90,6 +90,17 @@ marketing_images = {
     "Marchosias": images.marchosias_marketing,
 }
 
+passive_images = {
+    "Warrior": images.warrior_passive,
+    "Reaper": images.reaper_passive,
+    "Bandit": images.bandit_passive,
+    "Tank": images.tank_passive,
+    "Princess": images.princess_passive,
+    "Necromancer": images.necromancer_passive,
+    "Paladin": images.paladin_passive,
+    "Marchosias": images.marchosias_passive,
+}
+
 skill1_images = {
     "Warrior": images.warrior_skill1,
     "Reaper": images.reaper_skill1,

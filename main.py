@@ -231,6 +231,7 @@ class Game:
     def start(self):
         # Initialise the first item in the stack, which is the Main Menu
         self.start = MainMenu(self)
+        
         self.stack.append(self.start)
 
 
