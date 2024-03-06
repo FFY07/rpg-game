@@ -2,15 +2,7 @@ import random
 
 import gui.screen as scr
 
-from classes.units import reaper
-from classes.units import warrior
-from classes.units import bandit
-from classes.units import tank
-from classes.units import princess
-from classes.units import necromancer
-from classes.units import paladin
-from classes.units import marchosias
-from classes.units import nightfury
+from classes.units import *
 
 import resources.images as images
 
@@ -133,7 +125,7 @@ skill3_images = {
 }
 
 skill1_dict = {
-     "Warrior": "Hasagi",
+    "Warrior": "Hasagi",
     "Reaper": "Decay",
     "Bandit": "Water Sword",
     "Tank": "Cannon",
@@ -144,7 +136,7 @@ skill1_dict = {
 }
 
 skill2_dict = {
-     "Warrior": "Inspire",
+    "Warrior": "Inspire",
     "Reaper": "Dead Scythe",
     "Bandit": "Fire Sword",
     "Tank": "Machine Gun",
@@ -155,7 +147,7 @@ skill2_dict = {
 }
 
 skill3_dict = {
-     "Warrior": "Execute",
+    "Warrior": "Execute",
     "Reaper": "Hell descent",
     "Bandit": "",
     "Tank": "Flamethrower",
@@ -164,6 +156,7 @@ skill3_dict = {
     "Paladin": "Smite",
     "Marchosias": "Infernal Cataclysm",
 }
+
 
 def create_unit(name, unit_class, team, game, standalone=False):
     """Creates a new unit object and adds it to the sprite groups

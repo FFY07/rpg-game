@@ -8,7 +8,7 @@ from scenes.char_desc import CharDesc
 
 import resources.images as images
 import resources.fonts as fonts
-import resources.audio as audio
+
 
 class NewCreateCharSelect(Scene):
     def __init__(self, game: object, menu_id: int):
@@ -24,7 +24,7 @@ class NewCreateCharSelect(Scene):
         self.menu_id = menu_id
 
         # Default setup, note that cf.unit_dict holds the list of classes
-        self.chosen_name =  f"Player {random.randint(10, 99)}"
+        self.chosen_name = f"Player {random.randint(10, 99)}"
         self.chosen_class = "Knight"
         self.pointer = 0
         self.character_pointer = 0
@@ -43,7 +43,7 @@ class NewCreateCharSelect(Scene):
             True,
             100,
             "SELECTED",
-        )   
+        )
 
         self.race_name = ui_functions.TextSprite(
             # f"Race: {list(cf.unitrace_dict.values())[self.character_pointer]}",
@@ -151,7 +151,9 @@ class NewCreateCharSelect(Scene):
         list(self.text_sprites.sprites())[self.pointer].selected = True
 
         self.class_name.text = list(cf.unit_dict.keys())[self.character_pointer]
-        self.race_name.text = f"Race: {list(cf.unitrace_dict.values())[self.character_pointer]}"
+        self.race_name.text = (
+            f"Race: {list(cf.unitrace_dict.values())[self.character_pointer]}"
+        )
         self.class_des.text = list(cf.unit_dict.values())[self.character_pointer]
         self.stat_des.text = list(cf.stat_dict.values())[self.character_pointer]
 
@@ -210,7 +212,7 @@ class NewCreateCharSelect(Scene):
             self.exit_scene()
 
         if actions["space"]:
-            
+
             next_scene = CharDesc(
                 self.game, self.display_units_list[self.character_pointer]
             )

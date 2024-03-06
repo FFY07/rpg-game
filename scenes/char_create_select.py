@@ -8,7 +8,7 @@ from scenes.char_desc import CharDesc
 
 import resources.images as images
 import resources.fonts as fonts
-import resources.audio as audio
+
 
 class CreateCharSelect(Scene):
     def __init__(self, game: object, menu_id: int):
@@ -17,14 +17,14 @@ class CreateCharSelect(Scene):
 
         self.display_units = pygame.sprite.Group()
         self.display_units_list = []
-        
+
         self.background = images.options_background
 
         # Indiates which menu we're modifying
         self.menu_id = menu_id
 
         # Default setup, note that cf.unit_dict holds the list of classes
-        self.chosen_name =  f"Player {random.randint(10, 99)}"
+        self.chosen_name = f"Player {random.randint(10, 99)}"
         self.chosen_class = "Knight"
         self.pointer = 0
         self.character_pointer = 0
@@ -82,97 +82,93 @@ class CreateCharSelect(Scene):
 
         self.center_position = (self.xc, self.yc)
 
-
     def draw_marketing(self):
-        # draw marketing image 
+        # draw marketing image
         self.gui = ui_functions.Draw_Picture(
-                self.xc  - 100,
-                self.yc - 200,
-                192,
-                192,
-                "black",
-                1,
-                "grey27",
-                self.game,
-            )
+            self.xc - 100,
+            self.yc - 200,
+            192,
+            192,
+            "black",
+            1,
+            "grey27",
+            self.game,
+        )
         self.sprites.add(self.gui)
 
-        self.gui.image = cf.marketing_images[(list(cf.unit_dict.keys())[self.character_pointer])]
-
+        self.gui.image = cf.marketing_images[
+            (list(cf.unit_dict.keys())[self.character_pointer])
+        ]
 
     def draw_passive(self):
         # passsive icon
         self.passive_gui = ui_functions.Draw_Picture(
-        self.xc  - 450,
-        150 ,
-        64,
-        64,
-        "black",
-        0,
-        "grey27",
-        self.game,
-    )
-       
+            self.xc - 450,
+            150,
+            64,
+            64,
+            "black",
+            0,
+            "grey27",
+            self.game,
+        )
+
         # passive text
         self.passive = ui_functions.TextSprite(
-        # f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
-        "Passive" ,
-        30,
-        "Impact",
-        "white",
-        self.xc - 420,
-        120,
-        "SELECTED",
-    )
-        
+            # f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
+            "Passive",
+            30,
+            "Impact",
+            "white",
+            self.xc - 420,
+            120,
+            "SELECTED",
+        )
 
         self.sprites.add(self.passive_gui)
         self.sprites.add(self.passive)
-        self.passive_gui.image = cf.passive_images[(list(cf.passive_images.keys())[self.character_pointer])]
+        self.passive_gui.image = cf.passive_images[
+            (list(cf.passive_images.keys())[self.character_pointer])
+        ]
 
-
-        
-        
     def draw_skill(self):
 
         # i need a list, i know fuck i cannot think i hardcode firsst
-       
-        
+
         self.icon_gui = ui_functions.Draw_Picture(
-        self.xc  + 250,
-        150,
-        64,
-        64,
-        "black",
-        0,
-        "grey27",
-        self.game,
-    )
+            self.xc + 250,
+            150,
+            64,
+            64,
+            "black",
+            0,
+            "grey27",
+            self.game,
+        )
         self.icon_gui2 = ui_functions.Draw_Picture(
-        self.xc  + 250,
-        150 + 75,
-        64,
-        64,
-        "black",
-        1,
-        "grey27",
-        self.game,
-    )
+            self.xc + 250,
+            150 + 75,
+            64,
+            64,
+            "black",
+            1,
+            "grey27",
+            self.game,
+        )
         self.icon_gui3 = ui_functions.Draw_Picture(
-        self.xc  + 250,
-        150 + 75* 2,
-        64,
-        64,
-        "black",
-        2,
-        "grey27",
-        self.game,
-    )
-       
+            self.xc + 250,
+            150 + 75 * 2,
+            64,
+            64,
+            "black",
+            2,
+            "grey27",
+            self.game,
+        )
 
         self.skill = ui_functions.TextSprite(
             # f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
-            "Character Skill" ,
+            "Character Skill",
             30,
             "Impact",
             "white",
@@ -208,24 +204,28 @@ class CreateCharSelect(Scene):
             180 + 75 * 2,
             "SELECTED",
         )
-    
+
         self.sprites.add(self.icon_gui)
-        self.sprites.add(self.icon_gui2) 
+        self.sprites.add(self.icon_gui2)
         self.sprites.add(self.icon_gui3)
-        
+
         self.sprites.add(self.skill)
         self.sprites.add(self.skill1_name)
         self.sprites.add(self.skill2_name)
         self.sprites.add(self.skill3_name)
 
-        self.icon_gui.image = cf.skill1_images[(list(cf.unit_dict.keys())[self.character_pointer])]
-        self.icon_gui2.image = cf.skill2_images[(list(cf.unit_dict.keys())[self.character_pointer])]
-        self.icon_gui3.image = cf.skill3_images[(list(cf.unit_dict.keys())[self.character_pointer])]
-
-
+        self.icon_gui.image = cf.skill1_images[
+            (list(cf.unit_dict.keys())[self.character_pointer])
+        ]
+        self.icon_gui2.image = cf.skill2_images[
+            (list(cf.unit_dict.keys())[self.character_pointer])
+        ]
+        self.icon_gui3.image = cf.skill3_images[
+            (list(cf.unit_dict.keys())[self.character_pointer])
+        ]
 
     def draw_text(self):
-        #still hardcore but use function :D
+        # still hardcore but use function :D
         self.class_name = ui_functions.TextSprite(
             list(cf.unit_dict.keys())[self.character_pointer],
             45,
@@ -235,17 +235,6 @@ class CreateCharSelect(Scene):
             75,
             "SELECTED",
         )
-       
-        self.race_name = ui_functions.TextSprite(
-            # f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
-            f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
-            20,
-            fonts.spartan_mb_semibold,
-            "yellow",
-            True,
-            140,
-            "SELECTED",
-        )
 
         self.race_name = ui_functions.TextSprite(
             # f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
@@ -258,6 +247,16 @@ class CreateCharSelect(Scene):
             "SELECTED",
         )
 
+        self.race_name = ui_functions.TextSprite(
+            # f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
+            f"Race: {list(cf.unit_race_dict.values())[self.character_pointer]}",
+            20,
+            fonts.spartan_mb_semibold,
+            "yellow",
+            True,
+            140,
+            "SELECTED",
+        )
 
         self.class_des = ui_functions.TextSprite(
             list(cf.unit_dict.values())[self.character_pointer],
@@ -275,10 +274,10 @@ class CreateCharSelect(Scene):
             fonts.spartan_mb_semibold,
             "azure4",
             self.xc + 400,
-            self.yc + 25 ,  
+            self.yc + 25,
             "SELECTED",
         )
-    
+
         self.stat_str_des = ui_functions.TextSprite(
             list(cf.stat_str_dict.values())[self.character_pointer],
             30,
@@ -358,13 +357,23 @@ class CreateCharSelect(Scene):
         self.skill2_name.text = list(cf.skill2_dict.values())[self.character_pointer]
         self.skill3_name.text = list(cf.skill3_dict.values())[self.character_pointer]
 
-        self.icon_gui.image = cf.skill1_images[(list(cf.unit_dict.keys())[self.character_pointer])]
-        self.icon_gui2.image = cf.skill2_images[(list(cf.unit_dict.keys())[self.character_pointer])]
-        self.icon_gui3.image = cf.skill3_images[(list(cf.unit_dict.keys())[self.character_pointer])]
+        self.icon_gui.image = cf.skill1_images[
+            (list(cf.unit_dict.keys())[self.character_pointer])
+        ]
+        self.icon_gui2.image = cf.skill2_images[
+            (list(cf.unit_dict.keys())[self.character_pointer])
+        ]
+        self.icon_gui3.image = cf.skill3_images[
+            (list(cf.unit_dict.keys())[self.character_pointer])
+        ]
 
-        self.passive_gui.image = cf.passive_images[(list(cf.passive_images.keys())[self.character_pointer])]
+        self.passive_gui.image = cf.passive_images[
+            (list(cf.passive_images.keys())[self.character_pointer])
+        ]
 
-        self.gui.image = cf.marketing_images[(list(cf.unit_dict.keys())[self.character_pointer])]
+        self.gui.image = cf.marketing_images[
+            (list(cf.unit_dict.keys())[self.character_pointer])
+        ]
         self.chosen_character = (
             self.chosen_name,
             list(cf.unit_dict.keys())[self.character_pointer],
@@ -420,7 +429,7 @@ class CreateCharSelect(Scene):
             self.exit_scene()
 
         if actions["space"]:
-            
+
             next_scene = CharDesc(
                 self.game, self.display_units_list[self.character_pointer]
             )
@@ -433,7 +442,6 @@ class CreateCharSelect(Scene):
 
         # print(self.chosen_character)
         # print(self.position_list)
-
 
     def render(self, screen):
         screen.blit(
