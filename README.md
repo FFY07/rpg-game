@@ -18,19 +18,8 @@ This is a simple RPG game based Python's pygame library. The game utilises a 3v3
 ## Getting Started
 > This game was tested on Python 3.11.1 with pygame version 2.5.2. <br>Older versions of either may not work.
 
-
-<details>
-  <summary>Python Installation (Windows)</summary><br>
-  Download Python from https://www.python.org/downloads (recommended version: 3.11.8)<br>
-  Go to the page and select the 64-bit Windows installer located at the bottom of the page. Download and run the installer.<br><br>
-  <b>IMPORTANT: Make sure you check the PATH option when installing!</b> Also disable the path length limit as well to avoid future headaches.
-</details>
-
-#### Installing pygame
-With Python installed, open command prompt `cmd` and enter the command `pip3 install pygame`
-
 ### Running the game
-Double click on `main.py` to run the game. <br>
+Double click on `main.exe` to run the game. <br>
 
 ## Available controls
 The game currently supports the following keys:<br>
@@ -46,6 +35,11 @@ The game currently supports the following keys:<br>
 * Use items wisely! Try and buff your characters before attacking.
 * Try to target enemies with the highest attack stat first.
 
+## HEHE
+* Try to type `toothless` during character selection scene
+
+  
 ## Additional Credits
 https://sangoro.itch.io/vfx-starter-pack\n
 https://www.deviantart.com/artofjokinen
+
