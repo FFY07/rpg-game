@@ -3,6 +3,8 @@
 ## Overview
 This is a simple RPG game based Python's pygame library. The game utilises a 3v3 turn-based system with different classes, attacks, and items to choose from.
 
+[Video](Game preview.mp4)
+
 ## Features
 ### Gameplay
 * Interactive turn-based combat system.
