@@ -22,7 +22,7 @@ This is a simple RPG game based Python's pygame library. The game utilises a 3v3
 * Definitely not copyrighted music
 ### Characters
 * Animated character sprites and effects
-* Various sound effects
+* Various sound effects (currently disabled due to pygame bug)
 * Unique abilities
 * Stat-increasing items
 
