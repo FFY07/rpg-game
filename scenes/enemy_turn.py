@@ -62,9 +62,10 @@ class EnemyTurn(Scene):
                     if self.attacker_attack(self.target, self.targeted_list):
                         self.attacks -= 1
                         self.start_time = pygame.time.get_ticks()
-                        print(
-                            f"Enemy {self.attacker.name} ({self.attacker.unit_class}) attacks {self.target.name} ({self.target.unit_class}) with {self.attacker_attack}"
-                        )
+                        # DEBUG
+                        # print(
+                        #     f"Enemy {self.attacker.name} ({self.attacker.unit_class}) attacks {self.target.name} ({self.target.unit_class}) with {self.attacker_attack}"
+                        # )
 
             # Check if we still have to wait for everyone's animations to finish
             # And if the enemy still has attacks left

@@ -1,9 +1,9 @@
-import warrior
-import bandit
-import marchosias
-import necromancer
-import nightfury
-import paladin
-import princess
-import reaper
-import tank
+from .warrior import Warrior
+from .bandit import Bandit
+from .marchosias import Marchosias
+from .necromancer import Necromancer
+from .nightfury import NightFury
+from .paladin import Paladin
+from .princess import Princess
+from .reaper import Reaper
+from .tank import Tank

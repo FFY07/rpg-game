@@ -1,4 +1,4 @@
-import pygame, random, math
+import random
 
 from classes.unit import Unit
 import gui.ui_functions as ui_functions
@@ -169,7 +169,6 @@ class Paladin(Unit):
 
                 else:
                     target.burn_stacks.append([3, self.intelligence * 0.5])
-
 
                 self.update_stats(target, damage, crit, "mnit/princess/holy", 50)
                 self.change_state("defend")

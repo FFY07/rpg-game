@@ -44,17 +44,16 @@ class Credits(Scene):
 
         self.load_section(["GAME MADE BY"], desc, 75)
 
-        self.load_section(["Desmond Foo Fong Yoong"], name, 150)
+        self.load_section(["Desmond Foo Fong Yoong"], name, 75)
+        self.load_section(["Siah Rui Zheng"], name, 150)
 
-        self.load_section(["SPECIAL THANKS"], desc, 75)
-
-        self.load_section(["rz"], name, 150)
-
-        self.load_section(["ASSETS FROM OTHER GAMES"], desc, 75)
+        self.load_section(["ASSET CREDITS"], desc, 75)
         self.load_section(
             [
-                "World of Tanks | Slay The Spire",
-                "League of Legends | Roblox",
+                "World of Tanks",
+                "Slay The Spire",
+                "League of Legends",
+                "Roblox",
             ],
             name,
             75,

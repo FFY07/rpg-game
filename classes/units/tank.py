@@ -1,4 +1,4 @@
-import random, pygame
+import random
 
 from classes.unit import Unit
 
