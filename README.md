@@ -38,7 +38,7 @@ The game currently supports the following keys:<br>
 * Try to target enemies with the highest attack stat first.
 
 ## HEHE
-* Try to type `toothless` during character selection scene
+* Try to name a character `toothless` during character selection scene
 
   
 ## Additional Credits
