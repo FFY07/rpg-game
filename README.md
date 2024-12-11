@@ -3,10 +3,7 @@
 ## Overview
 This is a simple RPG game based Python's pygame library. The game utilises a 3v3 turn-based system with different classes, attacks, and items to choose from.
 
-<video width="640" height="480" controls>
-  <source src="Game preview.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[Video](preview.mp4)
 
 ## Features
 ### Gameplay
