@@ -1,4 +1,4 @@
-import pygame, random, math
+import random
 
 from classes.unit import Unit
 import gui.ui_functions as ui_functions
@@ -81,14 +81,14 @@ class Marchosias(Unit):
                 self.game.sprites.add(
                     ui_functions.HitImage("misc/magic/magma", self, 1, 128, 128)
                 )
-                
+
                 self.play_sound(self.game.audio_handler.firemagic_sfx, False)
-                
+
                 # Example burn: [5, 10] = tick 5 turns, 10 damage each time
                 for i, burn in enumerate(self.burn_stacks):
                     if not burn[0] < 0:
-                        burn[0] -= 1 
-                    damage += max(1,( burn[1] - self.magic_resist * 0.05 ))
+                        burn[0] -= 1
+                    damage += max(1, (burn[1] - self.magic_resist * 0.05))
                     self.mana += 5
                     self.game.event_log.append(
                         f"{self.name} has lost {damage} health due to burn!"
@@ -113,27 +113,25 @@ class Marchosias(Unit):
 
                     if not regen[0]:
                         self.health_regen_stacks.pop(i)
-                       
 
             if self.mana_regen_stacks:
                 for i, regen in enumerate(self.mana_regen_stacks):
                     if not regen[0] < 0:
                         regen[0] -= 1
                     self.mana += regen[1]
-                    
+
                     if not regen[0]:
                         self.mana_regen_stacks.pop(i)
-                     
+
             self.bonus_strength = 0
             if self.bonus_strength_stacks:
                 for i, effect in enumerate(self.bonus_strength_stacks):
                     if not effect[0] < 0:
                         effect[0] -= 1
                     self.bonus_strength += effect[1]
-                   
+
                     if not effect[0]:
                         self.bonus_strength_stacks.pop(i)
-                       
 
             self.bonus_intelligence = 0
             if self.bonus_intelligence_stacks:
@@ -141,10 +139,9 @@ class Marchosias(Unit):
                     if not effect[0] < 0:
                         effect[0] -= 1
                     self.bonus_intelligence += effect[1]
-                    
+
                     if not effect[0]:
                         self.bonus_intelligence_stacks.pop(i)
-                       
 
             self.bonus_defence = 0
             if self.bonus_defence_stacks:
@@ -152,10 +149,9 @@ class Marchosias(Unit):
                     if not effect[0] < 0:
                         effect[0] -= 1
                     self.bonus_defence += effect[1]
-                    
+
                     if not effect[0]:
                         self.bonus_defence_stacks.pop(i)
-                        
 
             self.bonus_magic_resist = 0
             if self.bonus_magic_resist_stacks:
@@ -163,10 +159,9 @@ class Marchosias(Unit):
                     if not effect[0] < 0:
                         effect[0] -= 1
                     self.bonus_magic_resist += effect[1]
-                    
+
                     if not effect[0]:
                         self.bonus_magic_resist_stacks.pop(i)
-                       
 
             if damage > 0:
                 self.health -= damage
@@ -185,7 +180,7 @@ class Marchosias(Unit):
 
             damage, crit = self.calc_damage(target, "magic", 0)
             target.burn_stacks.append([3, self.intelligence * 0.25])
-                
+
             # Melee is optional and only for direct attacks
             self.melee(target)
             self.update_stats(target, damage, crit, "misc/physical/slash1", 50)
@@ -199,7 +194,6 @@ class Marchosias(Unit):
             self.play_sound(self.game.audio_handler.marchosias_fire)
 
             return True
-        
 
     def hellfire(self, target: object, target_team: list):
         """Blasts fire on enemies and burn for 3 turns"""
@@ -221,9 +215,9 @@ class Marchosias(Unit):
                 self.play_sound(self.game.audio_handler.marchosias_fire)
 
                 return True
-            
+
     def infernalrebirth(self, target: object, target_team: list):
-        """ Increases health by 40 but burns for 10 health per turn for 3 turns, also buffs strength."""
+        """Increases health by 40 but burns for 10 health per turn for 3 turns, also buffs strength."""
         mana_cost = 25
         heal = self.max_health * 0.4
         if self.mana >= mana_cost:
@@ -236,27 +230,24 @@ class Marchosias(Unit):
             self.burn_stacks.clear()
             self.bonus_strength_stacks.clear()
 
-
             self.health += heal
 
-            # burn self for 3 turn 
+            # burn self for 3 turn
             self.burn_stacks.append([3, self.intelligence * 0.3])
 
             # buff INT for 3 turns
             self.bonus_intelligence_stacks.append([3, self.intelligence * 0.25])
-            
-            
-            
+
             self.game.sprites.add(ui_functions.HitImage("misc/blood/blood2", self, 2))
             self.game.event_log.append(f"{self.name} use Rebirth")
-            
+
             return True
 
     def infernalcataclysm(self, target: object, target_team: list):
-        """ burn whole game."""
+        """burn whole game."""
 
         mana_cost = 50
-       
+
         if self.mana >= mana_cost:
             self.mana -= mana_cost
 
@@ -268,10 +259,8 @@ class Marchosias(Unit):
                 # self.game.sprites.add(
                 #         ui_functions.HitImage("unit/bandit/statsteal", i, 1)
                 #     )
-                
+
             self.game.sprites.add(
-                 ui_functions.EffectImage("unit/marchosias/fire", 650, 550, 1, 1300, 400)
-            )   
+                ui_functions.EffectImage("unit/marchosias/fire", 650, 550, 1, 1300, 400)
+            )
             return True
-
-

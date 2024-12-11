@@ -60,7 +60,7 @@ class Game:
 
         self.start()
         self.music = True
-        self.sound = True
+        self.sound = False  # Disabled due to crashing bug
         self.volume = 0.4
 
         # attempt to fix sound crashing bug by preloading all sound objects into a class (did nothing)
@@ -231,7 +231,7 @@ class Game:
     def start(self):
         # Initialise the first item in the stack, which is the Main Menu
         self.start = MainMenu(self)
-        
+
         self.stack.append(self.start)
 
 

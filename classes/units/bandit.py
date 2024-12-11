@@ -1,4 +1,4 @@
-import pygame, random, math
+import random
 
 from classes.unit import Unit
 import gui.ui_functions as ui_functions
