@@ -51,6 +51,5 @@ The game currently supports the following keys:<br>
 
   
 ## Additional Credits
-https://sangoro.itch.io/vfx-starter-pack\n
 https://www.deviantart.com/artofjokinen
 
